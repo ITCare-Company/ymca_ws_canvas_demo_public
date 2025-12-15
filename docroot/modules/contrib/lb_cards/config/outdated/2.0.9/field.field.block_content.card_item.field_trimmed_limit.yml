@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.card_item
+    - field.storage.block_content.field_trimmed_limit
+id: block_content.card_item.field_trimmed_limit
+field_name: field_trimmed_limit
+entity_type: block_content
+bundle: card_item
+label: 'Trimmed limit'
+description: 'Sets the length limit for the Description field. A default value is 130.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 130
+default_value_callback: ''
+settings:
+  min: 15
+  max: 150
+  prefix: ''
+  suffix: ''
+field_type: integer

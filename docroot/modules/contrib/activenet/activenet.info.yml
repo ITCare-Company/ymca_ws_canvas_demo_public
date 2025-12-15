@@ -1,0 +1,10 @@
+name: ActiveNet
+type: module
+description: Provides a basic ActiveNet integration
+core_version_requirement: ^9 || ^10 || ^11
+package: YMCA Website Services
+
+# Information added by Drupal.org packaging script on 2025-05-01
+version: '1.0.6'
+project: 'activenet'
+datestamp: 1746095723

@@ -1,0 +1,443 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the lb_cards module.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Change field type for Description field.
+ */
+function lb_cards_update_9001() {
+  $fields = [
+    'field_card_description' => [
+      'table' => 'paragraph__field_card_description',
+      'revision_table' => 'paragraph_revision__field_card_description',
+    ],
+  ];
+
+  $database = \Drupal::database();
+
+  foreach ($fields as $field_name => $f) {
+    $table = $f['table'];
+    $revision_table = $f['revision_table'];
+    // Entity type here.
+    $entity_type = 'paragraph';
+
+    // Step 1: Get field storage.
+    $field_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
+
+    // Check if field not found.
+    if (is_null($field_storage)) {
+      continue;
+    }
+
+    // Step 2: Store data.
+    $rows = NULL;
+    $revision_rows = NULL;
+    if ($database->schema()->tableExists($table)) {
+      // The table data to restore after the update is completed.
+      $rows = $database->select($table, 'n')->fields('n')->execute()
+        ->fetchAll();
+      $revision_rows = $database->select($revision_table, 'n')->fields('n')->execute()
+        ->fetchAll();
+    }
+
+    // Step 3: Save new field configs & delete existing fields.
+    $new_fields = array();
+    foreach ($field_storage->getBundles() as $bundle => $label) {
+      $field = FieldConfig::loadByName($entity_type, $bundle, $field_name);
+      $new_field = $field->toArray();
+      $new_field['field_type'] = 'string_long';
+      $new_fields[] = $new_field;
+      // Delete field.
+      $field->delete();
+    }
+
+    // Step 4: Create new storage configs from existing.
+    $new_field_storage = $field_storage->toArray();
+    $new_field_storage['type'] = 'string_long';
+    $new_field_storage['module'] = 'core';
+    $new_field_storage['settings'] = [
+      'case_sensitive' => FALSE,
+    ];
+
+    // Step 5: Purge deleted fields data.
+    // This is required to create new fields.
+    field_purge_batch(250);
+
+    // Step 6: Create new fieldstorage.
+    FieldStorageConfig::create($new_field_storage)->save();
+
+    // Step 7: Create new fields for all bundles.
+    foreach ($new_fields as $new_field) {
+      $new_field = FieldConfig::create($new_field);
+      $new_field->save();
+    }
+
+    // Step 8: Restore existing data in fields & revision tables.
+    if (!is_null($rows)) {
+      foreach ($rows as $row) {
+        $row = (array) $row;
+        unset($row['field_card_description_format']);
+        $row['field_card_description_value'] = strip_tags($row['field_card_description_value']);
+        $database->insert($table)->fields($row)->execute();
+      }
+    }
+    if (!is_null($revision_rows)) {
+      foreach ($revision_rows as $row) {
+        $row = (array) $row;
+        $row['field_card_description_value'] = strip_tags($row['field_card_description_value']);
+        unset($row['field_card_description_format']);
+        $database->insert($revision_table)->fields($row)->execute();
+      }
+    }
+  }
+}
+
+/**
+ * Update configs with new type of Description field.
+ */
+function lb_cards_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_cards') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.paragraph.lb_card.default',
+  ]);
+}
+
+/**
+ * Update configs image style with webp convert.
+ */
+function lb_cards_update_9003(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_cards') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'image.style.card_image',
+  ]);
+}
+
+/**
+ * Import config to create 'card_item' sub block for 'lb_cards' block.
+ */
+function lb_cards_update_9004(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_cards') . '/config/outdated/2.0.1';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'block_content.type.card_item',
+    'core.entity_form_display.block_content.card_item.default',
+    'core.entity_view_display.block_content.card_item.default',
+    'field.field.block_content.card_item.field_body',
+    'field.field.block_content.card_item.field_cta',
+    'field.field.block_content.card_item.field_media',
+    'field.field.block_content.card_item.field_title',
+    'field.field.block_content.card_item.field_topic_tag',
+    'field.field.block_content.lb_cards.field_block_item',
+    'field.storage.block_content.field_block_item',
+    'field.storage.block_content.field_body',
+    'field.storage.block_content.field_media',
+    'field.storage.block_content.field_title',
+    'field.storage.block_content.field_topic_tag',
+    'language.content_settings.block_content.card_item',
+  ]);
+}
+
+/**
+ * Migrate content from 'lb_card' paragraph to 'card_item' block.
+ */
+function lb_cards_update_9005(&$sandbox) {
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::entityTypeManager();
+  $storageParagraph = $entityTypeManager->getStorage('paragraph');
+  $storageBlock = $entityTypeManager->getStorage('block_content');
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['data'] = [
+      'paragraphs' => $storageParagraph->loadByProperties(['type' => 'lb_card']),
+      'blocks' => []
+    ];
+    // Group paragraphs by parent id.
+    foreach ($sandbox['data']['paragraphs'] as $id => $paragraph) {
+      $sandbox['data']['blocks'][$paragraph->get('parent_id')->value][] = $id;
+    }
+    $sandbox['total'] = count($sandbox['data']['blocks']);
+  }
+
+  $blocks = array_slice($sandbox['data']['blocks'], $sandbox['progress'], 5, true);
+
+  foreach ($blocks as $parentId => $paragraphIds) {
+    $newBlockIds = [];
+
+    foreach ($paragraphIds as $paragraphId) {
+      $paragraph = $sandbox['data']['paragraphs'][$paragraphId];
+      // Create new 'carousel_item' sub block with content from paragraph
+      $block = $storageBlock->create([
+        'type' => 'card_item',
+        'field_body' => $paragraph->get('field_card_description')->getValue(),
+        'field_title' => $paragraph->get('field_card_title')->getValue(),
+        'field_media' => $paragraph->get('field_card_image')->getValue(),
+        'field_cta' => $paragraph->get('field_card_cta')->getValue(),
+        'field_topic_tag' => $paragraph->get('field_card_topic_tag')->getValue(),
+      ]);
+
+      $block->save();
+      $newBlockIds[] = $block->id();
+      $paragraph->delete();
+    }
+
+    // Load parent block and set new sub block.
+    /** @var \Drupal\block_content\Entity\BlockContent $parentBlock */
+    if (($parentBlock = $storageBlock->load($parentId)) && $parentBlock->bundle() === 'lb_cards') {
+      $parentBlock->set('field_block_item', $newBlockIds)->save();
+    }
+    $sandbox['progress']++;
+  }
+
+  $sandbox['#finished'] = empty($sandbox['total']) ? 1 : $sandbox['progress'] / $sandbox['total'];
+}
+
+/**
+ * Remove 'lb_card' paragraph
+ */
+function lb_cards_update_9006(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_cards') . '/config/outdated/2.0.1';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.lb_cards.default',
+    'core.entity_view_display.block_content.lb_cards.default',
+  ]);
+
+  $configsToDelete = [
+    'paragraphs.paragraphs_type.lb_card',
+    'core.entity_form_display.paragraph.lb_card.default',
+    'core.entity_view_display.paragraph.lb_card.default',
+  ];
+
+  $configFactory = \Drupal::configFactory();
+  foreach ($configsToDelete as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+
+  FieldConfig::loadByName('paragraph', 'lb_card', 'field_card_title')?->delete();
+  FieldConfig::loadByName('paragraph', 'lb_card', 'field_card_image')?->delete();
+  FieldConfig::loadByName('paragraph', 'lb_card', 'field_card_description')?->delete();
+  FieldConfig::loadByName('paragraph', 'lb_card', 'field_card_cta')?->delete();
+  FieldConfig::loadByName('paragraph', 'lb_card', 'field_card_topic_tag')?->delete();
+  FieldConfig::loadByName('block_content', 'lb_cards', 'field_cards')?->delete();
+
+  FieldStorageConfig::loadByName('paragraph', 'field_card_title')?->delete();
+  FieldStorageConfig::loadByName('paragraph', 'field_card_image')?->delete();
+  FieldStorageConfig::loadByName('paragraph', 'field_card_description')?->delete();
+  FieldStorageConfig::loadByName('paragraph', 'field_card_cta')?->delete();
+  FieldStorageConfig::loadByName('paragraph', 'field_card_topic_tag')?->delete();
+  FieldStorageConfig::loadByName('block_content', 'field_cards')?->delete();
+}
+
+/**
+ * Rename label "field_block_item" field
+ */
+function lb_cards_update_9007() {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_cards') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_cards.field_block_item',
+  ]);
+}
+
+/**
+ * (Don't) Add a new field Trimmed limit.
+ */
+function lb_cards_update_9008() {
+  // This field has been removed so the update hook should be ignored.
+  // Keeping it here for posterity.
+  \Drupal::logger('upgrade')->warning(
+    'field_trimmed_limit: This field was removed in later versions.
+    Check lb_cards_update_9008 if you need to keep it. See https://www.drupal.org/i/3450452 for details.'
+  );
+}
+
+/**
+ * Change field type for Description field (again).
+ */
+function lb_cards_update_9009() {
+  $fields = [
+    'field_body' => [
+      'table' => 'block_content__field_body',
+      'revision_table' => 'block_content_revision__field_body',
+      'new_field_name' => 'field_description',
+      'new_field_table' => 'block_content__field_description',
+      'new_field_revision_table' => 'block_content_revision__field_description'
+    ],
+  ];
+
+  $database = \Drupal::database();
+
+  foreach ($fields as $field_name => $f) {
+    $table = $f['table'];
+    $revision_table = $f['revision_table'];
+    $new_field_name = $f['new_field_name'];
+    $new_field_table = $f['new_field_table'];
+    $new_field_revision_table = $f['new_field_revision_table'];
+    // Entity type here.
+    $entity_type = 'block_content';
+    $current_bundle = 'card_item';
+
+    // Step 1: Get field storage.
+    $field_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
+
+    // Check if field not found.
+    if (is_null($field_storage)) {
+      continue;
+    }
+
+    // Step 2: Store data.
+    $rows = NULL;
+    $revision_rows = NULL;
+    if ($database->schema()->tableExists($table)) {
+      // The table data to restore after the update is completed.
+      $rows = $database->select($table, 'n')
+        ->condition('bundle', $current_bundle)
+        ->fields('n')
+        ->execute()
+        ->fetchAll();
+      $revision_rows = $database->select($revision_table, 'n')
+        ->condition('bundle', $current_bundle)
+        ->fields('n')
+        ->execute()
+        ->fetchAll();
+    }
+
+    // Step 3: Save new field configs & delete existing fields.
+    $new_fields = array();
+    foreach ($field_storage->getBundles() as $bundle => $label) {
+      if ($bundle === $current_bundle) {
+        $field = FieldConfig::loadByName($entity_type, $bundle, $field_name);
+        $new_field = $field->toArray();
+        $new_field['field_name'] = $new_field_name;
+        $new_field['field_type'] = 'text_long';
+        $new_fields[] = $new_field;
+        // Delete field.
+        $field->delete();
+      }
+    }
+
+    // Step 4: Create new storage configs from existing.
+    $new_field_storage = $field_storage->toArray();
+    $new_field_storage['type'] = 'text_long';
+    $new_field_storage['module'] = 'text';
+
+    // Step 5: Purge deleted fields data.
+    // This is required to create new fields.
+    field_purge_batch(250);
+
+    // Step 6: Create new fieldstorage.
+    if (!(FieldStorageConfig::loadByName($entity_type, $new_field_name) instanceof FieldStorageConfig)) {
+      FieldStorageConfig::create($new_field_storage)->save();
+    }
+
+    // Step 7: Create new fields for all bundles.
+    foreach ($new_fields as $new_field) {
+      $new_field = FieldConfig::create($new_field);
+      $new_field->save();
+    }
+
+    // Step 8: Restore existing data in fields & revision tables.
+    if (!is_null($rows)) {
+      foreach ($rows as $row) {
+        $row = (array) $row;
+        $row['field_description_format'] = 'full_html';
+        $row['field_description_value'] = '<p>'.implode('</p><p>', preg_split('/\r\n|\r|\n/', $row['field_body_value'])).'</p>';
+        unset($row['field_body_value']);
+        $database->insert($new_field_table)->fields($row)->execute();
+      }
+    }
+    if (!is_null($revision_rows)) {
+      foreach ($revision_rows as $row) {
+        $row = (array) $row;
+        $row['field_description_format'] = 'full_html';
+        $row['field_description_value'] = '<p>'.implode('</p><p>', preg_split('/\r\n|\r|\n/', $row['field_body_value'])).'</p>';
+        unset($row['field_body_value']);
+        $database->insert($new_field_revision_table)->fields($row)->execute();
+      }
+    }
+  }
+}
+
+/**
+ * Update configs with new type of Description field.
+ */
+function lb_cards_update_9010(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_cards') . '/config/outdated/2.0.15';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.card_item.default',
+    'core.entity_view_display.block_content.card_item.default',
+  ]);
+
+  // Remove the old field_body from the card_item bundle.
+  // Do not delete it because it may be used by other bundles.
+  FieldConfig::loadByName('block_content', 'card_item', 'field_body')?->delete();
+}
+
+/**
+ * Remove field Trimmed limit.
+ */
+function lb_cards_update_9011() {
+  $entity_type = 'block_content';
+  $bundle = 'card_item';
+  $field_name = 'field_trimmed_limit';
+
+  // Delete the field if it exists.
+  if ($field_config = FieldConfig::loadByName($entity_type, $bundle, $field_name)) {
+    $field_config->delete();
+  }
+
+  // Delete the field storage if it exists.
+  if ($field_storage = FieldStorageConfig::loadByName($entity_type, $field_name)) {
+    $field_storage->delete();
+  }
+
+  // Purge deleted fields data.
+  field_purge_batch(250);
+
+  // Import updated config.
+  $path = \Drupal::service('extension.list.module')->getPath('lb_cards') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.card_item.default',
+    'core.entity_view_display.block_content.card_item.default',
+  ]);
+}
+
+/**
+ * Allow attributes on links (target, id, class).
+ */
+function lb_cards_update_9012() {
+  $path = \Drupal::service('extension.list.module')
+      ->getPath('lb_cards') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.card_item.default',
+  ]);
+}

@@ -1,0 +1,42 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_webform
+    - field.field.block_content.lb_webform.field_subtitle
+    - field.field.block_content.lb_webform.field_title
+    - field.field.block_content.lb_webform.field_webform
+  module:
+    - webform
+id: block_content.lb_webform.default
+targetEntityType: block_content
+bundle: lb_webform
+mode: default
+content:
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_webform:
+    type: webform_entity_reference_select
+    weight: 2
+    region: content
+    settings:
+      default_data: true
+      webforms: {  }
+    third_party_settings: {  }
+hidden:
+  info: true
+  langcode: true

@@ -1,0 +1,25 @@
+ws_colorway_canada.ws_style_option:
+  - label: Y Canada Blue
+    name: canada_red_blue
+    group: colorway
+    image: /assets/svg/canada_red_blue.svg
+    library: ws_colorway_canada/colorway.blue
+    template: null
+  - label: Y Canada Purple
+    name: canada_red_purple
+    group: colorway
+    image: /assets/svg/canada_red_purple.svg
+    library: ws_colorway_canada/colorway.purple
+    template: null
+  - label: Y Canada Green
+    name: canada_red_green
+    group: colorway
+    image: /assets/svg/canada_red_green.svg
+    library: ws_colorway_canada/colorway.green
+    template: null
+  - label: Y Canada Black
+    name: canada_red_black
+    group: colorway
+    image: /assets/svg/canada_red_black.svg
+    library: ws_colorway_canada/colorway.black
+    template: null

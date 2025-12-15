@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_prgf_amenities feature.
+ */
+
+/**
+ * Update All amenities view.
+ */
+function openy_prgf_amenities_update_8001() {
+  $config_dir = \Drupal::service('extension.list.module')->getPath('openy_prgf_amenities') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.paragraph.all_amenities.field_field_prgf_amnts_view',
+    'field.field.paragraph.all_amenities.field_prgf_title',
+    'field.storage.paragraph.field_field_prgf_amnts_view',
+    'paragraphs.paragraphs_type.all_amenities',
+    'core.entity_form_display.paragraph.all_amenities.default',
+    'core.entity_view_display.paragraph.all_amenities.default',
+    'views.view.branches',
+  ]);
+}
+
+/**
+ * Update All amenities view.
+ */
+function openy_prgf_amenities_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = \Drupal::service('extension.list.module')->getPath('openy_prgf_amenities');
+  $config .= '/config/install/';
+  $config .= 'views.view.branches.yml';
+  $config_importer->update(
+    $config,
+    'views.view.branches',
+    'display.default.display_options.use_ajax'
+  );
+}

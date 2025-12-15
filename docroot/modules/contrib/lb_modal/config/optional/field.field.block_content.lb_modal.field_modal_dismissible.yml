@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_modal
+    - field.storage.block_content.field_modal_dismissible
+id: block_content.lb_modal.field_modal_dismissible
+field_name: field_modal_dismissible
+entity_type: block_content
+bundle: lb_modal
+label: 'Show every time'
+description: "If \"Yes\", modal will be shown on every page load. If \"No\", modal will be shown once on first render."
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

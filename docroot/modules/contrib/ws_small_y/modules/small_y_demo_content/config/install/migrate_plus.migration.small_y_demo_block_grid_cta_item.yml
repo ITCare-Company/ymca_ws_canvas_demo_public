@@ -1,0 +1,83 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_grid_cta_item
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Create Icon Grid Item for Icon Grid component'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: grid_cta_item_1
+      uuid: '01dac0be-3b4a-42b0-9f0d-4a59d4e0307a'
+      title: "Welcoming"
+      body: "<p>This is a PNG image.</p>"
+      image: icon_2
+    -
+      id: grid_cta_item_2
+      uuid: 'ad559ae3-7479-46cb-a2ee-e035cc589017'
+      title: 'Genuine'
+      body: "<p>This is an SVG image.</p>"
+      image: svg_404_image
+
+    -
+      id: grid_cta_item_3
+      uuid: '29c0aedb-5043-49e7-9d09-f0d707317beb'
+      title: 'Nurturing'
+      body: "<p>This is a non-square image that should be displayed within a circle.</p>"
+      image: promo_image_3
+      cta:
+        - uri: 'internal:/demo-dummy'
+          title: 'Item Button'
+
+    -
+      id: grid_cta_item_4
+      uuid: '79edb6a0-36b3-4bcb-a0a9-fc0327e0f4fc'
+      title: 'Hopeful'
+      body: "<p>We believe in you and your ability to inspire a brighter tomorrow.</p>"
+      image: icon_5
+      cta:
+        - uri: 'internal:/demo-dummy'
+          title: 'Item Button'
+
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  reusable:
+    plugin: default_value
+    default_value: 0
+  uuid: uuid
+  status:
+    plugin: default_value
+    default_value: 1
+  type:
+    plugin: default_value
+    default_value: grid_item
+  field_title: title
+  field_description/value: body
+  field_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_media:
+    -
+      plugin: migration_lookup
+      migration: small_y_demo_media_image
+      source: image
+  field_cta: cta
+destination:
+  plugin: entity:block_content
+  default_bundle: 'grid_item'
+migration_dependencies: {  }

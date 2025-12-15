@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_cards
+    - field.storage.block_content.field_columns
+  module:
+    - datalayer
+    - options
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_columns
+id: block_content.lb_cards.field_columns
+field_name: field_columns
+entity_type: block_content
+bundle: lb_cards
+label: '# of columns'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: '4'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

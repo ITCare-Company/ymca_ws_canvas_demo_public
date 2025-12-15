@@ -1,0 +1,53 @@
+@media (min-width: 768px) {
+  .block-lb-testimonials {
+    background-image: url("../svg/chevron-right.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    font-size: 50px;
+    min-height: 660px;
+  }
+}
+.block-lb-testimonials .section-description h2 {
+  font-family: var(--ylb-font-family-cachet, Cachet), Verdana, sans-serif;
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 40px;
+}
+@media (min-width: 768px) {
+  .block-lb-testimonials .section-description h2 {
+    font-size: 50px;
+    line-height: 60px;
+  }
+}
+@media (min-width: 768px) {
+  .block-lb-testimonials .carousel .carousel-inner .carousel-item.item {
+    min-height: 400px;
+  }
+}
+.block-lb-testimonials .carousel .carousel-inner .carousel-item.item .carousel-gallery-info blockquote p {
+  font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+}
+@media (min-width: 768px) {
+  .block-lb-testimonials .carousel .carousel-inner .carousel-item.item .carousel-gallery-info blockquote p {
+    font-size: 20px;
+    line-height: 32px;
+  }
+}
+.block-lb-testimonials .carousel .carousel-inner .carousel-item.item .carousel-gallery-info h4 {
+  font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+}
+@media (min-width: 768px) {
+  .block-lb-testimonials .carousel .carousel-inner .carousel-item.item .carousel-gallery-info h4 {
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 400;
+  }
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL25vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9taXhpbnMvX2JyZWFrcG9pbnRzLnNjc3MiLCIuLi9zY3NzL2xiLXRlc3RpbW9uaWFscy1vdmVycmlkZS5zY3NzIiwibGItdGVzdGltb25pYWxzLW92ZXJyaWRlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUE0REk7RUN4REo7SUFHSSxpREFBQTtJQUNBLDRCQUFBO0lBQ0EsMEJBQUE7SUFDQSxlQUFBO0lBQ0EsaUJBQUE7RUNKRjtBQUNGO0FEUUk7RUFDRSx1RUFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0FDTk47QUY4Q0k7RUM1Q0E7SUFPSSxlQUFBO0lBQ0EsaUJBQUE7RUNMTjtBQUNGO0FGd0NJO0VDN0JFO0lBRUksaUJBQUE7RUNUUjtBQUNGO0FEYVk7RUFDRSxnRUFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0FDWGQ7QUY2Qkk7RUN0QlE7SUFPSSxlQUFBO0lBQ0EsaUJBQUE7RUNWZDtBQUNGO0FEY1U7RUFDRSxnRUFBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0FDWlo7QUZpQkk7RUNUTTtJQU9JLGVBQUE7SUFDQSxpQkFBQTtJQUNBLGdCQUFBO0VDWFo7QUFDRiIsImZpbGUiOiJsYi10ZXN0aW1vbmlhbHMtb3ZlcnJpZGUuY3NzIn0= */

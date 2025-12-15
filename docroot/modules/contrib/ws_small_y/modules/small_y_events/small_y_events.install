@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Small Y Events module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function small_y_events_install() {
+  // Import generic bootstrap styles configuration.
+  $path = \Drupal::service('extension.list.module')->getPath('small_y_events') . '/config/optional';
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.lb_event.default',
+    'core.entity_view_display.taxonomy_term.tags.full',
+    'field.field.taxonomy_term.tags.layout_builder__layout',
+    'field.storage.taxonomy_term.layout_builder__layout',
+  ]);
+}
+
+/**
+ * Update header and footer layout in default LB config.
+ */
+function small_y_events_update_91001() {
+  // Import generic bootstrap styles configuration.
+  $path = \Drupal::service('extension.list.module')->getPath('small_y_events') . '/config/optional';
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.lb_event.default',
+  ]);
+}

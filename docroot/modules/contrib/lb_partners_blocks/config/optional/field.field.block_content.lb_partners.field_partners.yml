@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_partners
+    - block_content.type.partners_tier
+    - field.storage.block_content.field_partners
+id: block_content.lb_partners.field_partners
+field_name: field_partners
+entity_type: block_content
+bundle: lb_partners
+label: 'Partner items'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      partners_tier: partners_tier
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

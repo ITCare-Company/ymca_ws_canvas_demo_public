@@ -1,0 +1,13 @@
+name: YMCA Website Services Google Search
+type: module
+description: Provides a Google Custom search Engine for YMCA Website Services.
+core_version_requirement: ^10 || ^11
+package: YMCA Website Services
+version: 1.1.0
+configure: openy_google_search.settings
+dependencies:
+  - drupal:node
+  - drupal:user
+  - paragraphs:paragraphs
+  - pathauto:pathauto
+  - openy:openy_search

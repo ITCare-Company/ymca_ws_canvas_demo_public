@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.statistics_item
+    - field.field.block_content.statistics_item.field_subtitle
+    - field.field.block_content.statistics_item.field_title
+id: block_content.statistics_item.default
+targetEntityType: block_content
+bundle: statistics_item
+mode: default
+content:
+  field_subtitle:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  info: true
+  langcode: true

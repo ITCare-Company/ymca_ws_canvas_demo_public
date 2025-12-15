@@ -1,0 +1,61 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - y_lb_main_menu_cta_block
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_menu_cta
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import demo Small Y - Menu CTA'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: menu_cta_1
+      uuid: '7e75f9b0-ced7-41e0-828b-d7334f4b457b'
+      title: "Not sure where to begin?"
+      info: 'Demo Menu CTA block'
+      description: "<p>Search our activity schedules by age, activity, location, time and more to find what’s right for you.</p>"
+      image: menu_cta_image_1
+      cta:
+        - uri: 'internal:#'
+          title: 'Explore Activities'
+
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 1
+  field_title: title
+  info: info
+  field_description/value: description
+  field_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_menu_cta_link: cta
+  field_media:
+    - plugin: migration_lookup
+      migration: small_y_demo_media_image
+      source: image
+  type:
+    plugin: default_value
+    default_value: menu_cta
+  uuid: uuid
+
+destination:
+  plugin: entity:block_content
+  default_bundle: 'menu_cta'
+migration_dependencies: {  }

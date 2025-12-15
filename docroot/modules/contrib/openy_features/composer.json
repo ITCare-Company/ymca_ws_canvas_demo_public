@@ -1,0 +1,30 @@
+{
+  "name": "open-y-subprojects/openy_features",
+  "description": "Features from Open Y Distribution.",
+  "type": "drupal-module",
+  "require": {
+    "drupal/core": "^10 || ^11",
+    "drupal/ckeditor5_plugin_pack": "^1.4",
+    "drupal/ctools": ">=3.13",
+    "drupal/diff": "*",
+    "drupal/google_analytics": "^4.0.2",
+    "drupal/rabbit_hole": "^1.0@beta || ^1.0",
+    "drupal/metatag": "*",
+    "drupal/schema_metatag": "^3.0",
+    "open-y-subprojects/openy_custom": ">=2.1.0",
+    "open-y-subprojects/openy_demo_content": "^2.0",
+    "open-y-subprojects/openy_node_alert": "^2.3.1",
+    "ycloudyusa/yusaopeny": "*",
+    "ycloudyusa/y_lb": ">=3.8.2 || ~4.0.0",
+    "ynorth-projects/openy_node_session": "^2.0"
+  },
+  "extra": {
+    "patches": {
+      "drupal/media_directories": {
+        "https://dgo.to/3444172 Support adding media with Video Embed Field": "https://git.drupalcode.org/project/media_directories/-/merge_requests/14.diff"
+      }
+    }
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev"
+}

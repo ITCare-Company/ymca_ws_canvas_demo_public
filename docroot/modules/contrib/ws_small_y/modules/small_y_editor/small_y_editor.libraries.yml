@@ -1,0 +1,5 @@
+lb_table_override:
+  version: 0.2
+  css:
+    component:
+      assets/css/small-y-table-override.css: { preprocess: true }

@@ -1,0 +1,365 @@
+global:
+  version: 1.0.0
+  css:
+    theme:
+      css/y-canvas.css: {}
+
+y-hero:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-hero/y-hero.css: {}
+
+y-accordion:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-accordion/y-accordion.css: {}
+
+y-accordion-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-accordion-item/y-accordion-item.css: {}
+
+y-cards:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-cards/y-cards.css: {}
+
+y-card-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-card-item/y-card-item.css: {}
+
+y-carousel:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-carousel/y-carousel.css: {}
+
+y-carousel-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-carousel-item/y-carousel-item.css: {}
+
+y-ping-pong:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-ping-pong/y-ping-pong.css: {}
+
+y-promo:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-promo/y-promo.css: {}
+
+y-table:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-table/y-table.css: {}
+
+y-modal:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-modal/y-modal.css: {}
+
+y-statistics:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-statistics/y-statistics.css: {}
+
+y-statistics-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-statistics-item/y-statistics-item.css: {}
+
+y-simple-menu:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-simple-menu/y-simple-menu.css: {}
+
+y-menu-cta:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-menu-cta/y-menu-cta.css: {}
+
+y-grid-cta:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-grid-cta/y-grid-cta.css: {}
+
+y-grid-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-grid-item/y-grid-item.css: {}
+
+y-icon-grid:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-icon-grid/y-icon-grid.css: {}
+
+y-icon-grid-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-icon-grid-item/y-icon-grid-item.css: {}
+
+y-tabs:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-tabs/y-tabs.css: {}
+
+y-tab-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-tab-item/y-tab-item.css: {}
+
+y-testimonials:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-testimonials/y-testimonials.css: {}
+
+y-testimonial-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-testimonial-item/y-testimonial-item.css: {}
+
+y-partners:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-partners/y-partners.css: {}
+
+y-partner-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-partner-item/y-partner-item.css: {}
+
+y-partners-tier:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-partners-tier/y-partners-tier.css: {}
+
+y-staff-members:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-staff-members/y-staff-members.css: {}
+
+y-staff-member-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-staff-member-item/y-staff-member-item.css: {}
+
+y-branch-amenities:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-branch-amenities/y-branch-amenities.css: {}
+
+y-branch-social:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-branch-social/y-branch-social.css: {}
+
+y-branch-hours:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-branch-hours/y-branch-hours.css: {}
+
+y-branch-amenities-legacy:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-branch-amenities-legacy/y-branch-amenities-legacy.css: {}
+
+y-related-articles:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-related-articles/y-related-articles.css: {}
+
+y-related-events:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-related-events/y-related-events.css: {}
+
+y-webform:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-webform/y-webform.css: {}
+
+y-articles-filter:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-articles-filter/y-articles-filter.css: {}
+
+y-articles-listing:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-articles-listing/y-articles-listing.css: {}
+
+y-featured-articles:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-featured-articles/y-featured-articles.css: {}
+
+y-events-filter:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-events-filter/y-events-filter.css: {}
+
+y-events-listing:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-events-listing/y-events-listing.css: {}
+
+y-featured-events:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-featured-events/y-featured-events.css: {}
+
+y-search-results:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-search-results/y-search-results.css: {}
+
+y-donate:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-donate/y-donate.css: {}
+
+y-donate-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-donate-item/y-donate-item.css: {}
+
+y-small-statistics:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-small-statistics/y-small-statistics.css: {}
+
+y-small-statistics-item:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-small-statistics-item/y-small-statistics-item.css: {}
+
+y-ping-pong-section:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-ping-pong-section/y-ping-pong-section.css: {}
+
+y-activity-finder:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-activity-finder/y-activity-finder.css: {}
+
+y-simple-schedule:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-simple-schedule/y-simple-schedule.css: {}
+
+y-repeat-schedules:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-repeat-schedules/y-repeat-schedules.css: {}
+
+y-map:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-map/y-map.css: {}
+
+y-basic-block:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-basic-block/y-basic-block.css: {}
+
+y-simple-block:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-simple-block/y-simple-block.css: {}
+
+y-date-block:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-date-block/y-date-block.css: {}
+
+y-flexible-content:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-flexible-content/y-flexible-content.css: {}
+
+y-featured-highlights:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-featured-highlights/y-featured-highlights.css: {}
+
+y-menu-block:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-menu-block/y-menu-block.css: {}
+
+y-code-block:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-code-block/y-code-block.css: {}
+
+y-camp-menu:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-camp-menu/y-camp-menu.css: {}
+
+y-camp-quick-links:
+  version: 1.0.0
+  css:
+    component:
+      components/organisms/y-camp-quick-links/y-camp-quick-links.css: {}

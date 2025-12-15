@@ -1,0 +1,72 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-social-links {
+  .social-links {
+    .wrapper-field-social-links {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+
+      @include media-breakpoint-up('lg') {
+        justify-content: flex-end;
+      }
+
+      a:hover:before {
+        filter: brightness(0.8);
+      }
+
+      a::before {
+        height: 25px;
+        display: block;
+        width: 25px;
+        content: '';
+        mask: url("../svg/default.svg") no-repeat 50% 50%;
+        mask-size: cover;
+        background-color: var(--wsTertiaryColor, black);
+      }
+
+      a[href*="twitter.com"]::before,
+      a[href*="t.co"]::before {
+        mask: url("../svg/Twitter.svg") no-repeat 50% 50%;
+      }
+
+      a[href*="x.com"]::before {
+        mask: url("../svg/X.svg") no-repeat 50% 50%;
+      }
+
+      a[href*="facebook.com"]::before,
+      a[href*="fb.me"]::before {
+        mask: url("../svg/Facebook.svg") no-repeat 50% 50%;
+        width: 12px;
+      }
+
+      a[href*="instagram.com"]::before {
+        mask: url("../svg/Instagram.svg") no-repeat 50% 50%;
+      }
+
+      a[href*="threads.net"]::before {
+        mask: url("../svg/Threads.svg") no-repeat 50% 50%;
+      }
+
+      a[href*="youtube.com"]::before,
+      a[href*="youtu.be"]::before {
+        mask: url("../svg/YouTube.svg") no-repeat 50% 50%;
+        width: 21px;
+      }
+
+      a[href*="linkedin.com"]::before {
+        mask: url("../svg/Linkedin.svg") no-repeat 50% 50%;
+      }
+
+      a[href*="apps.apple.com"]::before {
+        mask: url("../svg/app-store.svg") no-repeat 50% 50%;
+      }
+
+      a[href*="play.google.com"]::before {
+        mask: url("../svg/google-play.svg") no-repeat 50% 50%;
+      }
+    }
+  }
+}

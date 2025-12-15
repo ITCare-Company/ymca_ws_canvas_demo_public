@@ -1,0 +1,32 @@
+name: Promotion content type
+type: module
+description: Promotion content for YMCA Website Services distribution.
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - openy_node_activity
+  - drupal:layout_builder
+  - y_lb
+  - drupal:field_group
+  - drupal:link
+  - drupal:media_library
+  - drupal:media
+  - drupal:path
+  - drupal:text
+  - drupal:scheduler
+  - drupal:user
+  - drupal:node
+  - drupal:node_revision_delete
+  - drupal:menu_ui
+  - drupal:options
+  - openy_focal_point
+
+# Information added by Drupal.org packaging script on 2024-05-28
+# version: '1.0.10'
+# project: 'ws_promotion'
+# datestamp: 1716902054
+
+# Information added by Drupal.org packaging script on 2025-06-30
+version: '1.1.0'
+project: 'ws_promotion'
+datestamp: 1751289265

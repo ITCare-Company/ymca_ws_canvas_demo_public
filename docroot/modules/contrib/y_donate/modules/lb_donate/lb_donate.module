@@ -1,0 +1,161 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Y Layout Builder - Donate module.
+ */
+
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_theme().
+ */
+function lb_donate_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_donate' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-donate',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_donate_preprocess_block__lb_donate(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+
+  if ($variables['block_content']->field_image) {
+    $variables['image_uri'] = $variables['block_content']->field_image->entity->field_media_image->entity->uri->value ?? NULL;
+  }
+
+  $amounts = [];
+  if ($variables["elements"]["content"]["field_block_item"] && isset($variables["elements"]["content"]["field_block_item"][0])) {
+    $amountBlockList = $variables["elements"]["content"]["field_block_item"]['#items']->getValue();
+    foreach ($amountBlockList as $value) {
+      if (isset($value["entity"]) && $value["entity"] instanceof BlockContent) {
+        $amountBlock = $value["entity"];
+      }
+      else {
+        $amountBlock = BlockContent::load($value['target_id']);
+      }
+      if ($amountBlock instanceof BlockContent && !$amountBlock->get('field_form_element_id')->isEmpty()) {
+        $amounts[] = [
+          'id' => $amountBlock->get('field_form_element_id')->value,
+          'label' => $amountBlock->get('field_title')->value,
+        ];
+      }
+    }
+  }
+
+  // Initialize Donation list variable.
+  $variables['donate']['#weight'] = 100;
+  $variables['donate']['#attributes']['class'][] = "lb_donate__amounts";
+  $variables['donate']['#wrapper_attributes'] = [];
+  $variables['donate']['#items'] = [];
+  $variables['donate']['#theme'] = 'item_list';
+
+  if ($variables["elements"]["content"]["field_cta"] && isset($variables["elements"]["content"]["field_cta"]['#items'])) {
+    $donate_uri = $variables["elements"]["content"]["field_cta"]['#items']->first()->uri;
+    $external = UrlHelper::isExternal($donate_uri);
+    $donate_link = $external
+      ? $donate_uri
+      : Url::fromUri($donate_uri)->toString();
+    // Validate and create nav from tab list.
+    foreach ($amounts as $amount) {
+      $variables['donate']['#items'][] = [
+        '#type' => 'link',
+        '#title' => $amount['label'],
+        '#url' => $external
+          ? Url::fromURI($donate_link,
+            [
+              'query' => [
+                'amount' => $amount['id'],
+              ],
+              'attributes' => [
+                'target' => '_blank',
+              ],
+            ]
+          )
+          : Url::fromUserInput("{$donate_link}",
+            [
+              'query' => [
+                'amount' => $amount['id'],
+              ],
+            ]
+          ),
+        '#wrapper_attributes' => [
+          'class' => ["lb_donate__amounts-item"],
+        ],
+        '#attributes' => [
+          'class' => [
+            "lb_donate__amounts-link",
+            "btn",
+            "btn-primary",
+            "outline",
+            "d-block",
+          ],
+        ],
+
+      ];
+    }
+    // Add final item with "other" link.
+    $variables['donate']['#items'][] = [
+      '#type' => 'link',
+      '#title' => t("Other"),
+      '#url' => $external
+        ? Url::fromURI($donate_link,
+          [
+            'attributes' => [
+              'target' => '_blank',
+            ],
+          ]
+        )
+        : Url::fromUserInput("{$donate_link}"),
+      '#wrapper_attributes' => [
+        'class' => ["lb_donate__amounts-item"],
+      ],
+      '#attributes' => [
+        'class' => [
+          "lb_donate__amounts-link",
+          "lb_donate__amounts-other",
+          "btn",
+          "btn-primary",
+          "outline",
+          "d-block",
+        ],
+      ],
+
+    ];
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for block entities.
+ */
+function lb_donate_block_content_presave(EntityInterface $block) {
+  if ($block->bundle() === 'donate_item') {
+    $block->setInfo($block->get('field_title')->value);
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function lb_donate_inline_entity_form_entity_form_alter(array &$entity_form, FormStateInterface $form_state) {
+  $entity = $entity_form['#entity'];
+  if ($entity->bundle() === 'donate_item' && !empty($form_state->getUserInput()['settings']['block_form']['field_block_item']['form'])) {
+    $form = $form_state->getUserInput()['settings']['block_form']['field_block_item']['form'];
+    if (isset($form['inline_entity_form'])) {
+      $resultForm = reset($form['inline_entity_form']['entities'])['form'];
+    }
+    else {
+      $resultForm = reset($form);
+    }
+    $entity->setInfo($resultForm['field_title']['0']['value']);
+  }
+}

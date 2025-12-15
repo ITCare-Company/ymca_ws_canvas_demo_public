@@ -1,0 +1,494 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Event module.
+ */
+
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function ws_event_update_dependencies() {
+  $dependencies['y_lb'][9011] = [
+    'ws_event' => 9016,
+  ];
+
+  $dependencies['y_lb_article'][9009] = [
+    'ws_event' => 9016,
+  ];
+
+  return $dependencies;
+}
+
+/**
+ * Add address for event info block.
+ */
+function ws_event_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.node.lb_event.field_location_address',
+    'field.field.node.lb_event.field_location_directions',
+    'field.field.node.lb_event.field_event_location',
+    'core.entity_form_display.node.lb_event.default',
+    'core.entity_view_display.node.lb_event.default',
+    'core.entity_view_display.node.lb_event.teaser',
+  ]);
+}
+
+/**
+ * Change setting fields.
+ */
+function ws_event_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.node.lb_event.body',
+    'field.field.node.lb_event.field_event_location',
+  ]);
+}
+
+/**
+ * Change Image field - make required.
+ */
+function ws_event_update_9003(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.node.lb_event.field_header_image',
+  ]);
+}
+
+/**
+ * Add restrictions inline blocks for display default.
+ */
+function ws_event_update_9004(&$sandbox) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Event content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'article_lb');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'lb_event', $view_mode);
+    if ($view_mode == 'default') {
+      $restrictions = $view_display
+        ->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction');
+
+      $denylistedBlocks = $restrictions['denylisted_blocks'] ?? [];
+      $denylistedBlocks['Inline blocks'] = array_unique(array_merge($denylistedBlocks['Inline blocks'] ?? [], [
+        'inline_block:branch_amenities',
+        'inline_block:testimonial_item',
+      ]));
+      $restrictions['denylisted_blocks'] = $denylistedBlocks;
+      $view_display
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', $restrictions);
+
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Add node_revision_delete configuration.
+ */
+function ws_event_update_9005(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'node.type.lb_event',
+  ]);
+}
+
+/**
+ * Change Address field - add Canada as available country.
+ */
+function ws_event_update_9006(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.node.lb_event.field_location_address',
+  ]);
+}
+
+/**
+ * Issue #3352936 Add a convert to webp effect to the image styles.
+ */
+function ws_event_update_9007(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'image.style.event_image_desktop',
+    'image.style.event_image_mobile',
+  ]);
+}
+
+/**
+ * Add CT Camp to the location reference field.
+ */
+function ws_event_update_9008(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.node.lb_event.field_location_reference',
+  ]);
+}
+
+/**
+ * Add pathauto aliases.
+ */
+function ws_event_update_9009(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'pathauto.pattern.event_lb',
+  ]);
+}
+
+/**
+ * Issue #3368180 Add a colorway configuration.
+ */
+function ws_event_update_9010(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.lb_event.default',
+  ]);
+}
+
+/**
+ * Re-run update for Event Default view display.
+ */
+function ws_event_update_9011(&$sandbox) {
+  ws_event_update_9010($sandbox);
+}
+
+/**
+ * Issue #3372233 Add fields for override contact info.
+ */
+function ws_event_update_9012(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.0.28';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.node.lb_event.default',
+    'core.entity_view_display.node.lb_event.default',
+    'field.field.node.lb_event.field_contact_email',
+    'field.field.node.lb_event.field_contact_name',
+    'field.field.node.lb_event.field_contact_phone',
+    'field.storage.node.field_contact_email',
+    'field.storage.node.field_contact_name',
+    'field.storage.node.field_contact_phone',
+  ]);
+}
+
+/**
+ * Issue #3372233 Hide fields for override contact info.
+ */
+function ws_event_update_9013(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.1.7';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.lb_event.default',
+  ]);
+}
+
+/**
+ * Move values from 'field_event_location' field to 'field_location_reference'.
+ */
+function ws_event_update_9014(&$sandbox) {
+  $nodes = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties([
+      'type' => 'lb_event',
+    ]);
+
+  foreach ($nodes as $node) {
+    $node->set('field_location_reference', $node->get('field_event_location')->getValue());
+    try {
+      $node->save();
+    }
+    catch (EntityStorageException $e) {
+    }
+  }
+}
+
+/**
+ * Remove field instance field_event_location.
+ */
+function ws_event_update_9015(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.2.2';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.node.lb_event.default',
+    'core.entity_view_display.node.lb_event.default',
+    'core.entity_view_display.node.lb_event.featured',
+    'core.entity_view_display.node.lb_event.teaser',
+  ]);
+
+  FieldConfig::loadByName('node', 'lb_event', 'field_event_location')?->delete();
+}
+
+/**
+ * Import config that may have been missed from event listing.
+ */
+function ws_event_update_9016(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.2.2';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'block_content.type.events_filter',
+    'block_content.type.events_listing',
+    'block_content.type.featured_events',
+    'core.entity_form_display.block_content.events_filter.default',
+    'core.entity_form_display.block_content.events_listing.default',
+    'core.entity_form_display.block_content.featured_events.default',
+    'core.entity_view_display.block_content.events_filter.default',
+    'core.entity_view_display.block_content.events_listing.default',
+    'core.entity_view_display.block_content.featured_events.default',
+    'core.entity_view_display.media.image.featured',
+    'core.entity_view_display.media.image.teaser_image',
+    'core.entity_view_display.node.lb_event.featured',
+    'core.entity_view_display.node.lb_event.teaser',
+    'core.entity_view_mode.media.featured',
+    'core.entity_view_mode.media.teaser_image',
+    'core.entity_view_mode.node.featured',
+    'field.field.block_content.events_filter.field_block',
+    'field.field.block_content.featured_events.field_manual_selection_items',
+    'field.field.node.lb_event.body',
+    'field.storage.block_content.field_block',
+    'field.storage.block_content.field_manual_selection_items',
+    'image.style.featured_desktop',
+    'image.style.featured_mobile',
+    'image.style.teaser_image_desktop',
+    'image.style.teaser_image_mobile',
+    'language.content_settings.block_content.events_filter',
+    'language.content_settings.block_content.events_listing',
+    'language.content_settings.block_content.featured_events',
+    'responsive_image.styles.featured_image',
+    'responsive_image.styles.teaser_image',
+    'views.view.listing_events',
+  ]);
+}
+
+/**
+ * Add sub-blocks to denylisted_blocks for the layout builder.
+ */
+function ws_event_update_9017(&$sandbox) {
+  $config_path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.3.11/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = 'core.entity_view_display.node.lb_event.default';
+  $config_importer->update(
+    $config_path . $config . '.yml',
+    $config,
+    'third_party_settings.layout_builder_restrictions.entity_view_mode_restriction.denylisted_blocks'
+  );
+}
+
+/**
+ * Fix view sort order.
+ */
+function ws_event_update_9018(&$sandbox) {
+  // In the standard profile these module not enabled, so enable them.
+  $module_handler = \Drupal::moduleHandler();
+  ;
+  if (!$module_handler->moduleExists('verf')) {
+    \Drupal::service('module_installer')->install(['verf'], FALSE);
+  }
+
+  if (!$module_handler->moduleExists('better_exposed_filters')) {
+    \Drupal::service('module_installer')->install(['better_exposed_filters'], FALSE);
+  }
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.3.11';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.storage.node.field_blog_description',
+    'views.view.listing_events',
+  ]);
+}
+
+/**
+ * Add content type to the Default sitemap in the Simple XML Sitemap config.
+ */
+function ws_event_update_9019(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'simple_sitemap.bundle_settings.default.node.lb_event',
+  ]);
+}
+
+/**
+ * Reconfigure events to handle smart date and new designs.
+ */
+function ws_event_update_9020(&$sandbox) {
+  $module_handler = \Drupal::moduleHandler();
+  if (!$module_handler->moduleExists('smart_date_recur')) {
+    \Drupal::service('module_installer')->install(['smart_date'], FALSE);
+    \Drupal::service('module_installer')->install(['smart_date_recur'], FALSE);
+  }
+  if (!$module_handler->moduleExists('addtocal_augment')) {
+    \Drupal::service('module_installer')->install(['date_augmenter'], FALSE);
+    \Drupal::service('module_installer')->install(['addtocal_augment'], FALSE);
+  }
+  if (!$module_handler->moduleExists('schema_event')) {
+    \Drupal::service('module_installer')->install(['schema_event'], FALSE);
+  }
+
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.4.15';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.node.lb_event.default',
+    'core.entity_view_display.node.lb_event.event_info',
+    'core.entity_view_display.node.lb_event.default',
+    'core.entity_view_display.node.lb_event.featured',
+    'core.entity_view_display.node.lb_event.teaser',
+    'core.entity_view_mode.node.event_info',
+    'field.field.node.lb_event.field_event_dates_smart',
+    'field.storage.node.field_event_dates_smart',
+    'field.field.node.lb_event.field_location_address',
+    'metatag.metatag_defaults.node__lb_event',
+    'smart_date.smart_date_format.compact',
+    'views.view.listing_events',
+  ]);
+}
+
+/**
+ * Make the Event Dates fields optional.
+ */
+function ws_event_update_9021(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.4.15';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.node.lb_event.field_event_dates',
+    'field.field.node.lb_event.field_event_dates_smart',
+  ]);
+}
+
+/**
+ * Update start/end date meta tags.
+ */
+function ws_event_update_9022(&$sandbox) {
+  $config_path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.4.15/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = 'metatag.metatag_defaults.node__lb_event';
+  $properties = [
+    'tags.schema_event_start_date',
+    'tags.schema_event_end_date'
+  ];
+  foreach ($properties as $property) {
+    $config_importer->update(
+      $config_path . $config . '.yml',
+      $config,
+      $property
+    );
+  }
+}
+
+/**
+ * Enable Scheduler.
+ */
+function ws_event_update_9023(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.4.15';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.node.lb_event.default',
+    'node.type.lb_event',
+  ]);
+}
+
+/**
+ * Change a layout of the event info block for Tablet.
+ */
+function ws_event_update_9024(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/outdated/1.4.15';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.lb_event.default',
+  ]);
+}
+
+/**
+ * Add Utility Menu to Event template.
+ */
+function ws_event_update_9025() {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('openy_menu_utility')) {
+    \Drupal::service('module_installer')->install(['openy_menu_utility']);
+  }
+
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.lb_event.default'
+  ]);
+}
+
+/**
+ * Add a new 'Number of events' field.
+ */
+function ws_event_update_9026(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.storage.block_content.field_number_of_events',
+    'field.field.block_content.events_listing.field_number_of_events',
+    'core.entity_form_display.block_content.events_listing.default',
+  ]);
+}
+
+/**
+ * Move Locations field above Address in node form.
+ */
+function ws_event_update_9027(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_event') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.node.lb_event.default',
+  ]);
+}

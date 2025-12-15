@@ -1,0 +1,7 @@
+ping_pong:
+  label: Offset variation
+  name: ping_pong
+  global: false
+  applies_to: ['inline_block:lb_ping_pong']
+  library: null
+

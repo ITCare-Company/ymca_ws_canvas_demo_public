@@ -1,0 +1,56 @@
+<?php
+/**
+ * @file
+ * Y-LB Blocks Simple Menu submodule.
+ */
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function lb_simple_menu_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the lb_simple_menu module.
+    case 'help.page.lb_simple_menu':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Helper module for the custom "Simple Menu" block type.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function lb_simple_menu_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_simple_menu' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-simple-menu',
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_simple_menu_preprocess_block__lb_simple_menu(&$variables) {
+  if (isset($variables['content']['field_lb_simple_menu_links'])) {
+    foreach ($variables['content']['field_lb_simple_menu_links'] as $property => &$value) {
+      if (is_numeric($property) && $value['#type'] === 'link') {
+        $value['#url']->setOption('set_active_class', TRUE);
+      }
+    }
+  }
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  if ($variables['block_content']->hasField('field_icon')) {
+    $media_entity = $variables['block_content']->field_icon->referencedEntities()[0] ?? FALSE;
+    if ($media_entity) {
+      $variables['image_uri'] = $media_entity->field_media_image->entity->uri->value ?? NULL;
+      $variables['image_alt'] = $media_entity->field_media_image->alt ?? NULL;
+      $variables['is_svg'] = str_contains($variables['image_uri'], '.svg');
+    }
+  }
+}

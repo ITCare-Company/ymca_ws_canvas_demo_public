@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Small Y Statistics module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function ws_small_y_statistics_theme($existing, $type, $theme, $path) {
+  return [
+    'block__small_y_statistics' => [
+      'base hook' => 'block',
+      'template' => 'block--small-y-statistics',
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function ws_small_y_statistics_preprocess_block__small_y_statistics(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $blocks = $variables['block_content']->field_block_item->referencedEntities();
+  $variables['style'] = $variables['block_content']?->field_section_color->value;
+  if ($blocks) {
+    foreach ($blocks as $item) {
+      $element = [
+        'number' => 0,
+        'title' => $item->field_item_title->value,
+        'description' => $item->field_body->value
+      ];
+
+      $number = trim($item->field_title->value);
+      if (preg_match('/^(?P<prefix>[\D]*)(?P<number>[\d\.,]*)(?P<suffix>[^\d]*)$/', $number, $matches)) {
+        $element['prefix'] = $matches['prefix'] ?? '';
+        $element['number'] = str_replace(',', '', $matches['number']) ?? 0;
+        $element['suffix'] = $matches['suffix'] ?? '';
+      }
+
+      $variables['items'][] = $element;
+    }
+  }
+
+}
+/**
+ * Implements hook_ENTITY_TYPE_presave() for block entities.
+ */
+function ws_small_y_statistics_block_content_presave(EntityInterface $block) {
+  if ($block->bundle() === 'small_y_statistics_item') {
+    $block->setInfo($block->get('field_item_title')->value);
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function ws_small_y_statistics_inline_entity_form_entity_form_alter(array &$entity_form, FormStateInterface $form_state) {
+  $entity = $entity_form['#entity'];
+  if ($entity->bundle() === 'small_y_statistics_item' && !empty($form_state->getUserInput()['settings']['block_form']['field_block_item']['form'])) {
+    $form = $form_state->getUserInput()['settings']['block_form']['field_block_item']['form'];
+    if (isset($form['inline_entity_form'])) {
+      $resultForm = reset($form['inline_entity_form']['entities'])['form'];
+    }
+    else {
+      $resultForm = reset($form);
+    }
+    $entity->setInfo($resultForm['field_title']['0']['value']);
+  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function ws_small_y_statistics_entity_type_alter(array &$entity_types) {
+  if (isset($entity_types['block_content'])) {
+    $entity_types['block_content']->addConstraint('smallYminStatisticsItems');
+  }
+}

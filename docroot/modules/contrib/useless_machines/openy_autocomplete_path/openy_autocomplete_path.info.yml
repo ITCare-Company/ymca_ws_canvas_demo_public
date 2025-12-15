@@ -1,0 +1,5 @@
+name: openy_autocomplete_path
+type: module
+description: Dummy module to replace openy_autocomplete_path.
+package: Useless Machines
+core_version_requirement: ^10 || ^11

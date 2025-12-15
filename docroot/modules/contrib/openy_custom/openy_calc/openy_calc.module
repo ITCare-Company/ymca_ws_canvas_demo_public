@@ -1,0 +1,165 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function openy_calc_theme() {
+  return [
+    'form_element_membership_type' => [
+      'render element' => 'element',
+    ],
+    'openy_calc_form_header' => [
+      'variables' => [
+        'steps' => [],
+      ],
+      'template' => 'openy-calc-form-header',
+    ],
+    'openy_calc_form_summary' => [
+      'variables' => [
+        'result' => [],
+        'map' => [],
+      ],
+      'template' => 'openy-calc-form-summary',
+    ],
+    'node__membership__full' => [
+      'base hook' => 'node',
+      'template' => 'node--membership--full',
+    ],
+    'node__membership__calc_preview' => [
+      'base hook' => 'node',
+      'template' => 'node--membership--calc-preview',
+    ],
+    'node__membership__calc_summary' => [
+      'base hook' => 'node',
+      'template' => 'node--membership--calc-summary',
+    ],
+    'node__membership__calc_summary_without_title' => [
+      'base hook' => 'node',
+      'template' => 'node--membership--calc-summary-without-title',
+    ],
+    'node__branch__calc_summary' => [
+      'base hook' => 'node',
+      'template' => 'node--branch--calc-summary',
+    ],
+  ];
+}
+
+/**
+ * Preprocess variables.
+ */
+function template_preprocess_form_element_membership_type(&$variables) {
+  template_preprocess_form_element($variables);
+  $element = &$variables['element'];
+  $variables['element_variables'] = $element['#element_variables'];
+}
+
+/**
+ * Preprocess variables.
+ */
+function openy_calc_preprocess_fieldset(&$variables) {
+  /** @var \Drupal\Core\Template\Attribute $legend_span */
+  if (isset($variables['element']['#type']) && $variables['element']['#type'] == 'calc_radios') {
+    $legend_span = $variables['legend_span']['attributes'];
+    $legend_span->setAttribute('tabindex', '0');
+  }
+}
+
+/**
+ * Remove branch_hours from the related branch for "facility" node viewing.
+ */
+function openy_calc_preprocess_node__branch__calc_summary(&$variables) {
+  $node = $variables['node'];
+  if(!$node instanceof NodeInterface) {
+    return;
+  }
+
+  $directions_url = '';
+  if (isset($variables['content']['field_location_directions']['0'])) {
+    $directions_url = $variables['content']['field_location_directions']['0']['#url']->toString();
+  }
+  else if (!empty($node->get('field_location_address')->getValue())) {
+    $address_array = $node->get('field_location_address')->getValue()[0];
+    $directions_url = Url::fromUri('https://www.google.com/maps/dir/', [
+      'query' => [
+        'api' => 1,
+        'destination' => "{$address_array['address_line1']} {$address_array['locality']}, {$address_array['administrative_area']} {$address_array['postal_code']}",
+      ],
+    ])->toString();
+  }
+
+  $variables['branch'] = [
+    'branch_name' => [
+      '#type' => 'inline_template',
+      '#template' => '<h4>{{ branch_name }}</h4>',
+      '#context' => [
+        'branch_name' => $node->label(),
+      ],
+    ],
+    'branch_phone' => [
+      '#type' => 'inline_template',
+      '#template' => '<a href="tel:{{ branch_phone }}"><i class="fa fa-phone" aria-hidden="true"></i><div>{{ branch_phone }}</div></a>',
+      '#context' => [
+        'branch_phone' => $node->get('field_location_phone')->value,
+      ],
+    ],
+    'branch_fax' => [
+      '#type' => 'inline_template',
+      '#template' => '{% if branch_fax  %}<a href="tel:{{ branch_fax }}"><i class="fa fa-phone" aria-hidden="true"></i><div>{{ branch_fax }}</div></a> {% endif %}',
+      '#context' => [
+        'branch_fax' => $node->get('field_location_fax')->value,
+      ],
+    ],
+    'branch_address' => [
+      '#type' => 'inline_template',
+      '#template' => '
+        <div>{{ branch_address }}
+          {% if directions %}
+            <div class="directions"><a href="{{ directions }}">{{ "Get directions"|t }}</a></div>
+          {% endif %}
+        </div>',
+      '#context' => [
+        'branch_address' => _getAddress($node),
+        'directions' => $directions_url,
+      ],
+    ],
+    'branch_email' => [
+      '#type' => 'inline_template',
+      '#template' => '{% if branch_email %}<a href="mailto:{{ branch_email }}"><i class="fas fa-envelope"></i><div>{{ branch_email }}</div></a>{% endif %}',
+      '#context' => [
+        'branch_email' => $node->get('field_location_email')->value,
+      ],
+    ],
+    'branch_today_hours' => [
+      '#create_placeholder' => TRUE,
+      '#lazy_builder' => [
+        'lb_branch_hours_blocks.hours_today:generateHoursToday',
+        [$node->id()],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Returns formatted Location address.
+ *
+ * @return \Drupal\Component\Render\MarkupInterface|string
+ */
+ function _getAddress($node) {
+  $address =  $node?->get('field_location_address')->first();
+  if ($address) {
+    $address_array = $address->toArray();
+    $location_address = '<span class="label">' . t("Branch ") . "</span><br> {$address_array['address_line1']}, {$address_array['locality']}<br /> {$address_array['administrative_area']} {$address_array['postal_code']}";
+    return Markup::create($location_address);
+  }
+  return '';
+}
+

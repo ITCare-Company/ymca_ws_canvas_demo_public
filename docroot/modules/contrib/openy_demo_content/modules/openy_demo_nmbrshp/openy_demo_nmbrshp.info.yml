@@ -1,0 +1,13 @@
+name: YMCA Website Services Demo Node Membership
+description: Stores migrations to import demo membership nodes.
+type: module
+core_version_requirement: ^10 || ^11
+version: 2.0.0
+package: YMCA Website Services
+dependencies:
+  - drupal:migrate
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - openy_node_mbrshp:openy_node_mbrshp
+  - openy_calc:openy_calc
+  - openy_prgf_mbrshp_calc:openy_prgf_mbrshp_calc

@@ -1,0 +1,210 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+// Montserrat via Google Fonts https://fonts.google.com/specimen/Montserrat
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --ylb-font-family-montserrat: "Montserrat", sans-serif;
+  --ylb-font-family-cachet: var(--ylb-font-family-montserrat);
+  --ylb-font-family-verdana: var(--ylb-font-family-montserrat);
+  --ylb-font-family: var(--ylb-font-family-montserrat);
+  --ylb-font-family-medium: var(--ylb-font-family-montserrat);
+  --ylb-font-family-book: var(--ylb-font-family-montserrat);
+  --ylb-heading-weight: 700;
+}
+
+// Override font declarations as many places as we can.
+.ws-canada main {
+  // Any undefined components.
+  font-family: var(--ylb-font-family-montserrat);
+
+  // Try to override any places where font is specified more specifically.
+  div, span, p, a, .btn {
+    // Don't override commonly used icon fonts.
+    :not(.fa):not(.fab):not(.fal):not(.far):not(.fas):not(.bi) {
+      font-family: var(--ylb-font-family-montserrat);
+    }
+  }
+
+  // Fix weight on Montserrat components.
+  .lb-modal-block .modal-dialog .modal-content .modal-body h2,
+  .listing-filters form .form-actions .input-wrapper .form-submit,
+  .block-lb-listing-articles .lb-articles-listing .node--lb.node--type-article-lb.node--view-mode-teaser h3 a,
+  .block-lb-events-listing .lb-events-listing .node--type-lb-event.node--view-mode-teaser h3 a,
+  .node--lb.node--type-article-lb.node--view-mode-related-content h3 a,
+  .block-branch-amenities .branch-amenities .section-description .field-section-title {
+    font-weight: var(--ylb-heading-weight);
+  }
+
+  // Override heading styles from y_lb/typography.
+  .lb__content .body.field-item,
+  .layout-builder__layout .body.field-item,
+  .layout-builder__layout .field-body.field-item,
+  .cke_editable_themed {
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: var(--ylb-heading-weight);
+    }
+  }
+
+  // Fix where we use h3 but probably shouldn't.
+  .block-branch-amenities .branch-amenities .section-description .field-section-subtitle {
+    font-weight: 500;
+  }
+
+  .block-lb-branch-hours .info-card .card .branch-email a,
+  .block-lb-branch-hours .info-card .card .branch-phone a,
+  .block-lb-branch-hours .info-card .card .branch-fax a {
+    word-break: break-all;
+  }
+
+  // Fix font on buttons.
+  .btn:not(.btn-link),
+  a.highlighted {
+    font-family: var(--ylb-font-family-cachet);
+    font-weight: var(--ylb-heading-weight);
+    font-size: 1.125em; // 18px / 16px base
+  }
+
+  // Fix border radius on article/event filters.
+  .listing-filters {
+    form input,
+    form select {
+      border-radius: var(--wsBorderRadius, unset);
+    }
+  }
+
+  // Fix header sizes where Monserrat should be smaller than Cachet.
+  h1, .h1 {
+    font-size: 40px;
+    font-weight: var(--ylb-heading-weight);
+    line-height: 44px;
+
+    @include media-breakpoint-up('md') {
+      font-size: 48px;
+      line-height: 55px;
+    }
+  }
+
+  h2,
+  .h2 {
+    font-size: 32px;
+    font-weight: var(--ylb-heading-weight);
+    line-height: 34px;
+
+    @include media-breakpoint-up('md') {
+      font-size: 42px;
+      line-height: 51px;
+    }
+
+  }
+  h3,
+  .h3 {
+    font-size: 26px;
+    font-weight: var(--ylb-heading-weight);
+    line-height: 29px;
+
+    @include media-breakpoint-up('md') {
+      font-size: 28px;
+      line-height: 34px;
+    }
+
+  }
+  h4, .h4 {
+    font-size: 24px;
+    font-weight: var(--ylb-heading-weight);
+
+    @include media-breakpoint-up('md') {
+      font-size: 22px;
+    }
+  }
+  h5, .h5 {
+    font-size: 20px;
+    font-weight: var(--ylb-heading-weight);
+
+    @include media-breakpoint-up('md') {
+      font-size: 18px;
+    }
+
+  }
+  h6, .h6 {
+    font-size: 16px;
+    font-weight: var(--ylb-heading-weight);
+
+    @include media-breakpoint-up('md') {
+      font-size: 14px;
+    }
+
+  }
+
+  main {
+    .block--spacing {
+      margin: 25px 0;
+    }
+
+    .block-lb-testimonials {
+      padding: 40px 0;
+    }
+  }
+
+  .node--type-camp .node__content .section-body,
+  .node--type-camp-lp .node__content .section-body {
+    padding: 0;
+  }
+
+  // Fix ping-pong light background.
+  .block-ping-pong .ping-pong-item:not(.background) {
+    background: var(--ylb-color-light-grey-1, lightgrey);
+  }
+  .block-ping-pong .ping-pong-item h3 {
+    @extend h2;
+  }
+  .block-ping-pong .ping-pong-item p {
+    font-size: 18px;
+    line-height: 28px;
+    font-family: var(--ylb-font-family-montserrat);
+    font-weight: 500;
+  }
+
+  // Branch fixes
+  .block-lb-branch-hours .branch-name h1 {
+    @extend h1;
+  }
+  .block-branch-amenities .branch-amenities .section-description .field-section-title {
+    @extend h2;
+  }
+
+  // LB Carousel
+  .block-lb-carousel .section-description {
+    padding: 0 0 25px;
+
+    h2 {
+      @extend h2;
+    }
+  }
+
+  // Heading override overrides. We need to set these so that we can gain
+  // higher specificity than styles in the component libraries.
+  .node--lb .page-title > h1,
+  .hero__banner .hero_banner-content h2 {
+    @extend h1;
+  }
+
+  .section-description h2,
+  .section-header h2,
+  .lb__content .body.field-item h2,
+  .layout-builder__layout .body.field-item h2,
+  .layout-builder__layout .field-body.field-item h2,
+  .cke_editable_themed h2,
+  .block-lb-related-articles .section-description h3 {
+    @extend h2;
+  }
+
+  .block-lb-cards-standard .row-cards .card h3,
+  .block-lb-related-events .section-description h3,
+  .lb-icon-grid .card h3,
+  .node--lb.node--type-article-lb.node--view-mode-related-content h3 a {
+    @extend h3;
+  }
+}

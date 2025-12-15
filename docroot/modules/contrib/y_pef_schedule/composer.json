@@ -1,0 +1,29 @@
+{
+    "name": "ycloudyusa/y_pef_schedule",
+    "description": "Additional admin tools to manage Y-USA PEF Sessions",
+    "type": "drupal-module",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Andrii Podanenko",
+            "email": "podarok@gmail.com"
+        },
+        {
+            "name": "Anatolii Poliakov",
+            "email": "anpolimus@gmail.com"
+        },
+        {
+            "name": "Max Kuzmych",
+            "email": "max.kuzmych@fivejars.com"
+        },
+        {
+            "name": "Roman Salo",
+            "email": "frs.daddy@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "drupal/colorapi": "*",
+        "ynorth-projects/openy_repeat": "*"
+    }
+}

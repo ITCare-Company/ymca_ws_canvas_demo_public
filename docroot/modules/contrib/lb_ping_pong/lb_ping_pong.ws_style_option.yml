@@ -1,0 +1,21 @@
+ping_pong.ws_style_option:
+  - label: 50% / 50%
+    name: equal_column
+    group: ping_pong
+    image: null
+    library: null
+    template: block--lb-ping-pong--equal-column
+    default: true
+  - label:  33% / 66%
+    name: second_column
+    group: ping_pong
+    image: null
+    library: null
+    template: block--lb-ping-pong--second-column
+  - label: 66% / 33%
+    name: first_column
+    group: ping_pong
+    image: null
+    library: null
+    template: block--lb-ping-pong--first-column
+

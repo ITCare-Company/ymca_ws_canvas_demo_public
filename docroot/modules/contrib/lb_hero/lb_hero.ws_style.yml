@@ -1,0 +1,7 @@
+hero_banner:
+  label: Banner variation
+  name: hero_banner
+  global: false
+  applies_to: ['inline_block:lb_hero']
+  library: null
+

@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_testimonials
+    - field.field.block_content.lb_testimonials.field_section_subtitle
+    - field.field.block_content.lb_testimonials.field_section_title
+    - field.field.block_content.lb_testimonials.field_testimonial_item
+id: block_content.lb_testimonials.default
+targetEntityType: block_content
+bundle: lb_testimonials
+mode: default
+content:
+  field_section_subtitle:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_section_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_testimonial_item:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

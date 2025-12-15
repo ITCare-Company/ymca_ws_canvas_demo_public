@@ -1,0 +1,82 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block.lb-grid-cta {
+  display: flex;
+  flex-direction: column;
+
+  .section-description {
+    margin-bottom: 40px !important;
+    order: -2;
+
+    h2 {
+      font-size: 35px;
+      line-height: 40px;
+      margin-bottom: 20px !important;
+      font-weight: 500;
+
+      @include media-breakpoint-up(md) {
+        font-size: 50px;
+        line-height: 60px;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+  div[id^="cta-icons-"] {
+    display: contents;
+
+    &>div {
+      row-gap: 60px;
+    }
+    .card {
+      overflow: hidden;
+      box-shadow: unset !important;
+
+      .card-body {
+        padding: 0;
+      }
+
+      h3 {
+        font-size: 30px;
+        line-height: 38px;
+        margin-bottom: 20px;
+        @include media-breakpoint-up(md) {
+          font-size: 32px;
+          line-height: 32px;
+        }
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 28px;
+        font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+      }
+
+      img {
+        height: 164px;
+        margin-bottom: 40px !important;
+        clip-path: circle(81px at center);
+
+        // Override bootstrap classes because small y.
+        &.my-4 {
+          margin-top: 0 !important;
+        }
+        &.w-25 {
+          width: auto!important;
+        }
+        &.h-100 {
+          height: 164px!important;
+        }
+      }
+    }
+    .section-cta {
+      order: -1;
+      margin: 0 0 60px !important;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Staff Members
+description: Staff members grid section with team photos and info
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Section Title
+      description: Heading for the staff section
+      examples:
+        - 'Meet Our Team'
+
+    subtitle:
+      type: string
+      title: Subtitle
+      description: Supporting text below the heading
+      examples:
+        - 'Our dedicated staff is here to help you achieve your goals'
+
+    columns:
+      type: integer
+      title: Columns
+      description: Number of columns in the grid
+      default: 4
+      enum:
+        - 2
+        - 3
+        - 4
+      meta:enum:
+        2: '2 Columns'
+        3: '3 Columns'
+        4: '4 Columns'
+      examples:
+        - 4
+
+slots:
+  members:
+    title: Staff Members
+    description: Individual staff member cards
+    allowedComponents:
+      - sdc.y_canvas.y-staff-member-item
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-staff-members

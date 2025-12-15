@@ -1,0 +1,5 @@
+lb_grid_cta:
+  version: 1.6
+  css:
+    theme:
+      assets/css/lb_grid_cta.css: { preprocess: true }

@@ -1,0 +1,68 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.listing-filters {
+  margin: 20px 0 60px 0;
+
+  .label-for-field-block {
+    display: none;
+  }
+
+  form {
+    border-radius: var(--wsBorderRadius, unset);
+    background-color: var( --ylb-color-light-grey-1);
+    padding: 16px 30px;
+    height: 100%;
+
+    .form-item {
+      margin: 10px 15px;
+      width: 100%;
+
+      label {
+        color: var(--ylb-color-dark-grey-1, darkgray);
+        font-size: 16px;
+        font-family: var(--ylb-font-family-verdana);
+        line-height: 26px;
+        min-width: 220px;
+        margin-bottom: 13px;
+      }
+    }
+
+    input,
+    select,
+    .form-submit {
+      border-color: var(--ylb-color-dark-grey-1, darkgray);
+      border-radius: 4px;
+      font-size: 18px;
+      font-family: var(--ylb-font-family-verdana);
+      font-weight: 500;
+      line-height: 22px;
+      min-height: 45px;
+      padding: 12px;
+    }
+
+    .form-actions {
+      display: flex;
+      min-height: 67px;
+
+      .input-wrapper {
+        align-self: center;
+
+        .form-submit {
+          background-color: var(--wsPartnerColor, var(--ylb-color-blue-dark));
+          border: 2px solid var(--wsPartnerColor, var(--ylb-color-blue-dark));
+          border-radius: var(--wsBorderRadius, unset);
+          font-family: var(--ylb-font-family-cachet);
+          font-weight: 500;
+          text-transform: none;
+
+          &:hover {
+            color: var(--wsPartnerColor, blue);
+            background-color: var(--ylb-color-white);
+          }
+        }
+      }
+    }
+  }
+}

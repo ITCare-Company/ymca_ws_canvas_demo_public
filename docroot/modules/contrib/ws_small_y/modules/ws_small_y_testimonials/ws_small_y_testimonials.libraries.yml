@@ -1,0 +1,7 @@
+lb_testimonials_override:
+  version: 0.2
+  css:
+    component:
+      assets/css/lb-testimonials-override.css: { preprocess: true }
+  dependencies:
+    - lb_testimonials/lb_testimonials

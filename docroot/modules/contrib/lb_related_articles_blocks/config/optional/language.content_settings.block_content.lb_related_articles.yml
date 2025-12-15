@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_related_articles
+id: block_content.lb_related_articles
+target_entity_type_id: block_content
+target_bundle: lb_related_articles
+default_langcode: site_default
+language_alterable: false

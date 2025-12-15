@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Program Subcategory CT integration with LB.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function y_program_subcategory_theme() {
+  return [
+    'node__program_subcategory__lb' => [
+      'template' => 'node--program-subcategory--lb',
+      'base hook' => 'node'
+    ],
+    'page__node__program_subcategory' => [
+      'base hook' => 'page',
+      'template' => 'page--node--program-subcategory-lb',
+    ],
+  ];
+}

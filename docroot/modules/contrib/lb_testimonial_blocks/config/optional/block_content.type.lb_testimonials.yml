@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_testimonials
+label: Testimonials
+revision: 0
+description: 'A component for adding a custom Testimonials carousel.'

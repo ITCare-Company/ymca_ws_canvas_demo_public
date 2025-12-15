@@ -1,0 +1,13 @@
+name: 'Y Layout Builder - Canada Colorway for Banner'
+description: 'Helper module for the Canada variations "Hero Banner" block type.'
+type: module
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - y_lb
+  - lb_hero
+
+# Information added by Drupal.org packaging script on 2025-11-25
+version: '1.3.2'
+project: 'ws_colorway_canada'
+datestamp: 1764056842

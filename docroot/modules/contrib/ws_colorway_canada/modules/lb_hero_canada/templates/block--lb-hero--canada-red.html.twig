@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Theme override to display a hero banner.
+ *
+ * Available variables:
+ * - bannerClassVariation: The banner variation class
+ * - wrapperClass: The wrapper class
+ * - containerClass : The container class
+ * - contentClass: The content class
+ * - ctaLinkClass: The cta link class
+ *
+ * @see block--lb-hero.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+{% embed "block--lb-hero.html.twig" with {
+  bannerClassVariation: ['hero__banner__canada_red', 'hero__banner__canada_overlay'],
+  wrapperClass: 'wrapper-content',
+  containerClass: '',
+  contentClass: ['col', 'col-lg-12', 'text-white', 'text-align-left', 'p-4', 'p-md-0'],
+  ctaLinkClass: ['btn', 'btn-secondary', 'filled']
+} %}
+
+  {% block block_content %}
+    {% embed '@lb_hero/block--lb-hero--content.html.twig' with {
+      'title': block_content.field_title.value,
+      'description': block_content.field_description.value,
+      'link': block_content.field_hero_cta,
+      'image_uri': media_image,
+    } %}
+
+      {% block chevron %}
+        <div class="background--canada"></div>
+      {% endblock %}
+
+    {% endembed %}
+  {% endblock %}
+
+{% endembed %}

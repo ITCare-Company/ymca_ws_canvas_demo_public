@@ -1,0 +1,30 @@
+name: 'Y Layout Builder - Article with LB component'
+type: module
+description: 'Article with Layout Builder.'
+package: 'YMCA Website Services'
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - 'openy_focal_point'
+  - 'openy_loc_branch'
+  - 'openy_media_image'
+  - 'y_lb'
+  - 'drupal:scheduler'
+  - 'drupal:node_revision_delete'
+  - 'drupal:bootstrap_layout_builder'
+  - 'drupal:datetime'
+  - 'drupal:layout_builder'
+  - 'drupal:layout_builder_restrictions'
+  - 'drupal:lb_related_articles_blocks'
+  - 'drupal:metatag'
+  - 'drupal:openy_gtranslate'
+  - 'drupal:options'
+  - 'drupal:schema_article'
+  - 'drupal:schema_metatag'
+  - 'drupal:system'
+  - 'drupal:text'
+  - 'drupal:simple_sitemap'
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.3.3'
+project: 'y_lb_article'
+datestamp: 1762505899

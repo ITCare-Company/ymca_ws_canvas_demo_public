@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_accordion
+label: Accordion
+revision: 0
+description: 'A component for adding custom Accordions.'

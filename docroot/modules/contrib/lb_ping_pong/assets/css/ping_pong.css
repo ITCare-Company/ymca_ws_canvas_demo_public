@@ -1,0 +1,101 @@
+.block-ping-pong {
+  color: var(--ylb-color-dark-grey-1, darkgray);
+  font-family: var(--ylb-font-family-cachet);
+  font-weight: 500;
+}
+.block-ping-pong .section-description h2 {
+  font-size: 48px;
+  line-height: 54px;
+  text-align: center;
+}
+@media (max-width: 991.98px) {
+  .block-ping-pong .section-description h2 {
+    font-size: 35px;
+    line-height: 40px;
+  }
+}
+.block-ping-pong .section-description p {
+  font-size: 18px;
+  text-align: center;
+  line-height: 28px;
+  font-family: var(--ylb-font-family-verdana);
+  font-weight: 400;
+}
+.block-ping-pong .ping-pong-item {
+  text-align: var(--wsTextAlignment, unset);
+}
+.block-ping-pong .ping-pong-item a {
+  color: var(--wsPrimaryColor);
+}
+.block-ping-pong .ping-pong-item h3 {
+  font-size: 48px;
+  line-height: 54px;
+  margin-bottom: 24px;
+}
+@media (max-width: 991.98px) {
+  .block-ping-pong .ping-pong-item h3 {
+    font-size: 35px;
+    line-height: 40px;
+  }
+}
+.block-ping-pong .ping-pong-item p {
+  font-family: var(--ylb-font-family-verdana);
+  font-size: 20px;
+  line-height: 30px;
+  margin-bottom: 48px;
+}
+@media (max-width: 991.98px) {
+  .block-ping-pong .ping-pong-item p {
+    margin-bottom: 36px;
+  }
+}
+.block-ping-pong .ping-pong-item .btn-wrapper {
+  display: flex;
+  gap: 20px 30px;
+  justify-content: var(--wsFlexAlignment, unset);
+}
+.block-ping-pong .ping-pong-item .item-description {
+  padding: 33px 15px;
+  justify-content: var(--wsFlexAlignment, unset);
+}
+@media (min-width: 768px) {
+  .block-ping-pong .ping-pong-item .item-description {
+    padding: 40px 80px;
+  }
+}
+.block-ping-pong .ping-pong-item .item-description .inner {
+  align-items: var(--wsFlexAlignment, unset);
+}
+.block-ping-pong .ping-pong-item.background {
+  background: var(--wsPrimaryColor, gray);
+  color: var(--ylb-color-white, white);
+}
+.block-ping-pong .ping-pong-item.background h3 {
+  color: var(--ylb-color-white, white);
+}
+.block-ping-pong.ws-text-alignment--left .ping-pong-item {
+  text-align: left;
+}
+.block-ping-pong.ws-text-alignment--left .ping-pong-item .item-description {
+  justify-content: flex-start;
+}
+.block-ping-pong.ws-text-alignment--left .ping-pong-item .item-description .inner {
+  align-items: flex-start;
+}
+.block-ping-pong.ws-text-alignment--left .ping-pong-item .btn-wrapper {
+  justify-content: flex-start;
+}
+.block-ping-pong.ws-text-alignment--center .ping-pong-item {
+  text-align: center;
+}
+.block-ping-pong.ws-text-alignment--center .ping-pong-item .item-description {
+  justify-content: center;
+}
+.block-ping-pong.ws-text-alignment--center .ping-pong-item .item-description .inner {
+  align-items: center;
+}
+.block-ping-pong.ws-text-alignment--center .ping-pong-item .btn-wrapper {
+  justify-content: center;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvcGluZ19wb25nLnNjc3MiLCJwaW5nX3BvbmcuY3NzIiwiLi4vLi4vbm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL21peGlucy9fYnJlYWtwb2ludHMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFJQTtFQUNFLDZDQUFBO0VBQ0EsMENBQUE7RUFDQSxnQkFBQTtBQ0hGO0FES0k7RUFDRSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQ0hOO0FDZ0VJO0VGaEVBO0lBTUksZUFBQTtJQUNBLGlCQUFBO0VDRk47QUFDRjtBRElJO0VBQ0UsZUFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSwyQ0FBQTtFQUNBLGdCQUFBO0FDRk47QURNRTtFQUNFLHlDQUFBO0FDSko7QURNSTtFQUNFLDRCQUFBO0FDSk47QURNSTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtFQUNBLG1CQUFBO0FDSk47QUN3Q0k7RUZ2Q0E7SUFNSSxlQUFBO0lBQ0EsaUJBQUE7RUNITjtBQUNGO0FES0k7RUFDRSwyQ0FBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtFQUNBLG1CQUFBO0FDSE47QUM0Qkk7RUY3QkE7SUFPSSxtQkFBQTtFQ0ZOO0FBQ0Y7QURLSTtFQUNFLGFBQUE7RUFDQSxjQUFBO0VBQ0EsOENBQUE7QUNITjtBRE1JO0VBQ0Usa0JBQUE7RUFDQSw4Q0FBQTtBQ0pOO0FDQ0k7RUZDQTtJQUtJLGtCQUFBO0VDSE47QUFDRjtBREtNO0VBQ0UsMENBQUE7QUNIUjtBRE9JO0VBQ0UsdUNBQUE7RUFDQSxvQ0FBQTtBQ0xOO0FET007RUFDRSxvQ0FBQTtBQ0xSO0FEYUk7RUFDRSxnQkFBQTtBQ1hOO0FEYU07RUFDRSwyQkFBQTtBQ1hSO0FEYVE7RUFDRSx1QkFBQTtBQ1hWO0FEY007RUFDRSwyQkFBQTtBQ1pSO0FEa0JJO0VBQ0Usa0JBQUE7QUNoQk47QURrQk07RUFDRSx1QkFBQTtBQ2hCUjtBRGtCUTtFQUNFLG1CQUFBO0FDaEJWO0FEbUJNO0VBQ0UsdUJBQUE7QUNqQlIiLCJmaWxlIjoicGluZ19wb25nLmNzcyJ9 */

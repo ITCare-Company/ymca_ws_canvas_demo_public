@@ -1,0 +1,4 @@
+services:
+  lb_branch_hours_blocks.hours_today:
+    class: Drupal\lb_branch_hours_blocks\HoursToday
+    arguments: ['@datetime.time', '@y_branch.hours_helper']

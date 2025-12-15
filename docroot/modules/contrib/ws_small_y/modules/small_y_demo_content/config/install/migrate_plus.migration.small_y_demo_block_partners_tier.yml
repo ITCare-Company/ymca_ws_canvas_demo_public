@@ -1,0 +1,76 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - lb_partners_blocks
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_partners_tier
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import Small Y Demo Layout Builder - Partners Tiers'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 111
+      uuid: 'fe29e0b0-daf2-49bd-ad3f-d302a26a95c2'
+      title: "Gold"
+      content_ids:
+        - content_id: partner_1
+
+    -
+      id: 112
+      uuid: '8a4dfb44-189a-4f69-833a-83873970cfda'
+      title: "Silver"
+      content_ids:
+        - content_id: partner_2
+        - content_id: partner_3
+
+    -
+      id: 113
+      uuid: '0d22a3c5-13d9-4a4a-85f8-a30651c5df06'
+      title: "Bronze"
+      content_ids:
+        - content_id: partner_1
+        - content_id: partner_2
+        - content_id: partner_3
+        - content_id: partner_4
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: partners_tier
+  uuid: uuid
+  field_title: title
+  field_partners_items:
+    plugin: sub_process
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - small_y_demo_block_partners_item
+        source: content_id
+
+destination:
+  plugin: entity:block_content
+  default_bundle: 'partners_tier'
+migration_dependencies:
+  required:
+    - small_y_demo_block_partners_item
+  optional: {  }

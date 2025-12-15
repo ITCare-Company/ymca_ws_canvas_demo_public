@@ -1,0 +1,24 @@
+# Custom module library for general purposes.
+y_lb_article:
+  version: 1.6
+  css:
+    theme:
+      assets/css/y_lb_article.css: { preprocess: true }
+
+listing:
+  version: 1.13
+  css:
+    theme:
+      assets/css/listing.css: { preprocess: true }
+
+filters:
+  version: 1.4
+  css:
+    theme:
+      assets/css/filters.css: { preprocess: true }
+
+lb_featured_articles:
+  version: 1.6
+  css:
+    theme:
+      assets/css/lb_featured_articles.css: { preprocess: true }

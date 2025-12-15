@@ -1,0 +1,69 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Grid Item
+description: Single grid item with image, title, description, and CTA
+status: experimental
+group: Molecules
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Item heading
+      examples:
+        - 'Youth Programs'
+
+    description:
+      type: string
+      title: Description
+      description: Item description (HTML allowed)
+      contentMediaType: text/html
+      examples:
+        - '<p>Programs designed for children and teens.</p>'
+
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Image
+      description: Item image
+      examples:
+        - src: '/themes/custom/y_canvas/assets/images/demo/grid-item.jpg'
+          alt: 'Youth programs'
+          width: 400
+          height: 300
+
+    cta_text:
+      type: string
+      title: Button Text
+      description: Call-to-action button label
+      examples:
+        - 'Learn More'
+
+    cta_url:
+      type: string
+      title: Button URL
+      description: Call-to-action button link
+      examples:
+        - '/programs/youth'
+
+    heading_level:
+      type: string
+      title: Heading Level
+      description: Semantic heading level
+      default: h3
+      enum:
+        - h3
+        - h4
+        - h5
+      meta:enum:
+        h3: 'Heading 3'
+        h4: 'Heading 4'
+        h5: 'Heading 5'
+      examples:
+        - h3
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-grid-item

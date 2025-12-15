@@ -1,0 +1,4 @@
+services:
+  y_branch.hours_helper:
+    class: Drupal\y_branch\BranchHoursHelper
+    arguments: ['@config.factory', '@datetime.time']

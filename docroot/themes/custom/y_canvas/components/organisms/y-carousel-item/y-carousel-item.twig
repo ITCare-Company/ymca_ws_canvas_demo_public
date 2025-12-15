@@ -1,0 +1,61 @@
+{#
+/**
+ * Y Carousel Item component.
+ *
+ * Variables:
+ * - title: (string) Slide heading
+ * - description: (string) Supporting text (HTML)
+ * - image: (object) Background image
+ * - cta_text: (string) Button text
+ * - cta_url: (string) Button URL
+ * - text_position: (string) left, center, right
+ * - theme: (string) light or dark
+ */
+#}
+
+{% set text_position = text_position|default('left') %}
+{% set theme = theme|default('dark') %}
+
+{% set classes = [
+  'y-carousel-item',
+  'y-carousel-item--position-' ~ text_position,
+  'y-carousel-item--theme-' ~ theme,
+] %}
+
+<div {{ attributes.addClass(classes) }} data-component="y-carousel-item">
+  {% if image.src %}
+    <div class="y-carousel-item__background">
+      <img
+        src="{{ image.src }}"
+        alt="{{ image.alt|default('') }}"
+        class="y-carousel-item__image"
+        loading="lazy"
+        {% if image.width %}width="{{ image.width }}"{% endif %}
+        {% if image.height %}height="{{ image.height }}"{% endif %}
+      />
+    </div>
+    <div class="y-carousel-item__overlay"></div>
+  {% endif %}
+
+  <div class="y-carousel-item__container">
+    <div class="y-carousel-item__content">
+      {% if title %}
+        <h2 class="y-carousel-item__title">{{ title }}</h2>
+      {% endif %}
+
+      {% if description %}
+        <div class="y-carousel-item__description">
+          {{ description|raw }}
+        </div>
+      {% endif %}
+
+      {% if cta_text and cta_url %}
+        <div class="y-carousel-item__cta">
+          <a href="{{ cta_url }}" class="y-carousel-item__button">
+            {{ cta_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

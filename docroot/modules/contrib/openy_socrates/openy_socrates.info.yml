@@ -1,0 +1,11 @@
+name: Open Y Socrates
+type: module
+description: Provides a smart middleware facade service for connecting different bits of code.
+core_version_requirement: ^10 || ^11
+package: YMCA Website Services
+
+
+# Information added by Drupal.org packaging script on 2025-06-30
+version: '1.1.0'
+project: 'openy_socrates'
+datestamp: 1751288573

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.articles_listing
+    - field.storage.block_content.field_number_of_articles
+  module:
+    - options
+id: block_content.articles_listing.field_number_of_articles
+field_name: field_number_of_articles
+entity_type: block_content
+bundle: articles_listing
+label: 'Number of articles'
+description: "A field determines how many articles will be shown on the first load and after clicking the 'Load more' button (3 by default)."
+required: false
+translatable: false
+default_value:
+  -
+    value: 3
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

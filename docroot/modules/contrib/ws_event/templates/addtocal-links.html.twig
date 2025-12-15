@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Override for addtocal augmenter links.
+ *
+ * Available variables:
+ * - label: The title.
+ * - attributes: HTML attributes for the layout <div>.
+ * - google: The Google URL.
+ * - outlook: The Outlook URL.
+ * - ical: The ics URL.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+set classes = [
+  'add-to-calendar',
+  'btn-group'
+]
+%}
+<div{{attributes.addClass(classes)}} role="group">
+  <button type="button" class="btn btn-link dropdown-toggle addtocal__label" data-toggle="dropdown" aria-expanded="false">
+    {{ label }}
+    <span aria-hidden="true">+</span>
+  </button>
+  <div class="dropdown-menu">
+    <a href="{{ google }}" target="_blank" class="dropdown-item">Google</a>
+    <a href="{{ outlook }}" download="event.ics" class="dropdown-item">Outlook</a>
+    <a href="{{ ical }}" download="event.ics" class="dropdown-item">iCal</a>
+  </div>
+</div>

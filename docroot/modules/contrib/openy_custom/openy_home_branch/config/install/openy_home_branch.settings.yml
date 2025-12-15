@@ -1,0 +1,6 @@
+popup_title: 'Home branch'
+popup_description: 'Would you like to set a different location as your "home branch"?'
+popup_learn_more:
+  value: "<h5>Why set your home branch?</h5>\r\n\r\n<p>Many YMCA members primarily visit one YMCA branch. Setting your home branch customizes your experience with schedules and programs for that branch. You are still able to view information for all other branches.</p>\r\n\r\n<h5>Changing your home branch</h5>\r\n\r\n<p>You can change your home branch at any time by using the branch link at the top of the website.</p>\r\n"
+  format: full_html
+popup_delay: '86400'

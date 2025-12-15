@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.articles_listing
+  module:
+    - text
+id: block_content.articles_listing.default
+targetEntityType: block_content
+bundle: articles_listing
+mode: default
+content: {  }
+hidden:
+  langcode: true
+  search_api_excerpt: true

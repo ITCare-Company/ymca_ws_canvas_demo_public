@@ -1,0 +1,162 @@
+<?php
+
+/**
+ * @file
+ *  Contains install and update functions for lb_related_events_blocks module.
+ */
+
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\layout_builder\SectionComponent;
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function lb_related_events_blocks_update_dependencies()
+{
+  $dependencies['lb_related_events_blocks'][9004] = [
+    'ws_event' => 9020,
+  ];
+
+  return $dependencies;
+}
+
+/**
+ * Implements hook_install().
+ */
+/**
+ * Implements hook_activity_finder_location_list_alter().
+ */
+function lb_related_events_blocks_install($is_syncing) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'lb_event');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'lb_event', $view_mode);
+
+    if ($view_mode == 'default') {
+      $sections = $view_display->getThirdPartySetting('layout_builder', 'sections');
+      foreach ($sections as &$section) {
+        if ($section->getLayoutSettings()['label'] !== 'Related Events') {
+          continue;
+        }
+
+        $block_content = BlockContent::create([
+          'type' => 'lb_related_events',
+          'info' => 'Related events',
+          'reusable' => '0'
+        ]);
+        $block_content->save();
+
+        $uuid_service = \Drupal::service('uuid');
+
+        $component = new SectionComponent($uuid_service->generate(), 'blb_region_col_1', [
+          'id' => 'inline_block:lb_related_events',
+          'label' => 'Related events',
+          'label_display' => '0',
+          'provider' => 'layout_builder',
+          'view_mode' => 'full',
+          'block_revision_id' => $block_content->getRevisionId(),
+        ]);
+        $section->appendComponent($component);
+      }
+      $view_display->setThirdPartySetting('layout_builder', 'sections', $sections);
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Add contextual filter to views.
+ */
+function lb_related_events_blocks_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_related_events_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'views.view.related_events',
+  ]);
+}
+
+/**
+ * Change view display
+ */
+function lb_related_events_blocks_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_related_events_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.lb_event.related_content',
+  ]);
+}
+
+/**
+ * Add content type Camp to field_location_reference field
+ */
+function lb_related_events_blocks_update_9003(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_related_events_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_related_events.field_location_reference',
+  ]);
+}
+
+/**
+ * Use smart date fields.
+ */
+function lb_related_events_blocks_update_9004(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_related_events_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.lb_event.related_content',
+    'views.view.related_events'
+  ]);
+}
+
+/**
+ * Do not display location as a link on the card.
+ */
+function lb_related_events_blocks_update_9005(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_related_events_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.lb_event.related_content',
+  ]);
+}
+
+/**
+ * Add "tags" widget type field to block fields and view.
+ */
+function lb_related_events_blocks_update_9006() {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_related_events_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.storage.block_content.field_related_events_widget_type',
+    'field.field.block_content.lb_related_events.field_related_events_widget_type',
+    'views.view.related_events',
+  ]);
+}
+
+/**
+ * Add "all" option for items count to display field.
+ */
+function lb_related_events_blocks_update_9007()
+{
+  $path = \Drupal::service('extension.list.module')->getPath('lb_related_events_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.storage.block_content.field_items_count_to_display'
+  ]);
+}

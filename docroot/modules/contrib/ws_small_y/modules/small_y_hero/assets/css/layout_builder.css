@@ -1,0 +1,5 @@
+#drupal-off-canvas .form-item-appearance-ws-style-ws-style-option-hero-banner:not(:has(input[value*=small_y])) {
+  display: none;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvbGF5b3V0X2J1aWxkZXIuc2NzcyIsImxheW91dF9idWlsZGVyLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQUE7QUNDRiIsImZpbGUiOiJsYXlvdXRfYnVpbGRlci5jc3MifQ== */

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.camp_lp
+id: node.camp_lp
+target_entity_type_id: node
+target_bundle: camp_lp
+default_langcode: site_default
+language_alterable: false

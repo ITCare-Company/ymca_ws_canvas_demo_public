@@ -1,0 +1,60 @@
+daterange_compact.format.*:
+  type: config_entity
+  label: 'Date range format config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    default_pattern:
+      type: date_format
+      label: 'Default pattern'
+    default_separator:
+      type: label
+      label: 'Separator'
+    same_day_start_pattern:
+      type: date_format
+      label: 'Same day start pattern'
+    same_day_end_pattern:
+      type: date_format
+      label: 'Same day end pattern'
+    same_day_separator:
+      type: label
+      label: 'Same day separator'
+    same_day_omit_duplicate_ampm:
+      type: boolean
+      label: 'Same day omit duplicate am/pm'
+    same_month_start_pattern:
+      type: date_format
+      label: 'Same month start pattern'
+    same_month_end_pattern:
+      type: date_format
+      label: 'Same month end pattern'
+    same_month_separator:
+      type: label
+      label: 'Same month separator'
+    same_year_start_pattern:
+      type: date_format
+      label: 'Same year start pattern'
+    same_year_end_pattern:
+      type: date_format
+      label: 'Same year end pattern'
+    same_year_separator:
+      type: label
+      label: 'Same year separator'
+    zero_minutes_omit:
+      type: boolean
+      label: 'Omit minutes when zero'
+    zero_minutes_omit_pattern:
+      type: date_format
+      label: 'Pattern to remove when minutes are zero'
+
+field.formatter.settings.daterange_compact:
+  type: mapping
+  label: 'Date/time range compact display format settings'
+  mapping:
+    daterange_compact_format:
+      type: string
+      label: 'Date/time range format'

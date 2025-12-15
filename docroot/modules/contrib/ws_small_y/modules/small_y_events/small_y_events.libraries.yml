@@ -1,0 +1,17 @@
+lb_related_events_override:
+  version: 1.0
+  css:
+    theme:
+      assets/css/small_y_lb_related_events.css: { preprocess: true }
+
+ws_event_override:
+  version: 0.1
+  css:
+    theme:
+      assets/css/small_y_events.css: { preprocess: true }
+
+term:
+  version: 0.2
+  css:
+    theme:
+      assets/css/small_y_events_term.css: { preprocess: true }

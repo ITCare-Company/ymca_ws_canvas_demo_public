@@ -1,0 +1,29 @@
+name: 'Y Layout Builder - Small Y Events and Related Events'
+type: module
+description: 'Helper module for the custom style "Events" content type and "Related Events" block type'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:address
+  - drupal:block_content
+  - drupal:bootstrap_layout_builder
+  - drupal:datetime_range
+  - drupal:layout_builder
+  - drupal:layout_builder_restrictions
+  - drupal:layout_discovery
+  - drupal:lb_related_events_blocks
+  - drupal:link
+  - drupal:openy_gtranslate
+  - drupal:smart_date
+  - drupal:system
+  - drupal:taxonomy
+  - drupal:text
+  - drupal:user
+  - drupal:ws_event
+  - drupal:ws_small_y
+  - y_lb
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

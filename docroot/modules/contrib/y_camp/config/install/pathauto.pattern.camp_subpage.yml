@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: camp_subpage
+label: 'Camp subpage'
+type: 'canonical_entities:node'
+pattern: '/camps/[node:title]'
+selection_criteria:
+  7e5e72c4-c284-4331-91de-1e879c58229e:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 7e5e72c4-c284-4331-91de-1e879c58229e
+    context_mapping:
+      node: node
+    bundles:
+      camp_lp: camp_lp
+selection_logic: and
+weight: -5
+relationships: {  }

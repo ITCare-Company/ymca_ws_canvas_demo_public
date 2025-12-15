@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: promo
+label: Promo
+effects:
+  ef049c6f-1484-4635-9b99-0deb50adeb23:
+    uuid: ef049c6f-1484-4635-9b99-0deb50adeb23
+    id: openy_focal_point_scale_and_crop
+    weight: 0
+    data:
+      width: 762
+      height: 451
+      crop_type: focal_point
+  57943608-563a-4b7c-b125-a5d9d977d1be:
+    uuid: 57943608-563a-4b7c-b125-a5d9d977d1be
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp

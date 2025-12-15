@@ -1,0 +1,19 @@
+{
+  "repositories": {
+    "fengyuanchen/cropper": {
+      "type": "package",
+      "package": {
+        "name": "fengyuanchen/cropper",
+        "version": "v4.1.0",
+        "type": "drupal-library",
+        "dist": {
+          "url": "https://github.com/fengyuanchen/cropper/archive/v4.1.0.zip",
+          "type": "zip"
+        }
+      }
+    }
+  },
+  "require": {
+    "fengyuanchen/cropper": "v4.1.0"
+  }
+}

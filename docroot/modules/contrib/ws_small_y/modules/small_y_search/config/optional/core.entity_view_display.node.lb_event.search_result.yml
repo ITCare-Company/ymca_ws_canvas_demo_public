@@ -1,0 +1,94 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.lb_event.body
+    - field.field.node.lb_event.field_contact_email
+    - field.field.node.lb_event.field_contact_name
+    - field.field.node.lb_event.field_contact_phone
+    - field.field.node.lb_event.field_event_dates
+    - field.field.node.lb_event.field_event_dates_smart
+    - field.field.node.lb_event.field_header_image
+    - field.field.node.lb_event.field_location_address
+    - field.field.node.lb_event.field_location_directions
+    - field.field.node.lb_event.field_location_reference
+    - field.field.node.lb_event.field_subtitle
+    - field.field.node.lb_event.field_tags
+    - field.field.node.lb_event.layout_builder__layout
+    - node.type.lb_event
+  module:
+    - layout_builder
+    - layout_builder_restrictions
+    - user
+    - y_lb
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+  layout_builder_restrictions:
+    allowed_block_categories: {  }
+    entity_view_mode_restriction:
+      allowed_layouts:
+        - ws_header
+        - ws_footer
+        - 'bootstrap_layout_builder:blb_col_1'
+        - 'bootstrap_layout_builder:blb_col_2'
+        - 'bootstrap_layout_builder:blb_col_3'
+      denylisted_blocks:
+        'Inline blocks':
+          - 'inline_block:branch_amenities'
+          - 'inline_block:code_block'
+          - 'inline_block:lb_partner_item'
+          - 'inline_block:lb_staff_member_item'
+          - 'inline_block:testimonial_item'
+          - 'inline_block:accordion_item'
+          - 'inline_block:card_item'
+          - 'inline_block:carousel_item'
+          - 'inline_block:donate_item'
+          - 'inline_block:grid_item'
+          - 'inline_block:icon_grid_item'
+          - 'inline_block:statistics_item'
+          - 'inline_block:tab_item'
+          - 'inline_block:menu_cta'
+      allowlisted_blocks:
+        'Content fields':
+          - 'field_block:node:lb_event:body'
+      restricted_categories:
+        - 'Chaos Tools'
+  y_lb:
+    styles:
+      colorway: ws_colorway_green
+      border_radius: ws_border_radius_none
+      border_style_global: ws_border_style_global_drop_shadow
+      text_alignment_global: ws_text_alignment_global_left
+      button_position_global: ws_button_position_global_inside
+      button_fill_global: ws_button_fill_global_filled
+id: node.lb_event.search_result
+targetEntityType: node
+bundle: lb_event
+mode: search_result
+content:
+  search_api_excerpt:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  addthis: true
+  addtoany: true
+  body: true
+  field_contact_email: true
+  field_contact_name: true
+  field_contact_phone: true
+  field_event_dates: true
+  field_event_dates_smart: true
+  field_header_image: true
+  field_location_address: true
+  field_location_directions: true
+  field_location_reference: true
+  field_subtitle: true
+  field_tags: true
+  langcode: true
+  layout_builder__layout: true
+  links: true

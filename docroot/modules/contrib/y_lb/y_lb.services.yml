@@ -1,0 +1,14 @@
+services:
+  y_lb.route_subscriber:
+    class: Drupal\y_lb\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  plugin.manager.ws_style:
+    class: Drupal\y_lb\WSStyleManager
+    arguments: [ '@module_handler', '@cache.discovery', '@event_dispatcher']
+  plugin.manager.ws_style_option:
+    class: Drupal\y_lb\WSStyleOptionManager
+    arguments: [ '@module_handler', '@cache.discovery', '@extension.path.resolver', '@file_url_generator' ]
+  plugin.manager.ws_lb_override:
+    class: Drupal\y_lb\WSOverrideLayoutBuilder
+    arguments: [ '@module_handler', '@cache.discovery' , '@entity_type.manager' ]

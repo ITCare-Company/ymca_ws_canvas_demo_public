@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ *  Contains install and update functions for lb_related_articles_blocks module.
+ */
+
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\layout_builder\SectionComponent;
+
+
+/**
+ * Implements hook_install().
+ */
+function lb_related_articles_blocks_install() {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'article_lb');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'article_lb', $view_mode);
+
+    if ($view_mode == 'default') {
+      $sections = $view_display->getThirdPartySetting('layout_builder', 'sections');
+      foreach ($sections as &$section) {
+        if ($section->getLayoutSettings()['label'] !== 'Related Articles') {
+          continue;
+        }
+
+        $block_content = BlockContent::create([
+          'type' => 'lb_related_articles',
+          'info' => 'Related articles',
+          'reusable' => '0'
+        ]);
+        $block_content->save();
+
+        $uuid_service = \Drupal::service('uuid');
+
+        $component = new SectionComponent($uuid_service->generate(), 'blb_region_col_1', [
+          'id' => 'inline_block:lb_related_articles',
+          'label' => 'Related articles',
+          'label_display' => '0',
+          'provider' => 'layout_builder',
+          'view_mode' => 'full',
+          'block_revision_id' => $block_content->getRevisionId(),
+        ]);
+        $section->appendComponent($component);
+      }
+      $view_display->setThirdPartySetting('layout_builder', 'sections', $sections);
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Add contextual filter to views.
+ */
+function lb_related_articles_blocks_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_related_articles_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'views.view.related_articles',
+  ]);
+}
+
+/**
+ * Add content type Camp to field_location_reference field
+ */
+function lb_related_articles_blocks_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_related_articles_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_related_articles.field_location_reference',
+  ]);
+}

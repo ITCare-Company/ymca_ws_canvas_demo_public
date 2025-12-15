@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * LB Hero Banner submodule.
+ */
+
+/**
+ * Implements HOOK_theme().
+ */
+function lb_hero_canada_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_hero__canada_white' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--canada-white',
+    ],
+    'block__lb_hero__canada_red' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--canada-red',
+    ],
+    'block__lb_hero__canada_black' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--canada-black',
+    ],
+    'block__lb_hero__canada_small' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--canada-small',
+    ],
+  ];
+}

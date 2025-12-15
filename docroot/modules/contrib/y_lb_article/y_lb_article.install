@@ -1,0 +1,378 @@
+<?php
+
+/**
+ * @file
+ *  Contains install and update functions for Article module.
+ */
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function y_lb_article_update_dependencies() {
+  $dependencies['y_lb'][9011] = [
+    'y_lb_article' => 9010,
+  ];
+  $dependencies['lb_hero'][10003] = [
+    'y_lb_article' => 91005,
+  ];
+
+  return $dependencies;
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function y_lb_article_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.0.24';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.article_image',
+    'core.entity_view_display.node.article_lb.default',
+    'field.field.node.article_lb.body',
+    'field.field.node.article_lb.field_header_image',
+    'field.field.node.article_lb.field_location_reference',
+    'field.field.node.article_lb.field_published_date',
+    'field.field.node.article_lb.field_subtitle',
+    'field.field.node.article_lb.field_tags',
+    'field.field.node.article_lb.field_type',
+    'field.field.node.article_lb.layout_builder__layout',
+    'field.storage.node.body',
+    'field.storage.node.field_header_image',
+    'field.storage.node.field_location_reference',
+    'field.storage.node.field_published_date',
+    'field.storage.node.field_subtitle',
+    'field.storage.node.field_tags',
+    'field.storage.node.field_type',
+    'image.style.article_image_desktop',
+    'image.style.article_image_mobile',
+    'node.type.article_lb',
+    'responsive_image.styles.article_image',
+  ]);
+}
+
+/**
+ * Add field published data for article.
+ */
+function y_lb_article_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.0.24';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.storage.node.field_published_date',
+    'field.field.node.article_lb.field_published_date',
+    'field.field.node.article_lb.body',
+    'core.entity_view_display.node.article_lb.teaser',
+    'core.entity_view_display.node.article_lb.default',
+    'core.entity_form_display.node.article_lb.default',
+  ]);
+}
+
+/**
+ * Change field tags, allow to auto create new tag.
+ */
+function y_lb_article_update_9003(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.0.24';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.node.article_lb.field_tags',
+  ]);
+}
+
+/**
+ * Add restrictions inline blocks for display default.
+ */
+function y_lb_article_update_9004(&$sandbox) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Article content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'article_lb');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'article_lb', $view_mode);
+    if ($view_mode == 'default') {
+      $restrictions = $view_display
+        ->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction');
+
+      $denylistedBlocks = $restrictions['denylisted_blocks'] ?? [];
+      $denylistedBlocks['Inline blocks'] = array_unique(array_merge($denylistedBlocks['Inline blocks'] ?? [], [
+        'inline_block:branch_amenities',
+        'inline_block:testimonial_item'
+      ]));
+      $restrictions['denylisted_blocks'] = $denylistedBlocks;
+      $view_display
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', $restrictions);
+
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Add node_revision_delete configuration.
+ */
+function y_lb_article_update_9005(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.0.24';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'node.type.article_lb',
+  ]);
+}
+
+/**
+ * Issue #3352935 Add a convert to webp effect to the image styles.
+ */
+function y_lb_article_update_9006(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.0.24';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'image.style.article_image_desktop',
+    'image.style.article_image_mobile',
+  ]);
+}
+
+/**
+ * Add pathauto aliases.
+ */
+function y_lb_article_update_9007(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.0.24';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'pathauto.pattern.article_lb',
+  ]);
+}
+
+/**
+ * Issue #3361781 Add a colorway configuration.
+ */
+function y_lb_article_update_9008(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.0.24';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.article_lb.default',
+  ]);
+}
+
+/**
+ * Add metatag and schema:article configuration.
+ */
+function y_lb_article_update_9009(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.1.6';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'metatag.metatag_defaults.node__article_lb',
+  ]);
+}
+
+/**
+ * Import config that may have been missed from article listing.
+ */
+function y_lb_article_update_9010(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.1.6';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'block_content.type.articles_filter',
+    'block_content.type.articles_listing',
+    'block_content.type.lb_featured_articles',
+    'core.entity_form_display.block_content.articles_filter.default',
+    'core.entity_form_display.block_content.articles_listing.default',
+    'core.entity_form_display.block_content.lb_featured_articles.default',
+    'core.entity_view_display.block_content.articles_filter.default',
+    'core.entity_view_display.block_content.articles_listing.default',
+    'core.entity_view_display.block_content.lb_featured_articles.default',
+    'core.entity_view_display.media.image.featured',
+    'core.entity_view_display.node.article_lb.featured',
+    'core.entity_view_display.node.article_lb.teaser',
+    'core.entity_view_mode.media.featured',
+    'core.entity_view_mode.node.featured',
+    'field.field.block_content.articles_filter.field_block',
+    'field.field.block_content.lb_featured_articles.field_manual_selection_items',
+    'field.field.node.article_lb.body',
+    'field.field.node.article_lb.field_header_image',
+    'field.storage.block_content.field_block',
+    'field.storage.block_content.field_manual_selection_items',
+    'image.style.featured_desktop',
+    'image.style.featured_mobile',
+    'language.content_settings.block_content.articles_filter',
+    'language.content_settings.block_content.articles_listing',
+    'language.content_settings.block_content.lb_featured_articles',
+    'responsive_image.styles.featured_image',
+    'views.view.listing_articles',
+  ]);
+}
+
+/**
+ * Enable module schema_article.
+ */
+function y_lb_article_update_9011(&$sandbox) {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('schema_article')) {
+    \Drupal::service('module_installer')->install(['schema_article']);
+  }
+}
+
+/**
+ * Add sub-blocks to denylisted_blocks for the layout builder.
+ */
+function y_lb_article_update_9012(&$sandbox) {
+  $config_path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.2.17/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = 'core.entity_view_display.node.article_lb.default';
+  $config_importer->update(
+    $config_path . $config . '.yml',
+    $config,
+    'third_party_settings.layout_builder_restrictions.entity_view_mode_restriction.denylisted_blocks'
+  );
+}
+
+/**
+ * Add content type to the Default sitemap in the Simple XML Sitemap module configs
+ */
+function y_lb_article_update_9013(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'simple_sitemap.bundle_settings.default.node.article_lb'
+  ]);
+}
+
+/**
+ * Update the articles listing view config.
+ */
+function y_lb_article_update_9014(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.2.17';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'views.view.listing_articles',
+  ]);
+}
+
+/**
+ * Update the articles listing view config: add subtitle field to filter.
+ *
+ */
+function y_lb_article_update_9015(&$sandbox) {
+  y_lb_article_update_9014($sandbox);
+}
+
+/**
+ * Enable Scheduler.
+ */
+function y_lb_article_update_9016(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.2.17';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.node.article_lb.default',
+    'node.type.article_lb'
+  ]);
+}
+
+/**
+ * Update article schema fields.
+ */
+function y_lb_article_update_9017(&$sandbox) {
+  $config_path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.2.17/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = 'metatag.metatag_defaults.node__article_lb';
+  $params = [
+    'tags.schema_article_date_modified',
+    'tags.schema_article_date_published',
+    'tags.schema_article_publisher'
+  ];
+
+  foreach ($params as $param) {
+    $config_importer->update(
+      $config_path . $config . '.yml',
+      $config,
+      $param
+    );
+  }
+}
+
+/**
+ * Add a new 'Number of articles' field.
+ */
+function y_lb_article_update_91001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/outdated/1.2.17';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.storage.block_content.field_number_of_articles',
+    'field.field.block_content.articles_listing.field_number_of_articles',
+    'core.entity_form_display.block_content.articles_listing.default',
+  ]);
+}
+
+/**
+ * Add Utility Menu to Article template.
+ */
+function y_lb_article_update_91002(&$sandbox) {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('openy_menu_utility')) {
+    \Drupal::service('module_installer')->install(['openy_menu_utility']);
+  }
+
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.article_lb.default'
+  ]);
+}
+
+/**
+ * Update the articles listing to fix LB block.
+ */
+function y_lb_article_update_91003(&$sandbox) {
+  y_lb_article_update_9014($sandbox);
+}
+
+/**
+ * Add article type filter to the articles listing block.
+ */
+function y_lb_article_update_91004() {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('lb_related_articles_blocks')) {
+    \Drupal::service('module_installer')->install(['lb_related_articles_blocks']);
+  }
+
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb_article') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.articles_listing.field_article_type',
+    'core.entity_form_display.block_content.articles_listing.default',
+    'core.entity_view_display.block_content.articles_listing.default',
+    'views.view.listing_articles'
+  ]);
+}
+
+function y_lb_article_update_91005() {
+  y_lb_article_update_91004();
+}

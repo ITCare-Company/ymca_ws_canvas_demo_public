@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_staff_member_item
+label: 'Staff Member Item'
+revision: 0
+description: ''

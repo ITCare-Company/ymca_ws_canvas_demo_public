@@ -1,0 +1,14 @@
+{
+    "name": "drupal/lb_branch_amenities_blocks",
+    "version": "2.0.0",
+    "description": "Y Layout Builder - Branch Amenities.",
+    "type": "drupal-module",
+    "require": {
+      "drupal/paragraphs": "*",
+      "ycloudyusa/y_lb": "*",
+      "drupal/blazy": "*",
+      "drupal/entity_browser": "*"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev"
+}

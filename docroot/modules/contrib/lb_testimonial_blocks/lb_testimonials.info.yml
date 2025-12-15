@@ -1,0 +1,21 @@
+name: 'Y Layout Builder - Testimonials'
+type: module
+description: 'Helper module for the custom "Testimonials" block type.'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:entity_browser
+  - drupal:text
+  - drupal:link
+  - drupal:datalayer
+  - y_lb
+
+# Information added by Drupal.org packaging script on 2025-04-30
+# version: '1.1.0'
+# project: 'lb_testimonial_blocks'
+# datestamp: 1746011710
+
+# Information added by Drupal.org packaging script on 2025-06-30
+version: '1.1.1'
+project: 'lb_testimonial_blocks'
+datestamp: 1751288251

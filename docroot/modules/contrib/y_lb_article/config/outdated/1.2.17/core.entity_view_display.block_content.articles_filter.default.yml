@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.articles_filter
+    - field.field.block_content.articles_filter.field_block
+  module:
+    - plugin
+id: block_content.articles_filter.default
+targetEntityType: block_content
+bundle: articles_filter
+mode: default
+content:
+  field_block:
+    type: plugin_block_built
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

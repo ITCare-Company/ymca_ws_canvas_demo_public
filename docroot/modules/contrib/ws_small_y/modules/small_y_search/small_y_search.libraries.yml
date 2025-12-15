@@ -1,0 +1,5 @@
+search:
+  version: 0.2
+  css:
+    component:
+      assets/css/small-y-search.css: { preprocess: true }

@@ -1,0 +1,43 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_map_lb
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_location_finder
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import Small Y Demo Layout Builder - Location Finder'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      uuid: '81c8a88e-97e1-47e7-d788-e8b97a69959a'
+      title: "Find your YMCA"
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: lb_openy_map
+  uuid: uuid
+
+destination:
+  plugin: entity:block_content
+  default_bundle: 'lb_openy_map'
+migration_dependencies: {  }

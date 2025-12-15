@@ -1,0 +1,69 @@
+# Hero Banner > Base styles or Standard variation.
+hero-styles:
+  version: 1.42
+  css:
+    theme:
+      assets/css/hero.css: { preprocess: true }
+  dependencies:
+    - lb_hero/hero-typography
+
+# Hero Banner > Overlay variation.
+hero-styles-overlay:
+  version: 1.52
+  css:
+    theme:
+      assets/css/hero-overlay.css: { preprocess: true }
+  dependencies:
+    - lb_hero/hero-typography
+
+# Hero Banner > Chevron variation.
+hero-styles-chevron:
+  version: 1.42
+  css:
+    theme:
+      assets/css/hero-chevron.css: { preprocess: true }
+  dependencies:
+    - lb_hero/hero-typography
+
+# Hero Banner > Frame variation.
+hero-styles-frame:
+  version: 1.63
+  css:
+    theme:
+      assets/css/hero-frame.css: { preprocess: true }
+  dependencies:
+    - lb_hero/hero-typography
+
+# Hero Banner > Small variation.
+hero-styles-small:
+  version: 1.22
+  css:
+    theme:
+      assets/css/hero-small.css: { preprocess: true }
+  dependencies:
+    - lb_hero/hero-typography
+
+# Hero Banner > Local Video Integration.
+hero-html5-player:
+  version: 1.0
+  js:
+    assets/js/hero-html5-player.js: { minified: false }
+
+# Hero Banner > Vimeo Integration.
+hero-vimeo-player:
+  version: 1.0
+  js:
+    //player.vimeo.com/api/player.js:
+      type: external
+      minified: false
+    assets/js/hero-vimeo-player.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+hero-typography:
+  version: 0.1
+  css:
+    theme:
+      assets/css/hero-typography.css: { preprocess: true }

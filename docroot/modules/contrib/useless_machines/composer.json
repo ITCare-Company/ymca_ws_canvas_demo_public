@@ -1,0 +1,19 @@
+{
+    "name": "ycloudyusa/useless_machines",
+    "description": "Modules that turn themselves off.",
+    "type": "drupal-module",
+    "require": {
+        "drupal/core": "^11"
+    },
+    "conflict": {
+        "drupal/geysir": "*",
+        "drupal/openy_inline_editing": "*",
+        "drupal/quickedit": "*",
+        "drupal/rdf": "*"
+    },
+    "replace": {
+        "ymcatwincities/media_entity_document": "*"
+    },
+    "license": "GPL-3.0-or-later",
+    "minimum-stability": "dev"
+}

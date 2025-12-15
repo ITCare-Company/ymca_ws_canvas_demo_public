@@ -1,0 +1,278 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-lb-cards-overlay {
+
+  .section-description {
+    color: var(--ylb-color-dark-grey-1, darkgray);
+    margin-bottom: 50px;
+
+    h2 {
+      font-size: 48px;
+      line-height: normal;
+      text-align: var(--wsTextAlignment, center);
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 28px;
+      text-align: var(--wsTextAlignment, center);
+    }
+  }
+
+  .row-cards {
+    .card {
+      border-radius: var(--wsBorderRadius, unset);
+      box-shadow: var(--wsBoxShadow, none);
+      border: var(--wsBorderStyle , none);
+      color: var(--ylb-color-dark-grey-1, darkgray);
+      background-color: var(--wsPrimaryColor, lightgrey);
+      height: 100%;
+
+      h3 {
+        font-size: 32px;
+        line-height: 32px;
+      }
+
+      .card-img-wrapper {
+        position: relative;
+        border-top-left-radius: var(--wsBorderRadius, unset);
+        border-top-right-radius: var(--wsBorderRadius, unset);
+        overflow: hidden;
+
+        &:after {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          top: 0;
+          z-index: 1;
+          content: '';
+          background: linear-gradient(180deg, rgba(var(--wsTertiaryColorRGB, 0, 0, 0), 0.1) 0.1%, rgba(var(--wsPrimaryColorRGB, 0, 0, 0), 0.72) 64.9%, var(--wsPrimaryColor, black) 100%);
+        }
+
+        img {
+          min-height: 230px;
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+
+        & + .card-content {
+          margin-top: -55px;
+        }
+      }
+
+      .card-content {
+        padding: 20px;
+        background-color: var(--wsPrimaryColor, lightgrey);
+        align-items: var(--wsFlexAlignment, unset);
+        text-align: var(--wsTextAlignment, unset);
+        border-radius: var(--wsBorderRadius, unset);
+
+        >div {
+          margin-bottom: 25px;
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        .card-header {
+          border: none;
+          padding: 0;
+          background-color: transparent;
+          z-index: 1;
+
+          .category-tag {
+            font-family: Verdana, Geneva, sans-serif;
+            font-size: 14px;
+            line-height: 20px;
+            text-transform: uppercase;
+            min-height: 17px;
+            padding: 2px 4px;
+            color: var(--ylb-color-white, white);
+            width: fit-content;
+          }
+        }
+
+        .card-body {
+          z-index: 1;
+          align-items: var(--wsFlexAlignment, unset);
+
+          .card-heading {
+            margin-bottom: 25px;
+            color: var(--ylb-color-white, white);
+          }
+        }
+        .card-footer {
+          position: var(--wsButtonPosition, unset);
+          bottom: -25px;
+        }
+
+        .card-text {
+          color: var(--ylb-color-white, white);
+          font-size: 18px;
+          line-height: 28px;
+        }
+      }
+    }
+
+    &.row-cols-lg-1 {
+      @include media-breakpoint-up('lg') {
+        .card {
+          flex-direction: row;
+          min-height: 360px;
+
+          .card-content {
+            flex: 1;
+            padding: 20px;
+            margin-top: 0;
+            border-bottom-right-radius: var(--wsBorderRadius, unset);
+            border-top-right-radius: var(--wsBorderRadius, unset);
+
+            .card-body {
+              flex: unset;
+            }
+          }
+
+          .card-img-wrapper {
+            height: unset;
+            width: 49%;
+            border-bottom-left-radius: var(--wsBorderRadius, unset);
+            border-top-right-radius: unset;
+
+            &:after {
+              opacity: 1;
+              background: linear-gradient(90deg, rgba(var(--wsTertiaryColorRGB, 0, 0, 0), 0.1) 0.1%, rgba(var(--wsPrimaryColorRGB, 0, 0, 0), 0.72) 64.9%, var(--wsPrimaryColor, black) 100%)
+            }
+
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      @include media-breakpoint-up('xl') {
+        .card {
+          .card-content {
+            padding: 40px 35px 40px 40px;
+          }
+        }
+      }
+    }
+
+    @media (min-width: 1060px) {
+      &.row-cols-lg-2 .card {
+        .card-img-wrapper {
+          min-height: 415px;
+        }
+        .card-content {
+          margin-top: 0;
+        }
+      }
+      &.row-cols-lg-3 .card .card-img-wrapper {
+        min-height: 270px;
+      }
+
+      &.row-cols-lg-4 .card .card-img-wrapper {
+        min-height: 230px;
+      }
+    }
+  }
+
+  // WS Style component-level adjustments.
+  // - Border style.
+  &.ws-border-style--solid {
+    .row-cards {
+      .card {
+        box-shadow: var(--ylb-border-style-none, none);
+        border: var(--ylb-border-style-solid, none);
+      }
+    }
+  }
+
+  &.ws-border-style--drop-shadow {
+    .row-cards {
+      .card {
+        box-shadow: var(--ylb-border-style-drop-shadow, none);
+        border: var(--ylb-border-style-none, none);
+      }
+    }
+  }
+
+  &.ws-border-style--none {
+    .row-cards {
+      .card {
+        box-shadow: var(--ylb-border-style-none, none);
+        border: var(--ylb-border-style-none, none);
+      }
+    }
+  }
+  // - Text / Button alignment style.
+  &.ws-text-alignment--left {
+    .section-description {
+      h2, p {
+        text-align: left;
+      }
+    }
+    .row-cards {
+      .card {
+        .card-content {
+          align-items: flex-start;
+          text-align: left;
+
+          .card-body {
+            align-items: flex-start;
+          }
+        }
+      }
+    }
+  }
+
+  &.ws-text-alignment--center {
+    .section-description {
+      h2, p {
+        text-align: center;
+      }
+    }
+    .row-cards {
+      .card {
+        .card-content {
+          align-items: center;
+          text-align: center;
+
+          .card-body {
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+
+  // - Button position variations.
+  &.ws-button-position--inside {
+    .row-cards {
+      .card {
+        .card-content {
+          .card-footer {
+            position: static;
+          }
+        }
+      }
+    }
+  }
+
+  &.ws-button-position--overlapping {
+    .row-cards {
+      .card {
+        .card-content {
+          .card-footer {
+            position: absolute;
+          }
+        }
+      }
+    }
+  }
+}

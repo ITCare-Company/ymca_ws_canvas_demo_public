@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the YMCA WS - Small Y Statistics module.
+ */
+
+/**
+ * Make a statistic items field is required.
+ */
+function ws_small_y_statistics_update_91001() {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_small_y_statistics') . '/config/optional';
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.small_y_statistics.field_block_item',
+  ]);
+}

@@ -1,0 +1,10 @@
+name: 'LB Activity Finder'
+type: module
+description: Helper module to show "Activity Finder" block in Layout Builder.
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:block_content
+  - drupal:layout_builder
+  - openy_activity_finder
+  - y_lb
+version: 1.0.1

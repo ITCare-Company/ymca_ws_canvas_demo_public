@@ -1,0 +1,278 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Layout Builder Related Events Blocks module.
+ */
+
+use Drupal\block_content\BlockContentInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+use Drupal\views\Views;
+use Drupal\ws_event\EventDataHelper;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function lb_related_events_blocks_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the lb_related_events_blocks module.
+    case 'help.page.lb_related_events_blocks':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module Layout Builder Related Events Blocks is a Helper module for the custom "Related Events" block type..') . '</p>';
+      $output .= '<h3>' . t('Installation') . '</h2>';
+      $output .= '<p>' . t('Install as you would normally install a contributed Drupal module.') . '</p>';
+      $output .= '<h3>' . t('Configuration') . '</h2>';
+      $output .= '<p>' . t('The module has no menu or modifiable settings. There is no configuration. When
+                          enabled, the module will prevent the links from appearing. To get the links
+                          back, disable the module and clear caches.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function lb_related_events_blocks_theme() {
+  return [
+    'block__lb_related_events' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-related-events',
+    ],
+    'field__block_content__field_related_link' => [
+      'base hook' => 'field',
+    ],
+    'node__lb_event__related_content' => [
+      'base hook' => 'node',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_related_events_blocks_preprocess_block__lb_related_events(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+
+  $block = $variables['content']['#block_content'];
+  $arguments = [
+    'field_location_reference_target_id' => 'all',
+    'nid' => 'all',
+    'nid_1' => 'all',
+    'field_tags_target_id' => 'all',
+  ];
+
+  $node = NULL;
+  $currentRouteMatch = Drupal::getContainer()->get('current_route_match');
+  if ($currentRouteMatch && $node = $currentRouteMatch->getParameter('node')) {
+    $arguments['nid_1'] = $node->id();
+  }
+
+  $widget_type = $block->field_related_events_widget_type->value;
+  switch ($widget_type) {
+    case 'tags':
+      if ($node instanceof NodeInterface && $node->hasField('field_tags')) {
+        $tags = [];
+        foreach ($node->get('field_tags')->getValue() as $tag) {
+          $tags[] = $tag['target_id'];
+        }
+        if ($tags) {
+          $arguments['field_tags_target_id'] = implode('+', $tags);
+        }
+      }
+      break;
+    case 'locations':
+      $locations = [];
+      foreach ($block->get('field_location_reference')->getValue() as $location) {
+        $locations[] = $location['target_id'];
+      }
+      if ($locations) {
+        $arguments['field_location_reference_target_id'] = implode('+', $locations);
+      }
+      break;
+
+    case 'manual':
+      $content_items = [];
+      foreach ($block->get('field_content_items')->getValue() as $content_item) {
+        $content_items[] = $content_item['target_id'];
+      }
+      if ($content_items) {
+        $arguments['nid'] = implode('+', $content_items);
+      }
+      break;
+
+    default:
+  }
+
+
+  /** @var  \Drupal\views\ViewExecutable $view */
+  $view = Views::getView('related_events');
+  if ($view) {
+    $view->setItemsPerPage($block->field_items_count_to_display->value);
+    $view->setDisplay('related_events_block');
+    $view->setArguments($arguments);
+    // Specific case for manually chosen (show even if event is past).
+    $filters = $view->display_handler->getOption('filters');
+    if ($widget_type == 'manual'
+      && !empty($filters['field_event_dates_smart_value'])) {
+      unset($filters['field_event_dates_smart_value']);
+      $view->display_handler->overrideOption('filters', $filters);
+    }
+    $view->preExecute();
+    $view->execute();
+    /** @var  \Drupal\Core\Entity\EntityViewBuilder $view_builder */
+  }
+  $variables['items'] = $view->render('related_events_block');
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_related_events_blocks_preprocess_node__lb_event__related_content(&$vars) {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $vars['node'];
+
+  /* @var EventDataHelper @event_data_helper */
+  $event_data_helper = \Drupal::service('ws_event.event_data_helper');
+
+  // Get date and time data.
+  $dates = $node->field_event_dates_smart;
+  $next_instance = $event_data_helper->getNextInstance($dates);
+  $start = DrupalDateTime::createFromFormat('U', $next_instance->value);
+  $start->setTimezone(timezone_open($next_instance->timezone ?: date_default_timezone_get()));
+  $vars['date_month'] = $start->format('M');
+  $vars['date_day'] = $start->format('d');
+  $vars['time'] = $next_instance->view($vars['view_mode']);
+
+  // Get default image data.
+  $module_path = \Drupal::service('extension.list.module')->getPath('lb_related_events_blocks');
+  $vars['default_image'] = \Drupal::service('file_url_generator')
+    ->generateAbsoluteString(
+      $module_path . '/assets/images/related_event_default.png'
+    );
+
+  // Get location data - check for an address, use location if none.
+  $vars['location'] = $event_data_helper->getLocationName($node, $vars['view_mode']);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function lb_related_events_blocks_form_alter(&$form, FormStateInterface $form_state) {
+  // Block configuration form.
+  if (in_array($form['#form_id'],
+    [
+      'layout_builder_add_block',
+      'layout_builder_update_block',
+    ]
+  )) {
+    /** @var \Drupal\layout_builder\Form\ConfigureBlockFormBase $form_object */
+    $form_object = $form_state->getFormObject();
+    $component = $form_object->getCurrentComponent();
+    $plugin = $component->getPlugin();
+    $block_id = $plugin->getDerivativeId() ?? $plugin->getBaseId();
+    // Specify block_id for reusable blocks.
+    if ($plugin->getBaseId() == 'block_content') {
+      $configuration = $plugin->getConfiguration();
+      if (!empty($configuration['type'])) {
+        $block_id = $configuration['type'];
+      }
+      else {
+        $block = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $block_id);
+        if ($block instanceof BlockContentInterface) {
+          $block_id = $block->bundle();
+        }
+      }
+    }
+
+    if ($block_id == 'lb_related_events') {
+      if (isset($form['block_form'])) {
+        $form['block_form']['#process'][] = '_lb_related_events_blocks_inline_block_process';
+      }
+      else {
+        $form['settings']['block_form']['#process'][] = '_lb_related_events_blocks_inline_block_process';
+      }
+    }
+  }
+}
+
+/**
+ * Custom process callback for inline block elements.
+ *
+ * @param array $element
+ *   Element to process.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return array
+ *   Processed element.
+ */
+function _lb_related_events_blocks_inline_block_process(array $element, FormStateInterface $form_state) {
+  if (isset($element['field_location_reference'])) {
+    $element['field_location_reference']['widget']['#after_build'][] = '_lb_related_events_blocks_field_location_reference_after_build';
+  }
+  if (isset($element['field_content_items'])) {
+    $element['field_content_items']['widget']['#after_build'][] = '_lb_related_events_blocks_field_content_items_after_build';
+  }
+  return $element;
+}
+
+/**
+ * Custom '#after_build' callback for 'Locations' field.
+ */
+function _lb_related_events_blocks_field_location_reference_after_build($element, FormStateInterface $form_state) {
+  $element['#states'] = [
+    'visible' => [
+      [':input[name="settings[block_form][field_related_events_widget_type]"]' => [
+        'value' => 'locations',
+      ]],
+      [':input[name="block_form[field_related_events_widget_type]"]' => [
+        'value' => 'locations',
+      ]],
+    ],
+  ];
+  return $element;
+}
+
+/**
+ * Custom '#after_build' callback for 'Specified items' field.
+ */
+function _lb_related_events_blocks_field_content_items_after_build($element, FormStateInterface $form_state) {
+  $element['#states'] = [
+    'visible' => [
+      [':input[name="settings[block_form][field_related_events_widget_type]"]' => [
+        'value' => 'manual',
+      ]],
+      [':input[name="block_form[field_related_events_widget_type]"]' => [
+        'value' => 'manual',
+      ]],
+    ],
+  ];
+  return $element;
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function lb_related_events_blocks_form_block_content_lb_related_events_form_alter(&$form, FormStateInterface $form_state) {
+  $form['field_location_reference']['#states'] = [
+    'visible' => [
+      ':input[name="field_related_events_widget_type"]' => [
+        'value' => 'locations',
+      ],
+    ],
+  ];
+  $form['field_content_items']['#states'] = [
+    'visible' => [
+      ':input[name="field_related_events_widget_type"]' => [
+        'value' => 'manual',
+      ],
+    ],
+  ];
+}

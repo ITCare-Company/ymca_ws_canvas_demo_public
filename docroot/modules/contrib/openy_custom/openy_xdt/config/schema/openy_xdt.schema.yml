@@ -1,0 +1,19 @@
+# Schema for the configuration files of the YMCA Website Services Cross-domain Tracking (XDT) module.
+openy_xdt.settings:
+  type: config_object
+  label: 'YMCA Website Services Cross-domain Tracking (XDT) settings'
+  mapping:
+    cookies:
+      type: sequence
+      label: 'Cookies'
+      orderby: value
+      sequence:
+        type: string
+        label: 'Cookie'
+    domains:
+      type: sequence
+      label: 'Domains'
+      orderby: value
+      sequence:
+        type: string
+        label: 'Domain'

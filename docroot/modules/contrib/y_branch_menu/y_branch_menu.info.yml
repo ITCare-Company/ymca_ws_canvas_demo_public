@@ -1,0 +1,12 @@
+name: Website Services Branch Menu
+type: module
+description: Single level sub-menu that displays within a branch page (and sub-pages) that allows users to drill down to additional content specific to that branch.
+package: YMCA Website Services
+core_version_requirement: ^10 || ^11
+dependencies:
+  - y_lb
+
+# Information added by Drupal.org packaging script on 2025-05-23
+version: '1.1.0'
+project: 'y_branch_menu'
+datestamp: 1747990158

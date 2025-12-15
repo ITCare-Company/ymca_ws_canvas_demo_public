@@ -1,0 +1,13 @@
+{
+    "name": "drupal/lb_statistics",
+    "description": "Helper module for the custom \"Statistics\" block type.",
+    "type": "drupal-module",
+    "require": {
+        "ycloudyusa/y_lb": "^3.0 || ~4.0.0",
+        "php": ">=8.1",
+        "drupal/entity_browser": "^2 || ~2.13.0",
+        "drupal/datalayer": "^1.0 || ^2.0 || ^2.0@RC || ~2.1.0"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev"
+}

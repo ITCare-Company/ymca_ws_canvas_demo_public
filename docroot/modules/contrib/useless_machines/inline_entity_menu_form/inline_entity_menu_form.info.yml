@@ -1,0 +1,5 @@
+name: inline_entity_menu_form
+type: module
+description: Dummy module to replace inline_entity_menu_form.
+package: Useless Machines
+core_version_requirement: ^11

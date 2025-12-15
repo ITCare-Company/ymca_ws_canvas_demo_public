@@ -1,0 +1,12 @@
+# Custom module library for general purposes.
+lb_modal:
+  version: 1.7
+  css:
+    theme:
+      assets/css/lb-modal.css: { preprocess: true }
+  js:
+    assets/js/lb-modal.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/js-cookie

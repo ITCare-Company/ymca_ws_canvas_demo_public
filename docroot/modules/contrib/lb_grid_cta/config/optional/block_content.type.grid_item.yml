@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: grid_item
+label: 'Grid Item'
+revision: 0
+description: 'Grid Item for LB Grid CTA component'

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_staff_member_item
+    - field.storage.block_content.field_email
+id: block_content.lb_staff_member_item.field_email
+field_name: field_email
+entity_type: block_content
+bundle: lb_staff_member_item
+label: Email
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

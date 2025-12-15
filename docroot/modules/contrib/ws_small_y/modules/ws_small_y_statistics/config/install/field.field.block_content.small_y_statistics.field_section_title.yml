@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.small_y_statistics
+    - field.storage.block_content.field_section_title
+id: block_content.small_y_statistics.field_section_title
+field_name: field_section_title
+entity_type: block_content
+bundle: small_y_statistics
+label: 'Section heading'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

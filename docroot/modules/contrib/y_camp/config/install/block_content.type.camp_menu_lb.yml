@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: camp_menu_lb
+label: 'Camp menu'
+revision: 0
+description: 'A component to display Camp Menu for Camp pages in Layout Builder.'

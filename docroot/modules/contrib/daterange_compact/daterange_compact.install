@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Add default values for new compact date range format options.
+ */
+function daterange_compact_update_10001() {
+  // Re-save every config entity so that exported yaml files contain
+  // newly introduced properties.
+  $formats = \Drupal::entityTypeManager()
+    ->getStorage('daterange_compact_format')
+    ->loadByProperties();
+  foreach ($formats as $format) {
+    $format->save();
+  }
+  return NULL;
+}

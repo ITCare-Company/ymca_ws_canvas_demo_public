@@ -1,0 +1,35 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+
+.page-node-type-promo {
+  .node-preview-container {
+    margin-top: 135px;
+    position: static;
+  }
+
+  .layout-container {
+    height: 100%;
+
+    .viewport {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 0;
+
+      main {
+        flex: 1;
+        margin-top: 0;
+      }
+    }
+  }
+
+  form {
+    .select-wrapper {
+      &:before {
+        display: none;
+      }
+    }
+  }
+}

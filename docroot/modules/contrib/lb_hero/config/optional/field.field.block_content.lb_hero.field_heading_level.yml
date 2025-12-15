@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_hero
+    - field.storage.block_content.field_heading_level
+  module:
+    - options
+id: block_content.lb_hero.field_heading_level
+field_name: field_heading_level
+entity_type: block_content
+bundle: lb_hero
+label: 'Heading Level'
+description: 'If you are adding the banner to the top of the page as a Hero Banner, select H1. For other areas of the page, do not use H1. The H1 tag should be used only once per page to maintain proper heading structure. This option does not affect the styles of the heading, just the page semantics.'
+required: true
+translatable: false
+default_value:
+  -
+    value: h2
+default_value_callback: ''
+settings: {  }
+field_type: list_string

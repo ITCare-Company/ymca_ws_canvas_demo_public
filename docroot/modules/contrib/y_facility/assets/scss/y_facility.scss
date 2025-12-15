@@ -1,0 +1,36 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.page-node-type-facility.page-with-lb {
+  .node--type-facility {
+
+    &.node--lb {
+      margin-top: 0;
+    }
+
+    .node__content {
+      .section-body {
+        padding: 80px 0;
+
+        @include media-breakpoint-down('md') {
+          padding: 60px 0;
+        }
+      }
+    }
+  }
+
+  .location-header {
+    background-color: var(--wsPrimaryColor, blue) !important;
+  }
+
+  &.with-banner {
+    @include media-breakpoint-down(sm) {
+      padding-top: 0 !important;
+    }
+
+    #block-openy-carnation-tabs {
+      display: block;
+    }
+  }
+}

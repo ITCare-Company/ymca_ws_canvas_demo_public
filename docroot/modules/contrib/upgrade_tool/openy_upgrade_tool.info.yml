@@ -1,0 +1,12 @@
+name: Open Y Upgrade Tool
+type: module
+description: Provides an Upgrade Path tool.
+core_version_requirement: ^11
+package: YMCA Website Services
+dependencies:
+  - config_import:config_import
+
+# Information added by Drupal.org packaging script on 2025-11-12
+version: '4.1.1'
+project: 'upgrade_tool'
+datestamp: 1762933767

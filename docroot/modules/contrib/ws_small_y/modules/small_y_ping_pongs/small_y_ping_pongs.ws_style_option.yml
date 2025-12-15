@@ -1,0 +1,39 @@
+ping_pong_section.ws_style_option:
+  - label: Start on left
+    name: alignment_left
+    group: ping_pong_section_alignment
+    image: null
+    library: small_y_ping_pongs/small_y_ping_pongs_left
+    template: null
+    default: true
+    class: alignment-left
+  - label:  Start on right
+    name: alignment_right
+    group: ping_pong_section_alignment
+    image: null
+    library: small_y_ping_pongs/small_y_ping_pongs_right
+    template: null
+    class: alignment-right
+  - label: Colorway A
+    name: background_color
+    group: ping_pong_section_background
+    image: null
+    library: small_y_ping_pongs/small_y_ping_pongs_background_color
+    template: null
+    default: true
+    class: background-color
+  - label: Gray
+    name: background_gray
+    group: ping_pong_section_background
+    image: null
+    library: small_y_ping_pongs/small_y_ping_pongs_background_gray
+    template: null
+    class: background-gray
+  - label: White
+    name: background_white
+    group: ping_pong_section_background
+    image: null
+    library: small_y_ping_pongs/small_y_ping_pongs_background_white
+    template: null
+    class: background-white
+

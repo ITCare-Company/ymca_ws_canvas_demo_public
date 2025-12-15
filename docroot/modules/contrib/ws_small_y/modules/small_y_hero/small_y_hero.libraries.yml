@@ -1,0 +1,48 @@
+hero_tall:
+  version: 0.2
+  css:
+    component:
+      assets/css/hero_tall.css: { preprocess: true }
+
+hero_sub_chevron:
+  version: 0.2
+  css:
+    component:
+      assets/css/hero_sub_chevron.css: { preprocess: true }
+
+hero_sub_chevron_no_media:
+  version: 0.3
+  css:
+    component:
+      assets/css/hero_sub_chevron_no_media.css: { preprocess: true }
+
+hero_sub_frame:
+  version: 0.3
+  css:
+    component:
+      assets/css/hero_sub_frame.css: { preprocess: true }
+
+hero_promo:
+  version: 0.2
+  css:
+    component:
+      assets/css/hero_promo.css: { preprocess: true }
+
+layout_builder:
+  version: 0.1
+  css:
+    theme:
+      assets/css/layout_builder.css: { minified: false, weight: 1001 }
+
+background_color:
+  version: 0.1
+  css:
+    theme:
+      assets/css/background_color.css: { preprocess: true }
+
+
+background_gray:
+  version: 0.1
+  css:
+    theme:
+      assets/css/background_gray.css: { preprocess: true }

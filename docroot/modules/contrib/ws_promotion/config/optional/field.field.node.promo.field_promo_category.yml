@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_promo_category
+    - node.type.promo
+id: node.promo.field_promo_category
+field_name: field_promo_category
+entity_type: node
+bundle: promo
+label: 'Promotion Category'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default_no_dep:node'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: 0
+    auto_create_bundle: ''
+    target_bundles_no_dep:
+      activity: activity
+field_type: entity_reference

@@ -1,0 +1,176 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.header-alerts-list,
+.footer-alerts-list {
+  .site-alert {
+    &--header,
+    &--footer {
+      border: 1px solid #636466;
+      width: 100vw;
+
+      div[role=article] {
+        height: inherit !important;
+      }
+
+      .expand__wrapp {
+        width: 100%;
+        display: flex;
+
+        .btn.expand__button {
+
+          &.expanded {
+            &:after {
+              transform: unset;
+            }
+          }
+          &:after {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: url("data:image/svg+xml;base64,PHN2ZyAgZmlsbD0id2hpdGUiIGlkPSJfMS1BcnJvd19VcCIgZGF0YS1uYW1lPSIxLUFycm93IFVwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHRpdGxlPjEtQXJyb3cgVXA8L3RpdGxlPjxwYXRoIGQ9Ik0yNi43MSwxMC4yOWwtMTAtMTBhMSwxLDAsMCwwLTEuNDEsMGwtMTAsMTAsMS40MSwxLjQxTDE1LDMuNDFWMzJoMlYzLjQxbDguMjksOC4yOVoiLz48L3N2Zz4K");
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      &__dismiss {
+        cursor: pointer;
+
+        @include media-breakpoint-down(md) {
+          position: absolute;
+          right: 10px;
+          top: -10px;
+        }
+      }
+
+      .alert-item {
+        .alert-icon {
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          mask: url("../svg/alert-icon.svg");
+          background: var(--ylb-color-white, white);
+        }
+
+        &.ws-alert-critical,
+        &.ws-alert-warning,
+        &.ws-alert-info,
+        &.ws-alert-dark {
+          .site-alert__dismiss {
+            color: currentColor;
+          }
+        }
+
+        &.ws-alert-critical {
+          background-color: var(--ylb-color-red, #ed1c24);
+          color: var(--ylb-color-white, white);
+        }
+
+        &.ws-alert-warning {
+          background-color: var(--ylb-color-orange-light, #fcaf17);
+          color: var(--ylb-color-dark-grey-2, #231f20);
+
+          .alert-icon {
+            background: var(--ylb-color-dark-grey-2, #231f20);
+          }
+        }
+
+        &.ws-alert-info {
+          background-color: var(--ylb-color-blue-light, #00aeef);
+          color: var(--ylb-color-dark-grey-2, #231f20);
+
+          .alert-icon {
+            background: var(--ylb-color-dark-grey-2, #231f20);
+          }
+        }
+
+        &.ws-alert-dark {
+          background-color: var(--ylb-color-dark-grey-2, #231f20);
+          color: var(--ylb-color-white, white);
+
+          .field-alert-link {
+            border-radius: .25rem;
+
+            a {
+              border-color: var(--ylb-color-white, white) !important;
+            }
+          }
+        }
+
+        &.ws-alert-blue,
+        &.ws-alert-green,
+        &.ws-alert-purple,
+        &.ws-alert-red {
+          background-color: var(--ylb-color-light-grey-1, #f2f2f2);
+          border-top: 1px solid currentColor;
+          border-bottom: 1px solid currentColor;
+
+          .site-alert__cta {
+            .field-alert-link a {
+              // These have to be important to override styles in Carnation
+              // openy_carnation/src/scss/modules/site-alerts.scss.
+              background-color: white;
+              color: currentColor !important;
+              border-color: currentColor !important;
+
+              &:hover {
+                border-color: transparent !important;
+              }
+            }
+          }
+          .site-alert__dismiss {
+            color: currentColor;
+          }
+        }
+
+        &.ws-alert-blue {
+          color: var(--ylb-color-blue-dark, #0060af);
+        }
+
+        &.ws-alert-green {
+          color: var(--ylb-color-green-dark, #006b6b);
+        }
+
+        &.ws-alert-purple {
+          color: var(--ylb-color-purple-dark, #5c2e91);
+        }
+
+        &.ws-alert-red {
+          color: var(--ylb-color-red-dark, #a92b31);
+        }
+
+        .site-alert__wrapper {
+          .site-alert__icon {
+            width: fit-content;
+            left: -20px;
+            top: 0;
+            margin-top: 3px;
+
+            @include media-breakpoint-down(md) {
+              top: 0;
+            }
+          }
+
+          .field-alert-link {
+            @include media-breakpoint-down(md) {
+              margin-top: 10px;
+            }
+          }
+        }
+      }
+
+      .slick__arrow {
+        margin-top: -25px;
+        visibility: visible;
+      }
+
+      .slick-next:before,
+      .slick-prev:before {
+        opacity: 1;
+      }
+    }
+  }
+}

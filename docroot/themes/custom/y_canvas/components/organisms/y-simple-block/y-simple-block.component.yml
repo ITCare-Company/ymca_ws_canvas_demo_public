@@ -1,0 +1,21 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Simple Block
+description: Simple content block with just body content
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    body:
+      type: string
+      title: Body Content
+      description: Main content area (HTML allowed)
+      contentMediaType: text/html
+      examples:
+        - '<p>This is a simple content block for displaying formatted text and basic HTML content.</p>'
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-simple-block

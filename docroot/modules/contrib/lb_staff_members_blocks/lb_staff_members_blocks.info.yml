@@ -1,0 +1,12 @@
+name: 'Y Layout Builder - Staff Members'
+type: module
+description: 'Helper module for the custom "Staff Members" block type.'
+package: 'YMCA Website Services'
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - y_lb
+
+# Information added by Drupal.org packaging script on 2025-10-07
+version: '1.3.1'
+project: 'lb_staff_members_blocks'
+datestamp: 1759820355

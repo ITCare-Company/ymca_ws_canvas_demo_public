@@ -1,0 +1,17 @@
+name: 'OpenY Paragraph Camp Finder'
+description: 'Feature with Camp Finder paragraph.'
+type: module
+core_version_requirement: ^10 || ^11
+package: "YMCA Website Services"
+dependencies:
+  - field
+  - node
+  - openy_node_landing
+  - openy_prgf
+  - openy_prgf_activity_finder
+  - openy_prgf_camp_finder
+  - openy_repeat
+  - paragraphs
+  - plugin
+version: 4.0.2
+core_incompatible: false

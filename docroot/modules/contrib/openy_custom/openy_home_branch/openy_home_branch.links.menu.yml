@@ -1,0 +1,5 @@
+openy_home_branch.settings:
+  title: 'Home branch settings'
+  parent: openy_system.openy_settings
+  route_name: openy_home_branch.settings
+  weight: 0

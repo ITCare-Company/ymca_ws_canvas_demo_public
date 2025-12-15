@@ -1,0 +1,32 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Repeat Schedules
+description: Recurring schedule application container for class schedules
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Section heading for the schedule
+      examples:
+        - 'Class Schedule'
+
+    api_endpoint:
+      type: string
+      title: API Endpoint
+      description: URL for the repeat schedules API
+      examples:
+        - '/api/v1/schedules'
+
+slots:
+  app:
+    title: Application
+    description: The repeat schedules React application
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-repeat-schedules

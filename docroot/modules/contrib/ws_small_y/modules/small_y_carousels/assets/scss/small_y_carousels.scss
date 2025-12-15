@@ -1,0 +1,220 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block.block-lb-carousel {
+  padding-bottom: 25px;
+
+  .section-description {
+    padding: 0 0 30px;
+
+    @include media-breakpoint-up(md) {
+      padding: 0 0 60px;
+    }
+
+    h2 {
+      font-size: 35px;
+      line-height: 40px;
+      margin-bottom: 20px;
+
+      @include media-breakpoint-up(md) {
+        font-size: 50px;
+        line-height: 60px;
+        margin-bottom: 29px;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+
+  .carousel {
+    .carousel-inner {
+      .carousel-item {
+        text-align: left;
+        background-color: var(--ylb-color-light-grey-1, #F2F2F2);
+        min-height: 520px;
+
+        @include media-breakpoint-up(md) {
+          height: 590px;
+        }
+
+        .carousel-item-inner {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+
+          @include media-breakpoint-up(md) {
+            flex-direction: row;
+          }
+
+          .image-wrapper {
+            @include media-breakpoint-up(md) {
+              flex: 2 1;
+            }
+            @include media-breakpoint-up(lg) {
+              flex: 3 1;
+            }
+          }
+
+          @include media-breakpoint-up('md') {
+            background-image: none !important;
+          }
+
+          .carousel-gallery-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background-color: var(--ylb-color-light-grey-1, #F2F2F2);
+            padding: 40px 20px 60px;
+
+            @include media-breakpoint-up('md') {
+              padding: 60px 48px;
+              align-items: flex-start;
+              flex: 1 1;
+              gap: 25px;
+            }
+
+            @include media-breakpoint-up('lg') {
+              padding: 60px;
+            }
+
+            h2 {
+              font-size: 26px;
+              line-height: 32px;
+              margin: 0;
+              @include media-breakpoint-up('md') {
+                font-size: 50px;
+                line-height: 60px;
+              }
+            }
+
+            p {
+              font-size: 18px;
+              margin: 0;
+              line-height: 28px;
+              text-align: center;
+
+              @include media-breakpoint-up('md') {
+                text-align: left;
+              }
+            }
+
+            .btn {
+              margin: 10px 0 0;
+              width: fit-content;
+
+              @include media-breakpoint-up(md) {
+                margin: 0;
+              }
+            }
+          }
+
+          img {
+            object-fit: cover;
+            height: 100%;
+            min-height: 230px;
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-control-panel {
+    position: absolute;
+    bottom: -20px;
+    left: 20px;
+    width: calc(100% - 40px);
+    background-color: var(--wsSecondaryColor, black);
+    border-radius: 26px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 8px;
+    align-items: center;
+
+    @include media-breakpoint-up(md) {
+      height: 50px;
+      width: 730px;
+      bottom: -25px;
+      left: calc(50% - 365px);
+    }
+
+    @include media-breakpoint-up(lg) {
+      width: 850px;
+      left: calc(50% - 425px);
+    }
+
+    button {
+      opacity: 1;
+      position: static;
+      border: none;
+      width: 30px;
+      height: 30px;
+      background-size: 58%;
+      border-radius: 50%;
+      @include media-breakpoint-up(md) {
+        width: 40px;
+        height: 40px;
+        background-size: auto;
+      }
+
+      &.carousel-control-next {
+        transform: rotate(180deg);
+      }
+
+      &:hover,
+      &:focus {
+        opacity: 0.7;
+      }
+
+      .visually-hidden {
+        color: black;
+      }
+    }
+
+    .carousel-indicators {
+      position: static;
+      width: 690px;
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      height: fit-content;
+      margin: 0;
+      padding: 0 5px;
+
+      li {
+        opacity: 1;
+        border: none;
+        margin: 0;
+        background-color: unset;
+        padding: 15px;
+        cursor: pointer;
+        flex: 1 1;
+        list-style: none;
+        height: fit-content;
+
+        @include media-breakpoint-down(md) {
+          padding: 15px 5px;
+        }
+
+        &.active {
+          .indicator {
+            opacity: 1;
+          }
+        }
+
+        .indicator {
+          height: 4px;
+          opacity: 0.3;
+          border-radius: 7px;
+          background-color: var(--ylb-color-white, #FFFFFF);
+        }
+      }
+    }
+  }
+}

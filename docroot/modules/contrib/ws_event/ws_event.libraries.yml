@@ -1,0 +1,34 @@
+# Custom module library for general purposes.
+ws_event:
+  version: 1.92
+  css:
+    theme:
+      assets/css/events.css: { preprocess: true }
+
+listing:
+  version: 1.15
+  css:
+    theme:
+      assets/css/listing.css: { preprocess: true }
+  js:
+    assets/js/card_links.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/once
+
+filters:
+  version: 1.3
+  css:
+    theme:
+      assets/css/filters.css: { preprocess: true }
+
+featured_events:
+  version: 1.10
+  css:
+    theme:
+      assets/css/featured_events.css: { preprocess: true }
+  js:
+    assets/js/card_links.js: { }
+  dependencies:
+    - core/drupal
+    - core/once

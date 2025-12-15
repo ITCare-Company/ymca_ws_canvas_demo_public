@@ -1,0 +1,57 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Map
+description: Interactive map with location markers and details
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Section heading above the map
+      examples:
+        - 'Find a Location'
+
+    center_lat:
+      type: number
+      title: Center Latitude
+      description: Latitude for the initial map center point
+      examples:
+        - 40.7128
+
+    center_lng:
+      type: number
+      title: Center Longitude
+      description: Longitude for the initial map center point
+      examples:
+        - -74.0060
+
+    zoom:
+      type: number
+      title: Zoom Level
+      description: Initial zoom level for the map (1-20)
+      default: 10
+      examples:
+        - 12
+
+    height:
+      type: string
+      title: Map Height
+      description: Height of the map container
+      default: '400px'
+      examples:
+        - '500px'
+
+    markers:
+      type: array
+      title: Location Markers
+      description: Array of location marker objects with coordinates and details
+      examples:
+        - [{"title": "Downtown Y", "lat": 40.7128, "lng": -74.0060, "address": "123 Main St"}]
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-map

@@ -1,0 +1,43 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Partners Tier
+description: Partner tier grouping with title and partner logos
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Tier Title
+      description: Name of the partner tier level
+      examples:
+        - 'Platinum Partners'
+
+    size:
+      type: string
+      title: Logo Size
+      description: Display size for partner logos in this tier
+      default: 'medium'
+      enum:
+        - 'small'
+        - 'medium'
+        - 'large'
+      meta:enum:
+        small: 'Small'
+        medium: 'Medium'
+        large: 'Large'
+      examples:
+        - 'large'
+
+slots:
+  partners:
+    title: Partners
+    description: Partner items in this tier
+    allowedComponents:
+      - sdc.y_canvas.y-partner-item
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-partners-tier

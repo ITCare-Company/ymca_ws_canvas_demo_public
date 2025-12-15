@@ -1,0 +1,5 @@
+name: ckeditor5_font
+type: module
+description: Dummy module to replace ckeditor5_font.
+package: Useless Machines
+core_version_requirement: ^11

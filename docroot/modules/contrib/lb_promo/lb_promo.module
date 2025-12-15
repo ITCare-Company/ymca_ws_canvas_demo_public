@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for LB Promo Card module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+ /**
+ * Implements hook_help().
+ */
+function lb_promo_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the lb_promo module.
+    case 'help.page.lb_promo':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Helper module for the custom "Promo Card" block type.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function lb_promo_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_promo' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-promo',
+    ]
+  ];
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function lb_promo_preprocess_block__lb_promo(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  if ($variables['block_content']->hasField('field_image')) {
+    $media_entity = $variables['block_content']->field_image->referencedEntities()[0] ?? FALSE;
+    if ($media_entity) {
+      $variables['image_uri'] = $media_entity->field_media_image->entity->uri->value ?? NULL;
+      $variables['image_alt'] = $media_entity->field_media_image->alt ?? NULL;
+      $variables['is_svg'] = str_contains($variables['image_uri'], '.svg');
+    }
+  }
+}

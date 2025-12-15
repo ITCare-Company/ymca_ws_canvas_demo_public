@@ -1,0 +1,42 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.hero__banner {
+  .hero_banner-content {
+    .block-title {
+      font-weight: 500;
+    }
+    // Styles for h1 are skipped because it uses the default size for the '.block-title' class.
+    h2.block-title {
+      font-size: 32px;
+      line-height: 42px;
+      @include media-breakpoint-up(md) {
+        font-size: 32px;
+      }
+    }
+
+    h3.block-title {
+      font-size: 26px;
+      line-height: 32px;
+      @include media-breakpoint-up(md) {
+        font-size: 28px;
+      }
+    }
+
+    h4.block-title {
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    h5.block-title {
+      font-size: 20px;
+      line-height: 25px;
+    }
+
+    h6.block-title {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}

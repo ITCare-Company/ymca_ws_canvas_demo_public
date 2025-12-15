@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.grid_item
+    - block_content.type.lb_grid_cta
+    - field.storage.block_content.field_block_item
+id: block_content.lb_grid_cta.field_block_item
+field_name: field_block_item
+entity_type: block_content
+bundle: lb_grid_cta
+label: 'Items'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      grid_item: grid_item
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

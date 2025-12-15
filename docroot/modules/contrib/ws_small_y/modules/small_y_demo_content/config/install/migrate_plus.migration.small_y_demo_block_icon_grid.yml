@@ -1,0 +1,96 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - small_y_icon_grid
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_icon_grid
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import Small Y Demo Layout Builder - Icon grid blocks'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      uuid: '84bb81fe-bf23-44d4-e458-6a3794df75dd'
+      title: 'Small Y Icon Grid 4'
+      subtitle: 'Pellentesque ornare sem lacinia quam venenatis vestibulum.'
+      columns: 4
+      content_ids:
+        - content_id: icon_grid_item_1
+        - content_id: icon_grid_item_2
+        - content_id: icon_grid_item_3
+        - content_id: icon_grid_item_4
+      cta:
+        - uri: 'internal:/demo-dummy'
+          title: 'Button'
+
+    -
+      id: 3
+      uuid: '84ff78d9-a7a6-412a-a5ac-880b0b247364'
+      title: 'Small Y Icon Grid 3'
+      subtitle: 'Pellentesque ornare sem lacinia quam venenatis vestibulum.'
+      columns: 3
+      content_ids:
+        - content_id: icon_grid_item_5
+        - content_id: icon_grid_item_6
+        - content_id: icon_grid_item_7
+      cta:
+        - uri: 'internal:/demo-dummy'
+          title: 'Button'
+
+    -
+      id: 4
+      uuid: 'b0f1ef18-9077-4f5a-309d-aa8916875890'
+      title: 'Small Y Icon Grid 2'
+      subtitle: 'Pellentesque ornare sem lacinia quam venenatis vestibulum.'
+      columns: 2
+      content_ids:
+        - content_id: icon_grid_item_8
+        - content_id: icon_grid_item_9
+      cta:
+        - uri: 'internal:/demo-dummy'
+          title: 'Redeem'
+
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: lb_icon_grid
+  uuid: uuid
+  field_section_title: title
+  field_section_subtitle: subtitle
+  field_icon_columns: columns
+  field_cta: cta
+  field_block_item:
+    plugin: sub_process
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - small_y_demo_block_icon_grid_item
+        source: content_id
+destination:
+  plugin: entity:block_content
+  default_bundle: lb_icon_grid
+migration_dependencies:
+  required:
+    - small_y_demo_block_icon_grid_item
+  optional: {  }

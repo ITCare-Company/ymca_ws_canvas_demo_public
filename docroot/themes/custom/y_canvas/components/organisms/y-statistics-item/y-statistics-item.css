@@ -1,0 +1,61 @@
+/* Y Statistics Item Component */
+
+.y-statistics-item {
+  text-align: center;
+  padding: 1rem;
+}
+
+.y-statistics-item__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Number */
+.y-statistics-item__number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--wsPrimaryColor, #0060af);
+  font-family: var(--ylb-font-family-verdana, Verdana, sans-serif);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.y-statistics--has-image .y-statistics-item__number {
+  color: #fff;
+}
+
+.y-statistics-item__prefix,
+.y-statistics-item__suffix {
+  font-size: 0.75em;
+}
+
+/* Description */
+.y-statistics-item__description {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.y-statistics--has-image .y-statistics-item__description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .y-statistics-item__number {
+    font-size: 3rem;
+  }
+
+  .y-statistics-item__description {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .y-statistics-item__number {
+    font-size: 3.5rem;
+  }
+}

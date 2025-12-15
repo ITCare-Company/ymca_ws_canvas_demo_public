@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.ping_pong_section
+    - field.storage.block_content.field_section_title
+id: block_content.ping_pong_section.field_section_title
+field_name: field_section_title
+entity_type: block_content
+bundle: ping_pong_section
+label: 'Section heading'
+description: 'Provides a field for adding an optional heading or title to the "Ping Pong Section" block content type. This allows content editors to introduce the section with a clear and descriptive title.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

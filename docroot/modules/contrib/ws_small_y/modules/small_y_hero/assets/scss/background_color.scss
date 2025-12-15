@@ -1,0 +1,13 @@
+// Set variables globally.
+.hero__banner.background-color {
+  --smally-hero-color-header: var(--ylb-color-white);
+  --smally-hero-color: var(--ylb-color-white);
+  --smally-hero-item-background: var(--wsPrimaryColor);
+  --smally-hero-gradient: linear-gradient(
+      118.46deg,
+      var(--wsPrimaryColor, #3F4042) 28.72%,
+      var(--wsSecondaryColor, #636466) 96.61%
+  );
+  --smally-hero-chevron-opacity: 10%;
+  --smally-hero-chevron-fill: var(--ylb-white, #ffffff);
+}

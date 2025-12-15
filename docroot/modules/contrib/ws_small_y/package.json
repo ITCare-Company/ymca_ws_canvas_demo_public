@@ -1,0 +1,45 @@
+{
+  "name": "ws_small_y",
+  "description": "Website Services Small Y colorway styles.",
+  "author": "YMCA Website Services",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "css:compile": "sass --load-path=node_modules/bootstrap/scss ./assets/scss:./assets/css",
+    "css:prefix": "postcss --use autoprefixer -b '> 10%' ./assets/css/*.css -r",
+    "css:submodule": "echo \"Building ${npm_config_module}\" && cd ./modules/${npm_config_module} && if [ ! -f \"./package.json\" ]; then echo \"No package.json here.\"; else npm install && npm run build; fi",
+    "css:submodules": "modules=$(cat ./package.json | jq -r '.config.modules[]'); for module in $modules; do (npm run css:submodule --module=\"$module\"); done",
+    "css:build": "npm run css:compile && npm run css:prefix && npm run css:submodules",
+    "css:watch": "sass --watch --poll --load-path=node_modules/bootstrap/scss ./assets/scss:./assets/css",
+    "watch": "nodemon -e scss,js -x \"npm run build\" --ignore ./assets/css",
+    "build": "npm run css:build"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.13",
+    "bootstrap": "^4.4.1",
+    "breakpoint-sass": "^2.7.1",
+    "nodemon": "^2.0.20",
+    "postcss-cli": "^10.0.0",
+    "sass": "^1.79.3"
+  },
+  "config": {
+    "modules": [
+      "small_y_accordions",
+      "small_y_alerts",
+      "small_y_articles",
+      "small_y_branch",
+      "small_y_cards",
+      "small_y_carousels",
+      "small_y_donate",
+      "small_y_events",
+      "small_y_hero",
+      "small_y_icon_grid",
+      "small_y_ping_pongs",
+      "small_y_search",
+      "small_y_tabs",
+      "ws_small_y_staff",
+      "ws_small_y_statistics",
+      "ws_small_y_testimonials"
+    ]
+  }
+}

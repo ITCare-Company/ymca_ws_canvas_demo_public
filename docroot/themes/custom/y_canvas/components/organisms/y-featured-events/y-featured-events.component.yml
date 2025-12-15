@@ -1,0 +1,90 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Featured Events
+description: Featured events section with hero event and secondary grid
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Main heading for the featured events section
+      examples:
+        - 'Featured Events'
+
+    subtitle:
+      type: string
+      title: Subtitle
+      description: Supporting text below the main heading
+      examples:
+        - "Don't miss these upcoming events at your Y"
+
+    cta_text:
+      type: string
+      title: CTA Button Text
+      description: Text for the view all events button
+      examples:
+        - 'View All Events'
+
+    cta_url:
+      type: string
+      title: CTA Button URL
+      description: Link to full events listing
+      examples:
+        - '/events'
+
+    hero_title:
+      type: string
+      title: Hero Event Title
+      description: Title of the featured hero event
+      examples:
+        - 'Annual Turkey Trot 5K Run'
+
+    hero_description:
+      type: string
+      title: Hero Event Description
+      description: Excerpt text for the hero event
+      examples:
+        - 'Join us for our annual Thanksgiving tradition! A fun run for the whole family.'
+
+    hero_image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Hero Event Image
+      description: Featured image for the hero event
+      examples:
+        - src: '/themes/custom/y_canvas/assets/images/demo/featured-article.jpg'
+          alt: 'Turkey Trot runners'
+
+    hero_url:
+      type: string
+      title: Hero Event URL
+      description: Link to the full hero event page
+      examples:
+        - '/events/turkey-trot'
+
+    hero_date:
+      type: string
+      title: Hero Event Date
+      description: Date of the hero event
+      examples:
+        - 'November 28, 2024'
+
+    hero_location:
+      type: string
+      title: Hero Event Location
+      description: Location of the hero event
+      examples:
+        - 'Downtown YMCA'
+
+slots:
+  secondary_events:
+    title: Secondary Events
+    description: Additional featured event cards
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-featured-events

@@ -1,0 +1,100 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-lb-breadcrumbs {
+  background-color: var(--y-color-light-grey-1, grey);
+  padding: 10px 0;
+
+  .breadcrumbs-wrapper {
+    padding: 0;
+    border-bottom: none;
+
+    nav {
+      padding-left: 10px;
+
+      .breadcrumbs {
+        li {
+          align-items: center;
+
+          &:after {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: var(--ylb-color-grey-1, gray);
+            mask: url("../svg/breadcrumb-separator.svg") no-repeat center;
+            margin: 0 8px;
+          }
+
+          &:first-child {
+            a {
+              background-color: var(--ylb-color-grey-1, gray);
+              mask: url("../svg/home.svg") no-repeat center;
+              width: 20px;
+              height: 20px;
+            }
+          }
+
+          span,
+          a {
+            font-family: var(--ylb-font-family-cachet, Cachet), Verdana, sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 14px;
+            padding: 0;
+            margin: 0;
+
+            @include media-breakpoint-up('md') {
+              font-size: 16px;
+              line-height: 18px;
+            }
+          }
+
+          a {
+            color: var(--wsPrimaryColor, gray);
+          }
+
+          span {
+            color: var(--ylb-color-grey-1, gray);
+          }
+
+          &:last-child {
+            span {
+              color: var(--wsPrimaryColor, gray);
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Fix position with small desktop screen */
+.block-lb-breadcrumbs .breadcrumbs-wrapper {
+  @media (min-width: 1598px) and (max-width: 1640px) {
+    margin-left: 6%;
+  }
+
+  @media (min-width: 1460px) and (max-width: 1599px) {
+    margin-left: 10%;
+  }
+
+  @media (min-width: 999px) and (max-width: 1463px) {
+    margin-left: 18%;
+  }
+
+  @media (min-width: 800px) and (max-width: 998px) {
+    margin-left: 20%;
+  }
+}
+// Needs to override rules for Camp and Facility pages.
+.page-node-type-camp,
+.page-node-type-facility {
+  .block-lb-breadcrumbs {
+    .breadcrumbs-wrapper {
+      margin-top: 0;
+      position: relative;
+    }
+  }
+}

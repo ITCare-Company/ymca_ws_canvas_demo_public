@@ -1,0 +1,30 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.node--type-branch {
+  &.node--lb {
+    margin-top: 0;
+  }
+
+  .node__content {
+    .section-body {
+      padding: 80px 0;
+
+      @include media-breakpoint-down('md') {
+        padding: 60px 0;
+      }
+    }
+  }
+}
+
+.page-node-type-branch--use-lb, .page-node-type-branch {
+
+  .location-header {
+    background-color: var(--wsPrimaryColor, blue) !important;
+  }
+
+  &.with-banner {
+    padding-top: 0 !important;
+  }
+}

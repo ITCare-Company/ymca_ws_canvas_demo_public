@@ -1,0 +1,6 @@
+ws_small_y_testimonials.lb_testimonials_override:
+  block_type: lb_testimonials
+  library: ws_small_y_testimonials/lb_testimonials_override
+  override: false
+  active_colorways:
+    - 'ws_*'

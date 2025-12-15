@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies: {  }
+name: ping_pong
+label: 'Ping pong'
+effects:
+  49b4ff27-3521-4b73-98a7-ff59f9f7f622:
+    uuid: 49b4ff27-3521-4b73-98a7-ff59f9f7f622
+    id: image_scale
+    weight: 1
+    data:
+      width: 1140
+      height: null
+      upscale: false
+  53b0c9d2-4acf-4d9c-9f23-e60adb640dec:
+    uuid: 53b0c9d2-4acf-4d9c-9f23-e60adb640dec
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

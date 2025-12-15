@@ -1,0 +1,70 @@
+{#
+/**
+ * Y Carousel component.
+ *
+ * Variables:
+ * - title: (string) Section heading
+ * - subtitle: (string) Section subheading
+ * - autoplay: (boolean) Auto advance slides
+ * - autoplay_delay: (integer) Delay between slides in ms
+ * - show_navigation: (boolean) Show prev/next buttons
+ * - show_pagination: (boolean) Show pagination dots
+ * - loop: (boolean) Enable infinite loop
+ * - effect: (string) slide or fade
+ * - slides: (slot) Carousel slides
+ */
+#}
+
+{% set autoplay = autoplay is not defined ? true : autoplay %}
+{% set autoplay_delay = autoplay_delay|default(5000) %}
+{% set show_navigation = show_navigation is not defined ? true : show_navigation %}
+{% set show_pagination = show_pagination is not defined ? true : show_pagination %}
+{% set loop = loop is not defined ? true : loop %}
+{% set effect = effect|default('slide') %}
+{% set carousel_id = 'carousel-' ~ (canvas_uuid|default(random())) %}
+
+{% set classes = [
+  'y-carousel',
+  'y-carousel--effect-' ~ effect,
+] %}
+
+<div {{ attributes.addClass(classes) }} data-component="y-carousel" id="{{ carousel_id }}">
+  {% if title or subtitle %}
+    <div class="y-carousel__header">
+      {% if title %}
+        <h2 class="y-carousel__title">{{ title }}</h2>
+      {% endif %}
+      {% if subtitle %}
+        <p class="y-carousel__subtitle">{{ subtitle }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="y-carousel__wrapper"
+       data-autoplay="{{ autoplay ? 'true' : 'false' }}"
+       data-autoplay-delay="{{ autoplay_delay }}"
+       data-loop="{{ loop ? 'true' : 'false' }}"
+       data-effect="{{ effect }}">
+
+    <div class="y-carousel__slides">
+      {{ slides }}
+    </div>
+
+    {% if show_navigation %}
+      <button class="y-carousel__nav y-carousel__nav--prev" type="button" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="y-carousel__nav y-carousel__nav--next" type="button" aria-label="Next slide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    {% endif %}
+
+    {% if show_pagination %}
+      <div class="y-carousel__pagination"></div>
+    {% endif %}
+  </div>
+</div>

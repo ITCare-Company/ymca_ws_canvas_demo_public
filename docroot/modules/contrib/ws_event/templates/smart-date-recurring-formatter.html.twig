@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Override for smart date recurring formatter.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ * - upcoming_display: The upcoming events.
+ * - rule_text: The recurrence rule.
+ * - past_display: The past events.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="recurring-output--wrapper">
+  {% if upcoming_display and upcoming_display['#items'] %}
+    <div class="label">{{ 'Next Dates'|t }}</div>
+    <div class="details-wrapper">
+      {{ upcoming_display }}
+    </div>
+  {% endif %}
+  {% if rule_text %}
+    <div class="label">{{ 'All Dates'|t }}</div>
+    <div class="rule-text">{{ rule_text }}</div>
+  {% endif %}
+  {% if past_display %}
+    <div class="label">{{ 'Recent'|t }}</div>
+    <div class="details-wrapper">
+      {{ past_display }}
+    </div>
+  {% endif %}
+</div>

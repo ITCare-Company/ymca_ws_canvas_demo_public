@@ -1,0 +1,13 @@
+{
+    "name": "drupal/lb_branch_hours_blocks",
+    "description": "Adds Branch Hours block for Branch nodes with Layout Builder.",
+    "type": "drupal-module",
+    "require": {
+        "ycloudyusa/y_lb": "^3.2.0 || ^4",
+        "open-y-subprojects/openy_custom": "^2.3.0 || ^3.0.0",
+        "drupal/y_branch": "^1.1.1",
+        "php": ">=8.1"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev"
+}

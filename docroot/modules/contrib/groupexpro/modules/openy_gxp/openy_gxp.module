@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Main module's file.
+ */
+
+/**
+ * Implements hook_openy_repeat_results_alter().
+ */
+function openy_gxp_openy_repeat_results_alter(&$results, $request) {
+  $timestamp = $request->get('date');
+  if (empty($timestamp)) {
+    $timestamp = date('F j, l 00:00:00');
+  }
+  $timestamp = strtotime($timestamp);
+  foreach ($results as &$row) {
+    if (!is_null($row->register_url) && strpos($row->register_url, 'groupexpro') !== FALSE) {
+      // [2-digit-month]/[2-digit-day]/[4-digit-year].
+      $row->register_url .= '/' . date('m', $timestamp) . '/' . date('d', $timestamp) . '/' . date('Y', $timestamp);
+      // Add type=new to all links for new Groupex Pro UI on schedules.
+      $row->register_url .= '?type=new';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function openy_gxp_preprocess_page(&$variables) {
+  // Here is a list of Routes we need to show the Error message on.
+  switch (\Drupal::routeMatch()->getRouteName()) {
+    case 'openy_gxp.openy_integrations_groupexpro':
+    case 'openy_gxp.settings':
+    case 'openy_group_schedules.schedules_search_results':
+    case 'openy_group_schedules.all_schedules_search':
+    case 'openy_group_schedules.all_schedules_search_results':
+    case 'openy_group_schedules.settings':
+    case 'embeddedgroupexpro.settings':
+    case 'entity.groupex_form_cache.collection':
+    case 'groupex_form_cache.settings':
+
+      \Drupal::messenger()->addError(t('
+        The existing public GroupEx PRO API is deprecated and will be removed by Daxko on February 28, 2023.
+        This removal may cause your current GroupEx Pro integration to stop working.
+        Please stop using the <a href=":url1">groupexpro</a> module and migrate to the <a href=":url2">Repeat Application</a> and <a href=":url3">Daxko API v1 to Program Event Framework Syncer</a>.
+        For more information, <a href=":url4">see our docs</a>.
+      ',
+        [
+          ':url1' => 'https://www.drupal.org/project/groupexpro',
+          ':url2' => 'https://github.com/ynorth-projects/openy_repeat',
+          ':url3' => 'https://github.com/open-y-subprojects/openy_daxko_gxp_syncer',
+          ':url4' => 'https://ds-docs.y.org/docs/development/daxko/#groupex-pro-apis',
+        ]), TRUE);
+      break;
+  }
+}

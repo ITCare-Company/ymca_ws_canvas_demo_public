@@ -1,0 +1,11 @@
+{
+    "name": "drupal/groupexpro",
+    "description": "Open Y GroupEx Pro integration",
+    "type": "drupal-module",
+    "minimum-stability": "dev",
+    "homepage": "https://www.drupal.org/project/groupexpro",
+    "require": {
+        "drupal/migrate_source_csv": "*",
+        "drupal/migrate_tools": "*"
+    }
+}

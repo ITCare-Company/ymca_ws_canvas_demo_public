@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_table
+label: "Simple Text / Table"
+revision: 0
+description: 'Table component for Layout Builder'

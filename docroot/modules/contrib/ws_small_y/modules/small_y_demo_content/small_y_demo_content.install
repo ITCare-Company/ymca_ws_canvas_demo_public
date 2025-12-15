@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the small_y_demo_content module.
+ */
+
+use Drupal\node\Entity\Node;
+use Drupal\pathauto\PathautoState;
+
+/**
+ * small_y_demo_content_install install.
+ */
+function small_y_demo_content_install(): void {
+  $system_site = \Drupal::configFactory()->getEditable('system.site');
+  $system_site
+    ->set('name', 'Small Y')
+    ->set('page.front', '/demo-home-page')
+    ->save();
+  // Set custom label for the Branch blocks on the Locations page.
+  $block_labels = \Drupal::configFactory()->getEditable('openy_map.settings');
+  $block_labels->set('block_labels.branch', 'Branches')
+  ->save();
+  _small_y_demo_content_change_existing_locations_page_alias();
+}
+
+/**
+ * Change a path alias of the existing Location Finder node to '/old-location-finder.'.
+ */
+function _small_y_demo_content_change_existing_locations_page_alias(): void {
+  $alias = '/locations';
+  if (!\Drupal::pathValidator()->isValid($alias)) {
+    return;
+  }
+  $alias = \Drupal::service('path_alias.manager')->getPathByAlias($alias);
+  // Get nid.
+  $params = explode('/', $alias);
+  $nid = $params[2] ?? '';
+  $node = Node::load($nid);
+  // Check if a node exists and if it has the expected CT.
+  if ($node && $node->getType() == 'landing_page') {
+    // Set automatically created path alias.
+    $node->set('path', ['pathauto' => PathautoState::CREATE]);
+    $node->setTitle('Old Locations Finder');
+    $node->save();
+  }
+}

@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_grid_cta
+    - field.storage.block_content.field_grid_items
+    - paragraphs.paragraphs_type.lb_cta_item
+  module:
+    - datalayer
+    - entity_reference_revisions
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_grid_items
+id: block_content.lb_grid_cta.field_grid_items
+field_name: field_grid_items
+entity_type: block_content
+bundle: lb_grid_cta
+label: 'Grid CTA items'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      lb_cta_item: lb_cta_item
+    negate: 0
+field_type: entity_reference_revisions

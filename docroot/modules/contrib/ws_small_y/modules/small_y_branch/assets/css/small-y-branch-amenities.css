@@ -1,0 +1,30 @@
+.block-branch-amenities {
+  background: linear-gradient(118.46deg, var(--wsPrimaryColor, #006B6B) 56.84%, var(--wsSecondaryColor, #01A490) 96.61%);
+  overflow: hidden;
+}
+.block-branch-amenities .branch-amenities .section-description .field-section-title {
+  font-family: var(--ylb-font-family-cachet, Cachet), Verdana, sans-serif;
+  font-size: 35px;
+  font-weight: 400;
+  line-height: 40px;
+}
+@media (min-width: 768px) {
+  .block-branch-amenities .branch-amenities .section-description .field-section-title {
+    font-size: 56px;
+    line-height: 70px;
+  }
+}
+.block-branch-amenities .branch-amenities .section-description .field-section-subtitle {
+  font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 26px;
+}
+.block-branch-amenities .branch-amenities .section-description .field-amenities .amenity {
+  font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3Mvc21hbGwteS1icmFuY2gtYW1lbml0aWVzLnNjc3MiLCJzbWFsbC15LWJyYW5jaC1hbWVuaXRpZXMuY3NzIiwiLi4vLi4vbm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL21peGlucy9fYnJlYWtwb2ludHMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFJQTtFQUNFLHNIQUFBO0VBQ0EsZ0JBQUE7QUNIRjtBRE9NO0VBQ0UsdUVBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtBQ0xSO0FDbURJO0VGbERFO0lBT0ksZUFBQTtJQUNBLGlCQUFBO0VDSlI7QUFDRjtBRE9NO0VBQ0UsZ0VBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtBQ0xSO0FEU1E7RUFDRSxnRUFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGlCQUFBO0FDUFYiLCJmaWxlIjoic21hbGwteS1icmFuY2gtYW1lbml0aWVzLmNzcyJ9 */

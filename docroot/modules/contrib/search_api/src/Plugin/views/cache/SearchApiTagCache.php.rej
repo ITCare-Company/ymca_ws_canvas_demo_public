@@ -1,0 +1,10 @@
+--- src/Plugin/views/cache/SearchApiTagCache.php
++++ src/Plugin/views/cache/SearchApiTagCache.php
+@@ -5,6 +5,7 @@
+ use Drupal\Core\Cache\Cache;
+ use Drupal\Core\Entity\EntityInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
++use Drupal\Core\TypedData\ComplexDataInterface;
+ use Drupal\views\Plugin\views\cache\Tag;
+ use Drupal\views\ResultRow;
+ use Symfony\Component\DependencyInjection\ContainerInterface;

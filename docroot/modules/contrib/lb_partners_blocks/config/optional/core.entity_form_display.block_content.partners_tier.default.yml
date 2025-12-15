@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.partners_tier
+    - field.field.block_content.partners_tier.field_partners_items
+    - field.field.block_content.partners_tier.field_title
+  module:
+    - inline_entity_form
+id: block_content.partners_tier.default
+targetEntityType: block_content
+bundle: partners_tier
+mode: default
+content:
+  field_partners_items:
+    type: inline_entity_form_complex
+    weight: 2
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      auto_open: true
+      allow_new: true
+      allow_existing: false
+      allow_edit: true
+      match_operator: CONTAINS
+      allow_duplicate: false
+      hide_fieldset: false
+      hide_title: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
+      config_labels_button: _none
+      labels: {  }
+      add_existing_widget: autocomplete
+      auto_open_edit_form: false
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 3
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden: {  }

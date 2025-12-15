@@ -1,0 +1,14 @@
+name: "YMCA Website Services Donation Embed Form"
+type: module
+description: "Embed donation forms from multiple donation providers."
+package: YMCA Website Services
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+ - drupal:block_content
+ - drupal:entity_browser
+ - drupal:inline_entity_form
+
+# Information added by Drupal.org packaging script on 2025-06-30
+version: '2.1.0'
+project: 'y_donate'
+datestamp: 1751289621

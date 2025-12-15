@@ -1,0 +1,71 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_branch_amenities_blocks
+    - field.field.block_content.lb_branch_amenities_blocks.field_image
+    - field.field.block_content.lb_branch_amenities_blocks.field_section_subtitle
+    - field.field.block_content.lb_branch_amenities_blocks.field_section_title
+  module:
+    - blazy
+id: block_content.lb_branch_amenities_blocks.default
+targetEntityType: block_content
+bundle: lb_branch_amenities_blocks
+mode: default
+content:
+  field_image:
+    type: blazy_media
+    label: hidden
+    settings:
+      caption: {  }
+      class: ''
+      id: ''
+      image: ''
+      link: ''
+      overlay: ''
+      title: ''
+      vanilla: false
+      layout: ''
+      view_mode: ''
+      cache: 0
+      skin: ''
+      lazy: ''
+      style: ''
+      background: false
+      box_caption: ''
+      box_caption_custom: ''
+      box_media_style: ''
+      loading: lazy
+      preload: false
+      responsive_image_style: ''
+      use_theme_field: false
+      box_style: ''
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: ''
+      grid: ''
+      grid_medium: ''
+      grid_small: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_section_subtitle:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_section_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

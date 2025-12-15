@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_code_block
+label: 'Code Block'
+revision: 0
+description: 'A Code Block Layout Builder component'

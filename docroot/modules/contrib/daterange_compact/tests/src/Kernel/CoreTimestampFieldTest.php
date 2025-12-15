@@ -1,0 +1,60 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\Tests\daterange_compact\Kernel;
+
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\entity_test\Entity\EntityTest;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+class CoreTimestampFieldTest extends FieldFormatterTestBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $field_storage = FieldStorageConfig::create([
+      'field_name' => 'field_timestamp',
+      'entity_type' => 'entity_test',
+      'type' => 'timestamp',
+    ]);
+    $field_storage->save();
+
+    $field_instance = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => 'entity_test',
+      'label' => 'Timestamp',
+    ]);
+    $field_instance->save();
+
+    $display = EntityViewDisplay::load('entity_test.entity_test.default');
+    $display->setComponent('field_timestamp', [
+      'type' => 'daterange_compact',
+      'settings' => [
+        'daterange_compact_format' => 'medium_datetime',
+      ],
+    ]);
+    $display->save();
+  }
+
+  /**
+   * Test a timestamp field value.
+   */
+  public function testFieldValue() {
+    $entity = EntityTest::create();
+    $entity->field_timestamp->value = 1724302800;
+
+    $display = EntityViewDisplay::load('entity_test.entity_test.default');
+    $this->renderEntityFields($entity, $display);
+
+    // 10 hours ahead of UTC, see DateRangeCompactFieldFormatterTest for why.
+    $expected = '22 August 2024 15:00';
+    $message = 'Expecting the rendered entity to show "' . $expected . '"';
+    $this->assertRaw($expected, $message);
+  }
+
+}

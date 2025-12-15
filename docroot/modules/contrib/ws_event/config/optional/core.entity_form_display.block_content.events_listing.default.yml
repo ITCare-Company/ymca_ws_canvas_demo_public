@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.events_listing
+    - field.field.block_content.events_listing.field_number_of_events
+id: block_content.events_listing.default
+targetEntityType: block_content
+bundle: events_listing
+mode: default
+content:
+  field_number_of_events:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  info: true
+  langcode: true

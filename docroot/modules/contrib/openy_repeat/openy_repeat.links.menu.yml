@@ -1,0 +1,6 @@
+openy_repeat.settings_link:
+  title: 'Open Y Repeat Settings'
+  description: 'Configure settings for the Open Y Repeat module.'
+  route_name: openy_repeat.settings
+  parent: openy_system.openy_settings
+  weight: 100

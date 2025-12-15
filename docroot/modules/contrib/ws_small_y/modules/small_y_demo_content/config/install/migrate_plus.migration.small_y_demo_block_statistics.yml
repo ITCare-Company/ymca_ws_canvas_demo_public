@@ -1,0 +1,90 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - small_y_demo_content
+    - ws_small_y_statistics
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_statistics
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import Small Y Demo Layout Builder - Statistics block'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 224
+      uuid: 'da542225-a4fa-4a5b-af8e-3a5828b4bd06'
+      title: 'Small Y Statistics Color'
+      subtitle: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. Body copy lorem ipsum per viam dolens.'
+      section_color: 'colored'
+      content_ids:
+        - content_id: statistics_1
+        - content_id: statistics_2
+        - content_id: statistics_3
+        - content_id: statistics_4
+    - id: 225
+      uuid: 'da542225-a4fa-4a5b-af8e-3a5828b4bd07'
+      title: 'Small Y Statistics Gray'
+      subtitle: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. Body copy lorem ipsum per viam dolens.'
+      section_color: 'gray'
+      content_ids:
+        - content_id: statistics_5
+        - content_id: statistics_6
+        - content_id: statistics_7
+        - content_id: statistics_8
+    - id: 226
+      uuid: '937c0a41-b4fd-4012-a5bb-81293dfb603e'
+      title: 'Small Y Statistics Colored 3-items'
+      subtitle: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. Body copy lorem ipsum per viam dolens.'
+      section_color: 'colored'
+      content_ids:
+        - content_id: statistics_9
+        - content_id: statistics_10
+        - content_id: statistics_11
+    - id: 227
+      uuid: '4b085a61-b71f-4666-adc1-55dc8ac3df18'
+      title: 'Small Y Statistics Gray 2-items'
+      subtitle: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. Body copy lorem ipsum per viam dolens.'
+      section_color: 'gray'
+      content_ids:
+        - content_id: statistics_12
+        - content_id: statistics_13
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: small_y_statistics
+  uuid: uuid
+  field_section_title: title
+  field_body: subtitle
+  field_section_color: section_color
+  field_block_item:
+    plugin: sub_process
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - small_y_demo_block_statistics_item
+        source: content_id
+destination:
+  plugin: entity:block_content
+migration_dependencies:
+  required:
+    - small_y_demo_block_statistics_item

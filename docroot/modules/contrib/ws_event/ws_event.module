@@ -1,0 +1,287 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Events module.
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Views;
+
+/**
+ * Implements hook_theme().
+ */
+function ws_event_theme() {
+  return [
+    'addtocal_links' => [
+      'template' => 'addtocal-links',
+      'base hook' => 'addtocal',
+    ],
+    'smart_date_recurring_formatter' => [
+      'template' => 'smart-date-recurring-formatter',
+      'base hook' => 'smart_date_recurring_formatter',
+    ],
+    'block__lb_event_info' => [
+      'base hook' => 'block',
+    ],
+    'block__lb_event_contacts' => [
+      'base hook' => 'block',
+    ],
+    'blb_section__lb_event__content' => [
+      'template' => 'blb-section--lb-event--content',
+      'render element' => 'content',
+      'base hook' => 'blb_section',
+    ],
+    'node__lb_event' => [
+      'base hook' => 'node',
+    ],
+    'node__lb_event__teaser' => [
+      'base hook' => 'node',
+    ],
+    'node__lb_event__featured' => [
+      'base hook' => 'node',
+    ],
+    'block__events_filter' => [
+      'base hook' => 'block',
+    ],
+    'block__events_listing' => [
+      'base hook' => 'block',
+      'template' => 'block--events-listing',
+    ],
+    'block__featured_events' => [
+      'base hook' => 'block',
+      'template' => 'block--featured-events',
+    ],
+    'page__node__lb_event' => [
+      'base hook' => 'page',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_blb_section().
+ */
+function ws_event_preprocess_blb_section(&$variables) {
+  $sectionClass = Html::getClass($variables['content']['#settings']['label']);
+  $variables['attributes']['class'][] = 'section-' . $sectionClass;
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function ws_event_preprocess_block(&$variables) {
+  switch ($variables['plugin_id']) {
+    case 'lb_node_tags':
+    case 'lb_node_share':
+      $node = \Drupal::routeMatch()->getParameter('node');
+      if ($node instanceof NodeInterface
+        && $node->getType() == 'lb_event') {
+        $variables['attributes']['class'][] = 'col-12 col-lg-6';
+      }
+      break;
+
+    case 'lb_event_image':
+    case 'lb_event_info':
+    case 'field_block:node:lb_event:body':
+      $variables['attributes']['class'][] = 'col-12';
+      break;
+  }
+
+  if ($variables['plugin_id'] === 'lb_event_info') {
+    $variables['#attached']['library'][] = 'openy_system/atc_base';
+    $variables['#attached']['library'][] = 'ws_event/ws_event';
+  }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function ws_event_preprocess_node(&$variables) {
+  $node = $variables['node'];
+  if ($node->hasField('field_subtitle') && !$node->get('field_subtitle')->isEmpty()) {
+    $subtitle = $node->get('field_subtitle')->get(0)->getValue();
+    $variables['subtitle'] = $subtitle['value'];
+  }
+
+  if ($node->bundle == 'lb_event') {
+    $variables['#attached']['library'][] = 'ws_event/ws_event';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function ws_event_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (in_array($form_id, ['node_lb_event_edit_form', 'node_lb_event_form'])) {
+    $form['field_location_reference']['widget']['#states'] = [
+      'required' => [
+        '.claro-details select[name="field_location_address[0][address][country_code]"]' => ['value' => ''],
+      ],
+    ];
+    if (isset($form['field_location_reference']['widget']['#options']['_none'])) {
+      unset($form['field_location_reference']['widget']['#options']['_none']);
+    }
+  }
+  // Block configuration form.
+  if (in_array($form['#form_id'],
+    [
+      'layout_builder_add_block',
+      'layout_builder_update_block',
+    ]
+  )) {
+    /** @var \Drupal\layout_builder\Form\ConfigureBlockFormBase $form_object */
+    $form_object = $form_state->getFormObject();
+    $component = $form_object->getCurrentComponent();
+    $plugin = $component->getPlugin();
+    $block_id = $plugin->getDerivativeId() ?? $plugin->getBaseId();
+
+    if ($block_id === 'events_filter') {
+      if (isset($form['settings']['block_form'])) {
+        $form['settings']['block_form']['#process'][] = '_ws_event_inline_block_filed_process';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_event_preprocess_block__events_listing(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $variables['#attached']['library'][] = 'y_lb/blocks';
+  $variables['#attached']['library'][] = 'ws_event/listing';
+
+  /** @var  \Drupal\views\ViewExecutable $view */
+  $view = Views::getView('listing_events');
+  $items_per_page = $variables['block_content']->hasField('field_number_of_events')
+    ? $variables['block_content']->get('field_number_of_events')->value
+    : 3;
+  if ($view) {
+    $view->setDisplay('block');
+    $view->setArguments([
+      'block_limit' => $items_per_page
+    ]);
+    $view->preExecute();
+    $view->execute();
+    $variables['views'] = $view->render('block');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_event_preprocess_block__events_filter(&$variables) {
+  $variables['#attached']['library'][] = 'ws_event/filters';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_event_preprocess_block__featured_events(&$variables) {
+  $variables['#attached']['library'][] = 'ws_event/featured_events';
+}
+
+/**
+ * Custom process callback for inline block elements.
+ *
+ * @param array $element
+ *   Element to process.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return array
+ *   Processed element.
+ */
+function _ws_event_inline_block_filed_process(array $element, FormStateInterface $form_state) {
+  if (isset($element['field_block'])) {
+    $element['field_block']['widget']['#after_build'][] = '_ws_event_after_build_callback';
+  }
+  return $element;
+}
+
+/**
+ * Custom '#after_build' callback for field_block.
+ *
+ * @param array $element
+ *   Element to process.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return array
+ *   Processed element.
+ */
+function _ws_event_after_build_callback(array $element, FormStateInterface $form_state) {
+  if (isset($element[0]['plugin_selector']['container'])) {
+    // Hide the select block field.
+    $element[0]['plugin_selector']['container']['select']['container']['#attributes']['class'][] = 'hidden';
+    $element[0]['plugin_selector']['container']['plugin_form']['#attributes']['class'][] = 'hidden';
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_event_preprocess_node__lb_event__featured(&$vars) {
+  _ws_event_prepare_data_for_template_file($vars);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_event_preprocess_node__lb_event__teaser(&$vars) {
+  _ws_event_prepare_data_for_template_file($vars);
+}
+
+/**
+ * Prepare data for the template files.
+ */
+function _ws_event_prepare_data_for_template_file(&$vars) {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $vars['node'];
+
+  /** @var EventDataHelper $event_data_helper */
+  $event_data_helper = \Drupal::service('ws_event.event_data_helper');
+
+  // Get smart date and time data.
+  $dates = $node->field_event_dates_smart;
+  $next_instance = $event_data_helper->getNextInstance($dates);
+
+  if (!empty($next_instance)) {
+    $start = DrupalDateTime::createFromFormat('U', $next_instance->value);
+    $start->setTimezone(timezone_open($next_instance->timezone ?: date_default_timezone_get()));
+
+    $vars['time'] = $next_instance->view($vars["view_mode"]);
+
+    $vars['date_month'] = $start->format('M');
+    $vars['date_day'] = $start->format('d');
+  }
+
+  // Get default image data.
+  $module_path = \Drupal::service('extension.list.module')->getPath('ws_event');
+  $vars['default_image'] = \Drupal::service('file_url_generator')
+    ->generateAbsoluteString(
+      $module_path . '/assets/images/featured_event_default.png'
+    );
+
+  // Get location data - check for an address, use location if none.
+  $vars['location'] = $event_data_helper->getLocationName($node, $vars['view_mode']);
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function ws_event_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  $view_args = $view->args;
+   $custom_limit = $view_args[0] ?? NULL;
+  if ($view->id() === 'listing_events' && $view->current_display === 'block' && is_numeric($custom_limit)) {
+    $view->setItemsPerPage($custom_limit);
+  }
+}

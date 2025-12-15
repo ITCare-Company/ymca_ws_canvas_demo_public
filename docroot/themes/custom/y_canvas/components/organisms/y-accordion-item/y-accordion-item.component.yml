@@ -1,0 +1,45 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Accordion Item
+description: Individual accordion item with expandable content
+status: experimental
+group: Molecules
+
+props:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+      title: Heading
+      description: The title shown on the accordion toggle button
+      examples:
+        - 'What are your hours of operation?'
+
+    content:
+      type: string
+      title: Content
+      description: The expandable content (HTML allowed)
+      contentMediaType: text/html
+      examples:
+        - '<p>We are open Monday through Friday from 5am to 10pm, and weekends from 7am to 8pm.</p>'
+
+    expanded:
+      type: boolean
+      title: Expanded
+      description: Whether this item should be expanded by default
+      default: false
+      examples:
+        - false
+
+    item_id:
+      type: string
+      title: Item ID
+      description: Unique identifier for accessibility (auto-generated if not provided)
+      examples:
+        - 'faq-item-1'
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-accordion-item

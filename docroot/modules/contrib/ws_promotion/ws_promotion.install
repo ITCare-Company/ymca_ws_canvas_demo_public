@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Delete fields
+ */
+function ws_promotion_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_promotion') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.promo.default',
+    'core.entity_form_display.node.promo.default',
+  ]);
+
+  FieldConfig::loadByName('node', 'promo', 'field_promo_visibility_pages')?->delete();
+  FieldConfig::loadByName('node', 'promo', 'field_promo_visibility_state')?->delete();
+
+  FieldStorageConfig::loadByName('node', 'field_promo_visibility_pages')?->delete();
+  FieldStorageConfig::loadByName('node', 'field_promo_visibility_state')?->delete();
+}
+

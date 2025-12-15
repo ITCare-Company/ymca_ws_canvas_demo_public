@@ -1,0 +1,5 @@
+name: openy_inline_editing
+type: module
+description: Dummy module to replace openy_inline_editing.
+package: Useless Machines
+core_version_requirement: ^9 || ^10

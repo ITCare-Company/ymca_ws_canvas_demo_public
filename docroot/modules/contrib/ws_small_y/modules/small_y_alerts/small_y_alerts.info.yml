@@ -1,0 +1,13 @@
+name: 'Y Layout Builder - Small Y Alerts'
+type: module
+description: 'Adds style variants for the Small Y Alerts.'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:ws_small_y
+  - openy_node_alert:openy_node_alert
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

@@ -1,0 +1,31 @@
+# DDEV local files
+.ddev/.gitignore
+.ddev/db_snapshots
+.ddev/sequelpro.spf
+.ddev/.webimageBuild
+.ddev/.dbimageBuild
+.ddev/.sshimageBuild
+.ddev/.homeadditions
+.ddev/xhprof
+.ddev/import-db
+.ddev/docker-compose.*.yaml
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local settings
+docroot/sites/*/settings.local.php
+docroot/sites/*/local.services.yml
+
+# Files directory (user uploads)
+docroot/sites/*/files/*
+!docroot/sites/*/files/.gitkeep
+
+# Private files
+private/

@@ -1,0 +1,5 @@
+lb_tabs:
+  version: 1.0.4
+  css:
+    theme:
+      assets/css/lb-tabs.css: { preprocess: true }

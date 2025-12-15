@@ -1,0 +1,13 @@
+small_y_events.lb_related_events_override:
+  block_type: lb_related_events
+  library: small_y_events/lb_related_events_override
+  override: false
+  active_colorways:
+    - '*'
+
+small_y_events.ws_event_override:
+  block_type: lb_node_title
+  library: small_y_events/ws_event_override
+  override: false
+  active_colorways:
+    - '*'

@@ -1,0 +1,5 @@
+name: color
+type: module
+description: Dummy module to replace color.
+package: Useless Machines
+core_version_requirement: ^10 || ^11

@@ -1,0 +1,246 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.node--type-lb-event {
+
+  &.node--lb {
+    @include media-breakpoint-down('md') {
+      margin-top: 0;
+    }
+  }
+
+  .layout {
+    &.section-content {
+      padding: 60px 0;
+
+      @include media-breakpoint-down(md) {
+        padding: 40px 0;
+      }
+      .block--spacing {
+        margin: 48px 0;
+      }
+    }
+  }
+
+  .wrapper-field-tags {
+    @include media-breakpoint-down(md) {
+      margin-top: 0;
+    }
+  }
+
+  .block-lb-event {
+    &-image {
+      .media,
+      picture {
+        display: block;
+        border-radius: var(--wsBorderRadius, unset);
+        overflow: hidden;
+        margin-bottom: 30px;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    &-info {
+      font-size: 18px;
+      line-height: 26px;
+      margin-bottom: 40px;
+      border-radius: var(--wsBorderRadius, unset);
+      border: var(--wsBorderStyle , none);
+      box-shadow: var(--wsBoxShadow, none);
+
+      .label {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+      }
+
+      svg {
+        margin-right: 8px;
+        vertical-align: baseline;
+
+        path {
+          fill: var(--wsTertiaryColor, var(--ylb-color-grey-1));
+        }
+      }
+
+      a {
+        color: var(--wsPartnerColor, var(--ylb-color-blue-dark))
+      }
+
+      .date,
+      .location {
+        display: flex;
+        padding: 1.5rem;
+        flex-direction: column;
+      }
+
+      .date {
+        background-color: var(--ylb-color-light-grey-1, #f2f2f2);
+        border-top-left-radius: var(--wsBorderRadius, unset);
+        border-top-right-radius: var(--wsBorderRadius, unset);
+        padding-bottom: 0;
+
+        .date-info {
+          display: grid;
+          grid-template-columns: min-content auto;
+
+          &:last-child {
+            margin-bottom: 1.5rem;
+          }
+        }
+
+        time {
+          display: contents;
+        }
+
+        .btn-link {
+          font-family: var(--ylb-font-family-verdana);
+          padding: 0;
+          text-wrap: wrap;
+          text-align: left;
+          color: var(--wsPartnerColor, var(--ylb-color-blue-dark));
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .date-recur-section {
+
+          .date-recur-header {
+            display: grid;
+            grid-template-columns: min-content auto min-content;
+            border-top: 1px solid var(--y-color-light-grey-3, #CCC);
+            margin: 1.5rem -1.5rem 0;
+            padding: 1rem 1.5rem;
+
+            .icon-expand {
+              svg {
+                transition: 0.25s rotate;
+                margin-right: 0;
+              }
+            }
+
+
+            &[aria-expanded="true"] {
+              border-bottom: 1px solid var(--y-color-light-grey-3, #CCC);
+
+              .icon-expand svg {
+                rotate: 45deg;
+              }
+            }
+          }
+
+          .label {
+            font-size: 15px;
+            border-top: 1px solid var(--y-color-light-grey-3, #CCC);
+            padding-top: 1.5rem;
+
+            &:first-child {
+              border: none;
+            }
+          }
+
+          ul {
+            padding-left: 0;
+          }
+
+          li {
+            display: block;
+            margin-bottom: 1em;
+          }
+        }
+
+        // Add margin to the interior div to ensure smooth expanding.
+        #date-recur-detail > div {
+          margin-bottom: 1.5rem;
+        }
+      }
+
+      .add-to-calendar {
+        grid-column: 2;
+
+        .dropdown-toggle:after {
+          content: none;
+        }
+        svg path {
+          fill: var(--wsPartnerColor, var(--ylb-color-blue-dark))
+        }
+      }
+
+      .location {
+        display: flex;
+
+        .location-list {
+          display: flex;
+          align-items: flex-start;
+          gap: 16px;
+          flex-direction: column;
+        }
+
+        .location-info {
+          display: grid;
+          gap: 8px 0;
+          grid-template-columns: min-content 1fr;
+
+          &:not(:last-child) {
+            border-bottom: 1px solid var(--ylb-color-light-grey-2, #E7E7E7);
+            padding-bottom: 24px;
+          }
+
+          .location-label {
+            grid-row: 1 / 4;
+          }
+        }
+
+        .location-directions,
+        .addtocalendar {
+          display: flex;
+          gap: 4px;
+
+          svg path {
+            fill: var(--wsPartnerColor, var(--ylb-color-blue-dark))
+          }
+        }
+      }
+
+      .addtocalendar {
+
+        .atcb-link {
+          order: -1;
+
+          &:hover,
+          &:focus {
+
+          }
+        }
+      }
+    }
+
+    &-contacts {
+      .contact {
+        &-email {
+          -ms-word-break: break-all;
+          word-break: break-all;
+          /* Non standard for WebKit */
+          word-break: break-word;
+          -webkit-hyphens: auto;
+          -moz-hyphens: auto;
+          hyphens: auto;
+        }
+      }
+    }
+  }
+
+
+  .body {
+    &.field-item {
+      margin-top: 20px;
+    }
+  }
+}

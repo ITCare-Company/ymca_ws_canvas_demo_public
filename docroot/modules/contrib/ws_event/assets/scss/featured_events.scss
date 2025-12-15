@@ -1,0 +1,208 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.featured-events {
+  margin-bottom: 60px;
+
+  h2 {
+    font-size: 50px;
+    font-family: var(--ylb-font-family-cachet);
+    line-height: 60px;
+    margin-bottom: 28px;
+
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 30px;
+    }
+  }
+
+  .node--view-mode-featured {
+    border-radius: var(--wsBorderRadius, unset);
+    box-shadow: 0 0 11px 0 rgba(0,0,0,0.15);
+    padding: 0;
+    height: 100%;
+    margin-bottom: 30px;
+    margin-top: 0;
+    // Hiding overflow ensures border radii are enforced.
+    overflow: hidden;
+
+    // Set an outline on the container on hover.
+    &:hover {
+      outline: 5px auto var(--wsPrimaryColor, Highlight);
+      outline: 5px auto var(--wsPrimaryColor, -webkit-focus-ring-color);
+      cursor: pointer;
+
+      // Keep the underline on the h3.
+      h3 a {
+        text-decoration: underline;
+      }
+    }
+
+    & > div {
+      display: flex;
+      flex-wrap: wrap;
+      align-self: center;
+
+      .featured-event {
+
+        &-date {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          color: var(--ylb-color-white, white);
+          font-size: 32px;
+          line-height: 40px;
+          font-family: var(--ylb-font-family-cachet);
+          font-weight: 500;
+          text-align: center;
+          width: 80px;
+          height: 80px;
+          background: rgba(var(--wsPrimaryColorRGB, 35, 31, 32), 0.8);
+          position: absolute;
+          top: 40px;
+          right: -20px;
+          border-top-left-radius: var(--wsBorderRadius, unset);
+          border-bottom-left-radius: var(--wsBorderRadius, unset);
+          text-transform: uppercase;
+
+          @include media-breakpoint-down(lg) {
+            top: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 0 var(--wsBorderRadius, unset) 0 0;
+          }
+
+          &--month {
+            font-size: 18px;
+            line-height: 22px;
+          }
+        }
+
+        &-time,
+        &-location {
+          font-size: 18px;
+          line-height: 26px;
+          margin-top: 20px;
+          display: flex;
+
+          svg {
+            margin-right: 20px;
+            vertical-align: baseline;
+
+            path {
+              fill: var(--wsTertiaryColor, var(--ylb-color-grey-1));
+            }
+          }
+
+          a {
+            color: var(--wsPartnerColor, var(--ylb-color-blue-dark))
+          }
+        }
+
+        &-time {
+          time {
+            display: contents;
+          }
+        }
+
+        &-location {
+
+        }
+
+      }
+
+      .image {
+        position: relative;
+        width: 100%;
+
+        @include media-breakpoint-up(lg) {
+          max-width: 50%;
+        }
+
+        @include media-breakpoint-up(xl) {
+          max-width: 67%;
+        }
+
+        .field-header-image {
+          height: 100%;
+          width: 100%;
+
+          @include media-breakpoint-up(lg) {
+            width: calc(100% + 20px);
+          }
+
+          & > article {
+            height: 100%;
+
+            .field-media-image {
+              height: 100%;
+
+              img {
+                border-radius: unset;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+              }
+            }
+          }
+        }
+      }
+
+      .description {
+        width: 100%;
+        padding: 40px;
+
+        @include media-breakpoint-up(lg) {
+          max-width: 50%;
+        }
+
+        @include media-breakpoint-up(xl) {
+          max-width: 33%;
+        }
+
+        h3 {
+          font-size: 26px;
+          font-family: var(--ylb-font-family-cachet);
+          line-height: 32px;
+
+          @include media-breakpoint-up(lg) {
+            font-size: 30px;
+          }
+
+          a {
+            color: var(--wsPrimaryColor, black)
+          }
+        }
+
+        .body,
+        .wrapper-field-tags {
+          margin-bottom: 20px;
+          margin-top: 0;
+        }
+
+        .body {
+          margin-bottom: 20px;
+          margin-top: 0;
+          font-size: 18px;
+
+          p {
+            font-size: 18px;
+            font-family: var(--ylb-font-family-verdana);
+            font-weight: 500;
+            line-height: 28px;
+          }
+        }
+
+        .wrapper-field-tags {
+          margin-bottom: 20px;
+          margin-top: 0;
+
+          @include media-breakpoint-down(lg) {
+            justify-content: flex-start;
+          }
+        }
+      }
+    }
+  }
+}

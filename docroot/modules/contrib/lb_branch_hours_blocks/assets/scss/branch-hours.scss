@@ -1,0 +1,263 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-lb-branch-hours {
+  font-family: var(--ylb-font-family-cachet), serif;
+  font-weight: 500;
+
+  .branch-name {
+    h1 {
+      color: inherit;
+      margin-bottom: 30px;
+      font-size: 65px;
+      line-height: 75px;
+      overflow: hidden;
+
+      @include media-breakpoint-down('md') {
+        font-size: 40px;
+        line-height: 48px;
+        margin-bottom: 18px;
+      }
+    }
+  }
+
+  .back-link {
+    text-transform: uppercase;
+    line-height: 26px;
+    font-size: 16px;
+
+    .fas {
+      font-size: 14px;
+    }
+
+    a {
+      color: inherit;
+    }
+  }
+
+  .preferred-location {
+    font-size: 18px;
+    line-height: 22px;
+    color: inherit;
+    padding: 10px 13px 10px 20px;
+    text-transform: capitalize;
+    display: inline-flex;
+    align-items: center;
+    height: 52px;
+    gap: 18px;
+    border-radius: var(--wsBorderRadius, unset);
+
+    .fas {
+      display: none;
+      font-size: 30px;
+    }
+
+    &.active {
+      .fas {
+        display: inline;
+      }
+    }
+  }
+
+  &--wrapper {
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    justify-content: space-around;
+
+    @include media-breakpoint-down('md') {
+      flex-direction: column;
+    }
+
+    .branch-phone,
+    .branch-address,
+    .branch-fax {
+      margin-bottom: 15px;
+    }
+
+    .info-card {
+      padding: 25px;
+      color: white;
+      background: rgba(var(--ylb-color-rgb-dark-grey-2, black), 0.25);
+      border-color: transparent;
+      border-radius: var(--wsBorderRadius, unset);
+      width: calc((100% - 2rem) / 2);
+
+      @include media-breakpoint-down('md') {
+        padding: 25px 20px;
+        line-height: 19px;
+        width: 100%;
+      }
+
+      .card {
+        border: none;
+        background: none;
+      }
+
+      .label {
+        text-transform: uppercase;
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 25px;
+        @include media-breakpoint-down('md') {
+          margin-bottom: 20px;
+        }
+      }
+
+      .fa, .fas {
+        margin-top: 2px;
+      }
+
+      .branch-address {
+        display: flex;
+        column-gap: 0.5rem;
+      }
+
+      .branch-email, .branch-phone, .branch-fax {
+        a {
+          display: flex;
+          column-gap: 0.5rem;
+          color: var(--ylb-color-white, #fff);
+
+          // Ensure underline doesn't show on icons.
+          &:hover, &:focus {
+            text-decoration: none;
+
+            div {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .branch-email {
+        div {
+          word-break: break-all;
+        }
+      }
+
+      .hours {
+        margin-bottom: 15px;
+
+        .d-flex {
+          display: flex;
+          column-gap: 8px;
+        }
+      }
+
+      .see-more-hours {
+        margin: 0 -25px;
+        padding-top: 15px;
+
+        @include media-breakpoint-down('md') {
+          margin: 0 -20px;
+        }
+
+        a {
+          margin-left: 37px;
+          color: white;
+
+          @include media-breakpoint-down('md') {
+            margin-left: 31px;
+          }
+        }
+      }
+    }
+
+    .branch-hours-dropdown {
+      box-shadow: 0 0 11px 0 rgba(0,0,0,0.15);
+      display: none;
+      position: absolute;
+      z-index: 400;
+      background-color: white;
+      border-radius: var(--wsBorderRadius, unset);
+      color: #2F2F2F;
+      padding: 25px;
+      right: 15px;
+      top: 83%;
+      width: 94.5%;
+      @include media-breakpoint-up('lg') {
+        top: 75%;
+      }
+
+      header {
+        overflow: hidden;
+      }
+
+      h5 {
+        font-size: 16px;
+        line-height: 20px;
+        margin-right: 40px;
+        font-weight: bolder;
+      }
+
+      table {
+        width: 100%;
+        font-family: var(--ylb-font-family-verdana);
+
+        .current-day {
+          font-weight: $font-weight-bold;
+        }
+      }
+
+      .week-hours {
+        padding: 20px 0;
+        border-bottom: 1px solid #D8D8D8;
+      }
+
+      .holiday-hours {
+        padding: 20px 0;
+        border-bottom: 1px solid #D8D8D8;
+      }
+
+      .hours-more-link {
+        margin-top: 20px;
+
+        a {
+          padding: 0;
+          color: var(--ylb-color-blue-dark, #0060AF);
+          text-align: left;
+          font-size: 16px;
+          line-height: 19px;
+          border: none;
+          text-transform: none;
+
+          &:hover {
+            background-color: transparent;
+            color: var(--ylb-color-blue-dark, #0060AF);
+            text-decoration: underline;
+          }
+        }
+      }
+      .close {
+        width: 24px;
+        height: 24px;
+        background-color: #E9E9E9;
+        border-radius: 100%;
+        line-height: 24px;
+        display: block;
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+}
+
+.node--lb {
+  .ylb-bg-semi-light-grey {
+    .block-lb-branch-hours {
+      .preferred-location {
+        border-color: var(--ylb-color-white, #fff);
+      }
+    }
+  }
+
+  .block-lb-branch-hours {
+    padding: 60px 0;
+
+    @include media-breakpoint-down('md') {
+      padding: 40px 0 30px;
+    }
+  }
+}
+

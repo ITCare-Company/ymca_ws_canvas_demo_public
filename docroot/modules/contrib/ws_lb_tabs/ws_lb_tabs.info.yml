@@ -1,0 +1,16 @@
+name: 'Y Layout Builder - Tabs'
+description: 'Helper module for the custom &quot;Tabs&quot; block type.'
+type: module
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - drupal:link
+  - y_lb
+  - drupal:block_content
+  - drupal:inline_entity_form
+  - drupal:entity_browser
+
+# Information added by Drupal.org packaging script on 2025-06-30
+version: '2.1.0'
+project: 'ws_lb_tabs'
+datestamp: 1751289169

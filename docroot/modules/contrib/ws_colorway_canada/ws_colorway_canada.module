@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function ws_colorway_canada_preprocess_html(&$variables) {
+  $variables['attributes']['class'][] = 'ws-canada';
+}
+
+/**
+ * Implements hook_block_alter().
+ */
+function ws_colorway_canada_block_alter(&$definitions) {
+  foreach ($definitions as $id => $definition) {
+    if ($id === 'ws_site_logo') {
+      $definitions[$id]['class'] = 'Drupal\ws_colorway_canada\Plugin\Block\CanadaSiteLogoBlock';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_colorway_canada_preprocess_ws_footer(&$variables) {
+  $variables['#attached']['library'][] = 'ws_colorway_canada/footer';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_colorway_canada_preprocess_ws_header(&$variables) {
+  $variables['#attached']['library'][] = 'ws_colorway_canada/header';
+}
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_colorway_canada_preprocess_ws_camp_header(&$variables) {
+  $variables['#attached']['library'][] = 'ws_colorway_canada/header';
+}

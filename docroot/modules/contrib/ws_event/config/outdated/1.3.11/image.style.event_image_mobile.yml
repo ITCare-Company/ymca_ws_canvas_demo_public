@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: event_image_mobile
+label: 'Event Image Mobile (350x240)'
+effects:
+  6ac3c994-494d-4471-b242-eacf91f8faa0:
+    uuid: 6ac3c994-494d-4471-b242-eacf91f8faa0
+    id: openy_focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 350
+      height: 240
+      crop_type: focal_point
+  45dc9647-ab76-4d3f-bb78-f1dd238f19f4:
+    uuid: 45dc9647-ab76-4d3f-bb78-f1dd238f19f4
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

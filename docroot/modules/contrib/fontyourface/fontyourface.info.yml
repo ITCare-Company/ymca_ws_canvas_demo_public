@@ -1,0 +1,14 @@
+name: '@fontyourface'
+type: module
+description: Web font management tools.
+core_version_requirement: ^10.2 || ^11.0
+package: '@font-your-face'
+configure: font.settings
+dependencies:
+  - drupal:taxonomy
+  - drupal:views
+
+# Information added by Drupal.org packaging script on 2025-11-18
+version: '4.1.0'
+project: 'fontyourface'
+datestamp: 1763474878

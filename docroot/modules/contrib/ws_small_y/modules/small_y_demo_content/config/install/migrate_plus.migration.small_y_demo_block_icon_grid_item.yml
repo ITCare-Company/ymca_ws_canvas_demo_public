@@ -1,0 +1,112 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_icon_grid_item
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Create Icon Grid Item for Icon Grid component'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: icon_grid_item_1
+      uuid: '13ff2285-90c7-42e3-b1a2-8f11f6729a6f'
+      title: "Welcoming"
+      body: "<p>This is a PNG image.</p>"
+      image: icon_2
+    -
+      id: icon_grid_item_2
+      uuid: '3341095f-b744-4c19-63e4-5790ceba64b2'
+      title: 'Genuine'
+      body: "<p>This is an SVG image.</p>"
+      image: svg_404_image
+
+    -
+      id: icon_grid_item_3
+      uuid: '9f0743f2-a2ea-4a36-6927-d361182823dd'
+      title: 'Nurturing'
+      body: "<p>This is a non-square image that should be displayed within a circle.</p>"
+      image: promo_image_3
+
+    -
+      id: icon_grid_item_4
+      uuid: 'a0c14f50-9e84-46df-5107-ee9ca243b690'
+      title: 'Hopeful'
+      body: "<p>We believe in you and your ability to inspire a brighter tomorrow.</p>"
+      image: icon_5
+
+    -
+      id: icon_grid_item_5
+      uuid: '725307ba-bd07-41a4-42fd-f463bfa2b027'
+      title: 'Determined'
+      body: "<p>We work relentlessly to strengthen communities, starting with you.</p>"
+      image: icon_6
+
+    -
+      id: icon_grid_item_6
+      uuid: '933ebc5a-abb8-480a-7eb7-980e72de1b6e'
+      title: 'Schedules'
+      body: "<p>Spring soccer registration typically opens in January, and the season runs from March to May. Fall soccer registration typically opens in July, and the season runs from August to October.</p>"
+      image: icon_10
+
+    -
+      id: icon_grid_item_7
+      uuid: 'fbfffb92-8913-4056-8ef8-4332ae6c538b'
+      title: 'Ages'
+      body: "<p>We offer leagues for kids ages 3–14, all with age-appropriate instruction as well as adjusted field sizes, ball sizes and number of players on the field.</p>"
+      image: icon_11
+
+    -
+      id: icon_grid_item_8
+      uuid: 'e73393c4-b7ac-4c0e-2698-a2f354eed816'
+      title: 'Pricing'
+      body: "<p>Prices vary by age division, but start at $90 for YMCA facility members and $115 for youth soccer program members.</p>"
+      image: icon_12
+
+    -
+      id: icon_grid_item_9
+      uuid: 'c7ddb5ff-90dc-4fe4-7e86-18bfe0fe5d13'
+      title: 'For new members'
+      body: "<p>Get 50% off your first month of membership</p>"
+      image: icon_13
+
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  reusable:
+    plugin: default_value
+    default_value: 0
+  uuid: uuid
+  status:
+    plugin: default_value
+    default_value: 1
+  type:
+    plugin: default_value
+    default_value: icon_grid_item
+  field_title: title
+  field_description/value: body
+  field_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_media:
+    -
+      plugin: migration_lookup
+      migration: small_y_demo_media_image
+      source: image
+  field_grid_item_cta_link: cta
+destination:
+  plugin: entity:block_content
+  default_bundle: 'icon_grid_item'
+migration_dependencies: {  }

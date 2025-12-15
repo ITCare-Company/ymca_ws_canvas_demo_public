@@ -1,0 +1,5 @@
+services:
+  openy_pef_gxp_sync.commands:
+    class: \Drupal\openy_pef_gxp_sync\Commands\OpenyPefGxpSyncCommands
+    tags:
+      - { name: drush.command }

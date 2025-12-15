@@ -1,0 +1,58 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Menu Block
+description: Navigation menu block with customizable display styles
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Optional heading above the menu
+      examples:
+        - 'Quick Links'
+
+    menu_name:
+      type: string
+      title: Menu Name
+      description: Machine name of the Drupal menu to display
+      examples:
+        - 'main'
+
+    depth:
+      type: integer
+      title: Menu Depth
+      description: Maximum depth of menu levels to display
+      default: 2
+      minimum: 1
+      maximum: 5
+      examples:
+        - 2
+
+    display_style:
+      type: string
+      title: Display Style
+      description: Visual layout style for the menu
+      default: 'vertical'
+      enum:
+        - 'vertical'
+        - 'horizontal'
+        - 'dropdown'
+      meta:enum:
+        vertical: 'Vertical List'
+        horizontal: 'Horizontal Bar'
+        dropdown: 'Dropdown Menu'
+      examples:
+        - 'vertical'
+
+slots:
+  menu:
+    title: Menu Items
+    description: Rendered menu item links
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-menu-block

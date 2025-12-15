@@ -1,0 +1,135 @@
+<?php
+
+/**
+ * @file
+ * Small Y Editor install file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function small_y_editor_install() {
+  _small_y_editor_enable_filter();
+  _small_y_editor_add_table_styles();
+}
+
+/**
+ * Implements hook_install().
+ */
+function small_y_editor_uninstall() {
+  _small_y_editor_disable_filter();
+  _small_y_editor_remove_table_styles();
+}
+
+/**
+ * Update editor settings to add styles for table.
+ */
+function _small_y_editor_add_table_styles() {
+  $active_config = \Drupal::configFactory()->getEditable('editor.editor.full_html');
+  $settings = $active_config->get('settings');
+  if (empty($settings['plugins']['ckeditor5_style'])) {
+    return;
+  }
+
+  // Add the "Highlighted" style.
+  $default_plugin_settings = [
+    'styles' => [
+      [
+        'label' => 'Highlighted',
+        'element' => '<span class="highlighted">',
+      ],
+      [
+        'label' => 'Plain Table',
+        'element' => '<table class="table">',
+      ],
+      [
+        'label' => 'Dark Plain Table',
+        'element' => '<table class="table-dark">',
+      ],
+      [
+        'label' => 'Striped Table',
+        'element' => '<table class="table-striped">',
+      ],
+      [
+        'label' => 'Bordered Table',
+        'element' => '<table class="table-bordered">',
+      ],
+      [
+        'label' => 'Borderless Table',
+        'element' => '<table class="table-borderless">',
+      ],
+      [
+        'label' => 'Hover Table',
+        'element' => '<table class="table-hover">',
+      ],
+      [
+        'label' => 'Small Table',
+        'element' => '<table class="table-sm">',
+      ],
+    ],
+  ];
+
+  $settings['plugins']['ckeditor5_style'] = $default_plugin_settings;
+  $active_config->set('settings', $settings);
+  $active_config->save(TRUE);
+}
+
+/**
+ * Enables a custom filter for table styles in the Full HTML format.
+ */
+function _small_y_editor_enable_filter() {
+  $active_config = \Drupal::configFactory()->getEditable('filter.format.full_html');
+  $filters = $active_config->get('filters');
+  if (empty($filters)) {
+    return;
+  }
+
+  // Add a "small_y_table_filter" filter.
+  $filters['small_y_table_filter'] =  [
+    'id' => 'small_y_table_filter',
+    'provider' => 'small_y_editor',
+    'status' => TRUE,
+    'weight' => 0,
+    'settings' => [],
+  ];
+  $active_config->set('filters', $filters);
+  $active_config->save(TRUE);
+}
+
+/**
+ * Disables and removes the custom table filter.
+ */
+function _small_y_editor_disable_filter() {
+  $active_config = \Drupal::configFactory()->getEditable('filter.format.full_html');
+  $filters = $active_config->get('filters');
+  if (!isset($filters['small_y_table_filter'])) {
+    return;
+  }
+  // Needs to be disabled first.
+  $filters['small_y_table_filter']['status'] = FALSE;
+  $active_config->set('filters', $filters);
+  $active_config->save(TRUE);
+  // Remove the filter.
+  unset($filters['small_y_table_filter']);
+  $active_config->set('filters', $filters);
+  $active_config->save(TRUE);
+}
+
+/**
+ * Removes custom table styles from the Full HTML editor configuration.
+ */
+function _small_y_editor_remove_table_styles() {
+  $active_config = \Drupal::configFactory()->getEditable('editor.editor.full_html');
+  $settings = $active_config->get('settings');
+  if (!isset($settings['plugins']['ckeditor5_style'])) {
+    return;
+  }
+
+  foreach ($settings['plugins']['ckeditor5_style']['styles'] as $key => $style) {
+    if ( str_contains($style['element'], '<table') ) {
+      unset($settings['plugins']['ckeditor5_style']['styles'][$key] );
+    }
+  }
+  $active_config->set('settings', $settings);
+  $active_config->save(TRUE);
+}

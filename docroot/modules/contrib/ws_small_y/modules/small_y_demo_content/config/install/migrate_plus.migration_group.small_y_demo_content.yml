@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: small_y_demo_content
+label: 'Y Layout Builder - Small Y Demo content'
+description: 'Imports Y Layout Builder Small Y Demo content.'
+module: small_y_demo_content

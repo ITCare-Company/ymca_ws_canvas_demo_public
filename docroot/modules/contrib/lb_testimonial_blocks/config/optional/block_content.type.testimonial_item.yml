@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: testimonial_item
+label: 'Testimonial item'
+revision: 0
+description: 'A block for adding a Testimonial carousel item.'

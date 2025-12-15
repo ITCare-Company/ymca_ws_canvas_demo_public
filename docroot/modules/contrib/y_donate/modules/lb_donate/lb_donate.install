@@ -1,0 +1,185 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Y Layout Builder - Donate module.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Set Background image field to not required.
+ */
+function lb_donate_update_9000(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_donate') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_donate.field_image',
+  ]);
+}
+
+/**
+ * Require giving amount label and element id.
+ */
+function lb_donate_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_donate') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.paragraph.lb_donate_giving_amount.field_amount_label',
+    'field.field.paragraph.lb_donate_giving_amount.field_form_element_id',
+  ]);
+}
+
+/**
+ * Require CTA field too.
+ */
+function lb_donate_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_donate') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_donate.field_cta',
+  ]);
+}
+
+/**
+ * Import config to create 'donate_item' sub block for 'lb_donate' block.
+ */
+function lb_donate_update_9003() {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_donate') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'block_content.type.donate_item',
+    'core.entity_form_display.block_content.donate_item.default',
+    'core.entity_view_display.block_content.donate_item.default',
+    'field.field.block_content.donate_item.field_form_element_id',
+    'field.field.block_content.donate_item.field_title',
+    'field.field.block_content.lb_donate.field_block_item',
+    'field.storage.block_content.field_block_item',
+    'field.storage.block_content.field_form_element_id',
+    'field.storage.block_content.field_title',
+    'language.content_settings.block_content.donate_item',
+  ]);
+}
+
+/**
+ * Migrate from 'lb_donate_giving_amount' paragraph to 'donate_item' block.
+ */
+function lb_donate_update_9004(&$sandbox) {
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::entityTypeManager();
+  $storageParagraph = $entityTypeManager->getStorage('paragraph');
+  $storageBlock = $entityTypeManager->getStorage('block_content');
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['data'] = [
+      'paragraphs' => $storageParagraph->loadByProperties(['type' => 'lb_donate_giving_amount']),
+      'blocks' => [],
+    ];
+    // Group paragraphs by parent id.
+    foreach ($sandbox['data']['paragraphs'] as $id => $paragraph) {
+      $sandbox['data']['blocks'][$paragraph->get('parent_id')->value][] = $id;
+    }
+    $sandbox['total'] = count($sandbox['data']['blocks']);
+  }
+
+  $blocks = array_slice($sandbox['data']['blocks'], $sandbox['progress'], 5, TRUE);
+
+  foreach ($blocks as $parentId => $paragraphIds) {
+    $newBlockIds = [];
+
+    foreach ($paragraphIds as $paragraphId) {
+      $paragraph = $sandbox['data']['paragraphs'][$paragraphId];
+      // Create new 'donate_item' sub block with content from paragraph.
+      $block = $storageBlock->create([
+        'type' => 'donate_item',
+        'field_title' => $paragraph->get('field_amount_label')->getValue(),
+        'field_form_element_id' => $paragraph->get('field_form_element_id')->getValue(),
+      ]);
+
+      $block->save();
+      $newBlockIds[] = $block->id();
+      $paragraph->delete();
+    }
+
+    // Load parent block and set new sub block.
+    /** @var \Drupal\block_content\Entity\BlockContent $parentBlock */
+    if (($parentBlock = $storageBlock->load($parentId)) && $parentBlock->bundle() === 'lb_donate') {
+      $parentBlock->set('field_block_item', $newBlockIds)->save();
+    }
+    $sandbox['progress']++;
+  }
+
+  $sandbox['#finished'] = empty($sandbox['total']) ? 1 : $sandbox['progress'] / $sandbox['total'];
+}
+
+/**
+ * Remove 'lb_donate_giving_amount' paragraph config.
+ */
+function lb_donate_update_9005() {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_donate') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.lb_donate.default',
+    'core.entity_view_display.block_content.lb_donate.default',
+  ]);
+
+  $configsToDelete = [
+    'paragraphs.paragraphs_type.lb_donate_giving_amount',
+    'core.entity_form_display.paragraph.lb_donate_giving_amount.default',
+    'core.entity_view_display.paragraph.lb_donate_giving_amount.default',
+  ];
+
+  $configFactory = \Drupal::configFactory();
+  foreach ($configsToDelete as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+
+  FieldConfig::loadByName('paragraph', 'lb_donate_giving_amount', 'field_amount_label')?->delete();
+  FieldConfig::loadByName('paragraph', 'lb_donate_giving_amount', 'field_form_element_id')?->delete();
+  FieldConfig::loadByName('block_content', 'lb_donate', 'field_giving_amount')?->delete();
+
+  $fields = [
+    'paragraph' => [
+      'field_amount_label',
+      'field_form_element_id',
+    ],
+    'block_content' => [
+      'field_giving_amount',
+    ],
+  ];
+
+  // Check if the field storage is used in other entities.
+  foreach ($fields as $entityTypeId => $fieldNames) {
+    foreach ($fieldNames as $fieldName) {
+      $fieldStorage = FieldStorageConfig::loadByName($entityTypeId, $fieldName);
+      if ($fieldStorage && empty($fieldStorage->getBundles())) {
+        $fieldStorage->delete();
+      }
+    }
+  }
+}
+
+/**
+ * Rename label "field_block_item" field.
+ */
+function lb_donate_update_9006() {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_donate') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_donate.field_block_item',
+  ]);
+}

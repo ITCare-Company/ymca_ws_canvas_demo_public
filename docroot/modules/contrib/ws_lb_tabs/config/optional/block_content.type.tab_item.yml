@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: tab_item
+label: 'Tab Item'
+revision: 0
+description: ''

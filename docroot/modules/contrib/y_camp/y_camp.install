@@ -1,0 +1,776 @@
+<?php
+
+/**
+ * @file
+ * Installation and update implementations.
+ */
+
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\FieldStorageConfigInterface;
+use Drupal\layout_builder\Section;
+use Drupal\layout_builder\SectionComponent;
+
+/**
+ * Implements hook_install().
+ */
+function y_camp_install() {
+  // Create required fields.
+  _y_camp_create_fields();
+  // Update form and view displays for Camp content type.
+  _y_camp_update_displays_on_install();
+  // Modify Camp content type field groups on the form.
+  _y_camp_update_field_groups_on_install();
+}
+
+/**
+ * Implements hook_install().
+ */
+function y_camp_uninstall() {
+  // Remove field.
+  _y_camp_remove_fields();
+  // Update form and view displays for Camp content type.
+  _y_camp_update_displays_on_unistall();
+  // Update and remove Camp content type field groups on the form.
+  _y_camp_update_field_groups_on_uninstall();
+}
+
+/**
+ * Create required fields.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_camp_create_fields() {
+  // Create field storage if not exist and config for 'Use Layout Builder' field.
+  $field_storage_config = FieldStorageConfig::loadByName('node', 'field_use_layout_builder');
+  if (!$field_storage_config instanceof FieldStorageConfigInterface) {
+    FieldStorageConfig::create([
+      'field_name' => 'field_use_layout_builder',
+      'entity_type' => 'node',
+      'type' => 'boolean',
+      'cardinality' => 1,
+    ])->save();
+  }
+
+  FieldConfig::create([
+    'field_name' => 'field_use_layout_builder',
+    'entity_type' => 'node',
+    'bundle' => 'camp',
+    'label' => 'Use Layout Builder',
+    'description' => 'Change display option of the Camp.',
+  ])->save();
+
+}
+
+/**
+ * Update required field groups on install.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_camp_update_field_groups_on_install() {
+  // Deprecate existing groups.
+  $deprecated_groups = [
+    30 => 'group_header_area',
+    31 => 'group_content_area',
+    32 => 'group_bottom_area',
+  ];
+
+  foreach ($deprecated_groups as $weight => $deprecated_group) {
+    $group = field_group_load_field_group($deprecated_group, 'node', 'camp', 'form', 'default');
+    if ($group) {
+      $group->weight = $weight;
+      $group->label = $group->label . ' (deprecated, not displayed in Layout Builder)';
+    }
+    field_group_group_save($group);
+  }
+}
+
+/**
+ * Update required field groups on uninstall.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_camp_update_field_groups_on_uninstall() {
+  // Deprecate existing groups.
+  $deprecated_groups = [
+    30 => 'group_header_area',
+    31 => 'group_content_area',
+    32 => 'group_bottom_area',
+  ];
+
+  foreach ($deprecated_groups as $weight => $deprecated_group) {
+    $group = field_group_load_field_group($deprecated_group, 'node', 'camp', 'form', 'default');
+    if ($group) {
+      $group->weight = $weight;
+      $group->label = str_replace(' (deprecated, not displayed in Layout Builder)', '', $group->label);
+    }
+    field_group_group_save($group);
+  }
+}
+
+/**
+ * Update Camp content type display modes on enabling the module.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_camp_update_displays_on_install() {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Camp content type form display.
+  /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $form_display */
+  $form_display = $entity_display_repository->getFormDisplay('node', 'camp');
+  $form_display->setComponent('field_use_layout_builder', [
+    'type' => 'boolean_checkbox',
+    'settings' => [
+      'display_label' => TRUE,
+    ],
+    'weight' => 51,
+  ]);
+
+  $form_display->save();
+
+  // Update Camp content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'camp');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'camp', $view_mode);
+    $fields = [
+      'field_use_layout_builder',
+    ];
+    foreach ($fields as $field) {
+      $view_display->removeComponent($field);
+    }
+    if ($view_mode == 'full') {
+      $sections = _y_camp_create_sections_layout_builder();
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'enabled', TRUE)
+        ->setThirdPartySetting('layout_builder', 'allow_custom', TRUE)
+        ->setThirdPartySetting('layout_builder', 'sections', $sections)
+        ->setThirdPartySetting('y_lb', 'styles', [
+          'colorway' => 'ws_colorway_blue',
+          'border_radius' => 'ws_border_radius_none',
+          'border_style_global' => 'ws_border_style_global_drop_shadow',
+          'text_alignment_global' => 'ws_text_alignment_global_left',
+          'button_position_global' => 'ws_button_position_global_inside',
+          'button_fill_global' => 'ws_button_fill_global_filled',
+        ])
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', [
+          'allowed_layouts' => [
+            'bootstrap_layout_builder:blb_col_1',
+            'bootstrap_layout_builder:blb_col_2',
+            'bootstrap_layout_builder:blb_col_3',
+            'bootstrap_layout_builder:blb_col_4',
+            'ws_header',
+            'ws_camp_header',
+            'ws_footer',
+          ],
+        ]);
+      $view_display->removeComponent('layout_builder__layout');
+    }
+    $view_display->save();
+  }
+  // Update restrictions inline blocks
+  y_camp_update_9001();
+  y_camp_update_9009();
+}
+
+/**
+ * Create sections and blocks for layout builder
+ */
+function _y_camp_create_sections_layout_builder() {
+  $uuid_service = \Drupal::service('uuid');
+  $sections = [];
+
+  // Section WS Header
+  $section = new Section('ws_camp_header', [
+    'container' => 'container',
+    'label' => 'Camp Header',
+  ]);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_top_left', [
+    'id' => 'y_camp_back_link',
+    'label' => 'Camp Back Link',
+    'label_display' => '0',
+    'provider' => 'y_camp',
+  ]);
+  $section->appendComponent($component);
+
+  $block_content = BlockContent::create([
+    'type' => 'camp_quick_links',
+    'info' => 'Camp Quick Links',
+    'reusable' => '0',
+  ]);
+  $block_content->save();
+  $component = new SectionComponent($uuid_service->generate(), 'header_top_right', [
+    'id' => 'inline_block:camp_quick_links',
+    'label' => 'Camp Quick Links',
+    'label_display' => '1',
+    'provider' => 'layout_builder',
+    'view_mode' => 'default',
+    'block_revision_id' => $block_content->getRevisionId(),
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_top_right', [
+    'id' => 'openy_gtranslate_block',
+    'label' => 'Open Y Google Translate',
+    'label_display' => '0',
+    'provider' => 'openy_gtranslate',
+  ]);
+  $section->appendComponent($component);
+
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_left', [
+    'id' => 'ws_site_logo',
+    'label' => 'Site Logo Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+    'logo_type' => 'colorway',
+  ]);
+  $section->appendComponent($component);
+
+  $block_content = BlockContent::create([
+    'type' => 'camp_menu_lb',
+    'info' => 'Camp Menu lb',
+    'reusable' => '0',
+  ]);
+  $block_content->save();
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_right', [
+    'id' => 'inline_block:camp_menu_lb',
+    'label' => 'Camp Menu',
+    'label_display' => '0',
+    'provider' => 'layout_builder',
+    'view_mode' => 'default',
+    'block_revision_id' => $block_content->getRevisionId(),
+  ]);
+  $section->appendComponent($component);
+
+  $block_content2 = BlockContent::create([
+    'type' => 'camp_quick_links',
+    'info' => 'Camp Quick Links',
+    'reusable' => '0',
+  ]);
+  $block_content2->save();
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_right', [
+    'id' => 'inline_block:camp_quick_links',
+    'label' => 'Camp Quick Links',
+    'label_display' => '1',
+    'provider' => 'layout_builder',
+    'view_mode' => 'default',
+    'block_revision_id' => $block_content2->getRevisionId(),
+  ]);
+  $section->appendComponent($component);
+
+  $sections[] = $section;
+
+  // Section Camp Banner
+  $section = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'w-100',
+    'label' => 'Banner',
+    'remove_gutters' => '1',
+    'container_wrapper' => [
+      'bootstrap_styles' => [
+        'background' => ['background_type' => 'color'],
+        'background_color' => ['class' => 'ylb-bg-white'],
+      ],
+    ],
+  ]);
+  $sections[] = $section;
+
+  // Section Camp Info
+  $section = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'container',
+    'label' => 'Camp Info',
+    'container_wrapper' => [
+      'bootstrap_styles' => [
+        'background' => ['background_type' => 'color'],
+        'background_color' => ['class' => 'ylb-bg-semi-light-grey'],
+        'text_color' => ['class' => 'ylb-text-white'],
+      ],
+    ],
+    'container_wrapper_classes' => 'location-header',
+  ]);
+
+  $component = new SectionComponent($uuid_service->generate(), 'blb_region_col_1', [
+    'id' => 'y_camp_info',
+    'label' => 'Camp Info',
+    'label_display' => '0',
+    'provider' => 'y_camp_info',
+    'context_mapping' => ['node' => 'layout_builder.entity'],
+  ]);
+  $section->appendComponent($component);
+
+  $sections[] = $section;
+
+  // Section Body
+  $section = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'container',
+    'label' => 'Body',
+  ]);
+
+  $sections[] = $section;
+
+  // Section WS Footer
+  $section = new Section('ws_footer', [
+    'container' => 'container',
+    'label' => 'Footer',
+  ]);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_left', [
+    'id' => 'ws_site_logo',
+    'label' => 'Site Logo Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+    'logo_type' => 'white',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_right', [
+    'id' => 'ws_social',
+    'label' => 'Stay Connected',
+    'label_display' => 'visible',
+    'provider' => 'y_lb',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_bottom_right', [
+    'id' => 'system_menu_block:footer',
+    'label' => 'Footer navigation',
+    'label_display' => '0',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_bottom_left', [
+    'id' => 'ws_copyright',
+    'label' => 'Copyright Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_middle', [
+    'id' => 'system_menu_block:footer-menu-left',
+    'label' => 'Left',
+    'label_display' => 'visible',
+    'provider' => 'system',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_middle', [
+    'id' => 'system_menu_block:footer-menu-center',
+    'label' => 'Center',
+    'label_display' => 'visible',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_middle', [
+    'id' => 'system_menu_block:footer-menu-right',
+    'label' => 'Right',
+    'label_display' => 'visible',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+  $sections[] = $section;
+
+  return $sections;
+}
+
+/**
+ * Remove required fields.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_camp_remove_fields() {
+  $fields_to_delete = [
+    'node' => [
+      'camp' => [
+        'field_use_layout_builder',
+      ],
+      'camp_lp' => [
+        'field_camp',
+      ],
+    ],
+    'block_content' => [
+      'camp_menu_lb' => [
+        'field_menu'
+      ],
+    ],
+  ];
+
+  foreach ($fields_to_delete as $ct => $fields) {
+    foreach ($fields as $field) {
+      $field_config = FieldConfig::loadByName('node', $ct, $field);
+      if ($field_config instanceof FieldConfig) {
+        $field_config->delete();
+      }
+      // Deleting field storage.
+      $field_config_storage = FieldStorageConfig::loadByName('node', $field);
+      if ($field_config_storage instanceof FieldStorageConfig) {
+        $field_config_storage->delete();
+      }
+    }
+  }
+}
+
+/**
+ * Update Camp content type display modes on disabling the module.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_camp_update_displays_on_unistall() {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  // Update Camp content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'camp');
+
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'camp', $view_mode);
+    if ($view_mode == 'full') {
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'enabled', FALSE);
+    }
+    $view_display->save();
+  }
+}
+
+/**
+ * Add restrictions inline blocks for display full.
+ */
+function y_camp_update_9001(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Camp content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'camp');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'camp', $view_mode);
+    if ($view_mode == 'full') {
+      $restrictions = $view_display
+        ->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction');
+
+      $denylistedBlocks = $restrictions['denylisted_blocks'] ?? [];
+      $denylistedBlocks['Inline blocks'] = array_unique(array_merge($denylistedBlocks['Inline blocks'] ?? [], [
+        'inline_block:lb_partner_item',
+        'inline_block:accordion_item',
+        'inline_block:card_item',
+        'inline_block:carousel_item',
+        'inline_block:donate_item',
+        'inline_block:grid_item',
+        'inline_block:icon_grid_item',
+        'inline_block:statistics_item',
+        'inline_block:tab_item',
+        'inline_block:menu_cta',
+        'inline_block:lb_staff_member_item',
+        'inline_block:branch_amenities',
+        'inline_block:testimonial_item',
+      ]));
+      $restrictions['denylisted_blocks'] = $denylistedBlocks;
+      $view_display
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', $restrictions);
+
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Update sections to LB view.
+ */
+function y_camp_update_9002(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach ($view_modes as $view_mode => $view_mode_value) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'camp', $view_mode);
+    if ($view_mode == 'full') {
+      $sections = _y_camp_create_sections_layout_builder();
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'sections', $sections);
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Update default layout of LB view.
+ */
+function y_camp_update_9003(&$sandbox = NULL) {
+  y_camp_update_9002();
+}
+
+/**
+ * Remove abbreviations from content type name.
+ */
+function y_camp_update_9004()
+{
+  $config = \Drupal::service('extension.list.module')->getPath('y_camp') . '/config/install/node.type.camp_lp.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'node.type.camp_lp', 'name');
+}
+
+
+/**
+ * Update default layout of camp LB view.
+ */
+function y_camp_update_9005(&$sandbox = NULL) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_camp') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.camp_lp.full',
+  ]);
+}
+
+/**
+ * Rename content type name.
+ */
+function y_camp_update_9006()
+{
+  $config = \Drupal::service('extension.list.module')->getPath('y_camp') . '/config/install/node.type.camp_lp.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'node.type.camp_lp', 'name');
+}
+
+
+/**
+ * Update default layout of camp LB view.
+ */
+function y_camp_update_9007(&$sandbox = NULL) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_camp') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.camp_lp.full',
+  ]);
+}
+
+/**
+ * Add sub-blocks to denylisted_blocks for the camp_lp node.
+ */
+function y_camp_update_9008() {
+  // We need to update core.entity_view_display.node.camp_lp.full.
+  y_camp_update_9007();
+  $config_path = \Drupal::service('extension.list.module')->getPath('y_camp') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = 'core.entity_view_display.node.camp_lp.full';
+  $config_importer->update(
+    $config_path . $config . '.yml',
+    $config,
+    'third_party_settings.layout_builder_restrictions.entity_view_mode_restriction.denylisted_blocks'
+  );
+}
+
+/**
+ * Add sub-blocks to denylisted_blocks for the camp node.
+ */
+function y_camp_update_9009() {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Camp content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'camp');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'camp', $view_mode);
+    if ($view_mode == 'full') {
+      $restrictions = $view_display
+        ->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction');
+
+      $denylistedBlocks = $restrictions['denylisted_blocks'] ?? [];
+      $denylistedBlocks['Inline blocks'] = array_unique(array_merge($denylistedBlocks['Inline blocks'] ?? [], [
+        'inline_block:accordion_item',
+        'inline_block:card_item',
+        'inline_block:carousel_item',
+        'inline_block:donate_item',
+        'inline_block:grid_item',
+        'inline_block:icon_grid_item',
+        'inline_block:statistics_item',
+        'inline_block:tab_item',
+        'inline_block:menu_cta',
+        'inline_block:lb_staff_member_item',
+      ]));
+      $restrictions['denylisted_blocks'] = $denylistedBlocks;
+      $view_display
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', $restrictions);
+
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Add content type to the Default sitemap in the Simple XML Sitemap module configs
+ */
+function y_camp_update_9010(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_camp') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'simple_sitemap.bundle_settings.default.node.camp_lp'
+  ]);
+}
+
+/**
+ * Add blocks to denylisted_blocks for the camp node.
+ */
+function y_camp_update_9011(&$sandbox) {
+  y_camp_update_9009();
+}
+
+/**
+ * Update default Y styles options if they're empty.
+ */
+function y_camp_update_9012(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  $types = ['camp', 'camp_lp'];
+
+  foreach ($types as $type) {
+    // Update content type style defaults.
+    $view_modes = $entity_display_repository
+      ->getViewModeOptionsByBundle('node', $type);
+    foreach (array_keys($view_modes) as $view_mode) {
+      /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+      $view_display = $entity_display_repository->getViewDisplay('node', $type, $view_mode);
+      if ($view_mode == 'full') {
+        $styles = $view_display->getThirdPartySetting('y_lb', 'styles', []);
+        $default_styles = [
+          'colorway' => 'ws_colorway_blue',
+          'border_radius' => 'ws_border_radius_none',
+          'border_style_global' => 'ws_border_style_global_drop_shadow',
+          'text_alignment_global' => 'ws_text_alignment_global_left',
+          'button_position_global' => 'ws_button_position_global_inside',
+          'button_fill_global' => 'ws_button_fill_global_filled',
+        ];
+
+        // Merge the existing styles into the default. Any exising settings will
+        // override the defaults. NULL values will be filtered out.
+        $styles = array_merge($default_styles, array_filter($styles));
+
+        $view_display
+          ->setThirdPartySetting('y_lb', 'styles', $styles);
+      }
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Add pattern for Automatic URL alias
+ */
+function y_camp_update_9013(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_camp') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'pathauto.pattern.camp_subpage'
+  ]);
+}
+
+/**
+ * Add sub-blocks to deny-listed_blocks for the camp node.
+ */
+function y_camp_update_9014(): void {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update camp content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'camp');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'camp', $view_mode);
+    if ($view_mode == 'full') {
+      $restrictions = $view_display
+        ->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction');
+
+      $denylistedBlocks = $restrictions['denylisted_blocks'] ?? [];
+      $denylistedBlocks['Inline blocks'] = array_unique(array_merge($denylistedBlocks['Inline blocks'] ?? [], [
+        'inline_block:lb_partner_item',
+        'inline_block:accordion_item',
+        'inline_block:card_item',
+        'inline_block:carousel_item',
+        'inline_block:donate_item',
+        'inline_block:grid_item',
+        'inline_block:icon_grid_item',
+        'inline_block:statistics_item',
+        'inline_block:tab_item',
+        'inline_block:menu_cta',
+        'inline_block:lb_staff_member_item',
+      ]));
+      $restrictions['denylisted_blocks'] = $denylistedBlocks;
+      $view_display
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', $restrictions);
+
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Update sections to LB view.
+ */
+function y_camp_update_9015(): void {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'camp');
+  foreach ($view_modes as $view_mode => $view_mode_value) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'camp', $view_mode);
+    if ($view_mode == 'full') {
+      $sections = _y_camp_create_sections_layout_builder();
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'sections', $sections);
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Update field_menu formatter to use menu_tree_formatter for camp blocks.
+ */
+function y_camp_update_10001(): void {
+  $config_factory = \Drupal::configFactory();
+  $block_types = ['camp_menu_lb', 'camp_quick_links'];
+
+  foreach ($block_types as $block_type) {
+    $config_name = 'core.entity_view_display.block_content.' . $block_type . '.default';
+    $config = $config_factory->getEditable($config_name);
+
+    if ($config->isNew()) {
+      continue;
+    }
+
+    $field_menu_config = $config->get('content.field_menu');
+    if ($field_menu_config && isset($field_menu_config['type'])) {
+      $field_menu_config['type'] = 'y_camp_menu';
+      $config->set('content.field_menu', $field_menu_config);
+      $config->save();
+    }
+  }
+}

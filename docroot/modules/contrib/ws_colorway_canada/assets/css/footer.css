@@ -1,0 +1,6 @@
+footer.footer.ws-footer {
+  background-color: var(--ylb-color-black, black); }
+  footer.footer.ws-footer i.fab:hover:before {
+    color: var(--wsSecondaryColor, gray); }
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvb3Rlci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSwrQ0FBK0MsRUFBRTtFQUNqRDtJQUNFLG9DQUFvQyxFQUFFIiwiZmlsZSI6ImZvb3Rlci5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJmb290ZXIuZm9vdGVyLndzLWZvb3RlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLXlsYi1jb2xvci1ibGFjaywgYmxhY2spOyB9XG4gIGZvb3Rlci5mb290ZXIud3MtZm9vdGVyIGkuZmFiOmhvdmVyOmJlZm9yZSB7XG4gICAgY29sb3I6IHZhcigtLXdzU2Vjb25kYXJ5Q29sb3IsIGdyYXkpOyB9XG4iXX0= */

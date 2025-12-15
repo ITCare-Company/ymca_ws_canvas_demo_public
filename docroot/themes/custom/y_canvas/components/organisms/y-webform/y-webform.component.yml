@@ -1,0 +1,56 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Webform
+description: Webform embed container with title and description
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Heading above the webform
+      examples:
+        - 'Contact Us'
+
+    description:
+      type: string
+      title: Description
+      description: Introductory text above the form (HTML allowed)
+      contentMediaType: text/html
+      examples:
+        - '<p>Fill out the form below and we will get back to you within 24 hours.</p>'
+
+    webform_id:
+      type: string
+      title: Webform ID
+      description: Machine name of the Drupal webform to embed
+      examples:
+        - 'contact'
+
+    display_style:
+      type: string
+      title: Display Style
+      description: Visual container style for the form
+      default: 'default'
+      enum:
+        - 'default'
+        - 'boxed'
+        - 'full-width'
+      meta:enum:
+        default: 'Default'
+        boxed: 'Boxed Container'
+        full-width: 'Full Width'
+      examples:
+        - 'default'
+
+slots:
+  form:
+    title: Form Content
+    description: The rendered webform
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-webform

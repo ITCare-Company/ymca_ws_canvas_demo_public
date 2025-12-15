@@ -1,0 +1,49 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.ws-main-menu-wrapper {
+
+  .ws-menu-cta-block {
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
+    width: 100%;
+    padding: 20px;
+    white-space: normal;
+
+    .field-media-image {
+      margin-bottom: 25px;
+
+      img {
+        border-radius: 10px;
+        min-width: 230px;
+      }
+    }
+
+    .field-description,
+    .field-title {
+      color: var(--ylb-color-black, black);
+      font-family: var(--ylb-font-family-verdana);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 22px;
+      margin-bottom: 20px;
+    }
+
+    .field-description {
+      font-weight: 400;
+    }
+
+    .btn {
+      text-transform: unset;
+      font-weight: 500;
+    }
+  }
+}
+
+.mobile {
+  .ws-menu-cta-block {
+    display: none;
+  }
+}

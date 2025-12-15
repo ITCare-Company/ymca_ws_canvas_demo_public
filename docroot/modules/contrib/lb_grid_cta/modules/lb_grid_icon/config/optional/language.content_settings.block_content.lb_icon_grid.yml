@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_icon_grid
+id: block_content.lb_icon_grid
+target_entity_type_id: block_content
+target_bundle: lb_icon_grid
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * @file
+ * Open Y Node Alert module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function openy_node_alert_preprocess_page(&$variables) {
+  $variables['#attached']['library'][] = 'openy_node_alert/alert';
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof \Drupal\node\NodeInterface) {
+    \Drupal::service('openy_node_alert.alert_manager')->getAlerts($node);
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function openy_node_alert_entity_presave(EntityInterface $entity) {
+
+  // Check that we are saving Alert node.
+  if (
+    ($entity->getEntityTypeId() == 'node')
+    && ($entity->bundle() == 'alert')
+  ) {
+
+    if (
+      $entity->hasField('field_alert_visibility_pages')
+      && !$entity->get('field_alert_visibility_pages')->isEmpty()
+    ) {
+
+      // Trim any leading or trailing spaces as they can cause false positives.
+      $visibility_paths = trim($entity->get('field_alert_visibility_pages')->value);
+      $entity->field_alert_visibility_pages->value = $visibility_paths;
+
+      // Convert path to lowercase. This allows comparison of the same path.
+      // with different case. Ex: /Page, /page, /PAGE.
+      $visibility_paths = mb_strtolower($visibility_paths);
+      $pages = preg_split("(\r\n?|\n)", $visibility_paths);
+
+      $path_matcher = \Drupal::service('path_alias.manager');
+      $cacheTags = [];
+      foreach ($pages as $page) {
+        $canonical_path = $path_matcher->getPathByAlias($page);
+        // Check if this path is a node path.
+        if (strpos($canonical_path, 'node') !== FALSE) {
+          $nid = explode('/', $canonical_path)[2];
+          $cacheTags[] = 'node:' . $nid;
+        }
+      }
+    }
+
+    // Collecting nodes from the Reference field.
+    if (
+      $entity->hasField('field_alert_belongs')
+      && !$entity->get('field_alert_belongs')->isEmpty()
+    ) {
+      $references = $entity->get('field_alert_belongs')->getValue();
+      foreach ($references as $reference) {
+        // Reference field is referenced to nodes, using this node tag.
+        $cacheTags[] = 'node:' . $reference['target_id'];
+      }
+    }
+
+    if (!empty($cacheTags)) {
+      Cache::invalidateTags($cacheTags);
+    }
+  }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_node_alert_form_node_alert_edit_form_alter(array &$form, FormStateInterface $form_state, $form_id): void {
+  _openy_node_alert_alter_node_alert_form($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_node_alert_form_node_alert_form_alter(array &$form, FormStateInterface $form_state, $form_id): void {
+  _openy_node_alert_alter_node_alert_form($form);
+}
+
+/**
+ * Adds '#states' functionality to the node form.
+ *
+ * @param $form
+ *   An object of the node form.
+ *
+ * @return void
+ */
+function _openy_node_alert_alter_node_alert_form(&$form): void {
+  // Show these fields only for the classic style option.
+  $fields_to_toggle = [
+    'field_alert_color',
+    'field_alert_text_color',
+    'field_alert_icon_color',
+  ];
+
+  foreach ($fields_to_toggle as $field_name) {
+    if (!empty($form[$field_name]['widget'])) {
+      $form[$field_name]['widget']['#states']['visible'][':input[name="field_alert_style"]']['value'] = 'classic';
+    }
+  }
+}

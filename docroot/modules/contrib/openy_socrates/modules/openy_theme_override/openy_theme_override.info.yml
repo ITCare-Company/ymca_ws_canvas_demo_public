@@ -1,0 +1,10 @@
+name: OpenY Theme Overrides
+type: module
+description: Adds ability of overriding templates for theme within the module.
+core_version_requirement: ^10 || ^11
+package: YMCA Website Services
+
+# Information added by Drupal.org packaging script on 2025-06-30
+version: '1.1.0'
+project: 'openy_socrates'
+datestamp: 1751288573

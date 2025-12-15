@@ -1,0 +1,13 @@
+name: Y Canvas
+type: theme
+description: 'YMCA Canvas components theme - SDC organisms for Canvas editor'
+core_version_requirement: ^11
+base theme: false
+package: YMCA Website Services
+
+libraries:
+  - y_canvas/global
+
+components:
+  namespaces:
+    y_canvas: components

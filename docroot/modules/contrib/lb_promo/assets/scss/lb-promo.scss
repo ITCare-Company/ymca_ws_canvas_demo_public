@@ -1,0 +1,94 @@
+.block-promo-card {
+  .card {
+    border-radius: var(--wsBorderRadius, unset);
+    box-shadow: var(--wsBoxShadow, none);
+    border: var(--wsBorderStyle, none);
+
+    .card-img-top{
+      border-top-left-radius: var(--wsBorderRadius, unset);
+      border-top-right-radius: var(--wsBorderRadius, unset);
+      overflow: hidden;
+    }
+
+    .card-body {
+      text-align: var(--wsTextAlignment, unset);
+      display: flex;
+      flex-direction: column;
+      align-items: var(--wsFlexAlignment, unset);
+    }
+
+    .button--wrapper {
+      bottom: -25px;
+      position: var(--wsButtonPosition, unset);
+    }
+  }
+
+  .card-heading {
+    font-size: 30px;
+    line-height: 32px;
+  }
+
+  .body {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  // WS Style component-level adjustments.
+  // - Border style.
+  &.ws-border-style--solid {
+    .card {
+      box-shadow: var(--ylb-border-style-none, none);
+      border: var(--ylb-border-style-solid, none);
+    }
+  }
+
+  &.ws-border-style--drop-shadow {
+    .card {
+      box-shadow: var(--ylb-border-style-drop-shadow, none);
+      border: var(--ylb-border-style-none, none);
+    }
+  }
+
+  &.ws-border-style--none {
+    .card {
+      box-shadow: var(--ylb-border-style-none, none);
+      border: var(--ylb-border-style-none, none);
+    }
+  }
+
+  // - Text / Button alignment style.
+  &.ws-text-alignment--left {
+    .card {
+      .card-body {
+        text-align: left;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  &.ws-text-alignment--center {
+    .card {
+      .card-body {
+        text-align: center;
+        align-items: center;
+      }
+    }
+  }
+
+  // - Button position variations.
+  &.ws-button-position--inside {
+    .card {
+      .button--wrapper {
+        position: static;
+      }
+    }
+  }
+
+  &.ws-button-position--overlapping {
+    .card {
+      .button--wrapper {
+        position: absolute;
+      }
+    }
+  }
+}

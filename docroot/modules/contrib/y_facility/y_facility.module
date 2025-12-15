@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Facility CT integration with LB.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function y_facility_theme() {
+  return [
+    'node__facility__lb' => [
+      'template' => 'node--facility--lb',
+      'base hook' => 'node'
+    ],
+    'page__node__facility' => [
+      'base hook' => 'page',
+      'template' => 'page--node--facility-lb',
+    ],
+  ];
+}

@@ -1,0 +1,19 @@
+name: 'Y Layout Builder - Code Block LB component'
+type: module
+description: 'Helper module for the custom "Code" block type.'
+package: YMCA Website Services
+core_version_requirement: ^10 || ^11
+dependencies:
+  - entity_embed:entity_embed
+  - drupal:filter
+  - y_lb
+
+# Information added by Drupal.org packaging script on 2023-03-21
+# version: '1.0.0'
+# project: 'ws_code_block'
+# datestamp: 1679393757
+
+# Information added by Drupal.org packaging script on 2025-06-30
+version: '1.1.0'
+project: 'ws_code_block'
+datestamp: 1751289072

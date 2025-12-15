@@ -1,0 +1,5 @@
+name: features
+type: module
+description: Dummy module to replace features.
+package: Useless Machines
+core_version_requirement: ^9 || ^10 || ^11

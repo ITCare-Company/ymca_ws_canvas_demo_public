@@ -1,0 +1,42 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_simple_menu
+    - field.field.block_content.lb_simple_menu.field_icon
+    - field.field.block_content.lb_simple_menu.field_lb_simple_menu_links
+    - image.style.simple_menu
+  module:
+    - link
+    - media
+id: block_content.lb_simple_menu.default
+targetEntityType: block_content
+bundle: lb_simple_menu
+mode: default
+content:
+  field_icon:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: simple_menu
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_lb_simple_menu_links:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

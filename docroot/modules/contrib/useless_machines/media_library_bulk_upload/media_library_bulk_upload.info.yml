@@ -1,0 +1,5 @@
+name: media_library_bulk_upload
+type: module
+description: Dummy module to replace media_library_bulk_upload.
+package: Useless Machines
+core_version_requirement: ^10 || ^11

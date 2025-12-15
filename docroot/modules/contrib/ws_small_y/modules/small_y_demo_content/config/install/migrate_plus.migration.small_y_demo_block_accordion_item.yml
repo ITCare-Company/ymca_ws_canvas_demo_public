@@ -1,0 +1,68 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_accordion_item
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Create Accordion block item for Accordion component'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: accordion_item_1
+      uuid: 'be53a74d-b9e8-4912-5d5c-a29c0b365849'
+      title: 'Which nearby locations offer youth soccer?'
+      body: '<p>Visit the <a href="[site:url]locations">Locations page</a> to find the youth soccer program(s) nearest you.</p>'
+
+    -
+      id: accordion_item_2
+      uuid: 'dcc15cba-a204-4ee8-0c46-20a98ed6ebc3'
+      title: 'Is youth soccer available year-round?'
+      body: "<p>Generally, yes! In the spring, we offer outdoor soccer from March–May. In the summer, we offer indoor soccer from June–August. In the fall, we offer outdoor soccer from August–October. In the winter, we offer indoor soccer from January–March.</p>"
+
+    -
+      id: accordion_item_3
+      uuid: 'bcc4780c-8362-4a63-7b74-6941b58cc726'
+      title: 'How often do the teams practice and play?'
+      body: "<p>Teams practice once a week on weeknights for an hour. Most games are played on Saturdays, but there may be a few weeknight games to accommodate holidays, school breaks, and make up games. Players are assigned to teams based on practice availability, requests, skill level and age in order to best balance teams.</p>"
+
+    -
+      id: accordion_item_4
+      uuid: '6188b49e-98b0-4454-4205-00e1d23c161c'
+      title: 'Can I sign up to be a coach?'
+      body: "<p>Yes! We can always use more volunteer coaches. It's only a few hours a week, and it makes a big difference in your community and in the lives of many children. <a href='[site:url]demo-volunteer-opportunities'>Find out more about volunteer opportunities here.</a></p>"
+
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  uuid: uuid
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: accordion_item
+  field_title: title
+  body/value: body
+  body/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: entity:block_content
+  default_bundle: 'accordion_item'
+migration_dependencies: {  }

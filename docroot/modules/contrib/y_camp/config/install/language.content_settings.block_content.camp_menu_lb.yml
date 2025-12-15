@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.camp_menu_lb
+id: block_content.camp_menu_lb
+target_entity_type_id: block_content
+target_bundle: camp_menu_lb
+default_langcode: site_default
+language_alterable: false

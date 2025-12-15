@@ -1,0 +1,19 @@
+name: 'Y Layout Builder - Cards'
+type: module
+description: 'Helper module for the custom "Cards" block type'
+package: 'YMCA Website Services'
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - drupal:link
+  - drupal:paragraphs
+  - drupal:entity_browser
+  - drupal:datalayer
+  - drupal:entity_reference_revisions
+  - drupal:options
+  - y_lb
+  - drupal:link_attributes
+
+# Information added by Drupal.org packaging script on 2025-10-16
+version: '2.2.1'
+project: 'lb_cards'
+datestamp: 1760609770

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Provide OpenY loc facility module functionality.
+ */
+
+/**
+ * Remove branch_hours from the related branch for "facility" node viewing.
+ */
+function openy_loc_facility_preprocess_node__facility__full(&$variables) {
+  // Check if the facility node has the branch hours data that doesn't show
+  // the data from the related branch node.
+  $field_branch_hours = $variables['node']->get('field_branch_hours');
+  $facility_location = $variables['content']['field_facility_loc'] ?? [];
+  $location_node = !empty($facility_location[0]['#node']) ? $facility_location[0]['#node'] : NULL;
+
+  if ($location_node && !$field_branch_hours->isEmpty()) {
+    $location_node->set('field_branch_hours', NULL);
+  }
+}

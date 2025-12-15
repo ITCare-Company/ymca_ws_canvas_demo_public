@@ -1,0 +1,13 @@
+name: 'Y Layout Builder - Small Y Tabs'
+type: module
+description: 'Helper module for the custom style "Tabs" block type'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:ws_small_y
+  - drupal:ws_lb_tabs
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

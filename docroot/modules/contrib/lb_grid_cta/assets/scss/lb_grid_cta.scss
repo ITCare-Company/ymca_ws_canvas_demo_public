@@ -1,0 +1,30 @@
+.lb-grid-cta {
+  .section-description{
+    h2 {
+      font-size: 50px;
+      line-height: 65px;
+    }
+    p {
+      font-size: 24px;
+      line-height: 36px;
+    }
+  }
+
+  .card{
+    overflow: hidden;
+    border-radius: 8px;
+    h3 {
+      font-size: 30px;
+      line-height: 32px;
+      hyphens: auto;
+      text-wrap-style: pretty;
+    }
+    p {
+      font-size: 18px;
+      line-height: 28px;
+    }
+    .btn {
+      margin-top: 36px;
+    }
+  }
+}

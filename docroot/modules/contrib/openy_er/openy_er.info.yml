@@ -1,0 +1,13 @@
+name: Open Y Entity Reference Tweaks
+description: Provides additional Entity Reference selection plugins.
+type: module
+core_version_requirement: ^10 || ^11
+package: YMCA Website Services
+dependencies:
+  - drupal:field
+  - drupal:plugin
+
+# Information added by Drupal.org packaging script on 2025-05-01
+version: '1.1.1'
+project: 'openy_er'
+datestamp: 1746098600

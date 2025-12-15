@@ -1,0 +1,214 @@
+/**
+ * Y Hero Banner Component Styles
+ * Supports variations: standard, overlay, chevron, frame, small
+ */
+
+/* Base styles */
+.y-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 400px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.y-hero--small {
+  min-height: 250px;
+}
+
+/* Background image */
+.y-hero__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.y-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Overlay */
+.y-hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.y-hero--overlay .y-hero__overlay {
+  background: linear-gradient(135deg, rgba(0, 61, 121, 0.85) 0%, rgba(0, 61, 121, 0.6) 100%);
+}
+
+.y-hero--chevron .y-hero__overlay,
+.y-hero--frame .y-hero__overlay {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+}
+
+/* Container */
+.y-hero__container {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.y-hero--small .y-hero__container {
+  padding: 40px 20px;
+}
+
+/* Content */
+.y-hero__content {
+  max-width: 600px;
+}
+
+.y-hero--standard .y-hero__content,
+.y-hero--small .y-hero__content {
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Title */
+.y-hero__title {
+  margin: 0 0 20px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0a2240;
+}
+
+.y-hero--theme-dark .y-hero__title,
+.y-hero--overlay .y-hero__title,
+.y-hero--chevron .y-hero__title,
+.y-hero--frame .y-hero__title {
+  color: #ffffff;
+}
+
+.y-hero--small .y-hero__title {
+  font-size: 1.75rem;
+}
+
+/* Description */
+.y-hero__description {
+  margin: 0 0 30px;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #333333;
+}
+
+.y-hero--theme-dark .y-hero__description,
+.y-hero--overlay .y-hero__description,
+.y-hero--chevron .y-hero__description,
+.y-hero--frame .y-hero__description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.y-hero__description p {
+  margin: 0;
+}
+
+/* CTA Button */
+.y-hero__cta {
+  margin-top: 20px;
+}
+
+.y-hero__button {
+  display: inline-block;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #0060af;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.y-hero__button:hover {
+  background-color: #004d8c;
+  transform: translateY(-2px);
+}
+
+.y-hero--theme-dark .y-hero__button,
+.y-hero--overlay .y-hero__button {
+  background-color: #ffffff;
+  color: #0060af;
+}
+
+.y-hero--theme-dark .y-hero__button:hover,
+.y-hero--overlay .y-hero__button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Chevron decoration */
+.y-hero__chevron {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 4;
+  color: #ffffff;
+}
+
+.y-hero__chevron-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Frame variation */
+.y-hero--frame .y-hero__content {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 500px;
+}
+
+.y-hero--frame .y-hero__title {
+  color: #0a2240;
+}
+
+.y-hero--frame .y-hero__description {
+  color: #333333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .y-hero {
+    min-height: 350px;
+  }
+
+  .y-hero--small {
+    min-height: 200px;
+  }
+
+  .y-hero__title {
+    font-size: 1.75rem;
+  }
+
+  .y-hero--small .y-hero__title {
+    font-size: 1.5rem;
+  }
+
+  .y-hero__description {
+    font-size: 1rem;
+  }
+
+  .y-hero__container {
+    padding: 40px 16px;
+  }
+
+  .y-hero--frame .y-hero__content {
+    padding: 24px;
+  }
+}

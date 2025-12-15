@@ -1,0 +1,48 @@
+openy_map:
+  version: 1.2
+  js:
+    js/map.js: {}
+  css:
+    component:
+      css/map.css: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - jquery_ui_autocomplete/autocomplete
+    - core/drupal
+    - core/drupalSettings
+    - openy_map/jquery.multiselect
+
+jquery.multiselect:
+  version: 1.0
+  js:
+    js/jquery.multiselect.js: {}
+  css:
+    component:
+      css/jquery.multiselect.css: {}
+
+gmaps:
+  js:
+    https://maps.googleapis.com/maps/api/js: { type: external }
+
+leaflet:
+  version: 1.3.4
+  js:
+    https://unpkg.com/leaflet@1.3.3/dist/leaflet.js: { type: external }
+  css:
+    component:
+      css/leaflet.css: {}
+
+# MarkerCluster support.
+leaflet.markercluster:
+  remote: https://github.com/Leaflet/Leaflet.markercluster
+  version: '1.4.2'
+  license:
+    name: MIT-LICENSE
+    gpl-compatible: true
+  css:
+    component:
+      'css/MarkerCluster.css': {}
+      'css/MarkerCluster.Default.css': {}
+  js:
+    'https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js': { type: external, minified: true }

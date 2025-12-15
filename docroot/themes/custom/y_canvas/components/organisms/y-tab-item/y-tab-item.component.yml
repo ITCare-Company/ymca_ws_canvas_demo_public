@@ -1,0 +1,59 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Tab Item
+description: Single tab with title and content panel
+status: experimental
+group: Molecules
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Tab Title
+      description: Tab button label
+      examples:
+        - 'Individual'
+
+    content:
+      type: string
+      title: Content
+      description: Tab panel content (HTML allowed)
+      contentMediaType: text/html
+      examples:
+        - '<p>Individual membership information.</p>'
+
+    tab_id:
+      type: string
+      title: Tab ID
+      description: Unique identifier for this tab
+      examples:
+        - 'individual-tab'
+
+    active:
+      type: boolean
+      title: Active
+      description: Whether this tab is initially active
+      default: false
+      examples:
+        - false
+
+    heading_level:
+      type: string
+      title: Content Heading Level
+      description: Heading level for content title
+      default: h3
+      enum:
+        - h3
+        - h4
+        - h5
+      meta:enum:
+        h3: 'Heading 3'
+        h4: 'Heading 4'
+        h5: 'Heading 5'
+      examples:
+        - h3
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-tab-item

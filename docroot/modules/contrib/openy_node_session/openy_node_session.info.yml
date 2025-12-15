@@ -1,0 +1,29 @@
+name: 'Open Y Node Session'
+description: 'Provides a Session content type and related configuration'
+type: module
+package: 'Open Y'
+# version: 2.0
+dependencies:
+  - 'datalayer:datalayer'
+  - 'drupal:content_moderation'
+  - 'drupal:datetime_range'
+  - 'drupal:field'
+  - 'drupal:link'
+  - 'drupal:menu_ui'
+  - 'drupal:node'
+  - 'drupal:options'
+  - 'drupal:path'
+  - 'drupal:text'
+  - 'drupal:user'
+  - 'entity_reference_revisions:entity_reference_revisions'
+  - 'field_group:field_group'
+  - 'openy_node_session:openy_node_session'
+  - 'paragraphs:paragraphs'
+  - 'rabbit_hole:rabbit_hole'
+  - 'scheduler:scheduler'
+core_version_requirement: ^9.5 || ^10 || ^11
+
+# Information added by Drupal.org packaging script on 2025-04-30
+version: '2.2.0'
+project: 'openy_node_session'
+datestamp: 1746012832

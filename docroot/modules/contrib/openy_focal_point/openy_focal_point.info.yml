@@ -1,0 +1,7 @@
+name: OpenY Focal Point
+type: module
+description: Custom widget for Focal point.
+package: YMCA Website Services
+core_version_requirement: ^10 || ^11
+dependencies:
+  - image_widget_crop:image_widget_crop

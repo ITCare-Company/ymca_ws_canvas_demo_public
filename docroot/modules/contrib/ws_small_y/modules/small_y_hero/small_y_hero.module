@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for small_y_hero module.
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\layout_builder\Form\DefaultsEntityForm;
+use Drupal\layout_builder\Form\OverridesEntityForm;
+
+/**
+ * Implements hook_theme().
+ */
+function small_y_hero_theme($existing, $type, $theme, $path)
+{
+  return [
+    'block__lb_hero__variation_tall' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-tall',
+    ],
+    'block__lb_hero__variation_sub_chevron' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-sub-chevron',
+    ],
+    'block__lb_hero__variation_sub_chevron_no_media' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-sub-chevron-no-media',
+    ],
+    'block__lb_hero__variation_sub_frame' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-sub-frame',
+    ],
+    'block__lb_hero__variation_promo' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-promo',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function small_y_hero_form_alter(&$form, FormStateInterface $form_state) {
+  $form_object = $form_state->getFormObject();
+  if ($form_object instanceof OverridesEntityForm
+    || $form_object instanceof DefaultsEntityForm
+    || $form_object->getFormId() === 'layout_layout_builder_form') {
+    $form['#attached']['library'][] = 'small_y_hero/layout_builder';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function small_y_hero_preprocess_block__lb_hero(&$variables)
+{
+  $array = preg_grep("/small_y_hero\/background_/", $variables["elements"]["#attached"]["library"]) ?? [];
+  if ($background = array_pop($array)) {
+    $parts = explode('/', $background);
+    $variables['heroBackground'] = Html::cleanCssIdentifier(array_pop($parts));
+  };
+
+  $variables['ctaLinkStyle'] = in_array('small_y_hero/background_gray',$variables["elements"]["#attached"]["library"]) ? 'btn-primary' : 'btn-secondary';
+}

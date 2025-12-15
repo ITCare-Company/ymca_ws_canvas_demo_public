@@ -1,0 +1,12 @@
+/**
+ * Y Canvas theme global styles
+ */
+
+/* CSS Custom Properties for YMCA colors */
+:root {
+  --y-primary: #0060af;
+  --y-secondary: #0a2240;
+  --y-accent: #ed1c24;
+  --y-light: #f5f5f5;
+  --y-dark: #333333;
+}

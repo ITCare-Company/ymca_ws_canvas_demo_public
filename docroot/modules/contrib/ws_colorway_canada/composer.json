@@ -1,0 +1,12 @@
+{
+    "name": "drupal/ws_colorway_canada",
+    "description": "Helper module for additional colorway for layout builder.",
+    "type": "drupal-module",
+    "require": {
+        "ycloudyusa/y_lb": "^3.0 || ~4.0.0",
+        "php": ">=8.1",
+        "drupal/responsive_favicons": "^2.0 || ~3.0.0"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev"
+}

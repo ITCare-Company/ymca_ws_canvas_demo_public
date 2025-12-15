@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_webform
+    - field.storage.block_content.field_webform
+    - webform.webform.contact
+  module:
+    - datalayer
+    - webform
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_webform
+id: block_content.lb_webform.field_webform
+field_name: field_webform
+entity_type: block_content
+bundle: lb_webform
+label: Webform
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: 9e8f9f74-0f06-4051-8d22-04418d14b6b5
+    default_data: ''
+    status: open
+    open: ''
+    close: ''
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

@@ -1,0 +1,6 @@
+small_y_editor.lb_table_override:
+  block_type: lb_table
+  library: small_y_editor/lb_table_override
+  override: false
+  active_colorways:
+    - '*'

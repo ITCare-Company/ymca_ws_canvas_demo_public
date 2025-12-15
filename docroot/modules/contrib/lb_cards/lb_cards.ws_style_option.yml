@@ -1,0 +1,27 @@
+lb_cards.ws_style_option:
+  - label: Standard variation
+    name: lb_cards_standard
+    group: lb_cards
+    image: /assets/images/standard.png
+    library: null
+    template: block--lb-cards--variation-standard
+    default: true
+  - label: Overlay variation
+    name: lb_cards_overlay
+    group: lb_cards
+    image: /assets/images/overlay.png
+    library: null
+    template: block--lb-cards--variation-overlay
+  - label: Chevron variation
+    name: lb_cards_chevron
+    group: lb_cards
+    image: /assets/images/chevron.png
+    library: null
+    template: block--lb-cards--variation-chevron
+  - label: Color variation
+    name: lb_cards_color
+    group: lb_cards
+    image: /assets/images/color.png
+    library: null
+    template: block--lb-cards--variation-color
+

@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_cards
+    - field.field.block_content.lb_cards.field_block_item
+    - field.field.block_content.lb_cards.field_columns
+    - field.field.block_content.lb_cards.field_cta
+    - field.field.block_content.lb_cards.field_section_title
+    - field.field.block_content.lb_cards.field_subtitle
+id: block_content.lb_cards.default
+targetEntityType: block_content
+bundle: lb_cards
+mode: default
+content: {  }
+hidden:
+  field_block_item: true
+  field_columns: true
+  field_cta: true
+  field_section_title: true
+  field_subtitle: true
+  langcode: true
+  search_api_excerpt: true

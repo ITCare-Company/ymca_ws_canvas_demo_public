@@ -1,0 +1,6 @@
+small_y_icon_grid.lb_grid_icon_override:
+  block_type: lb_grid_cta
+  library: small_y_icon_grid/lb_grid_icon_override
+  override: false
+  active_colorways:
+    - '*'

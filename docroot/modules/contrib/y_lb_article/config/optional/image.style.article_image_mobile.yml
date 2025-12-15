@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: article_image_mobile
+label: 'Article image mobile'
+effects:
+  3ca5ae61-00d1-42c0-b8c5-75760bee6955:
+    uuid: 3ca5ae61-00d1-42c0-b8c5-75760bee6955
+    id: openy_focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 348
+      height: 239
+      crop_type: focal_point
+  3e617a00-5c4f-48bf-854e-61d6104bac30:
+    uuid: 3e617a00-5c4f-48bf-854e-61d6104bac30
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

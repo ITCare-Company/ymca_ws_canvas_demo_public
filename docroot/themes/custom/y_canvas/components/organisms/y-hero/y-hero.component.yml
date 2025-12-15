@@ -1,0 +1,103 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Hero Banner
+description: YMCA hero banner component with multiple style variations
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Heading
+      description: The main heading text for the hero banner
+      examples:
+        - 'Welcome to Your Y'
+
+    heading_level:
+      type: string
+      title: Heading Level
+      description: Semantic heading level for accessibility
+      default: h2
+      enum:
+        - h1
+        - h2
+        - h3
+      meta:enum:
+        h1: 'Heading 1 (use once per page)'
+        h2: 'Heading 2'
+        h3: 'Heading 3'
+      examples:
+        - h2
+
+    description:
+      type: string
+      title: Description
+      description: Supporting text below the heading (HTML allowed)
+      contentMediaType: text/html
+      examples:
+        - '<p>Join your community today and discover programs for the whole family.</p>'
+
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Background Image
+      description: Hero banner background image
+      examples:
+        - src: '/themes/custom/y_canvas/assets/images/demo/hero-banner.jpg'
+          alt: 'Hero banner background'
+          width: 1440
+          height: 600
+
+    variation:
+      type: string
+      title: Style Variation
+      description: Visual style of the hero banner
+      default: standard
+      enum:
+        - standard
+        - overlay
+        - chevron
+        - frame
+        - small
+      meta:enum:
+        standard: 'Standard'
+        overlay: 'Overlay (dark gradient)'
+        chevron: 'Chevron (with graphic)'
+        frame: 'Frame (bordered)'
+        small: 'Small (reduced height)'
+      examples:
+        - standard
+
+    cta_text:
+      type: string
+      title: Button Text
+      description: Call-to-action button label
+      examples:
+        - 'Learn More'
+
+    cta_url:
+      type: string
+      title: Button URL
+      description: Call-to-action button link
+      examples:
+        - '/membership'
+
+    theme:
+      type: string
+      title: Color Theme
+      description: Light or dark color scheme
+      default: light
+      enum:
+        - light
+        - dark
+      meta:enum:
+        light: 'Light'
+        dark: 'Dark'
+      examples:
+        - light
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-hero

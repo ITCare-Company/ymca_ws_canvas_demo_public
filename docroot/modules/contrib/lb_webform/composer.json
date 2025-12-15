@@ -1,0 +1,14 @@
+{
+    "name": "drupal/lb_webform",
+    "description": "Helper module for the custom \"Webform\" block type.",
+    "type": "drupal-module",
+    "require": {
+        "ycloudyusa/y_lb": "^3.0 || ~4.0.0",
+        "php": ">=8.1",
+        "drupal/webform": "~6.2.0 || ^6.3@beta || ~6.3.0",
+        "drupal/datalayer": "^1.0 || ^2.0 || ^2.0@RC || ~2.1.0",
+        "drupal/entity_reference_revisions": "^1.6 || ~1.12.0"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev"
+}

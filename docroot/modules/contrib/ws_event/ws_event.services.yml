@@ -1,0 +1,15 @@
+services:
+  ws_event.event_data_helper:
+    class: Drupal\ws_event\EventDataHelper
+    arguments: [
+      '@daterange_compact.formatter',
+      '@smart_date.manager',
+      '@module_handler',
+      '@entity_display.repository',
+      '@entity_type.manager'
+    ]
+
+  ws_event.ws_style_group_applies_to_alter:
+    class: Drupal\ws_event\EventSubscriber\WSStyleGroupAlter
+    tags:
+      - { name: event_subscriber }

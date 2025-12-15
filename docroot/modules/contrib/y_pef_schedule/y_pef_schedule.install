@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * Contains installation and update implementations for the y_pef_schedule.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_install().
+ */
+function y_pef_schedule_install(): void {
+  // Update display settings for the 'activity color' field.
+  _y_pef_schedule_update_displays_on_install();
+}
+
+/**
+ * Implements hook_install().
+ */
+function y_pef_schedule_uninstall(): void {
+  // Remove custom fields created by the module.
+  _y_pef_schedule_remove_fields();
+}
+
+/**
+ * Updates display settings for 'activity' content type upon module installation.
+ *
+ * Specifically, updates the form display settings for the 'activity color' field
+ * to ensure it is properly displayed in the activity node form.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_pef_schedule_update_displays_on_install(): void {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Retrieve and update the form display for 'activity' nodes.
+  $form_display = $entity_display_repository->getFormDisplay('node', 'activity');
+  $form_display->setComponent('field_activity_color', [
+    'type' => 'colorapi_color_widget',
+    'settings' => [
+      'display_label' => TRUE,
+    ],
+    'weight' => 20,
+  ])->save();
+}
+
+/**
+ * Removes fields created by the module.
+ *
+ * Deletes both the field config and field storage for 'field_activity_color',
+ * cleaning up any data and configurations associated with this field.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_pef_schedule_remove_fields(): void {
+  $field_name = 'field_activity_color';
+
+  // Delete field configuration.
+  $field_config = FieldConfig::loadByName('node', 'activity', $field_name);
+  $field_config?->delete();
+
+  // Delete field storage.
+  $field_storage = FieldStorageConfig::loadByName('node', $field_name);
+  $field_storage?->delete();
+}

@@ -1,0 +1,20 @@
+.page-node-type-facility.page-with-lb .node--type-facility.node--lb {
+  margin-top: 0; }
+
+.page-node-type-facility.page-with-lb .node--type-facility .node__content .section-body {
+  padding: 80px 0; }
+@media (max-width: 991.98px) {
+  .page-node-type-facility.page-with-lb .node--type-facility .node__content .section-body {
+    padding: 60px 0; } }
+
+.page-node-type-facility.page-with-lb .location-header {
+  background-color: var(--wsPrimaryColor, blue) !important; }
+
+@media (max-width: 767.98px) {
+  .page-node-type-facility.page-with-lb.with-banner {
+    padding-top: 0 !important; } }
+
+.page-node-type-facility.page-with-lb.with-banner #block-openy-carnation-tabs {
+  display: block; }
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInlfZmFjaWxpdHkuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBYSxFQUFFOztBQUVqQjtFQUNFLGVBQWUsRUFBRTtFQUNqQjtJQUNFO01BQ0UsZUFBZSxFQUFFLEVBQUU7O0FBRXpCO0VBQ0Usd0RBQXdELEVBQUU7O0FBRTVEO0VBQ0U7SUFDRSx5QkFBeUIsRUFBRSxFQUFFOztBQUVqQztFQUNFLGNBQWMsRUFBRSIsImZpbGUiOiJ5X2ZhY2lsaXR5LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wYWdlLW5vZGUtdHlwZS1mYWNpbGl0eS5wYWdlLXdpdGgtbGIgLm5vZGUtLXR5cGUtZmFjaWxpdHkubm9kZS0tbGIge1xuICBtYXJnaW4tdG9wOiAwOyB9XG5cbi5wYWdlLW5vZGUtdHlwZS1mYWNpbGl0eS5wYWdlLXdpdGgtbGIgLm5vZGUtLXR5cGUtZmFjaWxpdHkgLm5vZGVfX2NvbnRlbnQgLnNlY3Rpb24tYm9keSB7XG4gIHBhZGRpbmc6IDgwcHggMDsgfVxuICBAbWVkaWEgKG1heC13aWR0aDogOTkxLjk4cHgpIHtcbiAgICAucGFnZS1ub2RlLXR5cGUtZmFjaWxpdHkucGFnZS13aXRoLWxiIC5ub2RlLS10eXBlLWZhY2lsaXR5IC5ub2RlX19jb250ZW50IC5zZWN0aW9uLWJvZHkge1xuICAgICAgcGFkZGluZzogNjBweCAwOyB9IH1cblxuLnBhZ2Utbm9kZS10eXBlLWZhY2lsaXR5LnBhZ2Utd2l0aC1sYiAubG9jYXRpb24taGVhZGVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0td3NQcmltYXJ5Q29sb3IsIGJsdWUpICFpbXBvcnRhbnQ7IH1cblxuQG1lZGlhIChtYXgtd2lkdGg6IDc2Ny45OHB4KSB7XG4gIC5wYWdlLW5vZGUtdHlwZS1mYWNpbGl0eS5wYWdlLXdpdGgtbGIud2l0aC1iYW5uZXIge1xuICAgIHBhZGRpbmctdG9wOiAwICFpbXBvcnRhbnQ7IH0gfVxuXG4ucGFnZS1ub2RlLXR5cGUtZmFjaWxpdHkucGFnZS13aXRoLWxiLndpdGgtYmFubmVyICNibG9jay1vcGVueS1jYXJuYXRpb24tdGFicyB7XG4gIGRpc3BsYXk6IGJsb2NrOyB9XG4iXX0= */

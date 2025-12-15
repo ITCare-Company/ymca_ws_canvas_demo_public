@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: event_image_desktop
+label: 'Event Image Desktop (848x450)'
+effects:
+  1d6f5492-584e-4e24-8ceb-aa33a2ce05e7:
+    uuid: 1d6f5492-584e-4e24-8ceb-aa33a2ce05e7
+    id: openy_focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 848
+      height: 450
+      crop_type: focal_point
+  8a8f34ff-678e-48d5-bf5d-bac99a72e360:
+    uuid: 8a8f34ff-678e-48d5-bf5d-bac99a72e360
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

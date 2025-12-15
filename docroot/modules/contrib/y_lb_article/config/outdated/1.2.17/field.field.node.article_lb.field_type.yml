@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_type
+    - node.type.article_lb
+  module:
+    - options
+id: node.article_lb.field_type
+field_name: field_type
+entity_type: node
+bundle: article_lb
+label: Type
+description: 'Type of the article.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

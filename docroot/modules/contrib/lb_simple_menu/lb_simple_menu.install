@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ *  Contains install and update functions for Y Layout Builder - Simple Menu Block module.
+ */
+
+
+/**
+ * Added own image style for the icon field.
+ */
+function lb_simple_menu_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_simple_menu') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.block_content.lb_simple_menu.default',
+    'image.style.simple_menu',
+  ]);
+}
+
+/**
+ * Update an image style for the icon field.
+ */
+function lb_simple_menu_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_simple_menu') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'image.style.simple_menu',
+  ]);
+}

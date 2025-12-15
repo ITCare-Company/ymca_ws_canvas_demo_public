@@ -1,0 +1,311 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_install().
+ */
+function y_lb_install() {
+  // Install Node fields.
+  _y_lb_install_node_additional_fields();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function y_lb_uninstall() {
+  $fields = [
+    'override_styles',
+    'styles',
+  ];
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  foreach ($fields as $field) {
+    $definition = $update_manager->getFieldStorageDefinition($field, 'node');
+    $update_manager->uninstallFieldStorageDefinition($definition);
+  }
+}
+
+/**
+ * Add color for layout builder.
+ */
+function y_lb_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'bootstrap_styles.settings',
+  ]);
+}
+
+/**
+ * Add border color for layout builder.
+ */
+function y_lb_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'bootstrap_styles.settings',
+  ]);
+}
+
+/**
+ * Add node_revision_delete configuration.
+ */
+function y_lb_update_9003(&$sandbox) {
+  \Drupal::service('module_installer')->install(['node_revision_delete']);
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'node.type.landing_page_lb',
+  ]);
+}
+
+/**
+ * Helper function to update Node base field definition with new fields.
+ */
+function _y_lb_install_node_additional_fields() {
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+
+  $override_styles_storage = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Override default y Styles'))
+    ->setDescription(t('Whether or not the node should override the default Y styles (e.g. Color scheme, etc.).'))
+    ->setRevisionable(TRUE)
+    ->setDefaultValue(FALSE)
+    ->setInitialValue(FALSE)
+    ->setDisplayConfigurable('form', FALSE)
+    ->setDisplayConfigurable('view', FALSE);
+
+  $styles_storage = BaseFieldDefinition::create('string_long')
+    ->setLabel(t('Y Styles'))
+    ->setDescription(t('Node specific Y Styles to be applied.'))
+    ->setRevisionable(TRUE)
+    ->setInitialValue(serialize([]))
+    ->setSetting('case_sensitive', TRUE)
+    ->setDisplayConfigurable('form', FALSE)
+    ->setDisplayConfigurable('view', FALSE);
+
+  $update_manager->installFieldStorageDefinition('override_styles', 'node', 'node', $override_styles_storage);
+  $update_manager->installFieldStorageDefinition('styles', 'node', 'node', $styles_storage);
+}
+
+/**
+ * Install Node additional fields - override_styles and styles.
+ */
+function y_lb_update_9004(&$sandbox) {
+  _y_lb_install_node_additional_fields();
+}
+
+/**
+ * Add the footer section to the Landing page Layout.
+ */
+function y_lb_update_9005(&$sandbox) {
+  \Drupal::service('module_installer')->install(['node_revision_delete']);
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.storage.node.field_meta_description',
+    'field.storage.node.field_meta_image',
+    'field.storage.node.field_meta_tags',
+    'field.field.node.landing_page_lb.field_meta_description',
+    'field.field.node.landing_page_lb.field_meta_image',
+    'field.field.node.landing_page_lb.field_meta_tags',
+    'core.entity_form_display.node.landing_page_lb.default',
+    'core.entity_view_display.node.landing_page_lb.default',
+  ]);
+}
+
+/**
+ * Remove deprecated classes from LB styles
+ */
+function y_lb_update_9006(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'bootstrap_styles.settings',
+  ]);
+}
+
+/**
+ *  Add pathauto aliases.
+ */
+function y_lb_update_9007(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'pathauto.pattern.landing_page_lb',
+    'bootstrap_styles.settings',
+  ]);
+}
+
+/**
+ * Add layout_builder_operation_link to add Layout to Content Admin dropdown.
+ */
+function y_lb_update_9008(&$sandbox) {
+  \Drupal::service('module_installer')->install(['layout_builder_operation_link']);
+}
+
+/**
+ * Add layout_builder_save_and_edit to add "Save and edit layout" button.
+ */
+function y_lb_update_9009(&$sandbox) {
+  \Drupal::service('module_installer')->install(['layout_builder_save_and_edit']);
+}
+
+/**
+ * Update Default view for Landing page.
+ */
+function y_lb_update_9010(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.storage.node.field_meta_description',
+    'field.storage.node.field_meta_image',
+    'field.storage.node.field_meta_tags',
+    'field.field.node.landing_page_lb.field_meta_description',
+    'field.field.node.landing_page_lb.field_meta_image',
+    'field.field.node.landing_page_lb.field_meta_tags',
+    'core.entity_form_display.node.landing_page_lb.default',
+    'core.entity_view_display.node.landing_page_lb.default',
+  ]);
+}
+
+/**
+ * Add metadata helper fields and enable meta tags
+ */
+function y_lb_update_9011(&$sandbox) {
+  $configs = [
+    'field.storage.node.field_meta_description',
+    'field.storage.node.field_meta_image',
+    'field.storage.node.field_meta_tags',
+    'field.field.node.landing_page_lb.field_meta_description',
+    'field.field.node.landing_page_lb.field_meta_image',
+    'field.field.node.landing_page_lb.field_meta_tags',
+    'core.entity_form_display.node.landing_page_lb.default',
+    'core.entity_view_display.node.landing_page_lb.default',
+  ];
+
+  // Only import the metatag config if it's not already configured.
+  $active_config = \Drupal::configFactory()->getEditable('metatag.metatag_defaults.node__landing_page_lb');
+  $settings = $active_config->get('tags');
+  if (!isset($settings)) {
+    $configs[] = 'metatag.metatag_defaults.node__landing_page_lb';
+  }
+
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs($configs);
+}
+
+/**
+ * Add sub-blocks to denylisted_blocks for the layout builder.
+ */
+function y_lb_update_9012(&$sandbox) {
+  $config_path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = 'core.entity_view_display.node.landing_page_lb.default';
+  $config_importer->update(
+    $config_path . $config . '.yml',
+    $config,
+    'third_party_settings.layout_builder_restrictions.entity_view_mode_restriction.denylisted_blocks'
+  );
+}
+
+/**
+ * Add Menu CTA block to denylisted_blocks for the layout builder.
+ */
+function y_lb_update_9013(&$sandbox) {
+  $config_path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = 'core.entity_view_display.node.landing_page_lb.default';
+  $config_importer->update(
+    $config_path . $config . '.yml',
+    $config,
+    'third_party_settings.layout_builder_restrictions.entity_view_mode_restriction.denylisted_blocks'
+  );
+}
+
+/**
+ * Add content type to the Default sitemap in the Simple XML Sitemap module configs
+ */
+function y_lb_update_9014(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'simple_sitemap.bundle_settings.default.node.landing_page_lb'
+  ]);
+}
+
+/**
+ * Enable Scheduler.
+ */
+function y_lb_update_9015(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.node.landing_page_lb.default',
+    'node.type.landing_page_lb'
+  ]);
+}
+
+/**
+ * Add Utility Menu.
+ */
+function y_lb_update_9016() {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('openy_menu_utility')) {
+    \Drupal::service('module_installer')->install(['openy_menu_utility']);
+  }
+  \Drupal::service('module_installer')->install(['openy_menu_utility']);
+
+  $path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.landing_page_lb.default'
+  ]);
+}
+
+/**
+ * Add the Partners Tire block to denylisted_blocks.
+ */
+function y_lb_update_9017() {
+  y_lb_update_9016();
+}
+
+/**
+ * Add light grey styles to Bootstrap Styles config.
+ */
+function y_lb_update_9018() {
+  $config_path = \Drupal::service('extension.list.module')->getPath('y_lb') . '/config/optional/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = 'bootstrap_styles.settings';
+  $config_importer->update(
+    $config_path . $config . '.yml',
+    $config,
+    'background_colors'
+  );
+}

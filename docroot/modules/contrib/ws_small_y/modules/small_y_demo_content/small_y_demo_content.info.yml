@@ -1,0 +1,35 @@
+name: 'Y Layout Builder - Small Y Demo Components'
+type: module
+description: 'Stores migrations to import Small Y demo layout builder components and pages.'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:migrate
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - y_lb_main_menu_cta_block
+  - drupal:ws_small_y
+  - drupal:lb_hero
+  - drupal:lb_related_articles_blocks
+  - drupal:lb_related_events_blocks
+  - drupal:small_y_accordions
+  - drupal:small_y_articles
+  - drupal:small_y_cards
+  - drupal:small_y_carousels
+  - drupal:small_y_donate
+  - drupal:small_y_events
+  - drupal:small_y_hero
+  - drupal:small_y_icon_grid
+  - drupal:small_y_ping_pongs
+  - drupal:small_y_tabs
+  - drupal:ws_event
+  - drupal:ws_small_y_staff
+  - drupal:ws_small_y_statistics
+  - drupal:ws_small_y_testimonials
+  - drupal:y_donate
+  - drupal:y_lb_article
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

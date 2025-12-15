@@ -1,0 +1,47 @@
+/**
+ * Alert styling.
+ */
+.alert-sm {
+  padding: 5px 10px;
+}
+
+// Treat all links inside alert as .alert-link
+.alert a {
+  font-weight: $alert-link-font-weight;
+  color: inherit;
+  text-decoration: underline;
+}
+
+#drupal-off-canvas:not(.drupal-off-canvas-reset),
+#drupal-off-canvas-wrapper {
+  // Reset styles for off-canvas display.
+  .alert * {
+    color: inherit;
+    background-color: inherit;
+    border-color: inherit;
+  }
+}
+
+// Set alert styles for regular pages and off-canvas.
+[data-drupal-messages],
+#drupal-off-canvas:not(.drupal-off-canvas-reset),
+#drupal-off-canvas-wrapper {
+  .alert {
+    @extend .alert;
+  }
+  .alert-status {
+    @extend .alert-success;
+  }
+  .alert-error {
+    @extend .alert-danger;
+  }
+  .alert-danger {
+    @extend .alert-danger;
+  }
+  .alert-info {
+    @extend .alert-info;
+  }
+  .alert-dismissible {
+    @extend .alert-dismissible;
+  }
+}

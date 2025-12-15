@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_image
+    - media.type.image
+    - node.type.article_lb
+id: node.article_lb.field_header_image
+field_name: field_header_image
+entity_type: node
+bundle: article_lb
+label: 'Header Image'
+description: 'A reference to the image that should displaying in the article.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

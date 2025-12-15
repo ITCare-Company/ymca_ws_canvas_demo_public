@@ -1,0 +1,35 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Branch Amenities Legacy
+description: Simple list of branch amenities without status indicators
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Section heading for amenities
+      examples:
+        - 'Branch Amenities'
+
+    amenities:
+      type: array
+      title: Amenities
+      description: Simple array of amenity names
+      examples:
+        - ['Swimming Pool', 'Fitness Center', 'Basketball Court', 'Childcare']
+
+    columns:
+      type: integer
+      title: Columns
+      description: Number of columns for amenities grid
+      default: 2
+      examples:
+        - 2
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-branch-amenities-legacy

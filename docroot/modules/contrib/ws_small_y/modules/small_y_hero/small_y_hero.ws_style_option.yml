@@ -1,0 +1,44 @@
+small_y_hero.ws_style_option:
+  - label: Tall variation
+    name: small_y_hero_tall
+    group: hero_banner
+    image: /assets/images/tall-hero.png
+    library: small_y_hero/hero_tall
+    template: block--lb-hero--variation-tall
+  - label: Sub-page chevron variation
+    name: small_y_hero_sub_chevron
+    group: hero_banner
+    image: /assets/images/sub-chevron.png
+    library: small_y_hero/hero_sub_chevron
+    template: block--lb-hero--variation-sub-chevron
+  - label: Sub-page chevron (no media) variation
+    name: small_y_hero_sub_chevron_no_media
+    group: hero_banner
+    image: /assets/images/sub-chevron-no-media.png
+    library: small_y_hero/hero_sub_chevron_no_media
+    template: block--lb-hero--variation-sub-chevron-no-media
+  - label: Sub-page frame variation
+    name: small_y_hero_sub_frame
+    group: hero_banner
+    image: /assets/images/sub-frame.png
+    library: small_y_hero/hero_sub_frame
+    template: block--lb-hero--variation-sub-frame
+  - label: Promo
+    name: small_y_hero_promo
+    group: hero_banner
+    image: /assets/images/promo-color.png
+    library: small_y_hero/hero_promo
+    template: block--lb-hero--variation-promo
+  - label: Colorway
+    name: background_color
+    group: lb_hero_background
+    image: /assets/images/promo-color.png
+    library: small_y_hero/background_color
+    template: null
+    default: true
+  - label: Gray
+    name: background_gray
+    group: lb_hero_background
+    image: /assets/images/promo-light-grey.png
+    library: small_y_hero/background_gray
+    template: null

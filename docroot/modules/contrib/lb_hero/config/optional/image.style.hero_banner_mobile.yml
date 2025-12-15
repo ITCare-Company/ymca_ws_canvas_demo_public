@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: hero_banner_mobile
+label: 'Hero Banner - Mobile (992 x 1354)'
+effects:
+  ec5d2bde-0988-4f3c-990a-0c681a60e8f8:
+    uuid: ec5d2bde-0988-4f3c-990a-0c681a60e8f8
+    id: openy_focal_point_scale_and_crop
+    weight: 0
+    data:
+      width: 992
+      height: 1354
+      crop_type: focal_point
+  be3289a1-3540-4c61-880f-674963f9ca54:
+    uuid: be3289a1-3540-4c61-880f-674963f9ca54
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp

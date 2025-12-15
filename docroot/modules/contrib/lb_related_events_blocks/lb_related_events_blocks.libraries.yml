@@ -1,0 +1,17 @@
+# Custom module library for general purposes.
+lb_related_events_node:
+  version: 1.9.3
+  css:
+    theme:
+      assets/css/lb-related-events-node.css: { preprocess: true }
+
+lb_related_events_block:
+  version: 1.5.3
+  css:
+    theme:
+      assets/css/lb-related-events-block.css: { preprocess: true }
+  js:
+    assets/js/card_links.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/once

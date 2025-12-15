@@ -1,0 +1,68 @@
+root {
+  --small-y-table-border-color: #979797;
+}
+
+.block-lb-table {
+  .lb-table {
+    table {
+      &.table {
+
+        &:not(.table-borderless) {
+          tbody {
+            tr {
+              border-bottom: unset;
+
+              td, th {
+                border-top: 1px solid var(--small-y-table-border-color, #ccc);
+                border-bottom: 1px solid var(--small-y-table-border-color, #ccc);
+              }
+            }
+          }
+        }
+
+        &.table-bordered {
+          thead  {
+            tr, th {
+              border: 1px solid var(--small-y-table-border-color, #ccc);
+            }
+            tr {
+              border-bottom-width: 2px
+            }
+          }
+
+
+          tbody {
+            tr {
+              border-bottom: unset;
+
+              td, th {
+                border: 1px solid var(--small-y-table-border-color, #ccc);
+              }
+            }
+          }
+        }
+
+        thead tr {
+          border-top: 2px solid var(--small-y-table-border-color, #ccc) ;
+          border-bottom: 2px solid var(--small-y-table-border-color, #ccc);
+        }
+
+        &.table-borderless {
+          thead,
+          tbody {
+            td, th, tr {
+              border-width: 0;
+            }
+          }
+        }
+
+        &.table-sm {
+          td,
+          th {
+            padding: .3rem !important;
+          }
+        }
+      }
+    }
+  }
+}

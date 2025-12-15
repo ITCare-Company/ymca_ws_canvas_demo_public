@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_branch_amenities_blocks
+    - field.storage.block_content.field_section_title
+id: block_content.lb_branch_amenities_blocks.field_section_title
+field_name: field_section_title
+entity_type: block_content
+bundle: lb_branch_amenities_blocks
+label: 'Section heading'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

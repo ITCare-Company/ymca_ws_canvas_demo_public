@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Theme override to display a hero banner.
+ *
+ * Available variables:
+ * - bannerClassVariation: The banner variation class
+ * - wrapperClass: The wrapper class
+ * - containerClass : The container class
+ * - contentClass: The content class
+ * - ctaLinkClass: The cta link class
+ *
+ * @see block--lb-hero.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+{% embed "block--lb-hero.html.twig" with {
+  bannerClassVariation: 'hero__banner__chevron',
+  wrapperClass: 'wrapper-content',
+  containerClass: '',
+  contentClass: ['col', 'col-lg-12', 'text-white', 'text-align-left', 'p-4', 'p-md-0'],
+  ctaLinkClass: ['btn', 'btn-secondary', 'filled']
+} %}
+
+  {% block block_hero %}
+    {{ attach_library('lb_hero/hero-styles-chevron') }}
+    {{ parent() }}
+  {% endblock %}
+
+{% endembed %}

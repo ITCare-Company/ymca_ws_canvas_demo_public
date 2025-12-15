@@ -1,0 +1,46 @@
+footer:
+  version: 0.5
+  css:
+    component:
+      assets/css/footer.css: { preprocess: true, weight: 105 }
+
+header:
+  version: 1.4
+  css:
+    component:
+      assets/css/header.css: { preprocess: true, weight: 115}
+  dependencies:
+    - ws_small_y/breadcrumbs
+    - ws_small_y/colors
+
+typography:
+  version: 0.1
+  css:
+    theme:
+      assets/css/small-y-typography.css: { minified: false, weight: 95 }
+
+main_menu:
+  version: 0.8
+  css:
+    component:
+      assets/css/main-menu.css: { preprocess: true, weight: 110 }
+  dependencies:
+    - y_lb/main_menu
+
+breadcrumbs:
+  version: 0.6
+  css:
+    component:
+      assets/css/breadcrumbs.css: { preprocess: true, weight: 100 }
+
+colors:
+  version: 0.1
+  css:
+    component:
+      assets/css/small-y-colors.css: { preprocess: true, weight: 90 }
+
+page_not_found:
+  version: 0.1
+  css:
+    component:
+      assets/css/small-y-page-not-found.css: { preprocess: true, weight: 115 }

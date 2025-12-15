@@ -1,0 +1,86 @@
+name: YMCA Website Services
+type: profile
+description: 'YMCA Website Services Drupal 11.1 distribution.'
+version: '11.1.0.3-dev'
+core_version_requirement: ^11.0 || ^11.1
+distribution:
+  name: YMCA Website Services
+  install:
+    theme: openy_admin
+php: 8.3
+# Required modules
+install:
+  # Core modules.
+  # - drupal:action
+  - drupal:block_content
+  - drupal:breakpoint
+  - drupal:ckeditor5
+  # - drupal:color
+  - drupal:config
+  - drupal:contact
+  - drupal:contextual
+  - drupal:datetime
+  - drupal:datetime_range
+  - drupal:editor
+  - drupal:exif_orientation
+  - drupal:file
+  - drupal:help
+  # - drupal:history # Removed: triggers D11.3 bug with comment.manager when comment module disabled
+  - drupal:image
+  - drupal:link
+  - drupal:menu_link_content
+  - drupal:menu_ui
+  - drupal:migrate
+  - drupal:node
+  - drupal:options
+  - drupal:path
+  - drupal:path_alias
+  - drupal:shortcut
+  - drupal:system
+  - drupal:taxonomy
+  - drupal:telephone
+  - drupal:text
+  - drupal:toolbar
+  - drupal:views
+  # - drupal:tour
+  # Compatibility
+  - jquery_ui_tooltip:jquery_ui_tooltip
+  - jquery_ui_tabs:jquery_ui_tabs
+  # Contrib modules.
+  - admin_toolbar:admin_toolbar
+  - admin_toolbar:admin_toolbar_tools
+  - captcha:captcha
+  # - ckeditor_bootstrap_buttons:ckeditor_bootstrap_buttons
+  - ckeditor5_paste_filter:ckeditor5_paste_filter
+  - editor_advanced_link:editor_advanced_link
+  # - features:features
+  - image_captcha:image_captcha
+  - link_attributes:link_attributes
+  - metatag:metatag
+  - metatag_open_graph:metatag_open_graph
+  - plugin:plugin
+  - recaptcha:recaptcha
+  - simple_menu_icons:simple_menu_icons
+  - twig_tweak:twig_tweak
+  - responsive_favicons:responsive_favicons
+  # Website Services
+  - advanced_help_block:advanced_help_block
+  - openy_block_custom_simple:openy_block_custom_simple
+  - openy_datalayer:openy_datalayer
+  - openy_editor:openy_editor
+  - openy_menu_main:openy_menu_main
+  - openy_menu_footer:openy_menu_footer
+  - openy_media_image:openy_media_image
+  - openy_media_document:openy_media_document
+  - openy_media_video:openy_media_video
+  - openy_media_local_video:openy_media_local_video
+  - openy_migrate:openy_migrate
+  - openy_node_landing:openy_node_landing
+  - openy_redirect:openy_redirect
+  - openy_system:openy_system
+  - openy_taxonomy:openy_taxonomy
+  - openy_txnm_color:openy_txnm_color
+  - y_lb:y_lb
+themes:
+  - openy_admin
+  - claro

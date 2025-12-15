@@ -1,0 +1,5 @@
+lb_promo:
+  version: 1.5
+  css:
+    theme:
+      assets/css/lb-promo.css: { preprocess: true }

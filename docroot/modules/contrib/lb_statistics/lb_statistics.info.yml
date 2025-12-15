@@ -1,0 +1,17 @@
+name: 'Y Layout Builder - Statistics'
+type: module
+description: 'Helper module for the custom "Statictics" block type.'
+package: 'YMCA Website Services'
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - drupal:entity_browser
+  - drupal:link
+  - drupal:datalayer
+  - drupal:entity_reference_revisions
+  - y_lb
+  - drupal:inline_entity_form
+
+# Information added by Drupal.org packaging script on 2025-05-01
+version: '2.1.0'
+project: 'lb_statistics'
+datestamp: 1746093274

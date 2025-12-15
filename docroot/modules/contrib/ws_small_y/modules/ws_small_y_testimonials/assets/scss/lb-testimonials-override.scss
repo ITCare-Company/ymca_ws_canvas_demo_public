@@ -1,0 +1,68 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-lb-testimonials {
+
+  @include media-breakpoint-up(md) {
+    background-image: url("../svg/chevron-right.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    font-size: 50px;
+    min-height: 660px;
+  }
+
+
+  .section-description {
+    h2 {
+      font-family: var(--ylb-font-family-cachet, Cachet), Verdana, sans-serif;
+      font-weight: 500;
+      font-size: 35px;
+      line-height: 40px;
+
+      @include media-breakpoint-up(md) {
+        font-size: 50px;
+        line-height: 60px;
+      }
+    }
+  }
+
+  .carousel {
+    .carousel-inner {
+      .carousel-item.item {
+        @include media-breakpoint-up(md) {
+          min-height: 400px;
+        }
+
+        .carousel-gallery-info {
+          blockquote {
+            p {
+              font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+              font-weight: 400;
+              font-size: 18px;
+              line-height: 24px;
+
+              @include media-breakpoint-up(md) {
+                font-size: 20px;
+                line-height: 32px;
+              }
+            }
+          }
+
+          h4 {
+            font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+            font-size: 18px;
+            line-height: 22px;
+            font-weight: 700;
+
+            @include media-breakpoint-up(md) {
+              font-size: 20px;
+              line-height: 32px;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+lb_accordion:
+  version: 1.9
+  css:
+    theme:
+      assets/dist/lb_accordion.css: { preprocess: true }
+  js:
+    assets/dist/lb_accordion.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - core/drupal

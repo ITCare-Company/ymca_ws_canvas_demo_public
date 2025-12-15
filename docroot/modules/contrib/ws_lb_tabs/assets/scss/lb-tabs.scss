@@ -1,0 +1,67 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-tabs {
+  .section-description {
+    h2 {
+      font-size: 40px;
+      line-height: 40px;
+      margin-bottom: 10px;
+
+      @include media-breakpoint-up(md) {
+        font-size: 50px;
+        line-height: 60px;
+        margin-bottom: 18px;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+
+  .nav-tabs {
+    border: none;
+    border-radius: var(--wsBorderRadius, unset);
+    background-color: #F2F2F2;
+    padding: 20px;
+    gap: 20px;
+
+    .nav-link {
+      border: none;
+      font-size: 18px;
+      line-height: 26px;
+      padding: 5px 10px;
+      border-radius: var(--wsBorderRadius, unset);
+      font-weight: bold;
+      background-color: var(--ylb-color-white, white);
+      color: var(--ylb-color-grey-1, gray);
+
+      &:hover {
+        color: var(--wsPartnerColor, black);
+        border: none;
+      }
+
+      &.active {
+        background-color: var(--wsPartnerColor, black);
+        color: var(--ylb-color-white, white);
+      }
+    }
+  }
+
+  .tab-content {
+    font-size: 18px;
+    line-height: 28px;
+
+    h3 {
+      font-size: 26px;
+      line-height: 32px;
+
+      @include media-breakpoint-up(md) {
+        font-size: 30px;
+      }
+    }
+  }
+}

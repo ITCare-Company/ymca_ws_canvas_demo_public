@@ -1,0 +1,43 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Small Statistics
+description: Compact statistics display section
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Optional section heading
+      examples:
+        - 'By the Numbers'
+
+    layout:
+      type: string
+      title: Layout
+      description: Display arrangement for statistics
+      default: 'horizontal'
+      enum:
+        - 'horizontal'
+        - 'vertical'
+        - 'grid'
+      meta:enum:
+        horizontal: 'Horizontal Row'
+        vertical: 'Vertical Stack'
+        grid: 'Grid Layout'
+      examples:
+        - 'horizontal'
+
+slots:
+  items:
+    title: Statistics Items
+    description: Individual statistic items
+    allowedComponents:
+      - sdc.y_canvas.y-small-statistics-item
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-small-statistics

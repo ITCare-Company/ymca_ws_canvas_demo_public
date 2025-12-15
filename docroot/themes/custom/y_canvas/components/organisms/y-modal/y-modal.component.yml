@@ -1,0 +1,75 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Modal
+description: Modal dialog popup with title, content, and optional CTA
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Modal heading
+      examples:
+        - 'Welcome!'
+
+    content:
+      type: string
+      title: Content
+      description: Modal body content (HTML allowed)
+      contentMediaType: text/html
+      examples:
+        - '<p>Thank you for visiting our site.</p>'
+
+    cta_text:
+      type: string
+      title: Button Text
+      description: Call-to-action button label
+      examples:
+        - 'Get Started'
+
+    cta_url:
+      type: string
+      title: Button URL
+      description: Call-to-action button link
+      examples:
+        - '/membership'
+
+    modal_id:
+      type: string
+      title: Modal ID
+      description: Unique identifier for the modal
+      examples:
+        - 'welcome-modal'
+
+    dismissible:
+      type: boolean
+      title: Dismissible
+      description: Whether the modal can be closed by clicking outside
+      default: true
+      examples:
+        - true
+
+    size:
+      type: string
+      title: Size
+      description: Modal size
+      default: medium
+      enum:
+        - small
+        - medium
+        - large
+        - fullscreen
+      meta:enum:
+        small: 'Small'
+        medium: 'Medium'
+        large: 'Large'
+        fullscreen: 'Full Screen'
+      examples:
+        - medium
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-modal

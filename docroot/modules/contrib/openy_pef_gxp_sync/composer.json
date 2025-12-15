@@ -1,0 +1,23 @@
+{
+    "name": "drupal/openy_pef_gxp_sync",
+    "description": "Synchronizes Groupex schedules to PEF.",
+    "type": "drupal-module",
+    "require": {
+      "ycloudyusa/yusaopeny": "*",
+      "drupal/core": ">=10.0.0",
+      "drupal/groupexpro": "*",
+      "drupal/openy_mappings": "*"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "extra": {
+      "drush": {
+          "services": {
+              "drush.services.yml": "^9"
+          }
+      }
+    },
+    "replace": {
+      "ynorth-projects/openy_pef_gxp_sync": "*"
+    }
+}

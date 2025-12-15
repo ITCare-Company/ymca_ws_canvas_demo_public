@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.promo.field_link
+    - field.field.node.promo.field_promo_category
+    - field.field.node.promo.field_promo_description
+    - field.field.node.promo.field_promo_media
+    - field.field.node.promo.field_promo_priority
+    - field.field.node.promo.field_subtitle
+    - node.type.promo
+  module:
+    - user
+id: node.promo.default
+targetEntityType: node
+bundle: promo
+mode: default
+content: {  }
+hidden:
+  addthis: true
+  addtoany: true
+  field_link: true
+  field_promo_category: true
+  field_promo_description: true
+  field_promo_media: true
+  field_promo_priority: true
+  field_subtitle: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

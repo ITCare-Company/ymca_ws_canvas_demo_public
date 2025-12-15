@@ -1,0 +1,34 @@
+{#
+/**
+ * Y Staff Members component.
+ *
+ * Variables:
+ * - title: (string) Section heading
+ * - subtitle: (string) Section description
+ * - columns: (string) Number of columns (2, 3, 4)
+ * - items: (slot) Staff member items
+ */
+#}
+
+{% set cols = columns|default('4') %}
+{% set classes = [
+  'y-staff-members',
+  'y-staff-members--cols-' ~ cols,
+] %}
+
+<section {{ attributes.addClass(classes) }} data-component="y-staff-members">
+  {% if title or subtitle %}
+    <div class="y-staff-members__header">
+      {% if title %}
+        <h2 class="y-staff-members__title">{{ title }}</h2>
+      {% endif %}
+      {% if subtitle %}
+        <p class="y-staff-members__subtitle">{{ subtitle }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="y-staff-members__grid">
+    {{ items }}
+  </div>
+</section>

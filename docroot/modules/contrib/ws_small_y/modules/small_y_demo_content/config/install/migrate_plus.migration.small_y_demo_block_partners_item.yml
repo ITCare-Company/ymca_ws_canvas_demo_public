@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - lb_partners_blocks
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_partners_item
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Create Partners Item blocks'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: partner_1
+      uuid: 'fb0b901c-3985-4a6e-b16f-074798e3e099'
+      name: 'Lorem ipsum'
+      image: partner_logo_1
+    -
+      id: partner_2
+      uuid: 'c462bc23-fca8-47ca-b453-cd59c1fb2a01'
+      name: 'Lorem ipsum'
+      image: partner_logo_2
+    -
+      id: partner_3
+      uuid: '6a6fe58a-9483-4603-873b-fac5ae7ca28a'
+      name: 'Lorem ipsum'
+      image: partner_logo_3
+    -
+      id: partner_4
+      uuid: '349a53f5-d94c-4ede-aedf-9eb19dd24e67'
+      name: 'Lorem ipsum'
+      image: partner_logo_4
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: lb_partner_item
+  uuid: uuid
+  field_partner_name: name
+  field_partner_logo:
+    -
+      plugin: migration_lookup
+      migration: small_y_demo_media_image
+      source: image
+destination:
+  plugin: entity:block_content
+  default_bundle: 'lb_partner_item'
+migration_dependencies: {  }

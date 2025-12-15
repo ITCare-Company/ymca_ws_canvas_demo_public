@@ -1,0 +1,25 @@
+lb_hero_canada.ws_style_option:
+  - label: Overlay Canada black variation
+    name: lb_hero_overlay_canada_black
+    group: hero_banner
+    image: /assets/images/canada_banner.svg
+    library: lb_hero_canada/hero-canada
+    template: block--lb-hero--canada-black
+  - label: Overlay Canada red variation
+    name: lb_hero_overlay_canada_red
+    group: hero_banner
+    image: /assets/images/canada_banner.svg
+    library: lb_hero_canada/hero-canada
+    template: block--lb-hero--canada-red
+  - label: Overlay Canada white variation
+    name: lb_hero_overlay_canada_white
+    group: hero_banner
+    image: /assets/images/canada_banner.svg
+    library: lb_hero_canada/hero-canada
+    template: block--lb-hero--canada-white
+  - label: Small Canada variation
+    name: lb_hero_small_canada
+    group: hero_banner
+    image: /assets/images/canada_small_banner.svg
+    library: lb_hero_canada/hero-canada-small
+    template: block--lb-hero--canada-small

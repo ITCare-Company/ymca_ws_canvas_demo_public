@@ -1,0 +1,53 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_content_footer
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Create demo basic blocks in the footer'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 7
+      code: 'c8a209e8-f6ed-4158-ac2f-de2a48c6dcea'
+      description: 'Small Y Footer Social Block'
+      title: ''
+      body: |
+        <ul class="list-inline">
+          <li><a title="Go to YMCA Instagram" href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+          <li><a title="Go to YMCA Twitter" href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+          <li><a title="Go to YMCA YouTube channel" href="#" target="_blank"><i class="fab fa-youtube"></i></a></li>
+          <li><a title="Go to YMCA Facebook" href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>
+        </ul>
+    -
+      id: 8
+      code: '1d1d620e-a672-400f-81d6-4841d22d808b'
+      description: 'Small Y Footer Copyright Block'
+      title: ''
+      body: |
+        <p>Copyright © YMCA of the USA. All rights reserved.</p>
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  type:
+    plugin: default_value
+    default_value: basic_block
+  uuid: code
+  info: description
+  field_block_content/value: body
+  field_block_content/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: entity:block_content

@@ -1,0 +1,6 @@
+name: bartik
+type: theme
+description: Dummy theme to replace bartik.
+package: Useless Machines
+core_version_requirement: ^10 || ^11
+base theme: claro

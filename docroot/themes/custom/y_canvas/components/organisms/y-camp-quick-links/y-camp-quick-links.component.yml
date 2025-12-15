@@ -1,0 +1,41 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Camp Quick Links
+description: Quick access links grid for camp pages
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Section heading for quick links
+      examples:
+        - 'Quick Links'
+
+    columns:
+      type: integer
+      title: Number of Columns
+      description: Grid column count for link layout
+      default: 4
+      enum:
+        - 2
+        - 3
+        - 4
+      meta:enum:
+        2: '2 Columns'
+        3: '3 Columns'
+        4: '4 Columns'
+      examples:
+        - 4
+
+slots:
+  links:
+    title: Quick Link Items
+    description: Quick link card items with icons
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-camp-quick-links

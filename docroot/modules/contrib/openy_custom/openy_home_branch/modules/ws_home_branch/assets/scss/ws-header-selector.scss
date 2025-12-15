@@ -1,0 +1,64 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.hb-selector {
+  margin-left: 10px;
+
+  i:before {
+    color: var(--wsTertiaryColor, black) !important;
+  }
+
+  &--link, &--branch--link {
+    margin: 0 14px 0 10px;
+    color: var(--wsPartnerColor, black) !important;
+    font-size: 16px;
+    font-family: var(--ylb-font-family-verdana) !important;
+    line-height: 24px;
+    font-weight: 400;
+    text-transform: none !important;
+  }
+
+  svg {
+    margin-left: 5px;
+    visibility: hidden;
+    position: relative;
+    left: -20px;
+  }
+
+  &.selected {
+    svg {
+      visibility: visible;
+    }
+  }
+
+  .mobile.open & {
+    display: none;
+  }
+}
+
+[data-once*="home-branch-cookies-storage"] {
+  .mobile {
+    margin-bottom: 40px;
+    .header--top {
+      box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.15) !important;
+
+    }
+    .header--bottom {
+      box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.15) !important;
+
+    }
+    .hb-selector {
+      display: block;
+      position: absolute;
+      left: 10px;
+      top: 150px;
+    }
+
+    &.open {
+      .hb-selector {
+        display: none;
+      }
+    }
+  }
+}

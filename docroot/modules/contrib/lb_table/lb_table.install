@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for Y Layout Builder - Table.
+ */
+
+/**
+ * Make body field required and clarify title.
+ */
+function lb_table_update_9100(&$sandbox)
+{
+  $path = \Drupal::service('extension.list.module')->getPath('lb_table') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'block_content.type.lb_table',
+    'field.field.block_content.lb_table.body',
+  ]);
+}

@@ -1,0 +1,17 @@
+name: 'Y Layout Builder - Repeat Schedules'
+type: module
+description: 'Provides a Repeat Schedules block for Layout Builder.'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - openy_repeat:openy_repeat
+
+# Information added by Drupal.org packaging script on 2025-05-22
+# version: '2.8.2'
+# project: 'openy_repeat'
+# datestamp: 1747909039
+
+# Information added by Drupal.org packaging script on 2025-11-26
+version: '3.1.1'
+project: 'openy_repeat'
+datestamp: 1764166255

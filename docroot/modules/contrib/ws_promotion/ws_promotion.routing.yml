@@ -1,0 +1,7 @@
+ws_promotion.get_promo:
+  path: 'ajax/ws_promotion_get/{widget}/{category}'
+  defaults:
+    _controller: '\Drupal\ws_promotion\Controller\PromotionController::build'
+    category: ''
+  requirements:
+    _permission: 'access content'

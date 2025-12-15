@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for small_y_alerts module.
+ */
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function small_y_alerts_library_info_alter(&$libraries, $extension) {
+  if ($extension == 'ws_small_y' && isset($libraries['header'])) {
+    $libraries['header']['dependencies'][] = 'small_y_alerts/overrides';
+  }
+}

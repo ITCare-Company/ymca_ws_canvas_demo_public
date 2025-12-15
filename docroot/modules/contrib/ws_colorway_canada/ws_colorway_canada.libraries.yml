@@ -1,0 +1,49 @@
+footer:
+  version: 1.1
+  css:
+    component:
+      assets/css/footer.css: { preprocess: true }
+header:
+  version: 1.1
+  css:
+    component:
+      assets/css/header.css: { preprocess: true }
+
+#Colorway styles.
+colorway.blue:
+  version: 1.2
+  css:
+    theme:
+      assets/css/canada-colorway-blue.css: { minified: false }
+  dependencies:
+    - ws_colorway_canada/typography
+
+colorway.green:
+  version: 1.2
+  css:
+    theme:
+      assets/css/canada-colorway-green.css: { minified: false }
+  dependencies:
+    - ws_colorway_canada/typography
+
+colorway.purple:
+  version: 1.2
+  css:
+    theme:
+      assets/css/canada-colorway-purple.css: { minified: false }
+  dependencies:
+    - ws_colorway_canada/typography
+
+colorway.black:
+  version: 1.2
+  css:
+    theme:
+      assets/css/canada-colorway-black.css: { minified: false }
+  dependencies:
+    - ws_colorway_canada/typography
+
+typography:
+  version: 1.4
+  css:
+    theme:
+      assets/css/canada-typography.css: { minified: false, weight: 50 }

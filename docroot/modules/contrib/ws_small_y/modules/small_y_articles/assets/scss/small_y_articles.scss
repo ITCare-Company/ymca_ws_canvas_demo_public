@@ -1,0 +1,115 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.node--type-article-lb {
+
+  .lb-node-title {
+    .page-title {
+      h1 {
+        font-family: var(--ylb-font-family-cachet, Cachet), Verdana, sans-serif;
+        font-size: 45px;
+        font-weight: 400;
+        line-height: 52px;
+
+        @include media-breakpoint-up('md') {
+          font-size: 64px;
+          line-height: 70px;
+        }
+      }
+
+      .article-info {
+        align-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 20px;
+        justify-content: center;
+        margin-bottom: 10px;
+
+        @include media-breakpoint-up('md') {
+          flex-direction: row;
+        }
+
+        span {
+          font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 28px;
+        }
+      }
+    }
+  }
+
+  &.node--lb {
+    .field-tags {
+      font-size: 14px;
+    }
+
+    .block-lb-node-share {
+      & > strong {
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+
+    h2 {
+      font-size: 35px;
+
+      @include media-breakpoint-up('md') {
+        font-size: 48px;
+      }
+    }
+
+    h3 {
+      font-size: 26px;
+      margin-top: 10px;
+
+      @include media-breakpoint-up('md') {
+        font-size: 32px;
+      }
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    .block-lb-node-locations {
+      .locations {
+        flex-direction: column;
+
+        .label {
+          width: 100%;
+          font-size: 24px;
+          line-height: 32px;
+          font-weight: 500;
+        }
+
+        .lb-locations-list {
+
+          .wrapper-field-location-reference {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .field-item {
+              flex: 1 0 100%;
+              margin-bottom: 20px;
+
+              @include media-breakpoint-up('md') {
+                flex-basis: 25%;
+              }
+
+              a {
+                font-size: 18px;
+                line-height: 28px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

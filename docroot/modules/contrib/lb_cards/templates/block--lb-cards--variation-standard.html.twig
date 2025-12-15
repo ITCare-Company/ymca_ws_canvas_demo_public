@@ -1,0 +1,7 @@
+{% extends "block--lb-cards.html.twig" %}
+
+{% block block_cards %}
+  {% set classes = classes|merge(['block-lb-cards-standard'])  %}
+  {{ attach_library('lb_cards/lb_cards') }}
+  {{ parent() }}
+{% endblock %}

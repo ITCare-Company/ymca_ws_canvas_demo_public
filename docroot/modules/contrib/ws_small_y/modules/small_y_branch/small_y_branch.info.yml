@@ -1,0 +1,31 @@
+name: 'Y Layout Builder - Small Y branch'
+type: module
+description: 'Helper module for the custom style for the "Branch/Facility" page'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:address
+  - drupal:bootstrap_layout_builder
+  - drupal:entity_reference_revisions
+  - drupal:layout_builder
+  - drupal:layout_builder_restrictions
+  - drupal:lb_branch_amenities_blocks
+  - drupal:lb_branch_hours_blocks
+  - drupal:lb_branch_social_links_blocks
+  - drupal:link
+  - drupal:telephone
+  - drupal:user
+  - drupal:ws_small_y
+  - drupal:y_branch
+  - drupal:y_branch_menu
+  - drupal:y_camp
+  - drupal:y_facility
+  - openy_field_custom_hours:openy_field_custom_hours
+  - openy_gtranslate:openy_gtranslate
+  - openy_hours_formatter:openy_hours_formatter
+  - y_lb:y_lb
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

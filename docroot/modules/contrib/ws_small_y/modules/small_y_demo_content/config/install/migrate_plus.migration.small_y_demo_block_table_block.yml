@@ -1,0 +1,278 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - lb_table
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_table_block
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import Small Y Demo Layout Builder - Basic HTML'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 111
+      uuid: 'aaa97648-8e38-4ce6-dafa-7ae6c98a1d71'
+      title: "Serving Our Community"
+      text: "<p>Above all else, the YMCA of [Springfield] strives to serve everyone regardless of income, background or age. Check out the quick links to discover how we put our passion and ambitions into action.</p>"
+      format: 'full_html'
+
+    - id: 112
+      uuid: '3e04cbed-a4fa-4a5b-0edd-8da5d268f9aa'
+      title: "The YMCA's History and Mission"
+      text: "<p>The first YMCA was founded in London during the Industrial Revolution, when a former farmer and his friends organized a refuge for young men seeking shelter from hazardous streets. Just seven years later, in 1851, the first U.S. outpost opened at the Old South Church in Boston.</p><p>The last two centuries have seen the Y's mission grow exponentially, serving more than 10,000 communities in the U.S. alone. As the nation's leading nonprofit, the Y is committed to empowering people by improving their well-being, inspiring action, strengthening their communities and ensuring safe, healthy spaces for all.</p>"
+      format: 'full_html'
+
+    - id: 113
+      uuid: '06a07d84-8af9-42c6-cf9e-77d098efe937'
+      title: "Something for Everyone"
+      text: "<p>We believe in a well-balanced life, giving members the resources they need to spend time with family, maintain good health and foster connections in their community. From swimming lessons to community service projects, the programs at the YMCA of [Springfield] strengthen spirit, body and mind.</p><p>Click one of the quick links to learn more.</p>"
+      format: 'full_html'
+
+    - id: 114
+      uuid: '4c16df42-8eab-4af3-b839-841e22d981c6'
+      title: "Always in Action"
+      text: "<p>Our leagues are safe, fair, and, most of all, fun, with year-round programs designed to improve skills and form lasting friendships for kids of all ages and skill levels. Choose a sport from the list to learn more and sign up.</p>"
+      format: 'full_html'
+
+    - id: 115
+      uuid: '30229bec-baf8-46ef-7348-624c867ee7e7'
+      title: "At a Glance"
+      text: "<p>Teams practice once a week on weeknights for an hour. Most games are played on Saturdays, but there may be a few weeknight games to accommodate holidays, school breaks and make-up games. Players are assigned to teams based on practice availability, requests, skill level and age in order to best balance teams.</p><p>Use this menu to find all the info you need about our youth soccer programs.</p>"
+      format: 'full_html'
+
+    - id: 116
+      uuid: '959d8ff5-b5d9-4bb3-4704-774431f67546'
+      title: "Join Our Community"
+      text: "<p>Every day there's something new at the YMCA. We bring people of all ages together to encourage healthy living and foster connections through fitness, sports, fun, and community. We have the support, guidance, and resources you need to help you learn new things, meet your goals, and make new friends at any stage of life. Join us today!</p>"
+      format: 'full_html'
+
+    - id: 117
+      uuid: '295e1e55-a430-4ce4-28ea-fc9a25d2fa34'
+      title: "Lorem Ipsum"
+      text: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+      format: 'full_html'
+
+    - id: 118
+      uuid: '46df1521-8f5a-46f5-d8e2-9aa043c2a527'
+      title: "Joining the Y"
+      text: "<p>You might be surprised by all the Y has to offer. We have motivating group fitness classes, adult and youth sports leagues, healthy living programs for all ages, and a community of support. You'll find welcoming staff ready to help you meet your goals and live your healthiest, happiest life.</p>"
+      format: 'full_html'
+
+    - id: 119
+      uuid: 'e230ee9c-860f-4bf2-8852-af965608793f'
+      title: "The Y, on Your Schedule"
+      text: "<p>At the YMCA of [Springfield], we do our best to make all of our classes and amenities available when our members need them. On our site, you can see all of our scheduled classes, events, and activities; make and modify reservations; and even view our holiday hours. Use the quick links menu to find what you need.</p>"
+      format: 'full_html'
+
+    - id: 120
+      uuid: 'e257a477-91c6-4d5e-c857-bc01b31fba5a'
+      title: "Class Schedules"
+      subtitle: "For classes with limited capacity, you can reserve a spot online until 30 minutes before class begins. You can also cancel through our online system or by calling your local Y."
+      text: "<p>Placeholder for the schedules block.</p>"
+      format: 'full_html'
+
+    - id: 121
+      uuid: '44e37de7-a7fb-499d-cafc-c1a4cb75daa7'
+      title: "Something for Everyone"
+      text: "<p>From parents night out to activities for the whole family, and from cooking classes to turkey trots, our calendar of events reflects the diverse interests of our community.</p><p>Tap or click on any of the events below for more details and to register for a spot.</p>"
+      format: 'full_html'
+
+    - id: 122
+      uuid: '4f2ef641-9a08-4572-f3ef-e3f52fd11e00'
+      title: "We want to hear from you!"
+      text: "<ul><li><b>For membership changes or cancellations</b>, please contact <a href='[site:url]locations'>your home branch</a> directly.</li><li><b>For media inquiries</b>, check out our <a href='#media-room'>media room section</a>.</li><li><b>For questions or comments on our programs, becoming a sponsor, or anything else</b>, reach out via the form below, and we will get back to you as soon as we can.</li></ul>"
+      format: 'full_html'
+
+
+    - id: 123
+      uuid: 'c4709456-b198-4514-71d4-219a0e059d19'
+      title: "Use the membership builder below to select the level and location that are right for you."
+      text: "<p>When you reach the final step, you will be transferred to our registration site to finalize and set up your account. From there, you can sign up for specific programs and more.</p><p>Feel free to <a href='[site:url]demo-contact-us'>contact us</a> with any questions throughout the process.</p><p>&nbsp;</p>"
+      format: 'full_html'
+
+    - id: 124
+      uuid: '79f79fd2-aea3-438a-74ff-35cefe0b782c'
+      title: "Find the membership that's Best for You"
+      text: "<p>Placeholder for the membership finder block.</p>"
+      format: 'full_html'
+
+    - id: 125
+      uuid: 'a86e7918-b362-4929-7127-ace81cc28846'
+      title: "Love What You Do"
+      text: "<p>You’ll find more than just a job when you work at the Y. You’ll find a fun, caring community where you can truly thrive, learn and grow.</p><p>We offer a wide range of full-time, part-time and seasonal jobs. Benefits vary based on your position but can include:</p><ul><li>Free membership and program discounts</li><li>Comprehensive benefits for medical, dental, vision, life and long-term disability</li><li>Opportunity to participate in the Y retirement fund</li><li>Access to our employee assistance program (EAP)</li></ul><p>Explore the below positions to learn more and apply.</p>"
+      format: 'full_html'
+
+    - id: 126
+      uuid: '8c1ec495-9234-49c2-8933-243c335d565e'
+      title: "Make a Difference as a Y Volunteer"
+      text: "<p>Our volunteers are key to our mission of supporting all people in our community. No matter the opportunity you pursue, your involvement with the Y will help bring about positive, meaningful change to local families and children.</p><p>Check out our open volunteer positions below and fill out an interest form to learn more.</p>"
+      format: 'full_html'
+
+    - id: 127
+      uuid: '99e2e22f-ba40-4f63-b50d-b05b19f3f191'
+      title: "How would you like to start?"
+      text: "<p>Placeholder for the Activity Finder block.</p>"
+      format: 'full_html'
+
+    - id: 128
+      uuid: '5af8bcaf-a2ec-404b-180a-323fe4b8d6f9'
+      title: "Small Y Basic Block / Table"
+      text: |
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+        <table>
+            <caption>This is a table caption.</caption>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>First</th>
+                <th>Last</th>
+                <th>Handle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@thor</td>
+            </tr>
+            <tr>
+                <th>3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            </tbody>
+        </table>
+        <h2>h2. Heading</h2>
+        <h3>h3. Heading</h3>
+        <h4>h4. Heading</h4>
+        <h5>h5. Heading</h5>
+        <h6>h6. Heading</h6>
+        <p>When calling the user to action, use <a href="https://www.w3.org/QA/Tips/noClickHere">brief but meaningful link text</a>.</p>
+        <p>You can use the mark tag to <mark>highlight</mark> text.</p>
+        <p><del>This line of text is meant to be treated as deleted text.</del></p>
+        <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+        <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+        <p><u>This line of text will render as underlined</u></p>
+        <p><small>This line of text is meant to be treated as fine print.</small></p>
+        <p><strong>This line rendered as bold text.</strong></p>
+        <p><em>This line rendered as italicized text.</em></p>
+        <h3>Button examples</h3>
+        <p>In general, buttons follow the guidelines for the <a href="https://getbootstrap.com/docs/4.6/components/buttons/">Bootstrap 4.6 button component</a>. Not all styles may be fully supported.</p>
+        <p>Click any button to copy the required classes to your clipboard, then add the classes to the <a href="https://ds-docs.y.org/docs/user-documentation/text-editor/adding-links/#using-button-classes">Advanced link settings</a>.</p>
+        <h4>Basic Buttons</h4>
+        <p>
+            The <code>btn</code> class is required for all buttons, then add a class for the corresponding style. For example, the primary button style uses the classes <code>btn btn-primary</code>.
+        </p>
+        <p>
+            <a type="button" class="btn btn-primary" onclick="copyClass(this)">Primary</a>
+            <a type="button" class="btn btn-secondary" onclick="copyClass(this)">Secondary</a>
+            <a type="button" class="btn btn-success" onclick="copyClass(this)">Success</a>
+            <a type="button" class="btn btn-danger" onclick="copyClass(this)">Danger</a>
+            <a type="button" class="btn btn-warning" onclick="copyClass(this)">Warning</a>
+            <a type="button" class="btn btn-info" onclick="copyClass(this)">Info</a>
+            <a type="button" class="btn btn-light" onclick="copyClass(this)">Light</a>
+            <a type="button" class="btn btn-dark" onclick="copyClass(this)">Dark</a>
+            <a type="button" class="btn btn-link" onclick="copyClass(this)">Link</a>
+        </p>
+        <h4>Outline Buttons</h4>
+        <p>
+            The primary outline button style uses the classes <code>btn btn-outline-primary</code>.
+        </p>
+        <p>
+            <a type="button" class="btn btn-outline-primary" onclick="copyClass(this)">Primary</a>
+            <a type="button" class="btn btn-outline-secondary" onclick="copyClass(this)">Secondary</a>
+            <a type="button" class="btn btn-outline-success" onclick="copyClass(this)">Success</a>
+            <a type="button" class="btn btn-outline-danger" onclick="copyClass(this)">Danger</a>
+            <a type="button" class="btn btn-outline-warning" onclick="copyClass(this)">Warning</a>
+            <a type="button" class="btn btn-outline-info" onclick="copyClass(this)">Info</a>
+            <a type="button" class="btn btn-outline-light" onclick="copyClass(this)">Light</a>
+            <a type="button" class="btn btn-outline-dark" onclick="copyClass(this)">Dark</a>
+        </p>
+        <h4>Button Sizes</h4>
+        <p>
+            Large and small button styles. Add the <code>btn-lg</code> or <code>btn-sm</code> class to the rest of the classes for large or small buttons, respectively. For example, the primary large button style uses the classes <code>btn btn-primary btn-lg</code>.
+        </p>
+        <p>
+            <a type="button" class="btn btn-primary btn-lg" onclick="copyClass(this)">Large button</a>
+            <a type="button" class="btn btn-secondary btn-lg" onclick="copyClass(this)">Large button</a>
+            <a type="button" class="btn btn-primary btn-sm" onclick="copyClass(this)">Small button</a>
+            <a type="button" class="btn btn-secondary btn-sm" onclick="copyClass(this)">Small button</a>
+        </p>
+
+        <script>
+            function copyClass(element) {
+                const classValue = element.className;
+                navigator.clipboard.writeText(classValue).then(() => {
+                    alert('Class value copied: ' + classValue);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            }
+        </script>
+      format: 'full_html'
+
+    - id: 129
+      uuid: '073e6671-b73d-42f9-4b58-f6a05bdf3b2e'
+      title: ""
+      text: "<p>See <a href='demo-ui-kit'>Demo - UI Kit</a>.</p>"
+      format: 'full_html'
+
+    - id: 130
+      uuid: '1723bcc1-e657-4e39-b12b-7fb9b6e48116'
+      title: "Demo Alerts"
+      subtitle: "This is a demo of the alert styles. Alerts are simulated, so styles may not be exactly the same as when used."
+      text: |
+        <link rel="stylesheet" media="all" href="/modules/contrib/openy_node_alert/assets/css/openy_node_alert.css">
+        <div class="header-alerts-list">
+          <div class="site-alert--header">
+            <div role="article" data-nid="60" class="mb-2 alert60 alert-item ws-alert-critical" tabindex="0" data-idx="0" style=""><div class="container header-alert"><div class="row site-alert__wrapper"><div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><div class="site-alert__title">Test Critial Alert</div><div class="site-alert__content header-alert__content alert-full"><div>Nullam id dolor id nibh ultricies vehicula ut id elit.</div></div></div><div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 site-alert__cta alert-full"><div class="field-alert-link"><a href="#">Link</a></div></div><span class="site-alert__dismiss" aria-label="Close alert"><span class="visually-hidden">Close alert Test Alert</span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></div></div></div>
+            <div role="article" data-nid="60" class="mb-2 alert60 alert-item ws-alert-warning" tabindex="0" data-idx="0" style=""><div class="container header-alert"><div class="row site-alert__wrapper"><div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><div class="site-alert__title">Test Warning Alert</div><div class="site-alert__content header-alert__content alert-full"><div>Nullam id dolor id nibh ultricies vehicula ut id elit.</div></div></div><div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 site-alert__cta alert-full"><div class="field-alert-link"><a href="#">Link</a></div></div><span class="site-alert__dismiss" aria-label="Close alert"><span class="visually-hidden">Close alert Test Alert</span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></div></div></div>
+            <div role="article" data-nid="60" class="mb-2 alert60 alert-item ws-alert-info" tabindex="0" data-idx="0" style=""><div class="container header-alert"><div class="row site-alert__wrapper"><div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><div class="site-alert__title">Test Info Alert</div><div class="site-alert__content header-alert__content alert-full"><div>Nullam id dolor id nibh ultricies vehicula ut id elit.</div></div></div><div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 site-alert__cta alert-full"><div class="field-alert-link"><a href="#">Link</a></div></div><span class="site-alert__dismiss" aria-label="Close alert"><span class="visually-hidden">Close alert Test Alert</span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></div></div></div>
+            <div role="article" data-nid="60" class="mb-2 alert60 alert-item ws-alert-dark" tabindex="0" data-idx="0" style=""><div class="container header-alert"><div class="row site-alert__wrapper"><div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><div class="site-alert__title">Test Dark Alert</div><div class="site-alert__content header-alert__content alert-full"><div>Nullam id dolor id nibh ultricies vehicula ut id elit.</div></div></div><div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 site-alert__cta alert-full"><div class="field-alert-link"><a href="#">Link</a></div></div><span class="site-alert__dismiss" aria-label="Close alert"><span class="visually-hidden">Close alert Test Alert</span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></div></div></div>
+            <div role="article" data-nid="60" class="mb-2 alert60 alert-item ws-alert-blue" tabindex="0" data-idx="0" style=""><div class="container header-alert"><div class="row site-alert__wrapper"><div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><div class="site-alert__title">Test Blue Alert</div><div class="site-alert__content header-alert__content alert-full"><div>Nullam id dolor id nibh ultricies vehicula ut id elit.</div></div></div><div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 site-alert__cta alert-full"><div class="field-alert-link"><a href="#">Link</a></div></div><span class="site-alert__dismiss" aria-label="Close alert"><span class="visually-hidden">Close alert Test Alert</span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></div></div></div>
+            <div role="article" data-nid="60" class="mb-2 alert60 alert-item ws-alert-green" tabindex="0" data-idx="0" style=""><div class="container header-alert"><div class="row site-alert__wrapper"><div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><div class="site-alert__title">Test Green Alert</div><div class="site-alert__content header-alert__content alert-full"><div>Nullam id dolor id nibh ultricies vehicula ut id elit.</div></div></div><div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 site-alert__cta alert-full"><div class="field-alert-link"><a href="#">Link</a></div></div><span class="site-alert__dismiss" aria-label="Close alert"><span class="visually-hidden">Close alert Test Alert</span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></div></div></div>
+            <div role="article" data-nid="60" class="mb-2 alert60 alert-item ws-alert-purple" tabindex="0" data-idx="0" style=""><div class="container header-alert"><div class="row site-alert__wrapper"><div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><div class="site-alert__title">Test Purple Alert</div><div class="site-alert__content header-alert__content alert-full"><div>Nullam id dolor id nibh ultricies vehicula ut id elit.</div></div></div><div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 site-alert__cta alert-full"><div class="field-alert-link"><a href="#">Link</a></div></div><span class="site-alert__dismiss" aria-label="Close alert"><span class="visually-hidden">Close alert Test Alert</span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></div></div></div>
+            <div role="article" data-nid="60" class="mb-2 alert60 alert-item ws-alert-red" tabindex="0" data-idx="0" style=""><div class="container header-alert"><div class="row site-alert__wrapper"><div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><div class="site-alert__title">Test Red Alert</div><div class="site-alert__content header-alert__content alert-full"><div>Nullam id dolor id nibh ultricies vehicula ut id elit.</div></div></div><div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 site-alert__cta alert-full"><div class="field-alert-link"><a href="#">Link</a></div></div><span class="site-alert__dismiss" aria-label="Close alert"><span class="visually-hidden">Close alert Test Alert</span><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></div></div></div>
+            </div>
+        </div>
+      format: 'code'
+
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: lb_table
+  uuid: uuid
+  field_section_title: title
+  field_section_subtitle: subtitle
+  body/value: text
+  body/format: format
+destination:
+  plugin: entity:block_content
+  default_bundle: 'lb_table'
+migration_dependencies: {  }

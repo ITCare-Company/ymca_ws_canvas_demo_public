@@ -1,0 +1,12 @@
+{#
+/**
+ * @file
+ * Template for the OpenY Google Translate block
+ */
+#}
+  {% if in_preview %}
+    <div class="container">{{ in_preview_placeholder }}</div>
+  {% else %}
+    <a class="openy-gtranslate-placeholder">{{ "Select Language" | t }}</a>
+    <div class="openy-google-translate d-none"></div>
+  {% endif %}

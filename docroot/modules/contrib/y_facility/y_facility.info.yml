@@ -1,0 +1,17 @@
+name: Y Facility
+type: module
+description: Facility CT integration point with Layout Builder.
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - y_lb
+  - openy_loc_facility
+  - lb_branch_social_links_blocks
+  - lb_branch_amenities_blocks
+  - lb_branch_hours_blocks
+  - y_branch_menu
+
+# Information added by Drupal.org packaging script on 2025-07-07
+version: '2.0.0'
+project: 'y_facility'
+datestamp: 1751896724

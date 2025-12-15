@@ -1,0 +1,185 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - advanced_help_block
+      - openy_demo_ahb
+id: openy_demo_entity_ahb
+migration_tags:
+  - openy_standard_installation
+  - openy_extended_installation
+  - openy_complete_installation
+label: 'Import demo Advanced help blocks.'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      field_ahb_title: 'Welcome to YMCA Website Services'
+      field_ahb_description: |
+        <p>Get help any time at <a href="https://ds-docs.y.org/docs/user-documentation/" target="_blank">our user documentation</a> or <a href="https://www.youtube.com/@ymcasdigitalservices" target="_blank">explore our latest videos</a>.</p>
+      field_ahb_pages: '<front>, /admin/content'
+      field_ahb_visibility: 'include'
+    -
+      id: 2
+      field_ahb_title: 'YMCA Website Services anti-spam protection - reCaptcha'
+      field_ahb_description: |
+        <p>In order to protect customers and your site, <a href="https://ds-docs.y.org/docs/wiki/openy-anti-spam-protection/" target="_blank">anti-spam protection is available</a> on your YMCA site.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=sx36hoDj4Wc'
+      field_ahb_pages: '/admin/config/people/captcha'
+      field_ahb_visibility: 'include'
+    -
+      id: 3
+      field_ahb_title: 'YMCA Website Services: Managing Media'
+      field_ahb_description: |
+        <p>The media library stores images and files, allowing you to manage files individually and in bulk. <a href="https://ds-docs.y.org/docs/user-documentation/media/" target="_blank">Get help on managing media</a> and watch the video below to learn about setting focal points.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=RgnSgr9oYm8'
+      field_ahb_pages: '/admin/content/media'
+      field_ahb_visibility: 'include'
+    -
+      id: 4
+      field_ahb_title: 'YMCA Website Services: How to Change Styles and Create a Custom Theme'
+      field_ahb_description: |
+        <p>Learn how to tweak your styles with the CSS Editor and create a new custom theme for even more customization.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=2tIxMC2IYCI'
+      field_ahb_pages: '/admin/appearance/settings/openy_*, /admin/appearance'
+      field_ahb_visibility: 'include'
+    -
+      id: 5
+      field_ahb_title: 'YMCA Website Services: Demo Content'
+      field_ahb_description: |
+        <p>The distribution provides demo content to help you get started with your site. Learn how to use it in this video.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=QUDQ1ts3lOs'
+      field_ahb_pages: '/admin/structure/migrate'
+      field_ahb_visibility: 'include'
+    -
+      id: 6
+      field_ahb_title: 'YMCA Website Services: Branch'
+      field_ahb_description: |
+        <p>Branch pages contain multiple data fields that work together to help members find the right location, hours, and amenities that fits their needs. <a href="https://ds-docs.y.org/docs/user-documentation/content-types/branch/" target="_blank">Learn more in our docs</a>.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=X0uocum2VRI'
+      field_ahb_pages: '/node/add/branch'
+      field_ahb_visibility: 'include'
+    -
+      id: 7
+      field_ahb_title: 'YMCA Website Services: Landing Page'
+      field_ahb_description: |
+        <p>Landing Pages are flexible content types that use regions and paragraphs to build content. <a href="https://ds-docs.y.org/docs/user-documentation/content-types/landing-page/" target="_blank">Learn more in our docs</a>.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=xdM7Sy2W8RY'
+      field_ahb_pages: '/node/add/landing_page'
+      field_ahb_visibility: 'include'
+    -
+      id: 8
+      field_ahb_title: 'YMCA Website Services: Content Overview'
+      field_ahb_description: |
+        <p>Learn more about managing content and performing bulk operations.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=Aqqvm28FrqI'
+      field_ahb_pages: '/admin/content'
+      field_ahb_visibility: 'include'
+    -
+      id: 9
+      field_ahb_title: 'YMCA Website Services: Blogs'
+      field_ahb_description: |
+        <p>Blog posts display timely content, articles and news pieces tagged with one or more physical locations. <a href="https://ds-docs.y.org/docs/user-documentation/content-types/blog-post/" target="_blank">Learn more in our docs</a>.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=xL3FidaHeJk'
+      field_ahb_pages: '/node/add/blog'
+      field_ahb_visibility: 'include'
+    -
+      id: 10
+      field_ahb_title: 'YMCA Website Services: Taxonomy'
+      field_ahb_description: |
+        <p>Group pieces of related content together for tagging, filtering, sorting, and grouping. <a href="https://ds-docs.y.org/docs/user-documentation/taxonomy/" target="_blank">Learn more in our docs</a>.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=UrCmOgUEjnw'
+      field_ahb_pages: '/admin/structure/taxonomy'
+      field_ahb_visibility: 'include'
+    -
+      id: 11
+      field_ahb_title: 'YMCA Website Services: Logos'
+      field_ahb_description: |
+        <p>The distribution allows you to change the header and footer logos for your YMCA website.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=tsyStqtEB1U'
+      field_ahb_pages: '/admin/appearance/settings/openy_*'
+      field_ahb_visibility: 'include'
+    -
+      id: 12
+      field_ahb_title: 'YMCA Website Services: User Menu'
+      field_ahb_description: |
+        <p>Manage utility links for user account options.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=stVYyS0ACuI'
+      field_ahb_pages: '/admin/structure/menu/manage/account'
+      field_ahb_visibility: 'include'
+    -
+      id: 13
+      field_ahb_title: 'YMCA Website Services: Header Menu'
+      field_ahb_description: |
+        <p>Manage primary navigation for your YMCA website.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=SpBof2cuA7k'
+      field_ahb_pages: '/admin/structure/menu/manage/main'
+      field_ahb_visibility: 'include'
+    -
+      id: 14
+      field_ahb_title: 'YMCA Website Services: Upgrade Dashboard instructions'
+      field_ahb_description: |
+        <ol>
+          <li>We strongly recommend that you perform any actions on this Dashboard only on the <strong>NON-production</strong> environment!</li>
+          <li>Make a database <strong>backup</strong> before resolving conflicts.</li>
+          <li><strong>Resolve conflicts.</strong><br />
+            Press diff button next to a conflict and decide what should be done with this config.<br />
+            You can approve current changes or revert to a config from YMCA Website Services.<br />
+            Also, you can choose to resolve conflict manually. To do so you can apply changes from both current version and from YMCA Website Services.</li>
+          <li><strong>Generate</strong> a function for hook_update. Resulting code will contain all of your actions for programmatic conflict resolution.</li>
+          <li>Insert generated code to any custom module (Use MODULE_NAME.install file. Additional information about update hooks can be found <a href="https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Extension%21module.api.php/function/hook_update_N/8.2.x">HERE</a>).</li>
+          <li>If you used manual config merge, then export all site configuration to the directory that is used as config file storage (Additional information about File system based workflow can be found <a href="https://www.drupal.org/docs/8/configuration-management/file-system-based-workflow">HERE</a>).&nbsp;</li>
+          <li>Test this update on the DB dump of the website version that was created before conflicts were resolved.</li>
+          <li>Execute <strong>drush updb -y&nbsp;</strong></li>
+          <li>Check that all conflicts were resolved according to your manual actions.</li>
+          <li><strong>Deploy</strong> this update to DEV or PROD environment and run updates.</li>
+        </ol>
+      field_ahb_video: 'https://www.youtube.com/watch?v=ZErC-GZKPtk'
+      field_ahb_pages: '/admin/openy/development/upgrade-log/dashboard'
+      field_ahb_visibility: 'include'
+    -
+      id: 15
+      field_ahb_title: 'YMCA Website Services: Media Bulk Upload'
+      field_ahb_description: |
+        <p>Please read the documentation about <a href="https://ds-docs.y.org/docs/user-documentation/media/#bulk-upload" target="_blank">Media Bulk Upload module installation and configuration</a>.</p>
+      field_ahb_video: ''
+      field_ahb_pages: "/admin/content/browser,/admin/content/media"
+      field_ahb_visibility: 'include'
+    -
+      id: 16
+      field_ahb_title: 'YMCA Website Services: This page uses Paragraphs to create content'
+      field_ahb_description: |
+        <p><a href="https://ds-docs.y.org/docs/user-documentation/paragraphs/" target="_blank">Learn more about the Paragraph types available</a>.</p>
+      field_ahb_pages: '/node/add/branch,/node/add/event,/node/add/landing_page,/node/add/news'
+      field_ahb_visibility: 'include'
+    -
+      id: 17
+      field_ahb_title: 'YMCA Website Services: This page uses Layout Builder to create content'
+      field_ahb_description: |
+        <p><a href="https://ds-docs.y.org/docs/user-documentation/layout-builder/" target="_blank">Learn more about the Layout Builder blocks available</a>.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?list=PL6Wo-UX6nhySupPRWKqy0BFlzYLzYR8rB&v=V8xHmdzm1kI'
+      field_ahb_pages: '/node/add/*lb,/node/add/lb*'
+      field_ahb_visibility: 'include'
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  field_ahb_title: field_ahb_title
+  field_ahb_description/value: field_ahb_description
+  field_ahb_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_ahb_video: field_ahb_video
+  field_ahb_pages: field_ahb_pages
+  field_ahb_visibility: field_ahb_visibility
+
+destination:
+  plugin: 'entity:advanced_help_block'
+migration_dependencies: {}
+optional: {  }

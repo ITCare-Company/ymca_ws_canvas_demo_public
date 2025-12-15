@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * LB Event Contacts implementation to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes }}>
+    {{ title_prefix }}
+    {{ title_suffix }}
+    <div class="contacts">
+        <div class="label">{{ "Contact for more information" | t }}</div>
+        <div class="contacts-info">
+          {% for contact in content['#contacts'] %}
+              {% if contact['#location_name'] is not empty %}
+                  <div class="location-name">{{ contact['#location_name'] }}</div>
+              {% endif %}
+
+              {% if contact['#phone'] is not empty %}
+                  <div class="contact-phone"><a href="tel:{{ contact['#phone'] }}">{{ contact['#phone'] }}</a></div>
+              {% endif %}
+
+              {% if contact['#fax'] is not empty %}
+                  <div class="contact-fax"><a href="tel:{{ contact['#fax'] }}">{{ contact['#fax'] }}</a></div>
+              {% endif %}
+
+              {% if contact['#email'] is not empty %}
+                  <div class="contact-email">{{ contact['#email'] }}</div>
+              {% endif %}
+          {% endfor %}
+        </div>
+    </div>
+</div>

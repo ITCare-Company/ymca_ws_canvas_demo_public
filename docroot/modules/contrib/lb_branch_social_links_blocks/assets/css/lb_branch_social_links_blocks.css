@@ -1,0 +1,67 @@
+.block-social-links .social-links .wrapper-field-social-links {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+@media (min-width: 992px) {
+  .block-social-links .social-links .wrapper-field-social-links {
+    justify-content: flex-end;
+  }
+}
+.block-social-links .social-links .wrapper-field-social-links a:hover:before {
+  filter: brightness(0.8);
+}
+.block-social-links .social-links .wrapper-field-social-links a::before {
+  height: 25px;
+  display: block;
+  width: 25px;
+  content: "";
+  -webkit-mask: url("../svg/default.svg") no-repeat 50% 50%;
+          mask: url("../svg/default.svg") no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+          mask-size: cover;
+  background-color: var(--wsTertiaryColor, black);
+}
+.block-social-links .social-links .wrapper-field-social-links a[href*="twitter.com"]::before,
+.block-social-links .social-links .wrapper-field-social-links a[href*="t.co"]::before {
+  -webkit-mask: url("../svg/Twitter.svg") no-repeat 50% 50%;
+          mask: url("../svg/Twitter.svg") no-repeat 50% 50%;
+}
+.block-social-links .social-links .wrapper-field-social-links a[href*="x.com"]::before {
+  -webkit-mask: url("../svg/X.svg") no-repeat 50% 50%;
+          mask: url("../svg/X.svg") no-repeat 50% 50%;
+}
+.block-social-links .social-links .wrapper-field-social-links a[href*="facebook.com"]::before,
+.block-social-links .social-links .wrapper-field-social-links a[href*="fb.me"]::before {
+  -webkit-mask: url("../svg/Facebook.svg") no-repeat 50% 50%;
+          mask: url("../svg/Facebook.svg") no-repeat 50% 50%;
+  width: 12px;
+}
+.block-social-links .social-links .wrapper-field-social-links a[href*="instagram.com"]::before {
+  -webkit-mask: url("../svg/Instagram.svg") no-repeat 50% 50%;
+          mask: url("../svg/Instagram.svg") no-repeat 50% 50%;
+}
+.block-social-links .social-links .wrapper-field-social-links a[href*="threads.net"]::before {
+  -webkit-mask: url("../svg/Threads.svg") no-repeat 50% 50%;
+          mask: url("../svg/Threads.svg") no-repeat 50% 50%;
+}
+.block-social-links .social-links .wrapper-field-social-links a[href*="youtube.com"]::before,
+.block-social-links .social-links .wrapper-field-social-links a[href*="youtu.be"]::before {
+  -webkit-mask: url("../svg/YouTube.svg") no-repeat 50% 50%;
+          mask: url("../svg/YouTube.svg") no-repeat 50% 50%;
+  width: 21px;
+}
+.block-social-links .social-links .wrapper-field-social-links a[href*="linkedin.com"]::before {
+  -webkit-mask: url("../svg/Linkedin.svg") no-repeat 50% 50%;
+          mask: url("../svg/Linkedin.svg") no-repeat 50% 50%;
+}
+.block-social-links .social-links .wrapper-field-social-links a[href*="apps.apple.com"]::before {
+  -webkit-mask: url("../svg/app-store.svg") no-repeat 50% 50%;
+          mask: url("../svg/app-store.svg") no-repeat 50% 50%;
+}
+.block-social-links .social-links .wrapper-field-social-links a[href*="play.google.com"]::before {
+  -webkit-mask: url("../svg/google-play.svg") no-repeat 50% 50%;
+          mask: url("../svg/google-play.svg") no-repeat 50% 50%;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvbGJfYnJhbmNoX3NvY2lhbF9saW5rc19ibG9ja3Muc2NzcyIsImxiX2JyYW5jaF9zb2NpYWxfbGlua3NfYmxvY2tzLmNzcyIsIi4uLy4uL25vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9taXhpbnMvX2JyZWFrcG9pbnRzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBTUk7RUFDRSxhQUFBO0VBQ0EsU0FBQTtFQUNBLHVCQUFBO0FDTE47QUN3REk7RUZ0REE7SUFNSSx5QkFBQTtFQ0pOO0FBQ0Y7QURNTTtFQUNFLHVCQUFBO0FDSlI7QURPTTtFQUNFLFlBQUE7RUFDQSxjQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7RUFDQSx5REFBQTtVQUFBLGlEQUFBO0VBQ0Esd0JBQUE7VUFBQSxnQkFBQTtFQUNBLCtDQUFBO0FDTFI7QURRTTs7RUFFRSx5REFBQTtVQUFBLGlEQUFBO0FDTlI7QURTTTtFQUNFLG1EQUFBO1VBQUEsMkNBQUE7QUNQUjtBRFVNOztFQUVFLDBEQUFBO1VBQUEsa0RBQUE7RUFDQSxXQUFBO0FDUlI7QURXTTtFQUNFLDJEQUFBO1VBQUEsbURBQUE7QUNUUjtBRFlNO0VBQ0UseURBQUE7VUFBQSxpREFBQTtBQ1ZSO0FEYU07O0VBRUUseURBQUE7VUFBQSxpREFBQTtFQUNBLFdBQUE7QUNYUjtBRGNNO0VBQ0UsMERBQUE7VUFBQSxrREFBQTtBQ1pSO0FEZU07RUFDRSwyREFBQTtVQUFBLG1EQUFBO0FDYlI7QURnQk07RUFDRSw2REFBQTtVQUFBLHFEQUFBO0FDZFIiLCJmaWxlIjoibGJfYnJhbmNoX3NvY2lhbF9saW5rc19ibG9ja3MuY3NzIn0= */

@@ -1,0 +1,5 @@
+services:
+  lb_donate.ws_style_group_applies_to_alter:
+    class: Drupal\lb_donate\EventSubscriber\WSStyleGroupAlter
+    tags:
+      - { name: event_subscriber }

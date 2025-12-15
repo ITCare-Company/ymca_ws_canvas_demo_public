@@ -1,0 +1,32 @@
+lb_hero.ws_style_option:
+  - label: Overlay variation
+    name: lb_hero_overlay
+    group: hero_banner
+    image: /assets/images/overlay.png
+    library: null
+    template: block--lb-hero--variation-overlay
+  - label: Chevron variation
+    name: lb_hero_chevron
+    group: hero_banner
+    image: /assets/images/chevron.png
+    library: null
+    template: block--lb-hero--variation-chevron
+  - label: Standard variation
+    name: lb_hero_standard
+    group: hero_banner
+    image: /assets/images/standard.png
+    library: null
+    template: block--lb-hero--variation-standard
+    default: true
+  - label: Frame variation
+    name: lb_hero_frame
+    group: hero_banner
+    image: /assets/images/frame.png
+    library: null
+    template: block--lb-hero--variation-frame
+  - label: Small variation
+    name: lb_hero_small
+    group: hero_banner
+    image: /assets/images/small.png
+    library: null
+    template: block--lb-hero--variation-small

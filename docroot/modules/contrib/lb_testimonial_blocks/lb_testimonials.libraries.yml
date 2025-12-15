@@ -1,0 +1,6 @@
+# Custom module library for general purposes.
+lb_testimonials:
+  version: 1.11
+  css:
+    theme:
+      assets/css/lb-testimonials.css: { preprocess: true }

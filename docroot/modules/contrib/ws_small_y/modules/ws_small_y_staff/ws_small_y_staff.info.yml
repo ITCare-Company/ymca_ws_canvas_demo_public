@@ -1,0 +1,15 @@
+name: 'Small Y -  Staff Members'
+type: module
+description: 'Helper module for the custom style "Staff Members" block type'
+package: YMCA Website Services
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:ws_small_y
+  - lb_staff_members_blocks
+  - entity_browser_entity_form:entity_browser_entity_form
+  - inline_entity_form:inline_entity_form
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

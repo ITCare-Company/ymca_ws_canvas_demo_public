@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for LB Tabs module.
+ *
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements HOOK_theme().
+ */
+function ws_lb_tabs_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_tabs' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-tabs',
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function ws_lb_tabs_preprocess_block__lb_tabs(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $variables['tabs'] = $variables['block_content']->field_block_item->referencedEntities();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for block entities.
+ */
+function ws_lb_tabs_block_content_presave(EntityInterface $block) {
+  if ($block->bundle() === 'tab_item') {
+    $block->setInfo($block->get('field_title')->value);
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function ws_lb_tabs_inline_entity_form_entity_form_alter(array &$entity_form, FormStateInterface $form_state) {
+  $entity = $entity_form['#entity'];
+  if ($entity->bundle() === 'tab_item' && !empty($form_state->getUserInput()['settings']['block_form']['field_block_item']['form'])) {
+    $form = $form_state->getUserInput()['settings']['block_form']['field_block_item']['form'];
+    if (isset($form['inline_entity_form'])) {
+      $resultForm = reset($form['inline_entity_form']['entities'])['form'];
+    }
+    else {
+      $resultForm = reset($form);
+    }
+    $entity->setInfo($resultForm['field_title']['0']['value']);
+  }
+}
+

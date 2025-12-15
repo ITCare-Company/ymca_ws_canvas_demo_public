@@ -1,0 +1,5 @@
+lb_simple_menu:
+  version: 1.4
+  css:
+    theme:
+      assets/css/lb_simple_menu.css: { preprocess: true }

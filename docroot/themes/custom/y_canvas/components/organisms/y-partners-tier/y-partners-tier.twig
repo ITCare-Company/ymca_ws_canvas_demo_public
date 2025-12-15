@@ -1,0 +1,26 @@
+{#
+/**
+ * Y Partners Tier component.
+ *
+ * Variables:
+ * - title: (string) Tier label/heading
+ * - columns: (string) Number of columns (2, 3, 4, 6)
+ * - items: (slot) Partner items
+ */
+#}
+
+{% set cols = columns|default('4') %}
+{% set classes = [
+  'y-partners-tier',
+  'y-partners-tier--cols-' ~ cols,
+] %}
+
+<div {{ attributes.addClass(classes) }} data-component="y-partners-tier">
+  {% if title %}
+    <h3 class="y-partners-tier__title">{{ title }}</h3>
+  {% endif %}
+
+  <div class="y-partners-tier__grid">
+    {{ items }}
+  </div>
+</div>

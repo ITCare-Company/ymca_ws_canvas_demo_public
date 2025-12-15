@@ -1,0 +1,48 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Statistics Item
+description: Individual statistic display with animated counter
+status: experimental
+group: Molecules
+
+props:
+  type: object
+  properties:
+    value:
+      type: string
+      title: Value
+      description: The statistic number or value to display
+      examples:
+        - '50,000'
+
+    label:
+      type: string
+      title: Label
+      description: Description of what the value represents
+      examples:
+        - 'Community Members'
+
+    prefix:
+      type: string
+      title: Prefix
+      description: Optional prefix before the value (e.g., $)
+      examples:
+        - '$'
+
+    suffix:
+      type: string
+      title: Suffix
+      description: Optional suffix after the value (e.g., +, %)
+      examples:
+        - '+'
+
+    icon:
+      type: string
+      title: Icon
+      description: Optional icon identifier or SVG content
+      examples:
+        - 'users'
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-statistics-item

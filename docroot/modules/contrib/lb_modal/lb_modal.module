@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Y Layout Builder - Modal block module.
+ *
+ */
+
+/**
+ * Implements HOOK_theme().
+ */
+function lb_modal_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_modal' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-modal',
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function lb_modal_preprocess_block__lb_modal(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $variables['dismissible'] = !($variables['block_content']->field_modal_dismissible->value ?? TRUE);
+}

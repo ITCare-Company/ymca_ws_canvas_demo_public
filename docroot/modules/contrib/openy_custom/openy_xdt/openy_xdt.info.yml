@@ -1,0 +1,5 @@
+name: YMCA Website Services Cross-domain Tracking (XDT)
+type: module
+description: Enable cross-domain tracking through TrustedRedirectResponse based on certain cookies and domains.
+package: YMCA Website Services
+core_version_requirement: ^10 || ^11

@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_branch_social_links_blocks
+    - field.field.block_content.lb_branch_social_links_blocks.field_social_links
+  module:
+    - link
+id: block_content.lb_branch_social_links_blocks.default
+targetEntityType: block_content
+bundle: lb_branch_social_links_blocks
+mode: default
+content:
+  field_social_links:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: true
+      url_plain: false
+      rel: '0'
+      target: _blank
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_ping_pong
+label: Ping-Pong
+revision: 0
+description: 'Ping-Pong Component for Layout builder'

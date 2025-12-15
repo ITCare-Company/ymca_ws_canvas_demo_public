@@ -1,0 +1,24 @@
+name: 'Y Layout Builder - Carousel'
+type: module
+description: 'Helper module for the custom "Carousel" block type.'
+package: 'YMCA Website Services'
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - drupal:paragraphs
+  - drupal:entity_browser
+  - drupal:text
+  - drupal:link
+  - drupal:datalayer
+  - drupal:entity_reference_revisions
+  - y_lb
+  - dropzonejs:dropzonejs
+  - dropzonejs:dropzonejs_eb_widget
+  - drupal:views
+  - drupal:media
+  - drupal:block_content
+  - openy_focal_point
+
+# Information added by Drupal.org packaging script on 2025-10-16
+version: '2.1.1'
+project: 'lb_carousel'
+datestamp: 1760609363

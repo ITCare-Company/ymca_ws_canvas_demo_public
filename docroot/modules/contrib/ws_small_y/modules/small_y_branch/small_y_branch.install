@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Small Y Branch module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function small_y_branch_install() {
+  _small_y_branch_clear_view_mode();
+  _small_y_branch_update_default_config();
+}
+
+/**
+ * Clear view mode before import.
+ */
+function _small_y_branch_clear_view_mode() {
+  $cts = [
+    'branch',
+    'camp',
+    'facility',
+  ];
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  foreach ($cts as $ct) {
+    $view_modes = $entity_display_repository
+      ->getViewModeOptionsByBundle('node', 'branch');
+
+    foreach (array_keys($view_modes) as $view_mode) {
+      /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+      $view_display = $entity_display_repository->getViewDisplay('node', $ct, $view_mode);
+      if ($view_mode == 'full') {
+        $view_display
+          ->setThirdPartySetting('layout_builder', 'sections', []);
+      }
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Updates the default configuration of the view mode for LP with LB.
+ */
+function _small_y_branch_update_default_config() {
+  $path = \Drupal::service('extension.list.module')->getPath('small_y_branch') . '/config/optional';
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.camp.full',
+    'core.entity_view_display.node.branch.full',
+    'core.entity_view_display.node.facility.full',
+  ]);
+}
+
+/**
+ * Update Full's display mode config for the branch, camp and facility.
+ */
+function small_y_branch_update_91001() {
+  _small_y_branch_clear_view_mode();
+  _small_y_branch_update_default_config();
+}

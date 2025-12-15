@@ -1,0 +1,6 @@
+small_y_carousels.lb_carousel_override:
+  block_type: lb_carousel
+  library: small_y_carousels/lb_carousel_override
+  override: false
+  active_colorways:
+    - '*'

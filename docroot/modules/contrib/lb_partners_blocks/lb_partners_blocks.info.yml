@@ -1,0 +1,16 @@
+name: 'Y Layout Builder - Partners Blocks'
+type: module
+description: 'Helper module for the custom "Partners Block" type.'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:block_content
+  - drupal:entity_browser
+  - drupal:link
+  - inline_entity_form:inline_entity_form
+  - y_lb
+
+# Information added by Drupal.org packaging script on 2025-06-30
+version: '1.1.0'
+project: 'lb_partners_blocks'
+datestamp: 1751287794

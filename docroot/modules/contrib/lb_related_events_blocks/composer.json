@@ -1,0 +1,13 @@
+{
+    "name": "drupal/lb_related_events_blocks",
+    "description": "Helper module for the custom \"Related Events\" block type.",
+    "type": "drupal-module",
+    "require": {
+        "ycloudyusa/y_lb": "^3.0 || ~4.0.0",
+        "php": ">=8.1",
+        "drupal/ws_event" : "^1.4.0 || ~1.5.0",
+        "open-y-subprojects/openy_focal_point": "^1.0 || dev-drupal10 || ~1.1.0"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev"
+}

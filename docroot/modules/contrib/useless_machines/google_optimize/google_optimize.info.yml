@@ -1,0 +1,5 @@
+name: google_optimize
+type: module
+description: Dummy module to replace google_optimize.
+package: Useless Machines
+core_version_requirement: ^10 || ^11

@@ -1,0 +1,5 @@
+name: action
+type: module
+description: Dummy module to replace action.
+package: Useless Machines
+core_version_requirement: ^10 || ^11

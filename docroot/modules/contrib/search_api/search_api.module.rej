@@ -1,0 +1,43 @@
+--- search_api.module
++++ search_api.module
+@@ -661,7 +661,9 @@ function search_api_entity_extra_field_info() {
+  */
+ function search_api_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+   $excerpt_component = $display->getComponent('search_api_excerpt');
+-  if ($excerpt_component !== NULL && isset($build['#search_api_excerpt'])) {
++  if ($excerpt_component !== NULL) {
++    $excerpt = $build['#search_api_excerpt'] ?? '';
++    $has_excerpt = strlen($excerpt) > 0;
+     $build['search_api_excerpt'] = [
+       '#theme' => 'search_api_excerpt',
+       '#excerpt' => [
+@@ -671,6 +673,29 @@ function search_api_entity_view(array &$build, EntityInterface $entity, EntityVi
+       '#cache' => [
+         'contexts' => ['url.query_args'],
+       ],
++      '#markup' => $excerpt,
++      '#access' => $has_excerpt,
+     ];
++    // In case the build array is cacheable, make sure that the excerpt is part
++    // of the cache keys.
++    if (!empty($build['#cache']['keys'])) {
++      // Use a relatively fast hash as the cache key.
++      $key = $has_excerpt ? md5($excerpt) : 'none';
++      $renderer = \Drupal::service('renderer');
++      $renderer->addCacheableDependency($build, $key);
++    }
++    else {
++      // Otherwise, we can unfortunately only guess on what the excerpt depends.
++      // The GET parameters seem like a good guess, but it could be almost
++      // anything. Also, we invalidate the item's cache when a search index is
++      // edited, since that might enable/disable the "Highlight" processor or
++      // make other relevant changes. (We do not know at this point which search
++      // index produced this entity as a result, so we have to use the list
++      // cache tag for this.)
++      $build['search_api_excerpt']['#cache'] = [
++        'contexts' => ['url.query_args'],
++        'tags' => ['search_api_index_list'],
++      ];
++    }
+   }
+ }

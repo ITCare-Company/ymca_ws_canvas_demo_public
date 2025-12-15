@@ -1,0 +1,5 @@
+name: colorbutton
+type: module
+description: Dummy module to replace colorbutton.
+package: Useless Machines
+core_version_requirement: ^10 || ^11

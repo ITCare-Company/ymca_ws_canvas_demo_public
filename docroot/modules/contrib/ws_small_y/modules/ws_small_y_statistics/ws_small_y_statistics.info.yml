@@ -1,0 +1,18 @@
+name: 'Small Y - Statistics'
+type: module
+description: 'Helper module for the custom "Small Y Statistics" block type.'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:entity_browser
+  - drupal:link
+  - drupal:datalayer
+  - drupal:entity_reference_revisions
+  - drupal:ws_small_y
+  - drupal:inline_entity_form
+  - drupal:block_content
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

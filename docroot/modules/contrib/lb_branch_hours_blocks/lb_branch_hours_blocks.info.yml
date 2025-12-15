@@ -1,0 +1,13 @@
+name: 'Y Layout Builder - Branch Hours'
+type: module
+description: 'Helper module for the custom "Branch Hours" block type'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - y_lb
+  - y_branch
+
+# Information added by Drupal.org packaging script on 2025-07-10
+version: '2.0.1'
+project: 'lb_branch_hours_blocks'
+datestamp: 1752157107

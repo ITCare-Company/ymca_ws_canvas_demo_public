@@ -1,0 +1,38 @@
+{#
+/**
+ * Y Donate component.
+ *
+ * Variables:
+ * - title: (string) Section heading
+ * - subtitle: (string) Section description
+ * - image: (object) Background image
+ * - background: (string) Background style
+ * - items: (slot) Donation options
+ */
+#}
+
+{% set bg = background|default('light') %}
+{% set classes = [
+  'y-donate',
+  'y-donate--bg-' ~ bg,
+  image.src ? 'y-donate--has-image' : '',
+] %}
+
+<section {{ attributes.addClass(classes) }} data-component="y-donate"
+  {% if image.src %}style="--donate-bg-image: url('{{ image.src }}')"{% endif %}
+>
+  <div class="y-donate__container">
+    <div class="y-donate__content">
+      {% if title %}
+        <h2 class="y-donate__title">{{ title }}</h2>
+      {% endif %}
+      {% if subtitle %}
+        <p class="y-donate__subtitle">{{ subtitle }}</p>
+      {% endif %}
+
+      <div class="y-donate__options">
+        {{ items }}
+      </div>
+    </div>
+  </div>
+</section>

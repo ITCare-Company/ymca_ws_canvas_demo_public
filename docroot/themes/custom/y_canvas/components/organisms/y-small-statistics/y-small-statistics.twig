@@ -1,0 +1,27 @@
+{#
+/**
+ * Y Small Statistics component.
+ *
+ * Variables:
+ * - title: (string) Section heading
+ * - background: (string) Background style
+ * - items: (slot) Statistics items
+ */
+#}
+
+{% set bg = background|default('light') %}
+{% set classes = [
+  'y-small-statistics',
+  'y-small-statistics--bg-' ~ bg,
+] %}
+
+<section {{ attributes.addClass(classes) }} data-component="y-small-statistics">
+  <div class="y-small-statistics__container">
+    {% if title %}
+      <h2 class="y-small-statistics__title">{{ title }}</h2>
+    {% endif %}
+    <div class="y-small-statistics__grid">
+      {{ items }}
+    </div>
+  </div>
+</section>

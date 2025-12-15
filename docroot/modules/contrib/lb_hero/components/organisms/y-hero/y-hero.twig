@@ -1,0 +1,88 @@
+{#
+/**
+ * @file
+ * Y Hero Banner component.
+ *
+ * Variables:
+ * - title: (string) Hero heading text
+ * - heading_level: (string) h1, h2, or h3
+ * - description: (string) Supporting text (HTML)
+ * - image: (object) Background image with src, alt, width, height
+ * - variation: (string) standard, overlay, chevron, frame, small
+ * - cta_text: (string) Button label
+ * - cta_url: (string) Button URL
+ * - theme: (string) light or dark
+ *
+ * Canvas-injected variables:
+ * - canvas_uuid: Unique component instance ID
+ * - canvas_is_preview: Boolean for preview mode
+ */
+#}
+
+{% set heading_level = heading_level|default('h2') %}
+{% set variation = variation|default('standard') %}
+{% set theme = theme|default('light') %}
+
+{% set classes = [
+  'y-hero',
+  'y-hero--' ~ variation,
+  'y-hero--theme-' ~ theme,
+] %}
+
+<div {{ attributes.addClass(classes) }} data-component="y-hero">
+  {# Background image layer #}
+  {% if image.src %}
+    <div class="y-hero__background">
+      <img
+        src="{{ image.src }}"
+        alt="{{ image.alt|default('') }}"
+        class="y-hero__image"
+        loading="lazy"
+        {% if image.width %}width="{{ image.width }}"{% endif %}
+        {% if image.height %}height="{{ image.height }}"{% endif %}
+      />
+    </div>
+  {% endif %}
+
+  {# Overlay for dark variations #}
+  {% if variation in ['overlay', 'chevron', 'frame'] %}
+    <div class="y-hero__overlay"></div>
+  {% endif %}
+
+  {# Content container #}
+  <div class="y-hero__container">
+    <div class="y-hero__content">
+      {# Heading #}
+      {% if title %}
+        <{{ heading_level }} class="y-hero__title">
+          {{ title }}
+        </{{ heading_level }}>
+      {% endif %}
+
+      {# Description #}
+      {% if description %}
+        <div class="y-hero__description">
+          {{ description|raw }}
+        </div>
+      {% endif %}
+
+      {# Call to Action #}
+      {% if cta_text and cta_url %}
+        <div class="y-hero__cta">
+          <a href="{{ cta_url }}" class="y-hero__button">
+            {{ cta_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Chevron decoration for chevron/frame variations #}
+  {% if variation in ['chevron', 'frame'] %}
+    <div class="y-hero__chevron">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="y-hero__chevron-svg">
+        <polygon points="0,100 50,85 100,100" fill="currentColor"/>
+      </svg>
+    </div>
+  {% endif %}
+</div>

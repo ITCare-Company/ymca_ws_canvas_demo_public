@@ -1,0 +1,25 @@
+{% extends "block--lb-cards.html.twig" %}
+
+{% block block_cards %}
+  {% set classes = classes|merge(['block-lb-cards-color']) %}
+  {{ attach_library('lb_cards/lb_cards_color') }}
+  {{ parent() }}
+{% endblock %}
+
+{% block item_content %}
+  {% embed '@lb_cards/block--lb-cards--item.html.twig' with {
+    'title': item.field_title.value,
+    'description': item.field_description.value,
+    'link': item.field_cta,
+    'tag': item.field_topic_tag,
+    'image_uri': item.field_media.entity.field_media_image.entity.uri.value,
+    'image_alt': item.field_media.entity.field_media_image.entity.alt,
+  } %}
+    {% block content_cta_link %}
+      <a href="{{ link.0.url }}"
+         class="btn btn-secondary filled">
+        {{ link.0.title }}
+      </a>
+    {% endblock %}
+  {% endembed %}
+{% endblock %}

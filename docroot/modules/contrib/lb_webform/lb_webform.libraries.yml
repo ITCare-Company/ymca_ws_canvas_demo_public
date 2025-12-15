@@ -1,0 +1,6 @@
+# Custom module library for general purposes.
+lb_webform:
+  version: 1.6
+  css:
+    theme:
+      assets/css/lb-webform.css: { preprocess: true }

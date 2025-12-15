@@ -1,0 +1,11 @@
+{
+  "name": "open-y-subprojects/openy_node_alert",
+  "description": "Alerts application for Open Y distrubution.",
+  "type": "drupal-module",
+  "require": {
+    "ycloudyusa/yusaopeny": "*",
+    "drupal/ctools": "*"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev"
+}

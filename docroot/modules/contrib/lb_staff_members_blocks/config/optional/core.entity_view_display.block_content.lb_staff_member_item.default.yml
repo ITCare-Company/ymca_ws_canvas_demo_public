@@ -1,0 +1,63 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_staff_member_item
+    - field.field.block_content.lb_staff_member_item.field_email
+    - field.field.block_content.lb_staff_member_item.field_first_name
+    - field.field.block_content.lb_staff_member_item.field_image
+    - field.field.block_content.lb_staff_member_item.field_last_name
+    - field.field.block_content.lb_staff_member_item.field_title
+    - image.style.thumbnail_for_preview
+  module:
+    - media
+id: block_content.lb_staff_member_item.default
+targetEntityType: block_content
+bundle: lb_staff_member_item
+mode: default
+content:
+  field_email:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_first_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_image:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: thumbnail_for_preview
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_last_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,12 @@
+{
+    "name": "drupal/ws_promotion",
+    "description": "Module for the promotion content type",
+    "type": "drupal-module",
+    "require": {
+        "ycloudyusa/y_lb": ">=3",
+        "php": ">=8.1",
+        "ycloudyusa/yusaopeny_activity_finder": ">=4.2.6 || ^5"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev"
+}

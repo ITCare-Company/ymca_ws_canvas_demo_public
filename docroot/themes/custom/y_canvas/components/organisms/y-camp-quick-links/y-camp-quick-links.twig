@@ -1,0 +1,26 @@
+{#
+/**
+ * Y Camp Quick Links component.
+ *
+ * Variables:
+ * - title: (string) Section heading
+ * - columns: (integer) Number of columns
+ * - links: (slot) Quick link items
+ */
+#}
+
+{% set classes = [
+  'y-camp-quick-links',
+  'y-camp-quick-links--cols-' ~ (columns|default(4)),
+] %}
+
+<section {{ attributes.addClass(classes) }} data-component="y-camp-quick-links">
+  <div class="y-camp-quick-links__container">
+    {% if title %}
+      <h2 class="y-camp-quick-links__title">{{ title }}</h2>
+    {% endif %}
+    <div class="y-camp-quick-links__grid">
+      {{ links }}
+    </div>
+  </div>
+</section>

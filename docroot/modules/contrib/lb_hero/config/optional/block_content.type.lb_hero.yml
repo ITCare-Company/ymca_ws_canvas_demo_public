@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_hero
+label: 'Banner'
+revision: 0
+description: 'Hero banner layout builder component.'

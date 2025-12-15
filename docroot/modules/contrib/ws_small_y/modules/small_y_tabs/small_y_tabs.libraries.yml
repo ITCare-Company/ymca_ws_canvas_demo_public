@@ -1,0 +1,5 @@
+lb_tabs_override:
+  version: 1.1
+  css:
+    theme:
+      assets/css/small_y_tabs.css: { preprocess: true }

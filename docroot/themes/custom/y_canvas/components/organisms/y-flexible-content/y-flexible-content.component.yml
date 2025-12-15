@@ -1,0 +1,57 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Flexible Content
+description: Flexible content container for mixed content blocks
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Section heading for the content area
+      examples:
+        - 'More Information'
+
+    layout:
+      type: string
+      title: Layout
+      description: Column layout for content blocks
+      default: 'single'
+      enum:
+        - 'single'
+        - 'two-column'
+        - 'three-column'
+      meta:enum:
+        single: 'Single Column'
+        two-column: 'Two Columns'
+        three-column: 'Three Columns'
+      examples:
+        - 'single'
+
+    background:
+      type: string
+      title: Background Color
+      description: Background color variant for the section
+      default: 'white'
+      enum:
+        - 'white'
+        - 'gray'
+        - 'primary'
+      meta:enum:
+        white: 'White'
+        gray: 'Light Gray'
+        primary: 'Primary Color'
+      examples:
+        - 'white'
+
+slots:
+  content:
+    title: Content Blocks
+    description: Mixed content blocks to display
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-flexible-content

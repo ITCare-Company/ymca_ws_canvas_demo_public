@@ -1,0 +1,14 @@
+name: 'OpenY Paragraph Activity Finder'
+description: 'Feature with Activity Finder paragraph [deprecated].'
+type: module
+core_version_requirement: ^10 || ^11
+package: "YMCA Website Services"
+dependencies:
+  - drupal:field
+  - drupal:node
+  - openy_node_landing:openy_node_landing
+  - openy_prgf:openy_prgf
+  - openy_repeat:openy_repeat
+  - paragraphs:paragraphs
+  - plugin:plugin
+version: 4.0.2

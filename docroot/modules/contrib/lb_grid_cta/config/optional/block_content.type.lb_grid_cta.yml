@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_grid_cta
+label: 'Grid CTA'
+revision: 0
+description: 'Grid CTA Layout Builder component'

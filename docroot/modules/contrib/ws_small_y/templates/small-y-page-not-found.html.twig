@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Template of content for Small Y "page not found" block.
+ */
+#}
+
+{{ attach_library('ws_small_y/page_not_found') }}
+
+<div class="small-y-page-not-found">
+  <div class="container">
+    <div class="row">
+      <div class="column column--left col-12 col-md-8 order-last order-md-first">
+        <h1>
+          {{ "Page Not Found"|t }}
+        </h1>
+        <div class="description">
+          <div class="subtitle">
+            {{ "The page you are looking for cannot be found."|t }}
+          </div>
+          <p>
+            {{ "Possible Reasons:"|t }}
+          </p>
+          <ul>
+            <li>{{ "The address may have been typed incorrectly"|t }}</li>
+            <li>{{ "It may be a broken or outdated link"|t }}</li>
+          </ul>
+          <p>{{ 'Try going back to the previous page or see our @sitemap for more information' | t({'@sitemap' :  sitemap_link} ) }}</p>
+        </div>
+      </div>
+      <div class="column column--right col-12 col-md-4 order-first order-md-last">
+        {% include '@ws_small_y/not-found-image.twig' %}
+      </div>
+    </div>
+    <div class="column--cta-link">
+      <a href="{{ home_link }}" class="btn btn-primary filled">
+        {{ "Go Back Home"| t }}
+      </a>
+    </div>
+  </div>
+</div>

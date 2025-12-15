@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: card_image
+label: 'Card Image (540 x 333)'
+effects:
+  ee6960e0-7ce2-4bb1-87db-3d553659b29d:
+    uuid: ee6960e0-7ce2-4bb1-87db-3d553659b29d
+    id: openy_focal_point_scale_and_crop
+    weight: 0
+    data:
+      width: 540
+      height: 333
+      crop_type: focal_point
+  e400c9d3-5ba0-4ff0-bf77-3f1d58d034bc:
+    uuid: e400c9d3-5ba0-4ff0-bf77-3f1d58d034bc
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp

@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for YMCA Website Services - Small Y Staff Members module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function ws_small_y_staff_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_staff_members' => [
+      'base hook' => 'block',
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function ws_small_y_staff_preprocess_block__lb_staff_members(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  _ws_small_y_staff_get_additional_column_classes($variables);
+}
+
+/**
+ * Get additional classes from columns value.
+ *
+ * @param array $variables
+ *   A render array for the block.
+ *
+ * @return void
+ */
+function _ws_small_y_staff_get_additional_column_classes(&$variables): void {
+  $variables['columns'] = (int) $variables['block_content']->field_columns->value ?? 1;
+}

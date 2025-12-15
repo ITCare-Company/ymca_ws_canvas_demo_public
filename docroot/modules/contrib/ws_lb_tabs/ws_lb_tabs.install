@@ -1,0 +1,141 @@
+<?php
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Import config to create 'tab_item' sub block for 'lb_tabs' block.
+ */
+function ws_lb_tabs_update_9001() {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_lb_tabs') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'block_content.type.tab_item',
+    'core.entity_form_display.block_content.tab_item.default',
+    'core.entity_view_display.block_content.tab_item.default',
+    'field.storage.block_content.field_description',
+    'field.storage.block_content.field_title',
+    'field.storage.block_content.field_block_item',
+    'field.field.block_content.lb_tabs.field_block_item',
+    'field.field.block_content.tab_item.field_description',
+    'field.field.block_content.tab_item.field_title',
+    'language.content_settings.block_content.tab_item',
+  ]);
+}
+
+/**
+ * Migrate content from 'tab' paragraph to 'tab_item' block.
+ */
+function ws_lb_tabs_update_9002(&$sandbox) {
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::entityTypeManager();
+  $storageParagraph = $entityTypeManager->getStorage('paragraph');
+  $storageBlock = $entityTypeManager->getStorage('block_content');
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['data'] = [
+      'paragraphs' => $storageParagraph->loadByProperties(['type' => 'tab']),
+      'blocks' => []
+    ];
+    // Group paragraphs by parent id.
+    foreach ($sandbox['data']['paragraphs'] as $id => $paragraph) {
+      $sandbox['data']['blocks'][$paragraph->get('parent_id')->value][] = $id;
+    }
+    $sandbox['total'] = count($sandbox['data']['blocks']);
+  }
+
+  $blocks = array_slice($sandbox['data']['blocks'], $sandbox['progress'], 5, true);
+
+  foreach ($blocks as $parentId => $paragraphIds) {
+    $newBlockIds = [];
+
+    foreach ($paragraphIds as $paragraphId) {
+      $paragraph = $sandbox['data']['paragraphs'][$paragraphId];
+      // Create new 'tab_item' sub block with content from paragraph
+      $block = $storageBlock->create([
+        'type' => 'tab_item',
+        'field_description' => $paragraph->get('field_body')->getValue(),
+        'field_title' => $paragraph->get('field_title')->getValue(),
+      ]);
+
+      $block->save();
+      $newBlockIds[] = $block->id();
+      $paragraph->delete();
+    }
+
+    // Load parent block and set new sub block.
+    /** @var \Drupal\block_content\Entity\BlockContent $parentBlock */
+    if (($parentBlock = $storageBlock->load($parentId)) && $parentBlock->bundle() === 'lb_tabs') {
+      $parentBlock->set('field_block_item', $newBlockIds)->save();
+    }
+    $sandbox['progress']++;
+  }
+
+  $sandbox['#finished'] = empty($sandbox['total']) ? 1 : $sandbox['progress'] / $sandbox['total'];
+}
+
+/**
+ * Remove 'lb_cta_item' paragraph config
+ */
+function ws_lb_tabs_update_9003() {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_lb_tabs') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.lb_tabs.default',
+    'core.entity_view_display.block_content.lb_tabs.default',
+  ]);
+
+  $configsToDelete = [
+    'paragraphs.paragraphs_type.tab',
+    'core.entity_form_display.paragraph.tab.default',
+    'core.entity_view_display.paragraph.tab.default',
+  ];
+
+  $configFactory = \Drupal::configFactory();
+  foreach ($configsToDelete as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+
+  FieldConfig::loadByName('paragraph', 'tab', 'field_body')?->delete();
+  FieldConfig::loadByName('paragraph', 'tab', 'field_title')?->delete();
+  FieldConfig::loadByName('block_content', 'lb_tabs', 'field_tabs')?->delete();
+
+  $fields = [
+    'paragraph' => [
+      'field_body',
+      'field_title',
+    ],
+    'block_content' => [
+      'field_tabs'
+    ]
+  ];
+
+  // Check if the field storage is used in other entities
+  foreach ($fields as $entityTypeId => $fieldNames) {
+    foreach ($fieldNames as $fieldName) {
+      $fieldStorage = FieldStorageConfig::loadByName($entityTypeId, $fieldName);
+      if ($fieldStorage && empty($fieldStorage->getBundles())) {
+        $fieldStorage->delete();
+      }
+    }
+  }
+}
+
+/**
+ * Rename label "field_block_item" field
+ */
+function ws_lb_tabs_update_9004() {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_lb_tabs') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_tabs.field_block_item',
+  ]);
+}
+

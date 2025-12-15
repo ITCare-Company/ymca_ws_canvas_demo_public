@@ -1,0 +1,79 @@
+{#
+/**
+ * @file
+ * Theme override to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ */
+#}
+{%
+  set classes = [
+  'block',
+  'block--spacing',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+  'block-accordion',
+]
+%}
+
+{% set accordion_id = 'accordion-' ~ configuration['block_revision_id'] %}
+{{ attach_library('lb_accordion/lb_accordion') }}
+<div{{ attributes.addClass(classes).setAttribute('id', plugin_id|clean_class ~ configuration['block_revision_id']) }}>
+  <div class="block-accordion-row">
+    {{ title_prefix }}
+    {% if label or block_content.field_section_subtitle %}
+      <div class="block-accordion-title">
+        {% if label %}
+          <h3{{ title_attributes }}>{{ label }}</h3>
+        {% endif %}
+        {% if block_content.field_section_subtitle.value %}
+          <p class="subtitle">{{ block_content.field_section_subtitle.value }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    {{ title_suffix }}
+
+    {% block content %}
+      <div class="accordion {{ label ? "with-label" }}" id="{{ accordion_id }}">
+        {% for key, item in content.field_block_item|default([])|filter((item, key) => key|first != '#') %}
+          {% set safe_hash = configuration['block_revision_id'] ~ '--' ~ loop.index %}
+          <div class="accordion-item">
+            <div class="card-header {{ loop.index == 1 ? 'active' : ''}}" id="heading-{{ safe_hash }}">
+              <h4 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ safe_hash }}" aria-expanded="{{ loop.index == 1 ? 'true' : 'false'}}" aria-controls="collapse-{{ safe_hash }}">
+                  {{ item.field_title|render }}
+                  <i class="chevron chevron-down" aria-hidden="true"></i>
+                  <i class="chevron chevron-up" aria-hidden="true"></i>
+                </button>
+              </h4>
+            </div>
+            <div id="collapse-{{ safe_hash }}" class="accordion-collapse collapse {{ loop.index == 1 ? 'show' : ''}}" aria-labelledby="heading-{{ safe_hash }}" data-bs-parent="#{{ accordion_id }}">
+              <div class="card-body">
+                {{ item.body|render }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endblock %}
+  </div>
+</div>

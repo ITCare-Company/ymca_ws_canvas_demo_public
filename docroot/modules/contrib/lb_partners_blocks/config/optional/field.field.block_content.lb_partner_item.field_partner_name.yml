@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_partner_item
+    - field.storage.block_content.field_partner_name
+id: block_content.lb_partner_item.field_partner_name
+field_name: field_partner_name
+entity_type: block_content
+bundle: lb_partner_item
+label: Heading
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

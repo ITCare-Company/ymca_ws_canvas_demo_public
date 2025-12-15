@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_grid_cta
+    - field.storage.block_content.field_grid_section_cta_link
+  module:
+    - datalayer
+    - link
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_grid_section_cta_link
+id: block_content.lb_grid_cta.field_grid_section_cta_link
+field_name: field_grid_section_cta_link
+entity_type: block_content
+bundle: lb_grid_cta
+label: 'Grid CTA section link'
+description: 'A link button to be displayed below the grid content.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 2
+  link_type: 17
+field_type: link

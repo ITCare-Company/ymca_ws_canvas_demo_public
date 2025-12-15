@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Y Layout Builder - Branch Hours module.
+ */
+
+ use Drupal\Core\Routing\RouteMatchInterface;
+
+
+ /**
+ * Implements hook_help().
+ */
+function lb_branch_hours_blocks_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the lb_branch_hours_blocks module.
+    case 'help.page.lb_branch_hours_blocks':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides the Layout Builder Hours Blocks.') . '</p>';
+	    $output .= '<p>'.  t('For more information related to module please visit <a href="https://www.drupal.org/project/lb_branch_hours_blocks" target="_blank">project page</a>') . '</p>';
+      return $output;
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function lb_branch_hours_blocks_theme( $existing, $type, $theme, $path ) {
+  return [
+    'block__lb_branch_hours' => [
+      'base hook' => 'block'
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function lb_branch_hours_blocks_preprocess_block__lb_branch_hours(&$variables) {
+  if (isset($variables['content']['#attached'])) {
+    $variables['#attached'] = $variables['content']['#attached'];
+    unset($variables['content']['#attached']);
+  }
+}

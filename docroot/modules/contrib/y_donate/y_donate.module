@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for y_donate module.
+ */
+
+/**
+ * Implements hook_theme().
+ *
+ * Add the donation form.
+ */
+function y_donate_theme($existing, $type, $theme, $path) {
+  return [
+    'y_donate_form' => [
+      'variables' => [
+        'preview' => '',
+        'donate_form_provider' => '',
+        'donate_form_id' => '',
+        'amount' => '',
+      ],
+    ],
+  ];
+}

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ping_pong_section
+label: 'Ping Pong Section'
+revision: 0
+description: 'A component for adding custom Ping Pong block.'

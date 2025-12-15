@@ -1,0 +1,3 @@
+services:
+  openy_node_session.grades_system:
+    class: Drupal\openy_node_session\GradesSystem

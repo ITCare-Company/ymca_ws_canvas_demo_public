@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: statistics_image
+label: 'Statistics Image (555 x 500)'
+effects:
+  63154078-758a-4e14-bb55-5a325e53cc55:
+    uuid: 63154078-758a-4e14-bb55-5a325e53cc55
+    id: openy_focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: '555'
+      height: '500'
+      crop_type: focal_point
+  42ebbee6-ca72-4dd4-81cb-1bc6b874cfb4:
+    uuid: 42ebbee6-ca72-4dd4-81cb-1bc6b874cfb4
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

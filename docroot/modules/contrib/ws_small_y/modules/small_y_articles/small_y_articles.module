@@ -1,0 +1,139 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for YMCA Website Services - Small Y Articles module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function small_y_articles_theme() {
+  return [
+    'block__lb_related_articles__full' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-related-articles--full',
+    ],
+    'node__article_lb__teaser' => [
+      'base hook' => 'node',
+    ],
+    'node__article_lb__featured' => [
+      'base hook' => 'node',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function small_y_articles_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (in_array($form_id, [
+    'layout_builder_add_block',
+    'layout_builder_update_block'
+  ])) {
+    $component_config = $form_id === 'layout_builder_add_block' ?
+      $form_state->getStorage()['layout_builder__component']->get('configuration') :
+      $form_state->getBuildInfo()['callback_object']->getCurrentComponent()->get('configuration');
+
+    if ($component_config['id'] === 'inline_block:lb_related_articles') {
+      $form_key = isset($form['block_form']) ? 'block_form' : 'settings';
+      $form[$form_key]['block_form']['#process'][] = '_small_y_articles_override_block_item';
+    }
+  }
+}
+
+/**
+ * Custom #process callback for the block form within the 'Related articles' block.
+ *
+ * Modifies the 'field_block_item' element by adding a custom #after_build callback.
+ *
+ * @param array $element
+ *   The form element being processed.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return array
+ *   The processed form element.
+ */
+function _small_y_articles_override_block_item(array &$element, FormStateInterface $form_state) {
+  if (isset($element['field_items_count_to_display'])) {
+    $element['field_items_count_to_display']['widget']['#after_build'][] = '_small_y_articles_field_items_count_after_build';
+  }
+  return $element;
+}
+
+/**
+ * Custom '#after_build' callback for 'Count items' field.
+ *
+ * Modifies the 'inline_entity_form' elements.
+ *
+ * @param array $element
+ *   The form element being processed.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return array
+ *   The processed form element.
+ */
+function _small_y_articles_field_items_count_after_build($element, FormStateInterface $form_state) {
+  $element['#title'] = t('Number of rows');
+  $element['#description'] = t('Count of rows articles that should be displayed in the block.');
+  $element['#options'] = [
+    3 => 1,
+    6 => 2,
+    9 => 3,
+    12 => 4,
+  ];
+
+  return $element;
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function small_y_articles_theme_registry_alter(&$theme_registry) {
+  $module_handler = \Drupal::service('module_handler');
+  $path = $module_handler->getModule('small_y_articles')->getPath();
+  $override_components = [
+    'block__lb_node_title',
+    'block__lb_node_locations',
+    'node__article_lb__teaser',
+    'node__article_lb__featured',
+  ];
+  foreach ($override_components as $component) {
+    if (isset($theme_registry[$component])) {
+      $theme_registry[$component]['theme path'] = $path;
+      $theme_registry[$component]['path'] = $path . '/templates';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function small_y_articles_preprocess_node__article_lb__teaser(&$variables) {
+  _small_y_articles_convert_published_date($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function small_y_articles_preprocess_node__article_lb__featured(&$variables) {
+  _small_y_articles_convert_published_date($variables);
+}
+
+/**
+ * Converts published date to a human-readable format.
+ *
+ * @param $variables array
+ *   The render array.
+ */
+function _small_y_articles_convert_published_date(&$variables) {
+  $time = $variables['node']->getCreatedTime();
+  if (isset($variables['content']['field_published_date'][0])) {
+    $formatted_date = \Drupal::service('date.formatter')->format($time, 'custom', 'F j, Y');
+    $variables['content']['field_published_date'][0]['#markup'] = $formatted_date;
+  }
+}

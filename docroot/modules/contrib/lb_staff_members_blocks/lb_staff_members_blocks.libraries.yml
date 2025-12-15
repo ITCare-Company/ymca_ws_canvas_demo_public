@@ -1,0 +1,5 @@
+lb_staff_members:
+  version: 1.12
+  css:
+    theme:
+      assets/css/staff-members.css: { preprocess: true }

@@ -1,0 +1,6 @@
+# Custom module library for general purposes.
+lb_carousel:
+  version: 1.9
+  css:
+    component:
+      assets/css/lb-carousel.css: { preprocess: true }

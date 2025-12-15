@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: hero_banner_retina_2x
+label: 'Hero Banner - Retina 2x (3840×2160)'
+effects:
+  4929d916-eb9d-401a-9fa5-b018085359fc:
+    uuid: 4929d916-eb9d-401a-9fa5-b018085359fc
+    id: openy_focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: '3840'
+      height: '2160'
+      crop_type: focal_point
+  65bd0cf9-c184-4c15-b3c3-d352b4409b6f:
+    uuid: 65bd0cf9-c184-4c15-b3c3-d352b4409b6f
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

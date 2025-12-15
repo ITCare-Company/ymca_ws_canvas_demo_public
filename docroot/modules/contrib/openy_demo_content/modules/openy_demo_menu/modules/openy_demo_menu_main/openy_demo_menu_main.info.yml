@@ -1,0 +1,8 @@
+name: YMCA Website Services Demo Menu Main
+description: Stores migrations to import demo Main menu.
+type: module
+core_version_requirement: ^10 || ^11
+version: 2.0.0
+package: YMCA Website Services
+dependencies:
+  - openy_demo_menu:openy_demo_menu

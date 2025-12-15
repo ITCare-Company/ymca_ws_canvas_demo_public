@@ -1,0 +1,83 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function small_y_tabs_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (in_array($form_id, [
+    'layout_builder_add_block',
+    'layout_builder_update_block'
+  ])) {
+    $component_config = $form_id === 'layout_builder_add_block' ?
+      $form_state->getStorage()['layout_builder__component']->get('configuration') :
+      $form_state->getBuildInfo()['callback_object']->getCurrentComponent()->get('configuration');
+
+    if ($component_config['id'] === 'inline_block:lb_tabs') {
+      $form_key = isset($form['block_form']) ? 'block_form' : 'settings';
+      $form[$form_key]['block_form']['#process'][] = '_small_y_tabs_override_block_item';
+    }
+  }
+}
+
+/**
+ * Custom #process callback for the block form within the 'Tabs' block.
+ *
+ * Modifies the 'field_block_item' element by adding a custom #after_build callback.
+ *
+ * @param array $element
+ *   The form element being processed.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return array
+ *   The processed form element.
+ */
+function _small_y_tabs_override_block_item(array &$element, FormStateInterface $form_state) {
+  if (isset($element['field_block_item'])) {
+    $element['field_block_item']['widget']['#after_build'][] = '_small_y_tabs_field_content_items_after_build';
+  }
+  return $element;
+}
+
+/**
+ * Custom '#after_build' callback for 'Tabs items' field.
+ *
+ * Modifies the 'inline_entity_form' elements.
+ *
+ * @param array $element
+ *   The form element being processed.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return array
+ *   The processed form element.
+ */
+function _small_y_tabs_field_content_items_after_build($element, FormStateInterface $form_state) {
+  $field = 'field_description';
+  $created_entities = 0;
+  if (!empty($element['entities'])) {
+    foreach ($element['entities'] as $key => &$value) {
+      if (is_numeric($key)) {
+        $created_entities++;
+
+        if (isset($value['form'])) {
+          $value['form']['inline_entity_form'][$field]['widget'][0]['value']['#required'] = TRUE;
+        }
+      }
+    }
+  }
+
+  if (!empty($element['form'])) {
+    $element['form']['inline_entity_form'][$field]['widget'][0]['value']['#required'] = TRUE;
+  }
+
+  if ($created_entities >= 4) {
+    $element['actions']['ief_add']['#access'] = FALSE;
+    $element['cardinality_count']['#markup'] = '<div class="ief-cardinality-count">' . t('You have added maximum allowed content block entities.') . '</div>';
+  }
+
+  return $element;
+}

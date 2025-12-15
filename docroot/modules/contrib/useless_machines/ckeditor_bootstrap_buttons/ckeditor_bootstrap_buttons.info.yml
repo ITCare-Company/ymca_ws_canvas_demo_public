@@ -1,0 +1,5 @@
+name: ckeditor_bootstrap_buttons
+type: module
+description: Dummy module to replace ckeditor_bootstrap_buttons.
+package: Useless Machines
+core_version_requirement: ^10 || ^11

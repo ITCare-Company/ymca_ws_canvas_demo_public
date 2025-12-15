@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_grid_cta
+    - field.field.block_content.lb_grid_cta.field_block_item
+    - field.field.block_content.lb_grid_cta.field_columns
+    - field.field.block_content.lb_grid_cta.field_grid_section_cta_link
+    - field.field.block_content.lb_grid_cta.field_section_subtitle
+    - field.field.block_content.lb_grid_cta.field_section_title
+id: block_content.lb_grid_cta.default
+targetEntityType: block_content
+bundle: lb_grid_cta
+mode: default
+content: {  }
+hidden:
+  field_block_item: true
+  field_columns: true
+  field_grid_section_cta_link: true
+  field_section_subtitle: true
+  field_section_title: true
+  langcode: true
+  search_api_excerpt: true

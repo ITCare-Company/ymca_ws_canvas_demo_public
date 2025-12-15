@@ -1,0 +1,7 @@
+lb_cards:
+  label: Cards variation
+  name: lb_cards
+  global: false
+  applies_to: ['inline_block:lb_cards']
+  library: null
+

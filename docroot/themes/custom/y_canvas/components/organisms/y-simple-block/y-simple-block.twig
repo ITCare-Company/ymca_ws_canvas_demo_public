@@ -1,0 +1,18 @@
+{#
+/**
+ * Y Simple Block component.
+ *
+ * Variables:
+ * - body: (string) HTML body content
+ */
+#}
+
+{% set classes = [
+  'y-simple-block',
+] %}
+
+<div {{ attributes.addClass(classes) }} data-component="y-simple-block">
+  {% if body %}
+    <div class="y-simple-block__body">{{ body|raw }}</div>
+  {% endif %}
+</div>

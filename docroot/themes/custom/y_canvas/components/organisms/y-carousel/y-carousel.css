@@ -1,0 +1,156 @@
+/* Y Carousel Component */
+
+.y-carousel {
+  position: relative;
+  width: 100%;
+}
+
+/* Header */
+.y-carousel__header {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.y-carousel__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2f2f2f;
+  margin: 0 0 0.5rem;
+  font-family: var(--ylb-font-family-verdana, Verdana, sans-serif);
+}
+
+.y-carousel__subtitle {
+  font-size: 1.125rem;
+  color: #666;
+  margin: 0;
+}
+
+/* Wrapper */
+.y-carousel__wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Slides container */
+.y-carousel__slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* Navigation */
+.y-carousel__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.y-carousel__nav:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.y-carousel__nav:focus {
+  outline: 2px solid var(--wsPrimaryColor, #0060af);
+  outline-offset: 2px;
+}
+
+.y-carousel__nav svg {
+  width: 24px;
+  height: 24px;
+  color: #2f2f2f;
+}
+
+.y-carousel__nav--prev {
+  left: 1rem;
+}
+
+.y-carousel__nav--next {
+  right: 1rem;
+}
+
+/* Pagination */
+.y-carousel__pagination {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.y-carousel__pagination-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.y-carousel__pagination-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.y-carousel__pagination-dot--active {
+  background: #fff;
+  transform: scale(1.2);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .y-carousel__header {
+    margin-bottom: 3rem;
+  }
+
+  .y-carousel__title {
+    font-size: 2.5rem;
+  }
+
+  .y-carousel__nav {
+    width: 56px;
+    height: 56px;
+  }
+
+  .y-carousel__nav--prev {
+    left: 2rem;
+  }
+
+  .y-carousel__nav--next {
+    right: 2rem;
+  }
+}
+
+/* Effect: Fade */
+.y-carousel--effect-fade .y-carousel__slides {
+  position: relative;
+}
+
+.y-carousel--effect-fade .y-carousel__slides > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.y-carousel--effect-fade .y-carousel__slides > *:first-child {
+  position: relative;
+  opacity: 1;
+}

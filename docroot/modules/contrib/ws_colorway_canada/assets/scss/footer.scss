@@ -1,0 +1,13 @@
+footer.footer {
+  &.ws-footer {
+    background-color: var(--ylb-color-black, black);
+
+    i.fab {
+      &:hover {
+        &:before {
+          color: var(--wsSecondaryColor, gray);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - small_y_demo_content
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_webform
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import Small Y Demo Layout Builder - Webform block'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 110
+      uuid: '8b31f98c-f0dd-446d-85a2-214510a9a6e0'
+      section_title: "Contact Us"
+      section_subtitle: ""
+      webform: 'contact'
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: lb_webform
+  uuid: uuid
+  field_title: section_title
+  field_subtitle: section_subtitle
+  field_webform/target_id: webform
+  field_webform/status:
+    plugin: default_value
+    default_value: 'open'
+  field_webform/bundle:
+    plugin: default_value
+    default_value: 'lb_webform'
+  field_webform/entity_id: id
+  field_webform/revision_id: id
+  field_webform/delta:
+    plugin: default_value
+    default_value: 0
+  field_webform/langcode: '@langcode'
+destination:
+  plugin: entity:block_content
+migration_dependencies:
+  required: {}
+  optional: {}

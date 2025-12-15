@@ -1,0 +1,12 @@
+{
+  "name": "open-y-subprojects/openy_map",
+  "description": "Map application for Open Y Distribution.",
+  "type": "drupal-module",
+  "require": {
+    "ycloudyusa/yusaopeny": "*",
+    "open-y-subprojects/openy_custom": "^2.5.0 || ^3.0.0",
+    "drupal/y_branch": "^1.1.1"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev"
+}

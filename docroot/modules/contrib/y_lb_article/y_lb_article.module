@@ -1,0 +1,254 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Article module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\layout_builder\Form\ConfigureBlockFormBase;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Views;
+/**
+ * Implements hook_theme().
+ */
+function y_lb_article_theme() {
+  return [
+    'node__article_lb' => [
+      'base hook' => 'node',
+    ],
+    'node__article_lb__teaser' => [
+      'base hook' => 'node',
+    ],
+    'node__article_lb__featured' => [
+      'base hook' => 'node',
+    ],
+    'block__articles_filter' => [
+      'base hook' => 'block',
+    ],
+    'block__articles_listing' => [
+      'base hook' => 'block',
+      'template' => 'block--articles-listing',
+    ],
+    'block__lb_featured_articles' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-featured-articles',
+    ],
+    'page__node__article_lb' => [
+      'base hook' => 'page',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function y_lb_article_preprocess_node(&$variables){
+  $node = $variables['node'];
+  // Skip if the node is not Article LB`.
+  if ($node->getType() !== 'article_lb') {
+    return;
+  }
+
+  if ($node->hasField('field_subtitle') && !$node->get('field_subtitle')->isEmpty()) {
+    $subtitle = $node->get('field_subtitle')->get(0)->getValue();
+    $variables['subtitle'] = $subtitle['value'];
+  }
+
+  $variables['#attached']['library'][] = 'y_lb_article/y_lb_article';
+  $variables['#attached']['library'][] = 'y_lb/blocks';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function y_lb_article_preprocess_block__articles_listing(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $variables['#attached']['library'][] = 'y_lb/blocks';
+  $variables['#attached']['library'][] = 'y_lb_article/listing';
+
+  /** @var \Drupal\views\Views $view */
+  $view = Views::getView('listing_articles');
+  $items_per_page = $variables['block_content']->hasField('field_number_of_articles')
+    ? $variables['block_content']->get('field_number_of_articles')->value
+    : 3;
+  $article_type = $variables['block_content']->hasField('field_article_type')
+    ? $variables['block_content']->get('field_article_type')->value
+    : 'all';
+  if ($view) {
+    $view->setDisplay('block');
+    $view->setArguments([
+      'field_type_value' => $article_type,
+      'block_limit' => $items_per_page
+    ]);
+    $view->preExecute();
+    $view->execute();
+    $variables['views'] = $view->render('block');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function y_lb_article_preprocess_block__articles_filter(&$variables) {
+  $variables['#attached']['library'][] = 'y_lb_article/filters';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function y_lb_article_preprocess_block__lb_featured_articles(&$variables) {
+  $variables['#attached']['library'][] = 'y_lb_article/lb_featured_articles';
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function y_lb_article_form_alter(&$form, FormStateInterface $form_state) {
+  // Block configuration form.
+  if (in_array($form['#form_id'],
+    [
+      'layout_builder_add_block',
+      'layout_builder_update_block',
+    ]
+  )) {
+    /** @var \Drupal\layout_builder\Form\ConfigureBlockFormBase $form_object */
+    $form_object = $form_state->getFormObject();
+    $component = $form_object->getCurrentComponent();
+    $plugin = $component->getPlugin();
+    $block_id = $plugin->getDerivativeId() ?? $plugin->getBaseId();
+
+    if ($block_id === 'articles_filter') {
+      if (isset($form['settings']['block_form'])) {
+        $form['settings']['block_form']['#process'][] = '_y_lb_article_inline_block_filed_process';
+      }
+    }
+  }
+  if (in_array($form['#form_id'],
+    [
+      'node_article_lb_edit_form',
+      'node_article_lb_form',
+    ]
+  )) {
+    $form['body']['widget'][0]['summary']['#description'] = t('A short summary (max 200 char.) that displays in the card.');
+  }
+}
+
+/**
+ * Implements hook_field_widget_single_element_form_alter().
+ */
+function y_lb_article_field_widget_single_element_form_alter(&$element, FormStateInterface $form_state, $context) {
+  if (
+    in_array(
+      $context['items']->getName(),
+      ['field_article_type', 'field_number_of_articles']
+    ) && $context['items']->getEntity()->bundle() === 'articles_listing'
+  ) {
+    if (isset($element['#options']['_none'])) {
+      $element['#options']['_none'] = '- All -';
+    }
+  }
+}
+
+/**
+ * Implements hook_metatags_alter().
+ */
+function y_lb_article_metatags_alter(array &$metatags, array &$context) {
+  /* @var \Drupal\node\Entity\Node $entity */
+  $entity = $context['entity'];
+  if (!isset($entity)) { return; }
+
+  // Change the schema type depending on field_type. There is no better
+  // Schema match for 'press_release' so we just use leave it as 'Article'.
+  if ($entity->bundle() == 'article_lb' && isset($entity->field_type)) {
+    $type = $entity->field_type->value;
+
+    switch ($type) {
+      case 'blog':
+        $metatags["schema_article_type"] = 'BlogPosting';
+        break;
+      case 'news':
+        $metatags["schema_article_type"] = 'NewsArticle';
+        break;
+      default:
+        break;
+    }
+  }
+}
+
+/**
+ * Custom process callback for inline block elements.
+ *
+ * @param array $element
+ *   Element to process.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return array
+ *   Processed element.
+ */
+function _y_lb_article_inline_block_filed_process(array $element, FormStateInterface $form_state) {
+  if (isset($element['field_block'])) {
+    $element['field_block']['widget']['#after_build'][] = '_y_lb_article_after_build_callback';
+  }
+  return $element;
+}
+
+/**
+ * Custom '#after_build' callback for field_block.
+ *
+ * @param array $element
+ *   Element to process.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return array
+ *   Processed element.
+ */
+function _y_lb_article_after_build_callback($element, FormStateInterface $form_state) {
+  if (isset($element[0]['plugin_selector']['container'])) {
+    // Hide the select block field.
+    $element[0]['plugin_selector']['container']['select']['container']['#attributes']['class'][] = 'hidden';
+    $element[0]['plugin_selector']['container']['plugin_form']['#attributes']['class'][] = 'hidden';
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function y_lb_article_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  $view_args = $view->args;
+  $custom_limit = $view_args[0] ?? NULL;
+  if ($view->id() === 'listing_articles' && $view->current_display === 'block' && is_numeric($custom_limit)) {
+    $view->setItemsPerPage($custom_limit);
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function y_lb_article_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() !== 'block_content' || $entity->bundle() !== 'lb_featured_articles') {
+    return;
+  }
+
+  if (!$entity->hasField('field_manual_selection_items') || $entity->get('field_manual_selection_items')->isEmpty()) {
+    return;
+  }
+
+  $items = $entity->get('field_manual_selection_items')->referencedEntities();
+
+  usort($items, function ($a, $b) {
+    return strtotime($b->get('field_published_date')->value) - strtotime($a->get('field_published_date')->value);
+  });
+
+  $sorted_ids = [];
+  foreach ($items as $item) {
+    $sorted_ids[] = ['target_id' => $item->id()];
+  }
+
+  $entity->set('field_manual_selection_items', $sorted_ids);
+}

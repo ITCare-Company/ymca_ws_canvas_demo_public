@@ -1,0 +1,27 @@
+# Custom module library for standard variation.
+lb_cards:
+  version: 1.13
+  css:
+    theme:
+      assets/css/lb-cards.css: { preprocess: true }
+
+# Custom module library for chevron variation.
+lb_cards_chevron:
+  version: 1.14
+  css:
+    theme:
+      assets/css/lb-cards-chevron.css: { preprocess: true }
+
+# Custom module library for color variation.
+lb_cards_color:
+  version: 1.15
+  css:
+    theme:
+      assets/css/lb-cards-color.css: { preprocess: true }
+
+# Custom module library for overlay variation.
+lb_cards_overlay:
+  version: 1.15
+  css:
+    theme:
+      assets/css/lb-cards-overlay.css: { preprocess: true }

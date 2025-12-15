@@ -1,0 +1,42 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Donate Item
+description: Individual donation amount option button
+status: experimental
+group: Molecules
+
+props:
+  type: object
+  properties:
+    amount:
+      type: string
+      title: Amount
+      description: Donation amount to display
+      examples:
+        - '$25'
+
+    label:
+      type: string
+      title: Label
+      description: Optional label describing what the amount supports
+      examples:
+        - 'Provides swim lessons for one child'
+
+    url:
+      type: string
+      title: Donation URL
+      description: Link to donation form with pre-selected amount
+      examples:
+        - '/donate?amount=25'
+
+    is_featured:
+      type: boolean
+      title: Featured
+      description: Highlight this amount as recommended
+      default: false
+      examples:
+        - true
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-donate-item

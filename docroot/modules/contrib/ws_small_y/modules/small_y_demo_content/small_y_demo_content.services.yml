@@ -1,0 +1,6 @@
+services:
+  migration_subscriber:
+    class: Drupal\small_y_demo_content\EventSubscriber\SmallYDemoContentMigrationSubscriber
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: 'event_subscriber' }

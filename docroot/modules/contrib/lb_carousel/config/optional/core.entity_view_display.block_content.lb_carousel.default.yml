@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_carousel
+    - field.field.block_content.lb_carousel.field_block_item
+    - field.field.block_content.lb_carousel.field_section_title
+    - field.field.block_content.lb_carousel.field_subtitle
+id: block_content.lb_carousel.default
+targetEntityType: block_content
+bundle: lb_carousel
+mode: default
+content:
+  field_block_item:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_section_title: true
+  field_subtitle: true
+  langcode: true
+  search_api_excerpt: true

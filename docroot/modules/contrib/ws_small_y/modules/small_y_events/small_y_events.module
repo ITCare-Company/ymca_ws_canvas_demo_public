@@ -1,0 +1,177 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for YMCA Website Services - Small Y Events module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function small_y_events_theme() {
+  return [
+    'block__lb_related_events__full' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-related-events--full',
+    ],
+    'page__taxonomy__term' => [
+      'base hook' => 'page',
+      'template' => 'page--taxonomy--term',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function small_y_events_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (in_array($form_id, [
+    'layout_builder_add_block',
+    'layout_builder_update_block'
+  ])) {
+    $component_config = $form_id === 'layout_builder_add_block' ?
+      $form_state->getStorage()['layout_builder__component']->get('configuration') :
+      $form_state->getBuildInfo()['callback_object']->getCurrentComponent()->get('configuration');
+
+    if ($component_config['id'] === 'inline_block:lb_related_events') {
+      $form_key = isset($form['block_form']) ? 'block_form' : 'settings';
+      $form[$form_key]['block_form']['#process'][] = '_small_y_events_override_block_item';
+    }
+  }
+}
+
+/**
+ * Custom #process callback for the block form within the 'Related events' block.
+ *
+ * Modifies the 'field_block_item' element by adding a custom #after_build callback.
+ *
+ * @param array $element
+ *   The form element being processed.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return array
+ *   The processed form element.
+ */
+function _small_y_events_override_block_item(array &$element, FormStateInterface $form_state) {
+  if (isset($element['field_items_count_to_display'])) {
+    $element['field_items_count_to_display']['widget']['#after_build'][] = '_small_y_events_field_items_count_after_build';
+  }
+  return $element;
+}
+
+/**
+ * Custom '#after_build' callback for 'Count items' field.
+ *
+ * Modifies the 'inline_entity_form' elements.
+ *
+ * @param array $element
+ *   The form element being processed.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return array
+ *   The processed form element.
+ */
+function _small_y_events_field_items_count_after_build($element, FormStateInterface $form_state) {
+  $element['#title'] = t('Number of rows');
+  $element['#description'] = t('Count of rows events that should be displayed in the block.');
+  $element['#options'] = [
+    3 => 1,
+    6 => 2,
+    9 => 3,
+    12 => 4,
+    0 => 'All',
+  ];
+
+  return $element;
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function small_y_events_theme_registry_alter(&$theme_registry) {
+  $module_handler = \Drupal::service('module_handler');
+  $path = $module_handler->getModule('small_y_events')->getPath();
+  $override_components = [
+    'block__lb_node_title',
+    'page__taxonomy__term',
+  ];
+  foreach ($override_components as $component) {
+    if (isset($theme_registry[$component])) {
+      $theme_registry[$component]['theme path'] = $path;
+      $theme_registry[$component]['path'] = $path . '/templates';
+    }
+  }
+
+  // Add preprocess function for page--taxonomy--term template.
+  $theme_registry['page__taxonomy__term']['preprocess functions'][] = 'small_y_events_preprocess_page__taxonomy__term';
+}
+
+/**
+ * Preprocess function for page--taxonomy--term template.
+ */
+function small_y_events_preprocess_page__taxonomy__term(&$variables) {
+  $variables['landing_page_header'] = get_landing_page_header_footer()[0];
+  $variables['landing_page_footer'] = get_landing_page_header_footer()[1];
+
+  $has_y_lb_keys = false;
+  if (isset($variables['#attached']) && isset($variables['#attached']['library'])) {
+    foreach ($variables['#attached']['library'] as $key => $library) {
+      if (strpos($key, 'y_lb') === 0) {
+        $has_y_lb_keys = true;
+        break;
+      }
+    }
+  }
+
+  // If there are no y_lb libraries, then add the defaults.
+  if (!$has_y_lb_keys) {
+    $libraries = [
+      'y_lb/main',
+      'y_lb/borders',
+      'y_lb/colorway.green',
+      'y_lb/border_radius.10',
+      'y_lb/border_style.drop_shadow',
+      'y_lb/text_alignment.left',
+      'y_lb/button_position.inside',
+    ];
+
+    // Attach WS libraries to the node.
+    foreach ($libraries as $library) {
+      $variables['#attached']['library'][] = $library;
+    }
+  }
+}
+
+/**
+ * Extracts the header section from the landing page layout builder default display.
+ *
+ * @return array
+ *   The header section render array.
+ */
+function get_landing_page_header_footer() {
+  $header = $footer = [];
+  // Load the landing page layout builder default display.
+  $view_display = \Drupal::entityTypeManager()
+    ->getStorage('entity_view_display')
+    ->load('node.lb_event.default');
+
+  if ($view_display) {
+    // Extract the header and footer sections.
+    $sections = $view_display->getThirdPartySetting('layout_builder', 'sections');
+    foreach ($sections as $section) {
+      /** @var \Drupal\layout_builder\Section $section */
+      $id = $section->getLayoutId();
+      if ($id == 'ws_header') {
+        $header = $section->toRenderArray();
+      } elseif ($id == 'ws_footer') {
+        $footer = $section->toRenderArray();
+      }
+    }
+  }
+
+  return [$header, $footer];
+}

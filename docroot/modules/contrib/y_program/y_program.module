@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Program CT integration with LB.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function y_program_theme() {
+  return [
+    'node__program__lb' => [
+      'template' => 'node--program--lb',
+      'base hook' => 'node'
+    ],
+    'page__node__program' => [
+      'base hook' => 'page',
+      'template' => 'page--node--program-lb',
+    ],
+    'node__view__categories_listing' => [
+      'base hook' => 'node',
+      'template' => 'node--view--categories-listing',
+    ],
+  ];
+}

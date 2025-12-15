@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.card_item
+    - field.storage.block_content.field_topic_tag
+    - taxonomy.vocabulary.blog_category
+    - taxonomy.vocabulary.news_category
+id: block_content.card_item.field_topic_tag
+field_name: field_topic_tag
+entity_type: block_content
+bundle: card_item
+label: 'Topic Tag'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      blog_category: blog_category
+      news_category: news_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: blog_category
+field_type: entity_reference

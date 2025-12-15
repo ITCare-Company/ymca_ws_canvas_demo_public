@@ -1,0 +1,71 @@
+openy_repeat.schedules_ajax_old:
+  path: '/schedules_old/get-event-data/{location}/{category}/{date}/{room}'
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::ajaxSchedulerOld'
+    location: ''
+    category: ''
+    date: '0'
+    room: ''
+  requirements:
+    _permission: 'access content'
+openy_repeat.schedules_ajax:
+  path: '/schedules/get-event-data'
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::ajaxScheduler'
+    location: ''
+    category: ''
+    date: '0'
+    room: ''
+  requirements:
+    _permission: 'access content'
+openy_repeat.schedules_by_class:
+  path: '/schedules/get-event-data-by-class/{class}/{location}/{date}'
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::ajaxSchedulerByClass'
+    class: ''
+    location: ''
+    date: ''
+  requirements:
+    _permission: 'access content'
+openy_repeat.schedules_by_session:
+  path: '/schedules/get-event-data-by-session/{session}/{location}/{date}'
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::ajaxSchedulerBySession'
+    session: ''
+    location: ''
+    date: ''
+  requirements:
+    _permission: 'access content'
+openy_repeat.schedules_by_instructor:
+  path: '/schedules/get-event-data-by-instructor/{instructor}/{location}/{date}'
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::ajaxSchedulerByInstructor'
+    instructor: ''
+    location: ''
+    date: ''
+  requirements:
+    _permission: 'access content'
+openy_repeat.schedules_has_week_results:
+  path: '/schedules/get-week-has-events/{location}/{category}/{date}'
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::ajaxSchedulerHasWeekResults'
+    location: ''
+    category: ''
+    date: '0'
+  requirements:
+    _permission: 'access content'
+openy_repeat.pdf:
+  path: /schedules/get-pdf
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::getPdf'
+  requirements:
+    _permission: 'access content'
+  options:
+     no_cache: TRUE
+openy_repeat.settings:
+  path: '/admin/openy/settings/openy-repeat'
+  defaults:
+    _form: '\Drupal\openy_repeat\Form\OpenyRepeatSettingsForm'
+    _title: 'Open Y Repeat Settings'
+  requirements:
+    _permission: 'administer site configuration'

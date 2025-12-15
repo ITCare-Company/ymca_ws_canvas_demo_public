@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_related_events
+    - field.storage.block_content.field_related_events_widget_type
+  module:
+    - options
+id: block_content.lb_related_events.field_related_events_widget_type
+field_name: field_related_events_widget_type
+entity_type: block_content
+bundle: lb_related_events
+label: Type
+description: "<p>Choose a filter option to display events. For Tags, Upcoming, and Locations, \"Sticky\" events that match the filter criteria will show up first.</p>\r\n<ul>\r\n<li><strong>Tags:</strong>  Show upcoming events filtered by related tags.</li>\r\n<li><strong>Upcoming:</strong> Show all upcoming events sorted by date.</li>\r\n<li><strong>Locations:</strong>  Show upcoming events filtered by one or more Locations.</li>\r\n<li><strong>Manual:</strong> Directly specify the Events to be listed and their order.</li>\r\n</ul>\r\n"
+required: true
+translatable: false
+default_value:
+  -
+    value: tags
+default_value_callback: ''
+settings: {  }
+field_type: list_string

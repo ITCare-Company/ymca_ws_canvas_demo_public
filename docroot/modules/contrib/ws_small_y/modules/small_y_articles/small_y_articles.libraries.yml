@@ -1,0 +1,29 @@
+lb_related_articles_override:
+  version: 1.0
+  css:
+    theme:
+      assets/css/small_y_lb_related_articles.css: { preprocess: true }
+
+y_lb_article_override:
+  version: 0.1
+  css:
+    theme:
+      assets/css/small_y_articles.css: { preprocess: true }
+
+articles_filter_override:
+  version: 0.1
+  css:
+    theme:
+      assets/css/small_y_articles_filter.css: { preprocess: true }
+
+articles_listing_override:
+  version: 0.3
+  css:
+    theme:
+      assets/css/small_y_articles_listing.css: { preprocess: true }
+
+lb_featured_articles_override:
+  version: 0.2
+  css:
+    theme:
+      assets/css/small_y_featured_articles.css: { preprocess: true }

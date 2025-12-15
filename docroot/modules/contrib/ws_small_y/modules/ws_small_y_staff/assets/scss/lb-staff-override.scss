@@ -1,0 +1,55 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-lb-staff-members.small-y-component {
+
+  .section-description {
+    h1,h2 {
+      color: var(--wsPrimaryColor, lightgrey);
+    }
+    p {
+      font-weight: 400;
+    }
+  }
+
+  .members-list {
+    .container {
+      padding: 0;
+    }
+
+    .staff-member-item {
+      width: 370px;
+      min-width: 270px;
+      margin-bottom: 30px;
+
+      &:has(.email a) {
+        cursor: pointer;
+      }
+
+      .wrapper {
+        padding: 17px 16px;
+        width: 100%;
+
+        h3 {
+          font-weight: 500;
+        }
+        .email {
+          a:active,
+          a:focus,
+          a:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  .cols-count-4 {
+    .staff-member-item {
+      @include media-breakpoint-up('lg') {
+        max-width: 270px;
+      }
+    }
+  }
+}

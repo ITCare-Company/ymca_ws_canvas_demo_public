@@ -1,0 +1,10 @@
+name: Config Import
+description: Clever configuration import.
+package: Configuration
+type: module
+core_version_requirement: ^11
+
+# Information added by Drupal.org packaging script on 2025-11-12
+version: '4.1.1'
+project: 'confi'
+datestamp: 1762935444

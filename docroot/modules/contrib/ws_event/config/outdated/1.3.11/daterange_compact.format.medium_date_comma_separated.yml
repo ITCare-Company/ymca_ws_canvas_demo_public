@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: medium_date_comma_separated
+label: 'Medium (date only) - comma separated year'
+default_pattern: 'F j, Y'
+default_separator: ' - '
+same_day_start_pattern: 'F j, Y'
+same_day_end_pattern: ''
+same_day_separator: ''
+same_month_start_pattern: 'F j'
+same_month_end_pattern: 'j, Y'
+same_month_separator: ' – '
+same_year_start_pattern: 'F j'
+same_year_end_pattern: 'F j, Y'
+same_year_separator: ' - '

@@ -1,0 +1,49 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - node_revision_delete
+    - scheduler
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: true
+    publish_past_date: publish
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: true
+    unpublish_required: false
+    unpublish_revision: false
+  node_revision_delete:
+    amount:
+      status: true
+      settings:
+        amount: 25
+    created:
+      status: true
+      settings:
+        age: 2
+    drafts:
+      status: true
+      settings:
+        age: 1
+    only_drafts:
+      status: false
+      settings:
+        age: 0
+name: 'Landing Page (Layout Builder)'
+type: landing_page_lb
+description: 'Landing Page content type is used to add Landing Pages to your website using Layout Builder widgets.'
+help: 'This page is managed with Layout Builder. You may want to uncheck "Publish Content" before creating a page, use the "Layout" tab to build the content, then Publish when the page is complete. See our <a href="https://ds-docs.y.org/docs/user-documentation/layout-builder" target="_blank">User Guide</a> for help.'
+new_revision: true
+preview_mode: 1
+display_submitted: false

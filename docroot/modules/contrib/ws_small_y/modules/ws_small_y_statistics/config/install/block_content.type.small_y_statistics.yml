@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: small_y_statistics
+label: 'Small Y Statistics'
+revision: 0
+description: "A component for adding a custom Small Y Statistics block.\t"

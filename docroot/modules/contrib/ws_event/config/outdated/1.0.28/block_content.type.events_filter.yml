@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: events_filter
+label: 'Events filter'
+revision: 0
+description: 'A component to display filters for events listing in Layout Builder.'

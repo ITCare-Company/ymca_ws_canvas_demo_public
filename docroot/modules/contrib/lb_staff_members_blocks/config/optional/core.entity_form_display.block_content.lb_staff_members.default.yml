@@ -1,0 +1,54 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_staff_members
+    - field.field.block_content.lb_staff_members.field_section_subtitle
+    - field.field.block_content.lb_staff_members.field_section_title
+    - field.field.block_content.lb_staff_members.field_staff_members
+  module:
+    - entity_browser_entity_form
+    - inline_entity_form
+id: block_content.lb_staff_members.default
+targetEntityType: block_content
+bundle: lb_staff_members
+mode: default
+content:
+  field_section_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_section_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_staff_members:
+    type: inline_entity_form_complex
+    weight: 2
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsible: true
+      collapsed: true
+      revision: true
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+hidden:
+  info: true
+  langcode: true

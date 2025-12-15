@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Change field descriptions.
+ */
+function lb_testimonials_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_testimonials') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.testimonial_item.field_name',
+    'field.field.block_content.testimonial_item.field_body',
+  ]);
+}

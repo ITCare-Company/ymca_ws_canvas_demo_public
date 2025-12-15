@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Theme override to display a hero banner.
+ *
+ * Available variables:
+ * - bannerClassVariation: The banner variation class
+ * - wrapperClass: The wrapper class
+ * - containerClass : The container class
+ * - contentClass: The content class
+ * - ctaLinkClass: The cta link class
+ *
+ * @see block--lb-hero.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+{% set heading_level = block_content.field_heading_level.value|default('h2') %}
+
+{% embed "block--lb-hero.html.twig" with {
+  bannerClassVariation: 'hero__banner__small_canada',
+  wrapperClass: 'wrapper-content position-relative',
+  containerClass: '',
+  contentClass: ['col', 'col-lg-12', 'text-align-left', 'p-4', 'p-md-0'],
+  ctaLinkClass: ''
+} %}
+
+  {% block block_content %}
+    {% embed '@lb_hero/block--lb-hero--content.html.twig' with {
+      'title': block_content.field_title.value,
+      'description': block_content.field_description.value,
+      'link': block_content.field_hero_cta,
+      'image_uri': media_image,
+    } %}
+
+      {% block chevron %}
+        <div class="chevron"></div>
+      {% endblock %}
+      {% block hero_image %}{% endblock %}
+
+      {% block content %}
+        {% if title %}
+          <{{ heading_level }}>{{ title }}</{{ heading_level }}>
+        {% endif %}
+
+        {% if description %}
+          <div class="hero_banner-body lead">
+            {{ description|raw }}
+          </div>
+        {% endif %}
+      {% endblock %}
+
+    {% endembed %}
+  {% endblock %}
+
+  {% block block_hero %}
+    {{ parent() }}
+  {% endblock %}
+
+{% endembed %}

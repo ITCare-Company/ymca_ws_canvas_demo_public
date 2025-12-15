@@ -1,0 +1,158 @@
+/* Y Ping Pong Component */
+
+.y-ping-pong {
+  padding: 2rem 1rem;
+}
+
+/* Container */
+.y-ping-pong__container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Media */
+.y-ping-pong__media {
+  flex: 1;
+  border-radius: var(--wsBorderRadius, 8px);
+  overflow: hidden;
+}
+
+.y-ping-pong__image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Content */
+.y-ping-pong__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.y-ping-pong__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2f2f2f;
+  margin: 0 0 1rem;
+  font-family: var(--ylb-font-family-verdana, Verdana, sans-serif);
+  line-height: 1.2;
+}
+
+.y-ping-pong__description {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.y-ping-pong__description p {
+  margin: 0 0 1rem;
+}
+
+.y-ping-pong__description p:last-child {
+  margin-bottom: 0;
+}
+
+/* CTA */
+.y-ping-pong__button {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: var(--wsPrimaryColor, #0060af);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: var(--wsBorderRadius, 4px);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.y-ping-pong__button:hover {
+  background: #004080;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .y-ping-pong {
+    padding: 4rem 2rem;
+  }
+
+  .y-ping-pong__container {
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .y-ping-pong__media,
+  .y-ping-pong__content {
+    flex: 1;
+  }
+
+  .y-ping-pong__title {
+    font-size: 2.25rem;
+  }
+
+  .y-ping-pong__description {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .y-ping-pong {
+    padding: 5rem 2rem;
+  }
+
+  .y-ping-pong__container {
+    gap: 4rem;
+  }
+
+  .y-ping-pong__title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Position: Image Right */
+.y-ping-pong--image-right .y-ping-pong__container {
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .y-ping-pong--image-right .y-ping-pong__container {
+    flex-direction: row-reverse;
+  }
+}
+
+/* Background variants */
+.y-ping-pong--bg-white {
+  background-color: #fff;
+}
+
+.y-ping-pong--bg-gray {
+  background-color: #f8f9fa;
+}
+
+.y-ping-pong--bg-primary {
+  background-color: var(--wsPrimaryColor, #0060af);
+}
+
+.y-ping-pong--bg-primary .y-ping-pong__title {
+  color: #fff;
+}
+
+.y-ping-pong--bg-primary .y-ping-pong__description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.y-ping-pong--bg-primary .y-ping-pong__button {
+  background: #fff;
+  color: var(--wsPrimaryColor, #0060af);
+}
+
+.y-ping-pong--bg-primary .y-ping-pong__button:hover {
+  background: rgba(255, 255, 255, 0.9);
+}

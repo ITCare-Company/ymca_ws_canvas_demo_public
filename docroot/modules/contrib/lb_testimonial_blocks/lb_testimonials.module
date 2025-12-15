@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * Contains lb_testimonials.module.
+ */
+
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_help().
+ */
+function lb_testimonials_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the lb_testimonials module.
+    case 'help.page.lb_testimonials':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Helper module for the custom "Testimonials" block type.') . '</p>';
+	  return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function lb_testimonials_theme() {
+  return [
+    'block__lb_testimonials' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-testimonials',
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_testimonials_preprocess_block__lb_testimonials(&$variables) {
+  $block = $variables['elements']['content']['#block_content'];
+  $variables['carousel_id'] = 'carousel-' . $block->id();
+  $variables['section_title'] = $block->field_section_title->value ?? '';
+  $variables['section_subtitle'] = $block->field_section_subtitle->value ?? '';
+  $variables['items'] = _lb_testimonials_get_items($block);
+  $variables['show_control_buttons'] = count($variables['items']) > 1;
+  $module_path = \Drupal::service('extension.list.module')->getPath('lb_testimonials');
+  $variables['default_image'] = \Drupal::service('file_url_generator')
+    ->generateAbsoluteString(
+      $module_path . '/assets/images/testimonial_default.svg'
+    );
+  $variables['#attached']['library'][] =  'lb_testimonials/lb_testimonials';
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for block entities.
+ */
+function lb_testimonials_block_content_presave(EntityInterface $block) {
+  if ($block->bundle() === 'testimonial_item') {
+    $label = $block->field_name->value;
+    $block->setInfo($label);
+  }
+}
+
+/**
+ * Prepare data for the template of the carousel.
+ *
+ * @param BlockContent $block
+ *   A block entity.
+ *
+ * @return array
+ *   An array of items.
+ */
+function _lb_testimonials_get_items(BlockContent $block) {
+  $items = [];
+  $style = ImageStyle::load('testimonial');
+  foreach ($block->field_testimonial_item->referencedEntities() as $item) {
+    $image_uri = $item->field_media?->entity?->field_media_image?->entity?->getFileUri() ?? '';
+    $image = $image_uri ? $style->buildUrl($image_uri) : '';
+
+    $items[] = [
+      'image' => $image,
+      'alt' => $item->field_media->alt ?? '',
+      'body' => $item->field_body->value ?? '',
+      'name' => $item->field_name->value ?? '',
+    ];
+  }
+  return $items;
+}

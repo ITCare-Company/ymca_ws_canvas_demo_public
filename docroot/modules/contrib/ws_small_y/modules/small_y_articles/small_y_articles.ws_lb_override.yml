@@ -1,0 +1,34 @@
+small_y_articles.lb_related_articles_override:
+  block_type: lb_related_articles
+  library: small_y_articles/lb_related_articles_override
+  override: false
+  active_colorways:
+    - '*'
+
+small_y_articles.y_lb_article_override:
+  block_type: lb_node_title
+  library: small_y_articles/y_lb_article_override
+  override: false
+  active_colorways:
+    - '*'
+
+small_y_articles.articles_filter_override:
+  block_type: articles_filter
+  library: small_y_articles/articles_filter_override
+  override: false
+  active_colorways:
+    - '*'
+
+small_y_articles.articles_listing_override:
+  block_type: articles_listing
+  library: small_y_articles/articles_listing_override
+  override: false
+  active_colorways:
+    - '*'
+
+small_y_articles.lb_featured_articles_override:
+  block_type: lb_featured_articles
+  library: small_y_articles/lb_featured_articles_override
+  override: false
+  active_colorways:
+    - '*'

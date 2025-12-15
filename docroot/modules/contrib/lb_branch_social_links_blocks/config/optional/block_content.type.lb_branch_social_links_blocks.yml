@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_branch_social_links_blocks
+label: 'Branch Social Links'
+revision: 0
+description: 'Component for placing social media links on a Branch page.'

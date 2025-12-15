@@ -1,0 +1,16 @@
+name: Y Branch
+type: module
+description: Branch CT integration point with Layout Builder.
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - y_lb
+  - openy_loc_branch
+  - lb_branch_social_links_blocks
+  - lb_branch_amenities_blocks
+  - y_branch_menu
+
+# Information added by Drupal.org packaging script on 2025-06-27
+version: '1.1.1'
+project: 'y_branch'
+datestamp: 1751008476

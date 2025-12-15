@@ -1,0 +1,19 @@
+uuid: 63c060bf-adcb-4e47-bc70-ba24edef8283
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_accordion
+    - field.storage.block_content.field_section_subtitle
+id: block_content.lb_accordion.field_section_subtitle
+field_name: field_section_subtitle
+entity_type: block_content
+bundle: lb_accordion
+label: 'Section subheading'
+description: 'The subheading of the accordion section.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

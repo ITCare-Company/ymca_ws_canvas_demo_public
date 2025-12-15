@@ -1,0 +1,15 @@
+name: 'Y Layout Builder - Small Y Editor'
+type: module
+description: 'Adds style variants for the table inserted via CKeditor.'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:ckeditor5
+  - drupal:lb_table
+  - drupal:ws_small_y
+  - openy_editor:openy_editor
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

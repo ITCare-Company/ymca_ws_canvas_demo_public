@@ -1,0 +1,6 @@
+name: YMCA Website Services Search
+type: module
+description: Provides a classes and services for search modules in YMCA Website Services.
+core_version_requirement: ^10 || ^11
+package: YMCA Website Services
+version: 1.1.0

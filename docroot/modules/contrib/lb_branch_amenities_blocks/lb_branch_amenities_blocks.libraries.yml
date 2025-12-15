@@ -1,0 +1,5 @@
+lb_branch_amenities_blocks:
+  version: 1.7
+  css:
+    theme:
+      assets/css/lb_branch_amenities_blocks.css: { preprocess: true }

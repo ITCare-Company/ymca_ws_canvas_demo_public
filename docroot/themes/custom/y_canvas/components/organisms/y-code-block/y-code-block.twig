@@ -1,0 +1,28 @@
+{#
+/**
+ * Y Code Block component.
+ *
+ * Variables:
+ * - title: (string) Block heading
+ * - code: (string) Code/embed content
+ * - language: (string) Code language type
+ */
+#}
+
+{% set classes = [
+  'y-code-block',
+  language ? 'y-code-block--' ~ language : '',
+] %}
+
+<div {{ attributes.addClass(classes) }} data-component="y-code-block">
+  {% if title %}
+    <h3 class="y-code-block__title">{{ title }}</h3>
+  {% endif %}
+  <div class="y-code-block__content">
+    {% if language == 'embed' %}
+      {{ code|raw }}
+    {% else %}
+      {{ code|raw }}
+    {% endif %}
+  </div>
+</div>

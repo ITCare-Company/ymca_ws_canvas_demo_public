@@ -1,0 +1,40 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Partners
+description: Partners section with title, subtitle, and tiered partner logos
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Section Title
+      description: Main heading for the partners section
+      examples:
+        - 'Our Partners'
+
+    subtitle:
+      type: string
+      title: Section Subtitle
+      description: Optional description text below the heading
+      examples:
+        - 'We are proud to partner with these organizations'
+
+    show_header:
+      type: boolean
+      title: Show Header
+      description: Display the title and subtitle header section
+      default: true
+      examples:
+        - true
+
+slots:
+  tiers:
+    title: Partner Tiers
+    description: Partner tier groups containing partner items
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-partners

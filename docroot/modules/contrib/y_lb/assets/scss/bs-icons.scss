@@ -1,0 +1,12 @@
+[class*="block-lb-"] {
+  svg.bi {
+    height: 1.75rem;
+    width: 1.75rem;
+    fill: var(--wsPartnerColor, gray);
+  }
+
+  // Set hover on the parent link, because SVGs have holes that cause flicker.
+  a:hover svg.bi {
+    fill: var(--ylb-color-dark-grey-2, #231F20);
+  }
+}

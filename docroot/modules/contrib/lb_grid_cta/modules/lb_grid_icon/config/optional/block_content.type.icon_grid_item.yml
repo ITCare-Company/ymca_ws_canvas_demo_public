@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: icon_grid_item
+label: 'Icon Grid Item'
+revision: 0
+description: 'Icon Grid Item for LB Icon Grid component'

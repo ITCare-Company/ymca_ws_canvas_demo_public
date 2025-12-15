@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_ping_pong
+    - block_content.type.ping_pong_section
+    - field.storage.block_content.field_block_item
+id: block_content.ping_pong_section.field_block_item
+field_name: field_block_item
+entity_type: block_content
+bundle: ping_pong_section
+label: Items
+description: 'Enables the addition of multiple "Ping Pong" items (of type "lb_ping_pong") to the "Ping Pong Section" block. This allows content editors to create a collection of related items within a section.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      lb_ping_pong: lb_ping_pong
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

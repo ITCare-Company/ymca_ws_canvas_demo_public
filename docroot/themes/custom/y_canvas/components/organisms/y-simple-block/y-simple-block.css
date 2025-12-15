@@ -1,0 +1,23 @@
+/* Y Simple Block Component */
+
+.y-simple-block {
+  padding: 1rem;
+}
+
+.y-simple-block__body {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.y-simple-block__body p {
+  margin: 0 0 1rem;
+}
+
+.y-simple-block__body p:last-child {
+  margin-bottom: 0;
+}
+
+.y-simple-block__body a {
+  color: var(--wsPrimaryColor, #0060af);
+}

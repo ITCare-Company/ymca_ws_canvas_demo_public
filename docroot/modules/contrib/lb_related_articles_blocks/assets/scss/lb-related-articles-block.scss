@@ -1,0 +1,108 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-lb-related-articles {
+  margin: 40px 0;
+
+  @include media-breakpoint-up('md') {
+    margin: 80px 0 70px;
+  }
+
+  .section-description {
+    margin-bottom: 40px;
+
+    @include media-breakpoint-up('md') {
+      margin-bottom: 50px;
+    }
+
+    h3 {
+      font-family: var(--ylb-font-family-cachet);
+      font-size: 35px;
+      line-height: 40px;
+
+      @include media-breakpoint-up('md') {
+        font-size: 50px;
+        line-height: 65px;
+      }
+    }
+
+    .link {
+      a {
+        color: var(--wsPartnerColor, darkgray);
+        font-size: 18px;
+        line-height: 26px;
+
+        &:after {
+          content: '›';
+          margin-left: 5px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .related-articles {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include media-breakpoint-up('md') {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    @include media-breakpoint-up('xl') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .views-row {
+      width: 100%;
+      margin-bottom: 40px;
+
+      @include media-breakpoint-up('md') {
+        margin-bottom: 0;
+      }
+
+      article {
+        position: relative;
+      }
+    }
+  }
+
+  // WS Style component-level adjustments.
+  // - Border style.
+  &.ws-border-style--solid {
+    .node--lb.node--type-article-lb.node--view-mode-related-content {
+      box-shadow: var(--ylb-border-style-none, none);
+      border: var(--ylb-border-style-solid, none);
+    }
+  }
+
+  &.ws-border-style--drop-shadow {
+    .node--lb.node--type-article-lb.node--view-mode-related-content {
+      box-shadow: var(--ylb-border-style-drop-shadow, none);
+      border: var(--ylb-border-style-none, none);
+    }
+  }
+
+  &.ws-border-style--none {
+    .node--lb.node--type-article-lb.node--view-mode-related-content {
+      box-shadow: var(--ylb-border-style-none, none);
+      border: var(--ylb-border-style-none, none);
+    }
+  }
+
+  // - Text / Button alignment style.
+  &.ws-text-alignment--left {
+    .node--lb.node--type-article-lb.node--view-mode-related-content {
+      text-align: left;
+    }
+  }
+
+  &.ws-text-alignment--center {
+    .node--lb.node--type-article-lb.node--view-mode-related-content {
+      text-align: center;
+    }
+  }
+}

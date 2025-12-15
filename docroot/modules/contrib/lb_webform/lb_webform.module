@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for LB Webform module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function lb_webform_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_webform' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-webform',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_webform_preprocess_block__lb_webform(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+}

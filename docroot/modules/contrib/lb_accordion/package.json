@@ -1,0 +1,33 @@
+{
+  "name": "lb-accordion",
+  "description": "LB Accordion styles.",
+  "author": "YMCA Website Services",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "watch": "webpack --watch",
+    "build": "webpack build --mode=production"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "breakpoint-sass": "^3.0.0",
+    "node-sass": "^8.0.0",
+    "nodemon": "^3.1.0",
+    "postcss-cli": "^11.0.0",
+    "purgecss": "^6.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "css-loader": "^7.1.1",
+    "mini-css-extract-plugin": "^2.8.1",
+    "postcss-loader": "^8.1.1",
+    "purgecss-webpack-plugin": "^6.0.0",
+    "sass": "^1.75.0",
+    "sass-loader": "^14.2.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  }
+}

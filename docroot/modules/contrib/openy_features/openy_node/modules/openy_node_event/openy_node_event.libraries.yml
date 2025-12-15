@@ -1,0 +1,16 @@
+atc_glow_orange:
+  version: 1.5
+  css:
+    component:
+      '//addtocalendar.com/atc/1.5/atc-style-glow-orange.css': {type: external}
+
+atc_blue:
+  version: 1.5
+  css:
+    component:
+      '//addtocalendar.com/atc/1.5/atc-style-blue.css': {type: external}
+
+event_custom:
+  version: 1.0
+  js:
+    js/openy_node_event.js: {}

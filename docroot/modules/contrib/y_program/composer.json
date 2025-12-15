@@ -1,0 +1,11 @@
+{
+    "name": "drupal/y_program",
+    "description": "Adds Layout Builder to Program nodes for Web Services project.",
+    "type": "drupal-module",
+    "require": {
+        "ycloudyusa/y_lb": "^3.2.0 || ^4",
+        "php": ">=8.1"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev"
+}

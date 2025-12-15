@@ -1,0 +1,82 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_icon_grid
+    - field.field.block_content.lb_icon_grid.field_block_item
+    - field.field.block_content.lb_icon_grid.field_cta
+    - field.field.block_content.lb_icon_grid.field_icon_columns
+    - field.field.block_content.lb_icon_grid.field_section_subtitle
+    - field.field.block_content.lb_icon_grid.field_section_title
+  module:
+    - entity_browser_entity_form
+    - inline_entity_form
+    - link
+id: block_content.lb_icon_grid.default
+targetEntityType: block_content
+bundle: lb_icon_grid
+mode: default
+content:
+  field_block_item:
+    type: inline_entity_form_complex
+    weight: 4
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      auto_open: true
+      allow_new: true
+      allow_existing: false
+      allow_edit: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      hide_fieldset: false
+      hide_title: false
+      collapsible: true
+      collapsed: false
+      revision: false
+      removed_reference: optional
+      config_labels_button: simple_label
+      labels:
+        label_singular_icon_grid_item: ''
+        label_plural_icon_grid_item: ''
+      add_existing_widget: autocomplete
+      auto_open_edit_form: 0
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+  field_cta:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_icon_columns:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_section_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_section_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  info: true
+  langcode: true

@@ -1,0 +1,46 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Activity Finder
+description: Activity finder application container for program search
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Main heading for the activity finder section
+      examples:
+        - 'Find Activities'
+
+    subtitle:
+      type: string
+      title: Subtitle
+      description: Supporting text below the main heading
+      examples:
+        - 'Search for programs, classes, and activities near you'
+
+    api_endpoint:
+      type: string
+      title: API Endpoint
+      description: URL for activity search API
+      examples:
+        - '/api/v1/activities'
+
+    locations:
+      type: array
+      title: Locations
+      description: Available location options for filtering
+      examples:
+        - ['Downtown Y', 'Westside Y', 'Northside Y']
+
+slots:
+  app:
+    title: Application
+    description: The activity finder React application
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-activity-finder

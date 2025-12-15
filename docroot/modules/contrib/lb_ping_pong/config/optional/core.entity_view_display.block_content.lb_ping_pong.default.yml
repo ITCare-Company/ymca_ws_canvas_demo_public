@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_ping_pong
+    - field.field.block_content.lb_ping_pong.field_item_cta
+    - field.field.block_content.lb_ping_pong.field_item_description
+    - field.field.block_content.lb_ping_pong.field_item_image
+    - field.field.block_content.lb_ping_pong.field_item_image_position
+    - field.field.block_content.lb_ping_pong.field_item_title
+    - field.field.block_content.lb_ping_pong.field_subtitle
+    - field.field.block_content.lb_ping_pong.field_title
+id: block_content.lb_ping_pong.default
+targetEntityType: block_content
+bundle: lb_ping_pong
+mode: default
+content: {  }
+hidden:
+  field_item_cta: true
+  field_item_description: true
+  field_item_image: true
+  field_item_image_position: true
+  field_item_title: true
+  field_subtitle: true
+  field_title: true
+  langcode: true
+  search_api_excerpt: true

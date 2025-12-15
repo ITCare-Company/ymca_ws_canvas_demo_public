@@ -1,0 +1,398 @@
+<?php
+
+/**
+ * @file
+ * Installation and update implementations.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\FieldStorageConfigInterface;
+use Drupal\layout_builder\Section;
+use Drupal\layout_builder\SectionComponent;
+
+/**
+ * Implements hook_install().
+ */
+function y_program_subcategory_install() {
+  // Create required fields.
+  _y_program_subcategory_create_fields();
+  // Update form and view displays for Program Subcategory content type.
+  _y_program_subcategory_update_displays_on_install();
+  // Modify Program Subcategory content type field groups on the form.
+  _y_program_subcategory_update_field_groups_on_install();
+}
+
+/**
+ * Implements hook_install().
+ */
+function y_program_subcategory_uninstall() {
+  // Remove field.
+  _y_program_subcategory_remove_fields();
+  // Update form and view displays for Program Subcategory content type.
+  _y_program_subcategory_update_displays_on_unistall();
+  // Update and remove Program Subcategory content type field groups on the form.
+  _y_program_subcategory_update_field_groups_on_uninstall();
+}
+
+/**
+ * Create required fields.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_program_subcategory_create_fields() {
+  // Create field storage if not exist and config for 'Use Layout Builder' field.
+  $field_storage_config = FieldStorageConfig::loadByName('node', 'field_use_layout_builder');
+  if (!$field_storage_config instanceof FieldStorageConfigInterface) {
+    FieldStorageConfig::create([
+      'field_name' => 'field_use_layout_builder',
+      'entity_type' => 'node',
+      'type' => 'boolean',
+      'cardinality' => 1,
+    ])->save();
+  }
+
+  FieldConfig::create([
+    'field_name' => 'field_use_layout_builder',
+    'entity_type' => 'node',
+    'bundle' => 'program_subcategory',
+    'label' => 'Use Layout Builder',
+    'description' => 'Change display option of the Program Subcategory.',
+  ])->save();
+
+}
+
+/**
+ * Update required field groups on install.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_program_subcategory_update_field_groups_on_install() {
+  // Deprecate existing groups.
+  $deprecated_groups = [
+    19 => 'group_header_area',
+    20 => 'group_content_area',
+    21 => 'group_sidebar_area',
+  ];
+
+  foreach ($deprecated_groups as $weight => $deprecated_group) {
+    $group = field_group_load_field_group($deprecated_group, 'node', 'program_subcategory', 'form', 'default');
+    if ($group) {
+      $group->weight = $weight;
+      $group->label = $group->label . ' (deprecated, not displayed in Layout Builder)';
+      field_group_group_save($group);
+    }
+  }
+}
+
+/**
+ * Update required field groups on uninstall.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_program_subcategory_update_field_groups_on_uninstall() {
+  // Deprecate existing groups.
+  $deprecated_groups = [
+    19 => 'group_header_area',
+    20 => 'group_content_area',
+    21 => 'group_sidebar_area',
+  ];
+
+  foreach ($deprecated_groups as $weight => $deprecated_group) {
+    $group = field_group_load_field_group($deprecated_group, 'node', 'program_subcategory', 'form', 'default');
+    if ($group) {
+      $group->weight = $weight;
+      $group->label = str_replace(' (deprecated, not displayed in Layout Builder)', '', $group->label);
+      field_group_group_save($group);
+    }
+  }
+}
+
+/**
+ * Update Program Subcategory content type display modes on enabling the module.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_program_subcategory_update_displays_on_install() {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Program Subcategory content type form display.
+  /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $form_display */
+  $form_display = $entity_display_repository->getFormDisplay('node', 'program_subcategory');
+  $form_display->setComponent('field_use_layout_builder', [
+    'type' => 'boolean_checkbox',
+    'settings' => [
+      'display_label' => TRUE,
+    ],
+    'weight' => 51,
+  ]);
+
+  $form_display->save();
+
+  // Update Program Subcategory content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'program_subcategory');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'program_subcategory', $view_mode);
+    $fields = [
+      'field_use_layout_builder',
+    ];
+    foreach ($fields as $field) {
+      $view_display->removeComponent($field);
+    }
+    if ($view_mode == 'full') {
+      $sections = _y_program_subcategory_create_sections_layout_builder();
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'enabled', TRUE)
+        ->setThirdPartySetting('layout_builder', 'allow_custom', TRUE)
+        ->setThirdPartySetting('layout_builder', 'sections', $sections)
+        ->setThirdPartySetting('y_lb', 'styles', [
+          'colorway' => 'ws_colorway_blue',
+          'border_radius' => 'ws_border_radius_none',
+        ])
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', [
+          'allowed_layouts' => [
+            'bootstrap_layout_builder:blb_col_1',
+            'bootstrap_layout_builder:blb_col_2',
+            'bootstrap_layout_builder:blb_col_3',
+            'bootstrap_layout_builder:blb_col_4',
+            'ws_header',
+            'ws_footer',
+          ],
+        ]);
+      $view_display->removeComponent('layout_builder__layout');
+    }
+    $view_display->save();
+  }
+}
+
+/**
+ * Create sections and blocks for layout builder
+ */
+function _y_program_subcategory_create_sections_layout_builder() {
+  $uuid_service = \Drupal::service('uuid');
+  $sections = [];
+
+  // Section WS Header
+  $section = new Section('ws_header', [
+    'container' => 'container',
+    'label' => 'Header',
+  ]);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_top_left', [
+    'id' => 'ws_site_name',
+    'label' => 'Website Name Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_top_right', [
+    'id' => 'openy_gtranslate_block',
+    'label' => 'Open Y Google Translate',
+    'label_display' => '0',
+    'provider' => 'openy_gtranslate',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_left', [
+    'id' => 'ws_site_logo',
+    'label' => 'Site Logo Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+    'logo_type' => 'colorway',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_middle', [
+    'id' => 'system_menu_block:main',
+    'label' => 'Main navigation',
+    'label_display' => '0',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_middle', [
+    'id' => 'ws_search_bar',
+    'label' => 'Search Bar Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+  ]);
+  $section->appendComponent($component);
+  $sections[] = $section;
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_right', [
+    'id' => 'system_menu_block:account',
+    'label' => 'User account menu',
+    'label_display' => '0',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  // Section Banner
+  $section = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'container-fluid',
+    'label' => 'Banner',
+    'container_wrapper' => [
+      'bootstrap_styles' => [
+        'background' => ['background_type' => 'color'],
+        'background_color' => ['class' => 'ylb-bg-white'],
+      ],
+    ],
+  ]);
+  $sections[] = $section;
+
+  // Section Body
+  $sections[] = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'container',
+    'label' => 'Body',
+  ]);
+
+  // Section WS Footer
+  $section = new Section('ws_footer', [
+    'container' => 'container',
+    'label' => 'Footer',
+  ]);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_left', [
+    'id' => 'ws_site_logo',
+    'label' => 'Site Logo Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+    'logo_type' => 'white',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_right', [
+    'id' => 'ws_social',
+    'label' => 'Stay Connected',
+    'label_display' => 'visible',
+    'provider' => 'y_lb',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_bottom_right', [
+    'id' => 'system_menu_block:footer',
+    'label' => 'Footer navigation',
+    'label_display' => '0',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_bottom_left', [
+    'id' => 'ws_copyright',
+    'label' => 'Copyright Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_middle', [
+    'id' => 'system_menu_block:footer-menu-left',
+    'label' => 'Left',
+    'label_display' => 'visible',
+    'provider' => 'system',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_middle', [
+    'id' => 'system_menu_block:footer-menu-center',
+    'label' => 'Center',
+    'label_display' => 'visible',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_middle', [
+    'id' => 'system_menu_block:footer-menu-right',
+    'label' => 'Right',
+    'label_display' => 'visible',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+  $sections[] = $section;
+
+  return $sections;
+}
+
+/**
+ * Remove required fields.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_program_subcategory_remove_fields() {
+  $field = 'field_use_layout_builder';
+  $field_config = FieldConfig::loadByName('node', 'program_subcategory', $field);
+  if ($field_config instanceof FieldConfig) {
+    $field_config->delete();
+  }
+  // Deleting field storage.
+  // Don't remove the fields if it can be used in other module.
+  if (!Drupal::service('module_handler')->moduleExists('y_program_subcategory')) {
+    $field_config_storage = FieldStorageConfig::loadByName('node', $field);
+    if ($field_config_storage instanceof FieldStorageConfigInterface) {
+      $field_config_storage->delete();
+    }
+  }
+}
+
+/**
+ * Update Program Subcategory content type display modes on disabling the module.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_program_subcategory_update_displays_on_unistall() {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  // Update Program Subcategory content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'program_subcategory');
+
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'program_subcategory', $view_mode);
+    if ($view_mode == 'full') {
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'enabled', FALSE);
+    }
+    $view_display->save();
+  }
+}
+
+/**
+ * Update default layout of LB view.
+ */
+function y_program_subcategory_update_9001(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'program_subcategory');
+  foreach ($view_modes as $view_mode => $view_mode_value) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'program_subcategory', $view_mode);
+    if ($view_mode == 'full') {
+      $sections = _y_program_subcategory_create_sections_layout_builder();
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'sections', $sections);
+      $view_display->save();
+    }
+  }
+}

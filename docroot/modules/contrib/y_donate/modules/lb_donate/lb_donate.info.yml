@@ -1,0 +1,25 @@
+name: 'Y Layout Builder - Donate'
+type: module
+description: 'Helper module for the custom "Donate" block type'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - 'datalayer:datalayer'
+  - 'drupal:block_content'
+  - 'drupal:field'
+  - 'drupal:image'
+  - 'drupal:language'
+  - 'drupal:layout_builder'
+  - 'drupal:link'
+  - 'drupal:node'
+  - 'entity_browser:entity_browser'
+  - 'entity_reference_revisions:entity_reference_revisions'
+  - 'openy_focal_point:openy_focal_point'
+  - 'openy_media_image:openy_media_image'
+  - 'paragraphs:paragraphs'
+  - y_lb:y_lb (>=2.2.0)
+
+# Information added by Drupal.org packaging script on 2025-06-30
+version: '2.1.0'
+project: 'y_donate'
+datestamp: 1751289621

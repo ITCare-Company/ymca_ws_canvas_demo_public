@@ -1,0 +1,5 @@
+lb_grid_icon_override:
+  version: 1.2
+  css:
+    theme:
+      assets/css/small_y_icon_grid.css: { preprocess: true }

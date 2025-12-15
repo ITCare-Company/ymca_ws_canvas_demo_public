@@ -1,0 +1,12 @@
+# Custom module library for general purposes.
+lb_related_articles_node:
+  version: 1.71
+  css:
+    theme:
+      assets/css/lb-related-articles-node.css: { preprocess: true }
+
+lb_related_articles_block:
+  version: 1.8
+  css:
+    theme:
+      assets/css/lb-related-articles-block.css: { preprocess: true }

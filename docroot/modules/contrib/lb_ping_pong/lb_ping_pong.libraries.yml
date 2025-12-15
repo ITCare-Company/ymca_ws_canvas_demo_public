@@ -1,0 +1,5 @@
+lb_ping_pong:
+  version: 1.13
+  css:
+    theme:
+      assets/css/ping_pong.css: { preprocess: true }

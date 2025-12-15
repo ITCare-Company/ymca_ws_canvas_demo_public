@@ -1,0 +1,5 @@
+lb_branch_social_links_blocks:
+  version: 1.3
+  css:
+    theme:
+      assets/css/lb_branch_social_links_blocks.css: { preprocess: true }

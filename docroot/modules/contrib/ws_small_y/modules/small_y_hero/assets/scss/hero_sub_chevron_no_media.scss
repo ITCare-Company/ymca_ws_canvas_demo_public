@@ -1,0 +1,121 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.hero__banner__sub_chevron_no_media {
+  display: block;
+
+  @include media-breakpoint-up(lg) {
+
+  }
+
+  .banner-wrapper {
+    background: var(--smally-hero-gradient, linear-gradient(
+        118.46deg,
+        var(--wsPrimaryColor, #3F4042) 28.72%,
+        var(--wsSecondaryColor, #636466) 96.61%
+    ));
+
+    @include media-breakpoint-up(lg) {
+      border-radius: 0 0 0 50px;
+      display: flex;
+      padding-left: calc(.75 * 186px);
+      min-height: 370px;
+    }
+  }
+
+  .chevron {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    transform: translateX(50%);
+    height: 100%;
+
+    @include media-breakpoint-up(lg) {
+      min-height: 370px;
+      top: 50%;
+      right: 50px;
+      transform: translate(0, -50%);
+      display: flex;
+      align-items: center;
+    }
+
+    svg {
+      height: 100%;
+      width: 100%;
+      opacity: var(--smally-hero-chevron-opacity, 10%);
+
+      path {
+        fill: var(--smally-hero-chevron-fill, white);
+      }
+
+      @include media-breakpoint-up(lg) {
+        height: 110%;
+        width: auto;
+      }
+    }
+
+    &.chevron-desktop {
+      display: none;
+
+      @include media-breakpoint-up(lg) {
+        display: flex;
+        left: -32px;
+      }
+    }
+  }
+
+  .wrapper-content {
+    order: 1;
+    flex: 1 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px 40px;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 0;
+      background: none;
+      padding-left: 0;
+    }
+  }
+
+  .breadcrumb-container,
+  .hero_banner-content {
+    position: relative;
+    z-index: 3;
+  }
+
+  .hero_banner-content {
+    width: fit-content;
+
+    @include media-breakpoint-up(lg) {
+      max-width: 480px;
+      margin-left: 45px;
+    }
+
+    .cta-wrapper {
+      margin-top: 40px;
+      margin-bottom: 0;
+    }
+
+    .block-title {
+      font-size: 32px;
+      line-height: 40px;
+      margin-bottom: 20px;
+      color: var(--smally-hero-color-header, white);
+
+      @include media-breakpoint-up(lg) {
+        font-size: 50px;
+        line-height: 63px;
+      }
+    }
+
+    .hero_banner-body {
+      font-size: 18px;
+      line-height: 24px;
+      color: var(--smally-hero-color, white);
+    }
+  }
+}

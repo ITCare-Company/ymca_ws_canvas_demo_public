@@ -1,0 +1,6 @@
+# Custom module library for general purposes.
+y_branch_menu:
+  version: 1.7
+  css:
+    theme:
+      assets/css/y_branch_menu.css: { preprocess: true }

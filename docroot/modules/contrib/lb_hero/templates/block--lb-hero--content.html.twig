@@ -1,0 +1,194 @@
+{% set banner_attr = create_attribute() %}
+{% set banner_classes = [
+  'hero__banner',
+  'position-relative',
+  'justify-content-center',
+  'overflow-hidden'
+] %}
+{% set heading_level = block_content.field_heading_level.value|default('h2') %}
+
+<div{{ banner_attr.addClass(banner_classes, bannerClassVariation) }}>
+
+  <div {{ create_attribute().addClass('banner-wrapper', wrapperClass) }}>
+    {% block chevron %}
+      <div class="chevron">
+        {% include "@lb_hero/chevron.html.twig" %}
+      </div>
+    {% endblock %}
+    <div {{ create_attribute().addClass('container', containerClass) }}>
+      <div class="position-relative hero_banner-content">
+        {% block chevron_second %}{% endblock %}
+        <div class="row">
+          <div {{ create_attribute().addClass(contentClass) }} role="region"
+                                                               aria-label="{{ 'Hero Banner'|t }}">
+            {% block content %}
+              {% if title %}
+                <{{ heading_level }} class="block-title">{{ title }}</{{ heading_level }}>
+              {% endif %}
+
+              {% if description %}
+                <div class="hero_banner-body lead">
+                  {{ description|raw }}
+                </div>
+              {% endif %}
+
+              {# buttons #}
+              {% if link is not empty %}
+                <div class="row mx-0 cta-wrapper">
+                  <div class="cta-link">
+                    {# Link[0].url comes with any user-set attributes, which are
+                    merged into `link_classes` by `link()`. #}
+                    {{
+                    link(
+                      link[0].title,
+                      link[0].url,
+                      create_attribute().addClass(ctaLinkClass)
+                    )
+                    }}
+                  </div>
+                </div>
+              {% endif %}
+            {% endblock %}
+
+          </div>
+
+          {# unmute/mute/play/pause buttons #}
+          {% if media_type in ['youtube_video', 'vimeo_video', 'video_local'] %}
+            {% block audio_buttons %}
+              <div
+                class="col-12 col-lg-auto d-flex align-items-end justify-content-end ml-auto ms-auto">
+                <div id="hero_banner--audio-controls"
+                     class="hero_banner--audio-controls px-4 py-2 rounded-pill is-playing is-muted">
+                  <div class="d-flex text-white">
+                    <button id="hero_banner--btn-unmute" aria-label="unmute"
+                            class="border-0 bg-transparent p-0 m-0 me-2">
+                      {# <i class="fas fa-volume-up px-2" role="presentation"></i> #}
+                      <svg aria-hidden="true" data-prefix="fas"
+                           data-icon="volume-up"
+                           class="svg-inline--fa fa-volume-up fa-w-18"
+                           xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 576 512">
+                        <path fill="currentColor"
+                              d="M215.03 71.05L126.06 160H24c-13.26 0-24 10.74-24 24v144c0 13.25 10.74 24 24 24h102.06l88.97 88.95c15.03 15.03 40.97 4.47 40.97-16.97V88.02c0-21.46-25.96-31.98-40.97-16.97zm233.32-51.08c-11.17-7.33-26.18-4.24-33.51 6.95-7.34 11.17-4.22 26.18 6.95 33.51 66.27 43.49 105.82 116.6 105.82 195.58 0 78.98-39.55 152.09-105.82 195.58-11.17 7.32-14.29 22.34-6.95 33.5 7.04 10.71 21.93 14.56 33.51 6.95C528.27 439.58 576 351.33 576 256S528.27 72.43 448.35 19.97zM480 256c0-63.53-32.06-121.94-85.77-156.24-11.19-7.14-26.03-3.82-33.12 7.46s-3.78 26.21 7.41 33.36C408.27 165.97 432 209.11 432 256s-23.73 90.03-63.48 115.42c-11.19 7.14-14.5 22.07-7.41 33.36 6.51 10.36 21.12 15.14 33.12 7.46C447.94 377.94 480 319.54 480 256zm-141.77-76.87c-11.58-6.33-26.19-2.16-32.61 9.45-6.39 11.61-2.16 26.2 9.45 32.61C327.98 228.28 336 241.63 336 256c0 14.38-8.02 27.72-20.92 34.81-11.61 6.41-15.84 21-9.45 32.61 6.43 11.66 21.05 15.8 32.61 9.45 28.23-15.55 45.77-45 45.77-76.88s-17.54-61.32-45.78-76.86z"/>
+                      </svg>
+                    </button>
+
+                    <button id="hero_banner--btn-mute" aria-label="mute"
+                            class="border-0 bg-transparent p-0 m-0 me-2">
+                      {# <i class="fas fa-volume-mute px-2" role="presentation"></i> #}
+                      <svg aria-hidden="true" data-prefix="fas"
+                           data-icon="volume-mute"
+                           class="svg-inline--fa fa-volume-mute fa-w-16"
+                           xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M215.03 71.05L126.06 160H24c-13.26 0-24 10.74-24 24v144c0 13.25 10.74 24 24 24h102.06l88.97 88.95c15.03 15.03 40.97 4.47 40.97-16.97V88.02c0-21.46-25.96-31.98-40.97-16.97zM461.64 256l45.64-45.64c6.3-6.3 6.3-16.52 0-22.82l-22.82-22.82c-6.3-6.3-16.52-6.3-22.82 0L416 210.36l-45.64-45.64c-6.3-6.3-16.52-6.3-22.82 0l-22.82 22.82c-6.3 6.3-6.3 16.52 0 22.82L370.36 256l-45.63 45.63c-6.3 6.3-6.3 16.52 0 22.82l22.82 22.82c6.3 6.3 16.52 6.3 22.82 0L416 301.64l45.64 45.64c6.3 6.3 16.52 6.3 22.82 0l22.82-22.82c6.3-6.3 6.3-16.52 0-22.82L461.64 256z"/>
+                      </svg>
+                    </button>
+
+                    <button id="hero_banner--btn-pause" aria-label="pause"
+                            class="border-0 bg-transparent p-0 m-0 ms-2">
+                      {# <i class="far fa-pause-circle px-2" role="presentation"></i> #}
+                      <svg aria-hidden="true" data-prefix="far"
+                           data-icon="pause-circle"
+                           class="svg-inline--fa fa-pause-circle fa-w-16"
+                           xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm96-280v160c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16zm-112 0v160c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16z"/>
+                      </svg>
+                    </button>
+
+                    <button id="hero_banner--btn-play" aria-label="play"
+                            class="border-0 bg-transparent p-0 ms-2">
+                      {# <i class="far fa-play-circle px-2" role="presentation"></i> #}
+                      <svg aria-hidden="true" data-prefix="far"
+                           data-icon="play-circle"
+                           class="svg-inline--fa fa-play-circle fa-w-16"
+                           xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M371.7 238l-176-107c-15.8-8.8-35.7 2.5-35.7 21v208c0 18.4 19.8 29.8 35.7 21l176-101c16.4-9.1 16.4-32.8 0-42zM504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256z"/>
+                      </svg>
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+            {% endblock %}
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {# Image #}
+  {% if media_type is same as('image') %}
+    {% block hero_image %}
+      {% set desktop_image = file_url(image_uri|image_style('hero_banner_retina_2x')) %}
+      {% set mobile_image = file_url(image_uri|image_style('hero_banner_mobile')) %}
+      <div class="hero_banner-image">
+        <img class="d-block d-lg-none hero_banner--img" src="{{ mobile_image }}"
+             alt="{{ image_alt|trim|striptags }}"/>
+        <img class="d-none d-lg-block hero_banner--img"
+             src="{{ desktop_image }}"
+             alt="{{ image_alt|trim|striptags }}"/>
+      </div>
+    {% endblock %}
+
+    {# Videos #}
+  {% elseif media_type in ['youtube_video', 'vimeo_video', 'video_local'] %}
+    <div class="hero_banner-video hero_banner-video--{{ media_type }}">
+      {# YouTube #}
+      {% if media_type is same as('youtube_video') %}
+        {% block hero_youtube %}
+          {% include '@lb_hero/block--lb-hero--youtube.html.twig' %}
+          <img class="d-none hero_banner--img"
+               src="https://img.youtube.com/vi/{{ youtube_id }}/maxresdefault.jpg"
+               alt="{{ title|trim }}"/>
+        {% endblock %}
+
+        {# Vimeo #}
+      {% elseif media_type is same as('vimeo_video') %}
+        {% block hero_vimeo %}
+          <div id="hero_banner-video--vimeo-player"
+               data-vimeo-url="{{ media_url }}"
+               data-vimeo-autoplay="true"
+               data-vimeo-playsinline="true"
+               data-vimeo-loop="true"></div>
+        {% endblock %}
+
+        {# Local HTML5 (MP4) #}
+      {% elseif media_type is same as('video_local') %}
+        {% block hero_html5 %}
+          <video id="html5_video" autoplay loop muted playsinline>
+            <source src="{{ media_url }}" type="video/mp4">
+          </video>
+        {% endblock %}
+      {% endif %}
+    </div>
+
+    {% block hero_preloader %}
+      <div class="hero-banner-preloader">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="25 25 50 50">
+          <circle cx="50" cy="50" r="20" fill="none" stroke-width="5"
+                  stroke="#3E9CDE" stroke-linecap="round"
+                  stroke-dasharray="100, 200">
+            <animateTransform attributeName="transform" attributeType="XML"
+                              type="rotate" from="0 50 50" to="360 50 50"
+                              dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-dashoffset" values="0;-30;-124"
+                     dur="1.25s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-dasharray"
+                     values="0,200;110,200;110,200" dur="1.25s"
+                     repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+    {% endblock %}
+
+  {% endif %}
+
+</div>

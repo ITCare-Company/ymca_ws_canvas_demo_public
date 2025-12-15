@@ -1,0 +1,6 @@
+openy_search_api.admin:
+  title: 'Search API settings'
+  description: 'Configure YMCA Website Services Search API settings.'
+  parent: openy_system.openy_settings
+  route_name: openy_search_api.settings
+  weight: 100

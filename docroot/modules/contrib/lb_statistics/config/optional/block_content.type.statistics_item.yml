@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: statistics_item
+label: 'Statistics item'
+revision: 0
+description: 'Show single item of statistics widget'

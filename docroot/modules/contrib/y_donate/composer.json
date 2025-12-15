@@ -1,0 +1,6 @@
+{
+    "name": "drupal/y_donate",
+    "description": "Embed donation forms from multiple donation providers.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later"
+}

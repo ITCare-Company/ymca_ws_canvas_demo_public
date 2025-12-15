@@ -1,0 +1,52 @@
+ws_checkbox:
+  version: 0.4
+  css:
+    component:
+      assets/css/ws-checkbox.css: {}
+
+hb_header_lb_selector:
+  version: 0.9
+  js:
+    assets/js/ws-header-lb-selector.js: {}
+  css:
+    component:
+      assets/css/ws-header-selector.css: { }
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/hb_plugin_base
+    - openy_home_branch/location_modal
+
+location_modal_override:
+  version: 0.5
+  js:
+    assets/js/ws-modal.js: {}
+  css:
+    component:
+      assets/css/ws-modal.css: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/hb_plugin_base
+    - openy_home_branch/hb_checkbox
+
+location_finder_override:
+  version: 0.9
+  js:
+    assets/js/ws-location-finder.js: { }
+  css:
+    component:
+      assets/css/ws-location-finder.css: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/hb_plugin_base
+    - openy_home_branch/location_finder
+    - ws_home_branch/ws_checkbox
+
+loc_selector_branch_page_override:
+  version: 0.1
+  js:
+    assets/js/ws-loc-selector-branch-page.js: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/hb_plugin_base
+    - openy_home_branch/menu_selector
+    - ws_home_branch/ws_checkbox

@@ -1,0 +1,5 @@
+services:
+  lb_modal.ws_style_group_applies_to_alter:
+    class: Drupal\lb_modal\EventSubscriber\WSStyleGroupAlter
+    tags:
+      - { name: event_subscriber }

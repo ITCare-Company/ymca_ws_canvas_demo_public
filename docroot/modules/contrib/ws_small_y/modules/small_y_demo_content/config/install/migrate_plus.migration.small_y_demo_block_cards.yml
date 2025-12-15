@@ -1,0 +1,76 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - small_y_cards
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_cards
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import Small Y Demo Layout Builder - Cards block'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      uuid: 'ef5f3285-b4e6-44e9-4066-4e275526b456'
+      title: 'Small Y No-photo Cards'
+      subtitle: 'Teams of all levels are coached by YMCA volunteers. Registration includes a jersey and socks. Shin guards are required for all age groups, and cleats are recommended for ages 9 and up.'
+      columns: 3
+      content_ids:
+        - content_id: card_item_1
+        - content_id: card_item_2
+        - content_id: card_item_3
+
+    -
+      id: 2
+      uuid: 'bca4f067-b20a-4fb5-8b7b-91887b98088e'
+      title: 'Small Y Photo Cards'
+      subtitle: ''
+      columns: 3
+      content_ids:
+        - content_id: card_item_4
+        - content_id: card_item_5
+        - content_id: card_item_6
+
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: lb_cards
+  uuid: uuid
+  field_section_title: title
+  field_subtitle: subtitle
+  field_cta: cta
+  field_columns: columns
+  field_block_item:
+    plugin: sub_process
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - small_y_demo_block_cards_item
+        source: content_id
+
+destination:
+  plugin: entity:block_content
+  default_bundle: 'lb_cards'
+migration_dependencies:
+  required:
+    - small_y_demo_block_cards_item

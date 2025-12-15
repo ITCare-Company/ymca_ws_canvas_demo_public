@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: partners_tier
+label: "Partner's Tier"
+revision: 0
+description: 'A tier wrapper for the partners lists inside the Partners block.'

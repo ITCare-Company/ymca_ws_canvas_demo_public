@@ -1,0 +1,63 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_branch_amenities_blocks
+    - entity_browser.browser.images_library
+    - field.field.block_content.lb_branch_amenities_blocks.field_image
+    - field.field.block_content.lb_branch_amenities_blocks.field_section_subtitle
+    - field.field.block_content.lb_branch_amenities_blocks.field_section_title
+  module:
+    - entity_browser
+id: block_content.lb_branch_amenities_blocks.default
+targetEntityType: block_content
+bundle: lb_branch_amenities_blocks
+mode: default
+content:
+  field_image:
+    type: entity_browser_entity_reference
+    weight: 28
+    region: content
+    settings:
+      entity_browser: images_library
+      field_widget_display: rendered_entity
+      field_widget_edit: true
+      field_widget_remove: true
+      field_widget_replace: false
+      open: true
+      field_widget_display_settings:
+        view_mode: thumbnail_for_preview
+      selection_mode: selection_append
+    third_party_settings: {  }
+  field_section_subtitle:
+    type: string_textfield
+    weight: 27
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_section_title:
+    type: string_textfield
+    weight: 26
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden: {  }

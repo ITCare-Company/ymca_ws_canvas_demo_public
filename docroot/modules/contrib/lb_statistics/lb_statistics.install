@@ -1,0 +1,146 @@
+<?php
+
+/**
+ * @file
+ *  Contains install and update functions for Y Layout Builder - Statistics.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_update_N().
+ */
+function lb_statistics_update_9001(&$sandbox) {
+ $path = \Drupal::service('extension.list.module')->getPath('lb_statistics') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+   'image.style.statistics_image',
+   'field.storage.block_content.field_items',
+   'field.field.block_content.lb_statistics.field_media',
+   'core.entity_view_display.block_content.lb_statistics.default',
+   'core.entity_form_display.block_content.lb_statistics.default',
+  ]);
+}
+
+/**
+ * Import config to create 'statistics_item' sub block for 'lb_statistics' block.
+ */
+function lb_statistics_update_9004(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_statistics') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'block_content.type.statistics_item',
+    'core.entity_form_display.block_content.statistics_item.default',
+    'core.entity_view_display.block_content.statistics_item.default',
+    'field.field.block_content.lb_statistics.field_block_item',
+    'field.field.block_content.statistics_item.field_subtitle',
+    'field.field.block_content.statistics_item.field_title',
+    'field.storage.block_content.field_block_item',
+    'field.storage.block_content.field_subtitle',
+    'field.storage.block_content.field_title',
+    'language.content_settings.block_content.statistics_item',
+  ]);
+}
+
+/**
+ * Migrate content from 'statistics_item' paragraph to 'statistics_item' block.
+ */
+function lb_statistics_update_9005(&$sandbox) {
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::entityTypeManager();
+  $storageParagraph = $entityTypeManager->getStorage('paragraph');
+  $storageBlock = $entityTypeManager->getStorage('block_content');
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['data'] = [
+      'paragraphs' => $storageParagraph->loadByProperties(['type' => 'statistics_item']),
+      'blocks' => []
+    ];
+    // Group paragraphs by parent id.
+    foreach ($sandbox['data']['paragraphs'] as $id => $paragraph) {
+      $sandbox['data']['blocks'][$paragraph->get('parent_id')->value][] = $id;
+    }
+    $sandbox['total'] = count($sandbox['data']['blocks']);
+  }
+
+  $blocks = array_slice($sandbox['data']['blocks'], $sandbox['progress'], 5, true);
+
+  foreach ($blocks as $parentId => $paragraphIds) {
+    $newBlockIds = [];
+
+    foreach ($paragraphIds as $paragraphId) {
+      $paragraph = $sandbox['data']['paragraphs'][$paragraphId];
+      // Create new 'statistics_item' sub block with content from paragraph
+      $block = $storageBlock->create([
+        'type' => 'statistics_item',
+        'field_subtitle' => $paragraph->get('field_number')->getValue(),
+        'field_title' => $paragraph->get('field_description')->getValue(),
+      ]);
+
+      $block->save();
+      $newBlockIds[] = $block->id();
+      $paragraph->delete();
+    }
+
+    // Load parent block and set new sub block.
+    /** @var \Drupal\block_content\Entity\BlockContent $parentBlock */
+    if (($parentBlock = $storageBlock->load($parentId)) && $parentBlock->bundle() === 'lb_statistics') {
+      $parentBlock->set('field_block_item', $newBlockIds)->save();
+    }
+    $sandbox['progress']++;
+  }
+
+  $sandbox['#finished'] = empty($sandbox['total']) ? 1 : $sandbox['progress'] / $sandbox['total'];
+}
+
+/**
+ * Remove 'statistics_item' paragraph
+ */
+function lb_statistics_update_9006(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_statistics') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.lb_statistics.default',
+    'core.entity_view_display.block_content.lb_statistics.default',
+  ]);
+
+  $configsToDelete = [
+    'paragraphs.paragraphs_type.statistics_item',
+    'core.entity_form_display.paragraph.statistics_item.default',
+    'core.entity_view_display.paragraph.statistics_item.default',
+  ];
+
+  $configFactory = \Drupal::configFactory();
+  foreach ($configsToDelete as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+
+  FieldConfig::loadByName('paragraph', 'statistics_item', 'field_description')?->delete();
+  FieldConfig::loadByName('paragraph', 'statistics_item', 'field_number')?->delete();
+  FieldConfig::loadByName('block_content', 'lb_statistics', 'field_items')?->delete();
+
+  FieldStorageConfig::loadByName('paragraph', 'field_description')?->delete();
+  FieldStorageConfig::loadByName('paragraph', 'field_number')?->delete();
+  FieldStorageConfig::loadByName('block_content', 'field_items')?->delete();
+}
+
+/**
+ * Rename label "field_block_item" field
+ */
+function lb_statistics_update_9007() {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_statistics') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_statistics.field_block_item',
+  ]);
+}

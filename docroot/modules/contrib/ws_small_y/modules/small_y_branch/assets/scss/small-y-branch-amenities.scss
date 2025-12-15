@@ -1,0 +1,40 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-branch-amenities {
+  background: linear-gradient(118.46deg, var(--wsPrimaryColor, #006B6B) 56.84%, var(--wsSecondaryColor, #01A490) 96.61%);
+  overflow: hidden;
+
+  .branch-amenities {
+    .section-description {
+      .field-section-title {
+        font-family: var(--ylb-font-family-cachet, Cachet), Verdana, sans-serif;
+        font-size: 35px;
+        font-weight: 400;
+        line-height: 40px;
+
+        @include media-breakpoint-up('md') {
+          font-size: 56px;
+          line-height: 70px;
+        }
+      }
+
+      .field-section-subtitle {
+        font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 26px;
+      }
+
+      .field-amenities {
+        .amenity {
+          font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}

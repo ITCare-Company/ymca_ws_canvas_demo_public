@@ -1,0 +1,902 @@
+<?php
+
+/**
+ * @file
+ * Installation and update implementations.
+ */
+
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\layout_builder\Section;
+use Drupal\layout_builder\SectionComponent;
+
+/**
+ * Implements hook_install().
+ */
+function y_branch_install() {
+  // Create required fields.
+  _y_branch_create_fields();
+  // Update form and view displays for Branch content type.
+  _y_branch_update_displays_on_install();
+  // Create and modify Branch content type field groups on the form.
+  _y_branch_create_field_groups();
+  _y_branch_update_field_groups_on_install();
+}
+
+/**
+ * Implements hook_install().
+ */
+function y_branch_uninstall() {
+  // Remove field.
+  _y_branch_remove_fields();
+  // Update form and view displays for Branch content type.
+  _y_branch_update_displays_on_unistall();
+  // Update and remove Branch content type field groups on the form.
+  _y_branch_remove_field_groups();
+  _y_branch_update_field_groups_on_uninstall();
+}
+
+/**
+ * Create required fields.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_branch_create_fields() {
+  // Create field storage and config for 'Use Layout Builder' field.
+  FieldStorageConfig::create([
+    'field_name' => 'field_use_layout_builder',
+    'entity_type' => 'node',
+    'type' => 'boolean',
+    'cardinality' => 1,
+  ])->save();
+  FieldConfig::create([
+    'field_name' => 'field_use_layout_builder',
+    'entity_type' => 'node',
+    'bundle' => 'branch',
+    'label' => 'Use Layout Builder',
+    'description' => 'Change display option of the Branch.',
+  ])->save();
+
+  // Create field storage and config for Menu Links' field.
+  FieldStorageConfig::create([
+    'field_name' => 'field_branch_menu_links',
+    'entity_type' => 'node',
+    'type' => 'link',
+    'cardinality' => -1,
+  ])->save();
+  FieldConfig::create([
+    'field_name' => 'field_branch_menu_links',
+    'entity_type' => 'node',
+    'bundle' => 'branch',
+    'label' => 'Menu links',
+    'description' => 'The Branch menu links.',
+    'settings' => [
+      'link_type' => 17,
+      'title' => 2,
+    ],
+  ])->save();
+
+  // Create field storage and config for 'More Hours Link' field.
+  FieldStorageConfig::create([
+    'field_name' => 'field_more_hours_link',
+    'entity_type' => 'node',
+    'type' => 'link',
+    'cardinality' => 1,
+  ])->save();
+  FieldConfig::create([
+    'field_name' => 'field_more_hours_link',
+    'entity_type' => 'node',
+    'bundle' => 'branch',
+    'label' => 'More Hours Link',
+    'description' => 'Link to the separate page where all additional location hours information that is not displayed in the header of Branch page will appear with any additional facility hours to display on.',
+    'settings' => [
+      'link_type' => 17,
+      'title' => 1,
+    ],
+  ])->save();
+}
+
+/**
+ * Create required field groups.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_branch_create_field_groups() {
+  // Initialize settings for Branch Menu group
+  $group_branch_menu = new stdClass();
+  $group_branch_menu->group_name = 'group_branch_menu';
+  $group_branch_menu->context = 'form';
+  $group_branch_menu->entity_type = 'node';
+  $group_branch_menu->bundle = 'branch';
+  $group_branch_menu->mode = 'default';
+  $group_branch_menu->label = 'Menu';
+  $group_branch_menu->region = 'content';
+  $group_branch_menu->parent_name = '';
+  $group_branch_menu->weight = '50';
+  $group_branch_menu->children = [
+    'field_branch_menu_links',
+  ];
+  $group_branch_menu->format_type = 'tab';
+  $group_branch_menu->format_settings = [
+    'classes' => '',
+    'id' => '',
+    'formatter' => 'closed',
+    'description' => '',
+    'required_fields' => FALSE,
+  ];
+  field_group_group_save($group_branch_menu);
+
+  // Add 'More Hours Link' to existing 'Hours' field group.
+  $group_branch_hours = field_group_load_field_group('group_branch_hours', 'node', 'branch', 'form', 'default');
+  if ($group_branch_hours) {
+    $group_branch_hours->children[] = 'field_more_hours_link';
+  }
+  field_group_group_save($group_branch_hours);
+}
+
+/**
+ * Update required field groups on install.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_branch_update_field_groups_on_install() {
+  // Deprecate existing groups.
+  $deprecated_groups = [
+    30 => 'group_header_area',
+    31 => 'group_content_area',
+    32 => 'group_bottom_area',
+  ];
+
+  foreach ($deprecated_groups as $weight => $deprecated_group) {
+    $group = field_group_load_field_group($deprecated_group, 'node', 'branch', 'form', 'default');
+    if ($group) {
+      $group->weight = $weight;
+      $group->label = $group->label . ' (deprecated, not displayed in Layout Builder)';
+    }
+    field_group_group_save($group);
+  }
+
+  // Move to the top new groups.
+  $move_above_groups = [
+    16 => 'group_branch_menu',
+    17 => 'group_branch_amenities',
+  ];
+
+  foreach ($move_above_groups as $weight => $above_group) {
+    $group = field_group_load_field_group($above_group, 'node', 'branch', 'form', 'default');
+    if ($group) {
+      $group->weight = $weight;
+    }
+    field_group_group_save($group);
+  }
+}
+
+/**
+ * Update required field groups on uninstall.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_branch_update_field_groups_on_uninstall() {
+  // Deprecate existing groups.
+  $deprecated_groups = [
+    18 => 'group_header_area',
+    19 => 'group_content_area',
+    20 => 'group_bottom_area',
+  ];
+
+  foreach ($deprecated_groups as $weight => $deprecated_group) {
+    $group = field_group_load_field_group($deprecated_group, 'node', 'branch', 'form', 'default');
+    if ($group) {
+      $group->weight = $weight;
+      $group->label = str_replace(' (deprecated, not displayed in Layout Builder)', '', $group->label);
+    }
+    field_group_group_save($group);
+  }
+}
+
+/**
+ * Update Branch content type display modes on enabling the module.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_branch_update_displays_on_install() {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch content type form display.
+  /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $form_display */
+  $form_display = $entity_display_repository->getFormDisplay('node', 'branch');
+  $form_display->setComponent('field_use_layout_builder', [
+    'type' => 'boolean_checkbox',
+    'settings' => [
+      'display_label' => TRUE,
+    ],
+    'weight' => 51,
+  ]);
+  $form_display->setComponent('field_branch_menu_links', [
+    'type' => 'link_attributes',
+  ]);
+  $form_display->setComponent('field_more_hours_link', [
+    'type' => 'link_attributes',
+    'weight' => 100,
+  ]);
+  $form_display->save();
+
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    $fields = [
+      'field_use_layout_builder',
+      'field_branch_menu_links',
+      'field_more_hours_link',
+    ];
+    foreach ($fields as $field) {
+      $view_display->removeComponent($field);
+    }
+    if ($view_mode == 'full') {
+      $sections = _y_branch_create_sections_layout_builder();
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'enabled', TRUE)
+        ->setThirdPartySetting('layout_builder', 'allow_custom', TRUE)
+        ->setThirdPartySetting('layout_builder', 'sections', $sections)
+        ->setThirdPartySetting('y_lb', 'styles', [
+          'colorway' => 'ws_colorway_blue',
+          'border_radius' => 'ws_border_radius_none',
+          'border_style_global' => 'ws_border_style_global_drop_shadow',
+          'text_alignment_global' => 'ws_text_alignment_global_left',
+          'button_position_global' => 'ws_button_position_global_inside',
+          'button_fill_global' => 'ws_button_fill_global_filled',
+        ])
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', [
+          'allowed_layouts' => [
+            'bootstrap_layout_builder:blb_col_1',
+            'bootstrap_layout_builder:blb_col_2',
+            'bootstrap_layout_builder:blb_col_3',
+            'bootstrap_layout_builder:blb_col_4',
+            'ws_header',
+            'ws_footer',
+          ],
+        ]);
+      $view_display->removeComponent('layout_builder__layout');
+    }
+    $view_display->save();
+  }
+  // Update restrictions inline blocks
+  y_branch_update_9002();
+  y_branch_update_9009();
+}
+
+/**
+ * Create sections and blocks for layout builder
+ */
+function _y_branch_create_sections_layout_builder() {
+  $uuid_service = \Drupal::service('uuid');
+  $sections = [];
+
+  // Section WS Header
+  $section = new Section('ws_header', [
+    'container' => 'container',
+    'label' => 'Header',
+  ]);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_top_left', [
+    'id' => 'ws_site_name',
+    'label' => 'Website Name Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_top_right', [
+    'id' => 'openy_gtranslate_block',
+    'label' => 'Open Y Google Translate',
+    'label_display' => '0',
+    'provider' => 'openy_gtranslate',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_top_right', [
+    'id' => 'system_menu_block:utility',
+    'label' => 'Utility Menu',
+    'label_display' => '0',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '1',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_left', [
+    'id' => 'ws_site_logo',
+    'label' => 'Site Logo Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+    'logo_type' => 'colorway',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_middle', [
+    'id' => 'system_menu_block:main',
+    'label' => 'Main navigation',
+    'label_display' => '0',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_middle', [
+    'id' => 'ws_search_bar',
+    'label' => 'Search Bar Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'header_bottom_right', [
+    'id' => 'system_menu_block:account',
+    'label' => 'User account menu',
+    'label_display' => '0',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+  $sections[] = $section;
+
+  // Section Branch Header
+  $section = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'w-100',
+    'label' => 'Branch header',
+    'remove_gutters' => '1',
+    'container_wrapper' => [
+      'bootstrap_styles' => [
+        'background' => ['background_type' => 'color'],
+        'background_color' => ['class' => 'ylb-bg-semi-light-grey'],
+        'text_color' => ['class' => 'ylb-text-white'],
+      ],
+    ],
+    'container_wrapper_classes' => 'location-header',
+  ]);
+
+  $sections[] = $section;
+
+  // Section Menu
+  $section = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'container-fluid',
+    'label' => 'Menu',
+    'container_wrapper' => [
+      'bootstrap_styles' => [
+        'background' => ['background_type' => 'color'],
+        'background_color' => ['class' => 'ylb-bg-grey'],
+      ],
+    ],
+  ]);
+
+  $component = new SectionComponent($uuid_service->generate(), 'blb_region_col_1', [
+    'id' => 'y_branch_menu',
+    'label' => 'Branch Menu Block',
+    'label_display' => '0',
+    'provider' => 'y_branch_menu',
+    'home_link' => '1',
+  ]);
+  $section->appendComponent($component);
+  $sections[] = $section;
+
+  // Section Social links
+  $sections[] = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'container',
+    'label' => 'Social links',
+    'container_wrapper_classes' => 'mt-3',
+  ]);
+
+  // Section Body
+  $sections[] = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'container',
+    'label' => 'Body',
+  ]);
+
+  // Section Amenities
+  $section = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'container',
+    'label' => 'Amenities',
+    'container_wrapper' => [
+      'bootstrap_styles' => [
+        'background' => ['background_type' => 'color'],
+        'background_color' => ['class' => 'ylb-bg-semi-light-grey'],
+        'text_color' => ['class' => 'ylb-text-white'],
+      ],
+    ],
+  ]);
+
+  $block_content = BlockContent::create([
+    'type' => 'lb_branch_amenities_blocks',
+    'info' => 'Branch Amenities',
+    'reusable' => '0',
+  ]);
+  $block_content->save();
+
+  $component = new SectionComponent($uuid_service->generate(), 'blb_region_col_1', [
+    'id' => 'inline_block:lb_branch_amenities_blocks',
+    'label' => 'Branch Amenities Block',
+    'label_display' => '0',
+    'provider' => 'layout_builder',
+    'view_mode' => 'full',
+    'block_revision_id' => $block_content->getRevisionId(),
+  ]);
+  $section->appendComponent($component);
+  $sections[] = $section;
+
+  // Section WS Footer
+  $section = new Section('ws_footer', [
+    'container' => 'container',
+    'label' => 'Footer',
+  ]);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_left', [
+    'id' => 'ws_site_logo',
+    'label' => 'Site Logo Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+    'logo_type' => 'white',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_right', [
+    'id' => 'ws_social',
+    'label' => 'Stay Connected',
+    'label_display' => 'visible',
+    'provider' => 'y_lb',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_bottom_right', [
+    'id' => 'system_menu_block:footer',
+    'label' => 'Footer navigation',
+    'label_display' => '0',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_bottom_left', [
+    'id' => 'ws_copyright',
+    'label' => 'Copyright Block',
+    'label_display' => '0',
+    'provider' => 'y_lb',
+
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_middle', [
+    'id' => 'system_menu_block:footer-menu-left',
+    'label' => 'Left',
+    'label_display' => 'visible',
+    'provider' => 'system',
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_middle', [
+    'id' => 'system_menu_block:footer-menu-center',
+    'label' => 'Center',
+    'label_display' => 'visible',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+
+  $component = new SectionComponent($uuid_service->generate(), 'footer_top_middle', [
+    'id' => 'system_menu_block:footer-menu-right',
+    'label' => 'Right',
+    'label_display' => 'visible',
+    'provider' => 'system',
+    'level' => '1',
+    'depth' => '0',
+    'expand_all_items' => FALSE,
+  ]);
+  $section->appendComponent($component);
+  $sections[] = $section;
+
+  return $sections;
+}
+
+/**
+ * Remove required fields.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_branch_remove_fields() {
+  $fields_to_delete = [
+    'field_use_layout_builder',
+    'field_branch_menu_links',
+    'field_more_hours_link',
+  ];
+  foreach ($fields_to_delete as $field) {
+    $field_config = FieldConfig::loadByName('node', 'branch', $field);
+    if ($field_config instanceof FieldConfig) {
+      $field_config->delete();
+    }
+    // Deleting field storage.
+    $field_config_storage = FieldStorageConfig::loadByName('node', $field);
+    if ($field_config_storage instanceof FieldStorageConfig) {
+      $field_config_storage->delete();
+    }
+  }
+}
+
+/**
+ * Remove required field groups.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_branch_remove_field_groups() {
+  $group_branch_hours = field_group_load_field_group('group_branch_hours', 'node', 'branch', 'form', 'default');
+  if ($group_branch_hours) {
+    if (($key = array_search('field_more_hours_link', $group_branch_hours->children)) !== FALSE) {
+      $children = $group_branch_hours->children;
+      unset($children[$key]);
+      $group_branch_hours->children = array_values($children);
+      field_group_group_save($group_branch_hours);
+    }
+  }
+
+  $group_branch_menu = field_group_load_field_group('group_branch_menu', 'node', 'branch', 'form', 'default');
+  if ($group_branch_menu) {
+    field_group_delete_field_group($group_branch_menu);
+  }
+}
+
+/**
+ * Update Branch content type display modes on disabling the module.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _y_branch_update_displays_on_unistall() {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    if ($view_mode == 'full') {
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'enabled', FALSE);
+    }
+    $view_display->save();
+  }
+}
+
+/**
+ * Add layout for display full.
+ */
+function y_branch_update_9001(&$sandbox) {
+  // Nothing doing. Now setting the layout builder in a hook_install
+}
+
+/**
+ * Add restrictions inline blocks for display full.
+ */
+function y_branch_update_9002(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    if ($view_mode == 'full') {
+      $restrictions = $view_display
+        ->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction');
+
+      $denylistedBlocks = $restrictions['denylisted_blocks'] ?? [];
+      $denylistedBlocks['Inline blocks'] = array_unique(array_merge($denylistedBlocks['Inline blocks'] ?? [], [
+        'inline_block:branch_amenities',
+        'inline_block:testimonial_item',
+      ]));
+      $restrictions['denylisted_blocks'] = $denylistedBlocks;
+      $view_display
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', $restrictions);
+
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Update field groups.
+ */
+function y_branch_update_9003(&$sandbox = NULL) {
+  _y_branch_update_field_groups_on_install();
+}
+
+/**
+ * Add WS Header and WS Footer sections to LB view.
+ */
+function y_branch_update_9004(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    if ($view_mode == 'full') {
+      $sections = _y_branch_create_sections_layout_builder();
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'sections', $sections)
+        ->setThirdPartySetting('y_lb', 'styles', [
+          'colorway' => 'ws_colorway_blue',
+          'border_radius' => 'ws_border_radius_none',
+        ])
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', [
+          'allowed_layouts' => [
+            'bootstrap_layout_builder:blb_col_1',
+            'bootstrap_layout_builder:blb_col_2',
+            'bootstrap_layout_builder:blb_col_3',
+            'ws_header',
+            'ws_footer',
+          ],
+        ]);
+      $view_display->removeComponent('layout_builder__layout');
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Update sections to LB view.
+ */
+function y_branch_update_9005(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    if ($view_mode == 'full') {
+      $sections = _y_branch_create_sections_layout_builder();
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'sections', $sections);
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Change the default logo in WS Footer to the white one in LB view.
+ */
+function y_branch_update_9006(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    if ($view_mode == 'full') {
+      $sections = _y_branch_create_sections_layout_builder();
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'sections', $sections);
+    }
+    $view_display->save();
+  }
+}
+
+/**
+ * Update sections in the LB.
+ */
+function y_branch_update_9008(&$sandbox = NULL) {
+  y_branch_update_9006();
+}
+
+/**
+ * Add sub-blocks to denylisted_blocks for the camp node.
+ */
+function y_branch_update_9009() {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    if ($view_mode == 'full') {
+      $restrictions = $view_display
+        ->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction');
+
+      $denylistedBlocks = $restrictions['denylisted_blocks'] ?? [];
+      $denylistedBlocks['Inline blocks'] = array_unique(array_merge($denylistedBlocks['Inline blocks'] ?? [], [
+        'inline_block:accordion_item',
+        'inline_block:card_item',
+        'inline_block:carousel_item',
+        'inline_block:donate_item',
+        'inline_block:grid_item',
+        'inline_block:icon_grid_item',
+        'inline_block:statistics_item',
+        'inline_block:tab_item',
+        'inline_block:menu_cta',
+      ]));
+      $restrictions['denylisted_blocks'] = $denylistedBlocks;
+      $view_display
+        ->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', $restrictions);
+
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Update default Y styles options if they're empty.
+ */
+function y_branch_update_9010(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch content type style defaults.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    if ($view_mode == 'full') {
+      $styles = $view_display->getThirdPartySetting('y_lb', 'styles');
+      $default_styles = [
+        'colorway' => 'ws_colorway_blue',
+        'border_radius' => 'ws_border_radius_none',
+        'border_style_global' => 'ws_border_style_global_drop_shadow',
+        'text_alignment_global' => 'ws_text_alignment_global_left',
+        'button_position_global' => 'ws_button_position_global_inside',
+        'button_fill_global' => 'ws_button_fill_global_filled',
+      ];
+
+      // Merge the existing styles into the default. Any exising settings will
+      // override the defaults. NULL values will be filtered out.
+      $styles = array_merge($default_styles, array_filter($styles));
+
+      $view_display
+        ->setThirdPartySetting('y_lb', 'styles', $styles);
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Add Utility Menu to Branch template.
+ */
+function y_branch_update_9011(&$sandbox = NULL) {
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+
+  // Update Branch template with Utility Menu.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    if ($view_mode == 'full') {
+
+      $sections = $view_display->getThirdPartySetting('layout_builder', 'sections');
+      foreach ($sections as $index => $section) {
+        if ($section->getLayoutId() == 'ws_header') {
+          // Instantiate new Utility Menu section.
+          $uuid_service = \Drupal::service('uuid');
+          $component = new SectionComponent($uuid_service->generate(), 'header_top_right', [
+            'id' => 'system_menu_block:utility',
+            'label' => 'Utility Menu',
+            'label_display' => '0',
+            'provider' => 'system',
+            'level' => '1',
+            'depth' => '1',
+            'expand_all_items' => FALSE,
+          ]);
+          // Add the menu to the section, add the section back to sections, and save.
+          $section->appendComponent($component);
+          $sections[$index] = $section;
+          $view_display->setThirdPartySetting('layout_builder', 'sections', $sections);
+
+          $view_display->save();
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Update sections in the LB.
+ */
+function y_branch_update_91001(&$sandbox = NULL) {
+  y_branch_update_9006();
+}
+
+/**
+ * Add field Show All Holidays.
+ */
+function y_branch_update_91004() {
+  $field_config = FieldConfig::loadByName('node', 'branch', 'field_show_all_holidays');
+  $field_config_storage = FieldStorageConfig::loadByName('node', 'field_show_all_holidays');
+  if (!$field_config_storage) {
+    FieldStorageConfig::create([
+      'field_name' => 'field_show_all_holidays',
+      'entity_type' => 'node',
+      'type' => 'boolean',
+      'settings' => [],
+      'cardinality' => 1,
+      'translatable' => FALSE,
+    ])->save();
+  }
+
+  if (!$field_config) {
+    FieldConfig::create([
+      'field_name' => 'field_show_all_holidays',
+      'entity_type' => 'node',
+      'bundle' => 'branch',
+      'label' => 'Show All Holidays',
+      'description' => 'Check to show all holiday hours regardless of date.',
+      'required' => FALSE,
+      'settings' => [],
+      'default_value' => [
+        ['value' => 0],
+      ],
+    ])->save();
+  }
+  /** @var \Drupal\Core\Entity\EntityStorageInterface $form_display_storage */
+  $form_display_storage = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+  $form_display = $form_display_storage->load('node.branch.default');
+  if (!$form_display) {
+    $form_display = $form_display_storage->create([
+      'targetEntityType' => 'node',
+      'bundle' => 'branch',
+      'mode' => 'default',
+      'status' => TRUE,
+    ]);
+  }
+
+  $form_display->setComponent('field_show_all_holidays', [
+    'type' => 'boolean_checkbox',
+    'weight' => 6,
+    'region' => 'content',
+    'settings' => [
+      'display_label' => TRUE,
+    ],
+  ]);
+  $form_display->save();
+
+  $group_branch_hours = field_group_load_field_group('group_branch_hours', 'node', 'branch', 'form', 'default');
+    if ($group_branch_hours) {
+      $children = $group_branch_hours->children ?? [];
+
+      $children = array_values(array_diff($children, ['field_show_all_holidays']));
+
+      array_unshift($children, 'field_show_all_holidays');
+
+      $group_branch_hours->children = $children;
+
+      field_group_group_save($group_branch_hours);
+  }
+
+}
+
+/**
+ * Update field groups.
+ */
+function y_branch_update_91005(&$sandbox = NULL) {
+  _y_branch_update_field_groups_on_install();
+}

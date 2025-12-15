@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Open Y System install file.
+ */
+
+use Drupal\user\Entity\Role;
+
+/**
+ * Add permission for administrator role.
+ */
+function openy_system_update_8001() {
+  $role = Role::load('administrator');
+  $role->grantPermission('use all drupal themes');
+  $role->save();
+}
+
+/**
+ * Deep cache clear so that Drupal recognizes profile and module path changes.
+ */
+function openy_system_update_8002() {
+  drupal_flush_all_caches();
+}
+
+/**
+ * Enable admin_toolbar_tools module.
+ */
+function openy_system_update_8003() {
+  \Drupal::service('module_installer')->install(['admin_toolbar_tools']);
+}

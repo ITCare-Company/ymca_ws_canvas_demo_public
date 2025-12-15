@@ -1,0 +1,48 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Camp Menu
+description: Camp-specific navigation menu with icons
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Menu section heading
+      examples:
+        - 'Camp Navigation'
+
+    camp_name:
+      type: string
+      title: Camp Name
+      description: Name of the camp displayed above menu
+      examples:
+        - 'Camp Lakewood'
+
+    background:
+      type: string
+      title: Background Color
+      description: Background color variant for the menu section
+      default: 'white'
+      enum:
+        - 'white'
+        - 'gray'
+        - 'primary'
+      meta:enum:
+        white: 'White'
+        gray: 'Light Gray'
+        primary: 'Primary Color'
+      examples:
+        - 'white'
+
+slots:
+  menu_items:
+    title: Menu Items
+    description: Navigation menu item links
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-camp-menu

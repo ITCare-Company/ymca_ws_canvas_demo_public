@@ -1,0 +1,119 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Y LB Staff Members module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function lb_staff_members_blocks_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the lb_staff_members_blocks module.
+    case 'help.page.lb_staff_members_blocks':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Helper module for the custom "Staff Members" block type.') . '</p>';
+	  return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function lb_staff_members_blocks_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_staff_members' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-staff-members',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function lb_staff_members_blocks_preprocess_block__lb_staff_members(&$variables) {
+  $lb_staff_members_cache_id = 'lb_staff_members_default_svg';
+  $cache_data = \Drupal::service('cache.data');
+  $staff_members_default_image = $cache_data->get($lb_staff_members_cache_id);
+  if (empty($staff_members_default_image)) {
+    $module_path = \Drupal::service('extension.path.resolver')
+      ->getPath('module', 'lb_staff_members_blocks');
+    $default_svg_path = \Drupal::service('file_url_generator')
+      ->transformRelative("{$module_path}/assets/svg/default.svg");
+    $variables['default_svg'] = file_get_contents($default_svg_path);
+    if (!empty($variables['default_svg'])) {
+      $cache_data->set($lb_staff_members_cache_id, $variables['default_svg'], CacheBackendInterface::CACHE_PERMANENT, ['lb_staff_members_blocks']);
+    }
+  }
+  else {
+    $variables['default_svg'] = $staff_members_default_image->data;
+  }
+
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $items = $variables['block_content']->field_staff_members->referencedEntities() ?? [];
+  $members = [];
+
+  $style = ImageStyle::load('thumbnail_for_preview');
+  $file_url_generator_service = \Drupal::service('file_url_generator');
+
+  foreach ($items as $item) {
+    $member = [
+      'name' => "{$item->field_first_name->value} {$item->field_last_name->value}",
+      'title' => $item->field_title->value,
+      'email' => $item->field_email->value ?? NULL,
+      'image' => NULL,
+      'image_alt' => NULL,
+      'use_default' => TRUE,
+    ];
+    if (!$item->get('field_image')->isEmpty()) {
+      $member['image'] = $file_url_generator_service->transformRelative($style->buildUrl($item->field_image->entity->field_media_image->entity->getFileUri()));
+      $member['image_alt'] = $item->field_image->entity->field_media_image->alt ?? t("Member's photo");
+      $member['use_default'] = FALSE;
+    }
+    $members[] = $member;
+  }
+
+  $variables['members'] = $members;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for block entities.
+ */
+function lb_staff_members_blocks_block_content_presave(EntityInterface $block) {
+  if ($block->bundle() === 'lb_staff_member_item') {
+    $label = "{$block->field_first_name->value} {$block->field_last_name->value}";
+    $block->setInfo($label);
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function lb_staff_members_blocks_inline_entity_form_entity_form_alter(array &$entity_form, FormStateInterface $form_state) {
+  $entity = $entity_form['#entity'];
+  if ($entity->bundle() === 'lb_staff_member_item' && !empty($form_state->getUserInput()['settings']['block_form']['field_staff_members']['form'])) {
+    $form = $form_state->getUserInput()['settings']['block_form']['field_staff_members']['form'];
+    if (isset($form['inline_entity_form'])) {
+      $resultForm = reset($form['inline_entity_form']['entities'])['form'];
+    }
+    else {
+      $resultForm = reset($form);
+    }
+    $entity->setInfo($resultForm['field_first_name']['0']['value'] . ' ' . $resultForm['field_last_name']['0']['value']);
+  }
+}

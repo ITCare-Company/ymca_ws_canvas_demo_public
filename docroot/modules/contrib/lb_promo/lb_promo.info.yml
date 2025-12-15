@@ -1,0 +1,16 @@
+name: 'Y Layout Builder - Promo Card'
+description: 'Helper module for the custom "Promo Card" block type.'
+type: module
+core_version_requirement: ^9 || ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - drupal:link
+  - drupal:media
+  - drupal:entity_browser
+  - drupal:twig_tweak
+  - y_lb
+
+# Information added by Drupal.org packaging script on 2025-05-01
+version: '1.3.0'
+project: 'lb_promo'
+datestamp: 1746085696

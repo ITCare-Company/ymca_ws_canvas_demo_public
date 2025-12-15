@@ -1,0 +1,11 @@
+selector:
+  version: 1.1
+  js:
+    js/openy-branch-selector.js: {}
+  dependencies:
+    - core/jquery
+    - core/js-cookie
+    - core/jquery.history
+    - core/drupal
+    - core/drupalSettings
+    - core/once

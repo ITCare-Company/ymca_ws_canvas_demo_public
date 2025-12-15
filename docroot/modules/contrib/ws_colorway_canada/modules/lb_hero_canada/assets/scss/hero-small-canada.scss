@@ -1,0 +1,59 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.hero__banner__small_canada {
+  display: flex;
+  flex-direction: column;
+  background: var(--ylb-color-red-canada, red);
+
+  .chevron {
+    position: absolute;
+    background-image: url("../images/background_small.svg");
+    bottom: 0;
+    right: -20px;
+    left: -90%;
+    top: -30%;
+    background-size: 100% 102%;
+    background-repeat: no-repeat;
+
+    @include media-breakpoint-up(sm) {
+      left: -40%;
+    }
+
+    @include media-breakpoint-up(md) {
+      right: 0;
+      left: -200px;
+      top: -200px;
+      background-size: 95% 153%;
+    }
+  }
+
+  .hero_banner-content {
+    max-width: 90%;
+    position: relative;
+    color: var(--ylb-color-dark-grey-2, black);
+
+    @include media-breakpoint-up(md) {
+      max-width: 950px;
+      padding: 80px 0;
+    }
+
+    h1,
+    h2 {
+      font-size: 36px;
+      line-height: 43px;
+      margin-bottom: 0;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 48px;
+        line-height: 55px;
+      }
+    }
+
+    .hero_banner-body {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+}

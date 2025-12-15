@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for YMCA Website Services - Small Y Branch module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function small_y_branch_theme() {
+  return [
+    'block__lb_branch_hours' => [
+      'base hook' => 'block'
+    ]
+  ];
+}

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_related_events
+    - field.storage.block_content.field_section_title
+id: block_content.lb_related_events.field_section_title
+field_name: field_section_title
+entity_type: block_content
+bundle: lb_related_events
+label: 'Section title'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 'Related Events'
+default_value_callback: ''
+settings: {  }
+field_type: string

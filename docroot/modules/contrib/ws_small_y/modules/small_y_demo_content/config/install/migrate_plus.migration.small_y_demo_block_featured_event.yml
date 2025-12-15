@@ -1,0 +1,61 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ws_event
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_featured_event
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import demo Layout Builder - Featured events'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 22
+      uuid: '57b6bdc9-a572-46cf-a4de-feb83876599e'
+      manual_selection_items:
+        - content_id: 1
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: featured_events
+  uuid: uuid
+  field_manual_selection_items:
+    plugin: sub_process
+    source: manual_selection_items
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - small_y_demo_events
+        source: content_id
+      target_revision_id:
+        plugin: migration_lookup
+        migration:
+          - small_y_demo_events
+        source: content_id
+
+destination:
+  plugin: entity:block_content
+  default_bundle: 'featured_events'
+migration_dependencies:
+  required:
+    - small_y_demo_events
+  optional: {}

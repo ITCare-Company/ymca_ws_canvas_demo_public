@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: article_image_desktop
+label: 'Article image desktop'
+effects:
+  11e2e722-8096-4385-ba04-218c85bda4db:
+    uuid: 11e2e722-8096-4385-ba04-218c85bda4db
+    id: openy_focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 1140
+      height: 450
+      crop_type: focal_point
+  649f3615-97ef-4bea-8015-dc9a336ebd28:
+    uuid: 649f3615-97ef-4bea-8015-dc9a336ebd28
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

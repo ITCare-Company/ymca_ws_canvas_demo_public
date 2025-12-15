@@ -1,0 +1,5 @@
+name: media_entity_video
+type: module
+description: Dummy module to replace media_entity_video.
+package: Useless Machines
+core_version_requirement: ^10 || ^11

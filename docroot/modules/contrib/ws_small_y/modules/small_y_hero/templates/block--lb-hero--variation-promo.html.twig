@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Theme override to display a hero banner.
+ *
+ * Available variables:
+ * - bannerClassVariation: The banner variation class
+ * - wrapperClass: The wrapper class
+ * - containerClass : The container class
+ * - contentClass: The content class
+ * - ctaLinkClass: The cta link class
+ * - ctaLinkStyle: The style of the link
+ *
+ * @see block--lb-hero.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+{% embed "@lb_hero/block--lb-hero.html.twig" with {
+  bannerClassVariation: ['hero__banner__promo', heroBackground],
+  wrapperClass: '',
+  containerClass: 'wrapper-content',
+  contentClass: ['col', 'col-lg-12', 'text-align-center'],
+  ctaLinkClass: ['btn', ctaLinkStyle, 'filled']
+} %}
+
+  {% block block_content %}
+    {% embed '@lb_hero/block--lb-hero--content.html.twig' with {
+      'title': block_content.field_title.value,
+      'description': block_content.field_description.value,
+      'link': block_content.field_hero_cta
+    } %}
+
+      {% block chevron %}
+        <div class="chevron chevron-desktop">
+          {% include "@small_y_hero/chevron_mask.html.twig" %}
+        </div>
+        <div class="chevron">
+          {% include "@small_y_hero/chevron_mask.html.twig" %}
+        </div>
+      {% endblock %}
+
+      {% block hero_image %}{% endblock %}
+      {% block hero_youtube %}{% endblock %}
+      {% block hero_vimeo %}{% endblock %}
+      {% block hero_html5 %}{% endblock %}
+      {% block audio_buttons %}{% endblock %}
+      {% block hero_preloader %}{% endblock %}
+
+    {% endembed %}
+  {% endblock %}
+
+  {% block block_hero %}
+    {{ parent() }}
+  {% endblock %}
+
+{% endembed %}

@@ -1,0 +1,6 @@
+langcode: en
+status: true
+id: small-y-footer-2
+label: 'Small Y Footer 2'
+description: 'Links for the second menu in the Small Y footer'
+locked: false

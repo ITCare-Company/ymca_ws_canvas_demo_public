@@ -1,0 +1,175 @@
+/* Y Cards Component */
+
+.y-cards {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Header */
+.y-cards__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.y-cards__header-text {
+  flex: 1;
+}
+
+.y-cards__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2f2f2f;
+  margin: 0 0 0.5rem;
+  font-family: var(--ylb-font-family-verdana, Verdana, sans-serif);
+}
+
+.y-cards__subtitle {
+  font-size: 1.125rem;
+  color: #666;
+  margin: 0;
+}
+
+.y-cards__header-cta {
+  flex-shrink: 0;
+}
+
+.y-cards__cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--wsPrimaryColor, #0060af);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.y-cards__cta-link:hover {
+  color: #004080;
+}
+
+.y-cards__cta-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Grid */
+.y-cards__grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Column variants */
+.y-cards--cols-2 .y-cards__grid {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.y-cards--cols-3 .y-cards__grid {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.y-cards--cols-4 .y-cards__grid {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+/* Text alignment */
+.y-cards--align-center .y-cards__header {
+  text-align: center;
+  justify-content: center;
+}
+
+.y-cards--align-center .y-cards__header-text {
+  text-align: center;
+}
+
+/* Responsive */
+@media (min-width: 576px) {
+  .y-cards--cols-2 .y-cards__grid,
+  .y-cards--cols-3 .y-cards__grid,
+  .y-cards--cols-4 .y-cards__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .y-cards {
+    padding: 3rem 2rem;
+  }
+
+  .y-cards__header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .y-cards__title {
+    font-size: 2.5rem;
+  }
+
+  .y-cards--cols-3 .y-cards__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .y-cards--cols-4 .y-cards__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ========================================
+   VARIATION: Standard
+   ======================================== */
+.y-cards--standard {
+  /* Default styles above */
+}
+
+/* ========================================
+   VARIATION: Color
+   ======================================== */
+.y-cards--color {
+  background-color: #f8f9fa;
+  padding: 3rem 1rem;
+  border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+  .y-cards--color {
+    padding: 4rem 2rem;
+  }
+}
+
+/* ========================================
+   VARIATION: Overlay
+   ======================================== */
+.y-cards--overlay .y-cards__grid {
+  gap: 1rem;
+}
+
+/* ========================================
+   VARIATION: Chevron
+   ======================================== */
+.y-cards--chevron .y-cards__grid {
+  gap: 2rem;
+}
+
+/* ========================================
+   BORDER STYLES
+   ======================================== */
+.y-cards--border-solid {
+  /* Applied to child cards via CSS custom property */
+  --card-border: 1px solid #e5e5e5;
+  --card-shadow: none;
+}
+
+.y-cards--border-drop-shadow {
+  --card-border: none;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.y-cards--border-none {
+  --card-border: none;
+  --card-shadow: none;
+}

@@ -1,0 +1,185 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the YMCA WS - Small Y Search module.
+ */
+
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\layout_builder\Section;
+use Drupal\layout_builder\SectionComponent;
+use Drupal\node\Entity\Node;
+
+/**
+ * Implements hook_install().
+ */
+function small_y_search_install() {
+  _small_y_search_enable_required_modules();
+  _small_y_search_import_configurations();
+  $search_result_page_nid = _small_y_search_create_new_search_results_page();
+  if (!$search_result_page_nid) {
+    return;
+  }
+  $open_search_config = \Drupal::configFactory()->getEditable('openy_search_api.settings');
+  $open_search_config->set('search_page_id', $search_result_page_nid);
+  $open_search_config->save();
+}
+
+/**
+ * Enable the Search API module if it hasn't been enabled yet.
+ */
+function _small_y_search_enable_required_modules(): void {
+  $modules = [
+    'search_api',
+    'search_api_db',
+    'openy_search',
+    'openy_search_api',
+  ];
+  $module_handler = \Drupal::moduleHandler();
+  foreach ($modules as $module) {
+    if (!$module_handler->moduleExists($module)) {
+      \Drupal::service('module_installer')->install([$module], FALSE);
+    }
+  }
+}
+
+/**
+ * Import basic configurations.
+ */
+function _small_y_search_import_configurations(): void {
+  $path = \Drupal::service('extension.list.module')->getPath('small_y_search') . '/config/optional';
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'search_api.index.smally_search_content',
+    'core.entity_view_display.node.branch.search_result',
+    'core.entity_view_display.node.lb_event.search_result',
+    'core.entity_view_display.node.article_lb.search_result',
+    'core.entity_view_display.node.landing_page_lb.search_result',
+    'views.view.small_y_content_search',
+    'block_content.type.lb_search_results',
+    'core.entity_form_display.block_content.lb_search_results.default',
+    'core.entity_view_display.block_content.lb_search_results.default',
+  ]);
+}
+
+/**
+ * Creates a new LP node with Search results Block.
+ *
+ * @return int.
+ *   An ID of created Search Results node.
+ */
+function _small_y_search_create_new_search_results_page(): int {
+  $view_display = \Drupal::entityTypeManager()
+    ->getStorage('entity_view_display')
+    ->load('node.landing_page_lb.default');
+  $styles_settings = $view_display->getThirdPartySettings('y_lb');
+  $styles_settings['styles']['colorway'] = 'ws_colorway_green';
+  $node = Node::create([
+    'uid' => '1',
+    'type' => 'landing_page_lb',
+    'title' => 'Search results',
+    'status' => 1,
+    'promote' => 0,
+    'sticky' => 0,
+    'created' => \Drupal::time()->getRequestTime(),
+    'changed' => \Drupal::time()->getRequestTime(),
+    'path' => ['alias' => '/search-results'],
+    'override_styles' => 1,
+    'styles' => serialize($styles_settings['styles']),
+  ]);
+
+  $layout_builder_settings = $view_display->getThirdPartySettings('layout_builder');
+  $layout_builder__layout = _small_y_search_prepare_lb_sections($layout_builder_settings['sections']);
+  $node->set('layout_builder__layout', $layout_builder__layout);
+  $node->save();
+  return $node->id();
+}
+
+/**
+ * Process default section and adds a new section with Search Results block.
+ *
+ * @param array $sections
+ *  An array of Sections.
+ *
+ * @return array
+ *   An array with sections to set.
+ */
+function _small_y_search_prepare_lb_sections(array $sections): array {
+  $landing_page_layout = [];
+
+  if (!$sections) {
+    return [];
+  }
+  // We should put it in the correct order.
+  foreach ($sections as $section) {
+    $layoutId = $section->getLayoutId();
+    if ($layoutId === 'ws_header') {
+      $landing_page_layout[0] = $section;
+    }
+    $layout_settings = $section->getLayoutSettings();
+
+    if ($layout_settings['label'] === 'Body') {
+      $landing_page_layout[1] = _small_y_search_create_search_results_section();
+    }
+    if ($layoutId === 'ws_footer') {
+      $landing_page_layout[2] = $section;
+    }
+  }
+  return $landing_page_layout;
+}
+
+/**
+ * Creates a new section with Search Results Block.
+ *
+ * @return \Drupal\layout_builder\Section
+ *  A section which will be added to the created node.
+ */
+function _small_y_search_create_search_results_section(): Section {
+  $uuid_service = \Drupal::service('uuid');
+  $section = new Section('bootstrap_layout_builder:blb_col_1', [
+    'container' => 'container',
+    'label' => 'Search Results',
+    'container_wrapper' => [],
+    'container_wrapper_classes' => 'lb-search-results-page'
+  ]);
+
+  $block_content = BlockContent::create([
+    'info' => 'Page title',
+    'type' => 'lb_table',
+    'body' => [
+      'value' => '<h1 class="page-title">Search results</h1>',
+      'format' => 'full_html',
+    ],
+  ]);
+  $block_content->save();
+
+  $component = new SectionComponent($uuid_service->generate(), 'blb_region_col_1', [
+    'id' => 'inline_block:lb_table',
+    'label' => 'Page title',
+    'label_display' => '0',
+    "view_mode" => "full",
+    'block_revision_id' => $block_content->getRevisionId(),
+  ]);
+  $section->appendComponent($component);
+
+  $block_content = BlockContent::create([
+    'type' => 'lb_search_results',
+    'info' => 'Search results',
+    'reusable' => '0'
+  ]);
+  $block_content->save();
+
+  $uuid_service = \Drupal::service('uuid');
+  $component = new SectionComponent($uuid_service->generate(), 'blb_region_col_1', [
+    'id' => 'inline_block:lb_search_results',
+    'label' => 'Search results',
+    'label_display' => '0',
+    'provider' => 'layout_builder',
+    'view_mode' => 'full',
+    'block_revision_id' => $block_content->getRevisionId(),
+  ]);
+  $section->appendComponent($component);
+
+  return $section;
+}

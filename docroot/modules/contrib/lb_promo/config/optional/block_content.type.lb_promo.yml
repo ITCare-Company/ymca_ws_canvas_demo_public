@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_promo
+label: 'Promo Card'
+revision: 0
+description: 'Helper module for the custom "Promo Card" block type.'

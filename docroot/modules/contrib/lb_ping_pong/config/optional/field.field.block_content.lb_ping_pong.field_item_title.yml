@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_ping_pong
+    - field.storage.block_content.field_item_title
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_item_title
+id: block_content.lb_ping_pong.field_item_title
+field_name: field_item_title
+entity_type: block_content
+bundle: lb_ping_pong
+label: Heading
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

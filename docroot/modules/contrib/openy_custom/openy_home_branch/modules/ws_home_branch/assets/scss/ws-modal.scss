@@ -1,0 +1,215 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+#hb-loc-modal {
+  .close {
+    margin: 0;
+    opacity: 1;
+    position: absolute;
+    right: -14px;
+    top: -14px;
+    width: 28px;
+    height: 28px;
+    background-color: var(--y-color-white);
+
+    &:after {
+      background-image: url('../svg/close.svg');
+      background-repeat: no-repeat;
+      content: '';
+      display: block;
+      height: 48px;
+      margin: 0;
+      width: 48px;
+      top: -10px;
+      right: 12px;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .hb-loc-modal__modal {
+    aspect-ratio: 1/1;
+    width: 90%;
+    max-width: 450px;
+    margin: 0 auto;
+
+    @include media-breakpoint-up(md) {
+      width: 100%;
+    }
+
+    &.modal-dialog {
+      height: unset;
+      pointer-events: unset;
+      }
+
+    .modal-content {
+      border-radius: 10px;
+      background-color: #FFFFFF;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+      padding: 30px;
+
+      .hb-loc-modal__modal--header {
+        border: none;
+        margin-bottom: 12px;
+
+        .title {
+          font-family: var(--ylb-font-family-cachet);
+          font-weight: 500;
+          font-size: 24px;
+          color: var(--ylb-color-dark-grey-1);
+          line-height: 46px;
+          letter-spacing: -1.15px;
+          float: unset;
+          padding: 0;
+          text-transform: unset;
+          word-break: break-all;
+          overflow: auto;
+
+          @include media-breakpoint-up(md) {
+            font-size: 36px;
+          }
+        }
+      }
+
+      .hb-loc-modal__modal--body {
+        padding: 0;
+        font-size: 18px;
+        font-family: var(--ylb-font-family-verdana);
+        line-height: 26px;
+        margin-bottom: 0 !important;
+
+        & > div {
+          margin-bottom: 45px;
+          color: var(--ylb-color-dark-grey-1);
+        }
+
+        .form {
+          margin-bottom: 30px;
+
+          label {
+            font-size: 16px;
+            font-family: var(--ylb-font-family-verdana);
+            letter-spacing: 0.25px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 12px;
+          }
+
+          .select-wrapper {
+            &:before {
+              top: 12px;
+            }
+
+            select {
+              padding: 8px;
+              box-sizing: border-box;
+              border: 2px solid var(--ylb-color-light-grey-2);
+              color: var(--ylb-color-dark-grey-1);
+              border-radius: 10px;
+              background-color: var(--y-color-white);
+              height: 50px;
+              font-size: 18px;
+              line-height: 26px;
+            }
+          }
+        }
+      }
+
+      .hb-loc-modal__modal--footer {
+        padding: 0;
+
+        .btn-success {
+          float: unset;
+          width: 100%;
+          background-color: var(--wsPartnerColor, black);
+          padding: 8px;
+          font-size: 18px;
+          font-family: var(--ylb-font-family-cachet);
+          font-weight: 500;
+          line-height: 30px;
+          text-transform: none;
+          border-radius: 10px;
+
+          @include media-breakpoint-up(md) {
+            font-size: 24px;
+          }
+        }
+
+        .dont-ask {
+          margin-top: 32px;
+
+          label {
+            color: var(--ylb-color-dark-grey-1, black);
+            font-family: var(--ylb-font-family-verdana);
+            font-size: 1rem;
+            letter-spacing: 0;
+            padding-left: 0.1em;
+
+            cursor: pointer;
+            line-height: 1.1;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1em auto;
+            gap: 1em;
+            margin-bottom: 20px;
+
+            // Reset old styles.
+            &:before {
+              content: none;
+              position: revert;
+            }
+
+            input {
+              position: revert;
+              z-index: revert;
+              opacity: revert;
+              cursor: revert;
+              height: revert;
+              width: revert;
+            }
+
+            // Checkbox styles via https://moderncss.dev/pure-css-custom-checkbox-style/
+            input[type="checkbox"] {
+              appearance: none;
+              /* For iOS < 15 to remove gradient background */
+              background-color: #fff;
+              /* Not removed via appearance */
+              margin: 0;
+              font: inherit;
+              color: currentColor;
+              width: 1.5em;
+              height: 1.5em;
+              border: 0.1em solid var(--ylb-color-light-grey-3,lightgray);
+              border-radius: 0.25em;
+              transform: translateY(-0.175em);
+              display: grid;
+              place-content: center;
+            }
+            input[type="checkbox"]::before {
+              content: "";
+              width: 0.85em;
+              height: 0.85em;
+              transform: scale(0);
+              transition: 120ms transform ease-in-out;
+              box-shadow: inset 1em 1em 0 0 var(--ylb-color-black, black);
+              transform-origin: bottom left;
+              clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+
+              /* Windows High Contrast Mode */
+              background-color: CanvasText;
+            }
+            input[type="checkbox"]:checked::before {
+              transform: scale(1);
+            }
+            input[type="checkbox"]:focus {
+              outline: 5px auto Highlight;
+              outline: 5px auto var(--wsPrimaryColor, -webkit-focus-ring-color);
+              outline-offset: calc(max(2px, 0.15em));
+            }
+          }
+        }
+      }
+    }
+  }
+}

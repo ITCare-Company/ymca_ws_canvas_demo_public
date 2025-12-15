@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: articles_listing
+label: 'Articles listing'
+revision: 0
+description: 'A component to display articles listing in Layout Builder.'

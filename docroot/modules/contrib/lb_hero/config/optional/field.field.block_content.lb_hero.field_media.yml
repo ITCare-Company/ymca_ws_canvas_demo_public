@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_hero
+    - field.storage.block_content.field_media
+    - media.type.image
+    - media.type.video
+    - media.type.video_local
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_media
+id: block_content.lb_hero.field_media
+field_name: field_media
+entity_type: block_content
+bundle: lb_hero
+label: Media
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+      video_local: video_local
+      video: video
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: video_local
+field_type: entity_reference

@@ -1,0 +1,114 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.lb-modal-block .modal-dialog .modal-content {
+  &:has(.promo-modal) {
+    @include media-breakpoint-down(sm) {
+      max-width: 85%;
+      margin: 0 auto;
+    }
+  }
+  .promo-modal {
+
+    .modal-header {
+      padding: 0;
+
+      .close {
+        position: absolute;
+        right: -14px;
+        top: -14px;
+        background: #F2F2F2;
+        opacity: 1;
+        border-radius: 100%;
+        width: 60px;
+        height: 60px;
+
+        @include media-breakpoint-down(md) {
+          width: 40px;
+          height: 40px;
+          padding: 0;
+          right: -4px;
+          top: -1px;
+        }
+
+        span {
+          font-weight: normal;
+          font-size: 2.3rem;
+          line-height: 27px;
+
+          @include media-breakpoint-down(md) {
+            font-size: 32px;
+            line-height: 40px;
+          }
+        }
+      }
+    }
+  }
+
+  .modal-wrapper-body {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    @media (min-width: 1060px) {
+      flex-direction: row;
+    }
+
+    .modal-img-wrapper {
+      height: 243px;
+      min-height: unset;
+      flex: unset;
+      max-width: 555px;
+
+      @media (min-width: 1060px) {
+        min-height: 350px;
+        height: 480px;
+        flex: 1;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: var(--wsBorderRadius, unset) 0 0 var(--wsBorderRadius, unset);
+
+        @include media-breakpoint-down(md) {
+          border-radius: var(--wsBorderRadius, unset) var(--wsBorderRadius, unset) 0 0;
+        }
+      }
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: var(--wsFlexAlignment, unset);
+      flex: 1;
+      max-width: 580px;
+      text-align: var(--wsTextAlignment, unset);;
+      padding: 48px;
+
+      @include media-breakpoint-down(lg) {
+        padding: 24px;
+      }
+
+      h2 {
+        text-align: inherit;
+      }
+      p {
+        font-size: 18px;
+        line-height: 28px;
+
+        @include media-breakpoint-up(md) {
+          font-size: 20px;
+          line-height: 30px;
+        }
+      }
+
+      .btn {
+        margin-top: 10px;
+      }
+    }
+  }
+}

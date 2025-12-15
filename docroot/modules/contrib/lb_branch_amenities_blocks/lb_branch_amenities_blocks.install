@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ *  Contains install and update functions for Branch Amenities module.
+ */
+
+
+/**
+ * Add field title.
+ */
+function lb_branch_amenities_blocks_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_branch_amenities_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_branch_amenities_blocks.field_section_title',
+  ]);
+}
+
+
+/**
+ * Add field image.
+ */
+function lb_branch_amenities_blocks_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_branch_amenities_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'image.style.amenities_image',
+    'field.storage.block_content.field_image',
+    'field.field.block_content.lb_branch_amenities_blocks.field_image',
+    'core.entity_view_display.block_content.lb_branch_amenities_blocks.default',
+    'core.entity_form_display.block_content.lb_branch_amenities_blocks.default',
+  ]);
+}

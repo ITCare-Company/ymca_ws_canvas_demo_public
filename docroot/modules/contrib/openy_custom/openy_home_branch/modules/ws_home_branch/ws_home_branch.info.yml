@@ -1,0 +1,8 @@
+name: WS Home Branch
+type: module
+description: Provides Home Branch plugins for Layout Builder.
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - openy_home_branch
+  - y_lb

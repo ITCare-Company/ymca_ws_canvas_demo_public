@@ -1,0 +1,52 @@
+<?php
+
+use Drupal\Core\Url;
+
+
+/**
+ * Implements hook_theme().
+ */
+function ws_promotion_modal_theme($existing, $type, $theme, $path) {
+  return [
+    'node__promo__lb_modal' => [
+      'base hook' => 'node',
+      'template' => 'node--promo--lb-modal',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_promotion_modal_preprocess_block__lb_modal(&$variables) {
+  $configuration = $variables['elements']['#configuration'];
+  if (empty($configuration['promotion_include'])) {
+    return;
+  }
+  $block = $variables['block_content'];
+  $variables['#attached']['library'][] = 'ws_promotion_modal/insert_promotion';
+  $variables['#attached']['library'][] = 'ws_promotion_modal/promotion_style';
+  $paramsRoute = ['widget' => $variables['derivative_plugin_id']];
+  if (!empty($configuration['promotion_category'])) {
+    $paramsRoute['category'] = $configuration['promotion_category'];
+  }
+  $variables['#attached']['drupalSettings']['ws_promotion_modal'][$block->getRevisionId()] = [
+    'url' => Url::fromRoute('ws_promotion.get_promo', $paramsRoute, ['absolute' => TRUE])->toString(),
+  ];
+}
+
+/**
+ * Implements hook_promotion_block_list_alter().
+ * Add the name of the block to the list for the promotion alter form.
+ */
+function ws_promotion_modal_promotion_block_list_alter(array &$listOfBlocks) {
+  $listOfBlocks[] = 'lb_modal';
+}
+
+/**
+ * Implements hook_promotion_preview_list_alter().
+ * Add the name of the preview template to the list for the promotion preview.
+ */
+function ws_promotion_modal_promotion_preview_list_alter(array &$listOfPreview) {
+  $listOfPreview['lb_modal'] = t('Modal');
+}

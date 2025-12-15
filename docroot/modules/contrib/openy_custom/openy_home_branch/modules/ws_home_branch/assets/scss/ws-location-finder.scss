@@ -1,0 +1,125 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-inline-blocklb-openy-map {
+
+  &.block.ws-button-fill--filled--component {
+    .hb-location-checkbox-wrapper {
+      background-color: var(--wsPartnerColor, black);
+      color: var(--ylb-color-white, white);
+      border: 2px solid transparent;
+
+      label:after {
+        background-color: var(--ylb-color-white, white);
+      }
+
+      &:hover {
+        background-color: var(--ylb-color-white, white);
+        color: var(--wsPartnerColor, black);
+        border-color: var(--wsPartnerColor, black);
+
+        label:after {
+          background-color: var(--wsPartnerColor, black);
+        }
+      }
+    }
+  }
+
+  &.block.ws-button-fill--outlined--component .hb-location-checkbox-wrapper, .hb-location-checkbox-wrapper {
+    border: 2px solid var(--wsPartnerColor, black);
+    background-color: var(--ylb-color-white, white);
+    color: var(--wsPartnerColor, black);
+
+    label:after {
+      background-color: var(--wsPartnerColor, black);
+    }
+    &:hover {
+      background-color: var(--wsPartnerColor, black);
+      color: var(--ylb-color-white, white);
+      border-color: transparent;
+
+      label:after {
+        background-color: var(--ylb-color-white, white);
+      }
+    }
+  }
+
+  .hb-location-checkbox-wrapper {
+    label {
+      color: inherit;
+
+      &:after {
+        background: var(--wsPartnerColor, black);
+        mask: url("../svg/add_circle_colorway.svg") no-repeat left;
+      }
+    }
+  }
+
+  .hb-selected {
+    .hb-location-checkbox-wrapper {
+
+      label {
+        &:after {
+          right: -54px;
+          mask: url("../svg/check_circle.svg") no-repeat left;
+        }
+      }
+    }
+  }
+
+  .card {
+    .node__content {
+      .hours {
+        min-height: 54px;
+        margin-bottom: 20px;
+      }
+    }
+
+    &-footer {
+      display: flex;
+      justify-content: center;
+      min-height: 80px;
+    }
+  }
+}
+
+.layout-container.ws-button-fill--filled--global {
+  .hb-location-checkbox-wrapper {
+    background-color: var(--wsPartnerColor, black);
+    color: var(--ylb-color-white, white);
+    border: 2px solid transparent;
+
+    label:after {
+      background-color: var(--ylb-color-white, white);
+    }
+
+    &:hover {
+      background-color: var(--ylb-color-white, white);
+      color: var(--wsPartnerColor, black);
+      border-color: var(--wsPartnerColor, black);
+
+      label:after {
+        background-color: var(--wsPartnerColor, black);
+      }
+    }
+  }
+}
+
+.layout-container.ws-button-fill--outlined--global {
+  .hb-location-checkbox-wrapper {
+    border: 2px solid var(--wsPartnerColor, black);
+    background-color: var(--ylb-color-white, white);
+    color: var(--wsPartnerColor, black);
+
+    &:hover {
+      background-color: var(--wsPartnerColor, black);
+      color: var(--ylb-color-white, white);
+      border-color: transparent;
+
+      label:after {
+        background-color: var(--ylb-color-white, white);
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+name: 'Y Layout Builder - Small Y Articles and Related articles'
+type: module
+description: 'Helper module for the custom style "Articles" content type and "Related articles" block type'
+package: 'YMCA Website Services'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:block_content
+  - drupal:bootstrap_layout_builder
+  - drupal:datetime
+  - drupal:layout_builder
+  - drupal:layout_builder_restrictions
+  - drupal:lb_related_articles_blocks
+  - drupal:openy_gtranslate
+  - drupal:options
+  - drupal:system
+  - drupal:text
+  - drupal:user
+  - drupal:ws_small_y
+  - drupal:y_lb_article
+  - y_lb
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

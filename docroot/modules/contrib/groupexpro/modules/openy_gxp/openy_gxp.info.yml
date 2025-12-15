@@ -1,0 +1,16 @@
+name: GroupEx Pro integration Program Events Framework
+type: module
+description: Provides a way to import GroupEx Pro classes and sessions.
+core_version_requirement: ^10 || ^11
+lifecycle: deprecated
+lifecycle_link: https://ds-docs.y.org/docs/development/daxko/
+package: Open Y Groupex PRO Integration
+configure: openy_gxp.settings
+dependencies:
+  - migrate_tools:migrate_tools
+  - migrate_source_csv:migrate_source_csv
+
+# Information added by Drupal.org packaging script on 2025-07-03
+version: '2.0.0'
+project: 'groupexpro'
+datestamp: 1751540741

@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Branch CT integration with LB.
+ */
+
+use Drupal\y_branch\Entity\YBranchLayoutBuilderEntityViewDisplay;
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function y_branch_entity_type_alter(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  $entity_types['entity_view_display']
+    ->setClass(YBranchLayoutBuilderEntityViewDisplay::class);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function y_branch_theme() {
+  return [
+    'node__branch__lb' => [
+      'template' => 'node--branch--lb',
+      'base hook' => 'node'
+    ],
+    'page__node__branch' => [
+      'base hook' => 'page',
+      'template' => 'page--node--branch-lb',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function y_branch_form_node_branch_layout_builder_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['#attached']['library'][] = 'y_branch/y_branch';
+}

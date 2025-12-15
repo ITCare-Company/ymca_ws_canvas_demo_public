@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_simple_menu
+label: 'Simple Menu'
+revision: 0
+description: ''

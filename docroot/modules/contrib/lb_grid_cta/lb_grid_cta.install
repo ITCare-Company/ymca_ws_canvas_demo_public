@@ -1,0 +1,182 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Y Layout Builder - Grid CTA module.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Update configs image style. Add convert to webp.
+ */
+function lb_grid_cta_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_grid_cta') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'image.style.card_image',
+  ]);
+}
+
+/**
+ * Change widget field_grid_items in form display
+ */
+function lb_grid_cta_update_9002(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_grid_cta') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.lb_grid_cta.default',
+  ]);
+}
+
+/**
+ * Import config to create 'grid_item' sub block for 'lb_grid_cta' block.
+ */
+function lb_grid_cta_update_9003() {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_grid_cta') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'block_content.type.grid_item',
+    'core.entity_form_display.block_content.grid_item.default',
+    'core.entity_view_display.block_content.grid_item.default',
+    'field.storage.block_content.field_block_item',
+    'field.storage.block_content.field_cta',
+    'field.storage.block_content.field_description',
+    'field.storage.block_content.field_media',
+    'field.storage.block_content.field_title',
+    'field.field.block_content.grid_item.field_cta',
+    'field.field.block_content.grid_item.field_description',
+    'field.field.block_content.grid_item.field_media',
+    'field.field.block_content.grid_item.field_title',
+    'field.field.block_content.lb_grid_cta.field_block_item',
+    'language.content_settings.block_content.grid_item',
+  ]);
+}
+
+/**
+ * Migrate content from 'lb_cta_item' paragraph to 'grid_item' block.
+ */
+function lb_grid_cta_update_9004(&$sandbox) {
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::entityTypeManager();
+  $storageParagraph = $entityTypeManager->getStorage('paragraph');
+  $storageBlock = $entityTypeManager->getStorage('block_content');
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['data'] = [
+      'paragraphs' => $storageParagraph->loadByProperties(['type' => 'lb_cta_item']),
+      'blocks' => []
+    ];
+    // Group paragraphs by parent id.
+    foreach ($sandbox['data']['paragraphs'] as $id => $paragraph) {
+      $sandbox['data']['blocks'][$paragraph->get('parent_id')->value][] = $id;
+    }
+    $sandbox['total'] = count($sandbox['data']['blocks']);
+  }
+
+  $blocks = array_slice($sandbox['data']['blocks'], $sandbox['progress'], 5, true);
+
+  foreach ($blocks as $parentId => $paragraphIds) {
+    $newBlockIds = [];
+
+    foreach ($paragraphIds as $paragraphId) {
+      $paragraph = $sandbox['data']['paragraphs'][$paragraphId];
+      // Create new 'grid_item' sub block with content from paragraph
+      $block = $storageBlock->create([
+        'type' => 'grid_item',
+        'field_description' => $paragraph->get('field_grid_item_description')->getValue(),
+        'field_title' => $paragraph->get('field_grid_item_title')->getValue(),
+        'field_media' => $paragraph->get('field_grid_item_icon')->getValue(),
+        'field_cta' => $paragraph->get('field_grid_item_cta_link')->getValue(),
+      ]);
+
+      $block->save();
+      $newBlockIds[] = $block->id();
+      $paragraph->delete();
+    }
+
+    // Load parent block and set new sub block.
+    /** @var \Drupal\block_content\Entity\BlockContent $parentBlock */
+    if (($parentBlock = $storageBlock->load($parentId)) && $parentBlock->bundle() === 'lb_grid_cta') {
+      $parentBlock->set('field_block_item', $newBlockIds)->save();
+    }
+    $sandbox['progress']++;
+  }
+
+  $sandbox['#finished'] = empty($sandbox['total']) ? 1 : $sandbox['progress'] / $sandbox['total'];
+}
+
+/**
+ * Remove 'lb_cta_item' paragraph config
+ */
+function lb_grid_cta_update_9005() {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_grid_cta') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.lb_grid_cta.default',
+    'core.entity_view_display.block_content.lb_grid_cta.default',
+  ]);
+
+  $configsToDelete = [
+    'paragraphs.paragraphs_type.lb_cta_item',
+    'core.entity_form_display.paragraph.lb_cta_item.default',
+    'core.entity_view_display.paragraph.lb_cta_item.default',
+  ];
+
+  $configFactory = \Drupal::configFactory();
+  foreach ($configsToDelete as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+
+  FieldConfig::loadByName('paragraph', 'lb_cta_item', 'field_grid_item_title')?->delete();
+  FieldConfig::loadByName('paragraph', 'lb_cta_item', 'field_grid_item_icon')?->delete();
+  FieldConfig::loadByName('paragraph', 'lb_cta_item', 'field_grid_item_description')?->delete();
+  FieldConfig::loadByName('paragraph', 'lb_cta_item', 'field_grid_item_cta_link')?->delete();
+  FieldConfig::loadByName('block_content', 'lb_grid_cta', 'field_grid_items')?->delete();
+
+  $fields = [
+    'paragraph' => [
+      'field_grid_item_cta_link',
+      'field_grid_item_title',
+      'field_grid_item_icon',
+      'field_grid_item_description',
+    ],
+    'block_content' => [
+      'field_grid_items'
+    ]
+  ];
+
+  // Check if the field storage is used in other entities
+  foreach ($fields as $entityTypeId => $fieldNames) {
+    foreach ($fieldNames as $fieldName) {
+      $fieldStorage = FieldStorageConfig::loadByName($entityTypeId, $fieldName);
+      if ($fieldStorage && empty($fieldStorage->getBundles())) {
+        $fieldStorage->delete();
+      }
+    }
+  }
+}
+
+/**
+ * Rename label "field_block_item" field
+ */
+function lb_grid_cta_update_9006() {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_grid_cta') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.field.block_content.lb_grid_cta.field_block_item',
+  ]);
+}
+

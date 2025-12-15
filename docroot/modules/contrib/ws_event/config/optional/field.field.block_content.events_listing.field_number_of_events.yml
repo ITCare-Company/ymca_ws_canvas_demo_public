@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.events_listing
+    - field.storage.block_content.field_number_of_events
+  module:
+    - options
+id: block_content.events_listing.field_number_of_events
+field_name: field_number_of_events
+entity_type: block_content
+bundle: events_listing
+label: 'Number of events'
+description: "A field determines how many events will be shown on the first load and after clicking the 'Load more' button (3 by default)."
+required: false
+translatable: false
+default_value:
+  -
+    value: 3
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

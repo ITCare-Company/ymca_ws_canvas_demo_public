@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.small_y_statistics
+    - field.storage.block_content.field_section_color
+  module:
+    - options
+id: block_content.small_y_statistics.field_section_color
+field_name: field_section_color
+entity_type: block_content
+bundle: small_y_statistics
+label: 'Section color '
+description: 'Please select a style of the header.'
+required: true
+translatable: false
+default_value:
+  -
+    value: color_header
+default_value_callback: ''
+settings: {  }
+field_type: list_string

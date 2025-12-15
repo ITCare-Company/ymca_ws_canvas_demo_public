@@ -1,0 +1,19 @@
+name: Open Y Repeat Nodes
+type: module
+description: Provides a helper hooks for nodes of repeatable events.
+core_version_requirement: ^10 || ^11
+# version: 2.0.0
+package: Open Y
+dependencies:
+  - openy_repeat_entity
+  - openy_repeat:openy_repeat
+
+# Information added by Drupal.org packaging script on 2025-05-22
+# version: '2.8.2'
+# project: 'openy_repeat'
+# datestamp: 1747909039
+
+# Information added by Drupal.org packaging script on 2025-11-26
+version: '3.1.1'
+project: 'openy_repeat'
+datestamp: 1764166255

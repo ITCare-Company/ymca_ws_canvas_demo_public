@@ -1,0 +1,5 @@
+promotion_preview:
+  version: 1.0
+  css:
+    theme:
+      assets/css/promotion_preview.css: { preprocess: true }

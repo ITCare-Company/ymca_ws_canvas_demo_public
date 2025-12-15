@@ -1,0 +1,7 @@
+openy_search_api.settings:
+  path: '/admin/openy/settings/search-api'
+  defaults:
+    _form: '\Drupal\openy_search_api\Form\SettingsForm'
+    _title: 'Search API settings'
+  requirements:
+    _permission: 'administer search api'

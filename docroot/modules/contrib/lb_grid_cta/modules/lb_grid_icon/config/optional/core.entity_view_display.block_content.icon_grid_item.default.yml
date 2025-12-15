@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.icon_grid_item
+    - field.field.block_content.icon_grid_item.field_description
+    - field.field.block_content.icon_grid_item.field_media
+    - field.field.block_content.icon_grid_item.field_title
+    - image.style.icon_image
+  module:
+    - media
+id: block_content.icon_grid_item.default
+targetEntityType: block_content
+bundle: icon_grid_item
+mode: default
+content:
+  field_media:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: icon_image
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_description: true
+  field_title: true
+  langcode: true
+  search_api_excerpt: true

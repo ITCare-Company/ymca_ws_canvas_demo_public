@@ -1,0 +1,31 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+
+.header {
+  &.ws-header {
+    &.mobile.open {
+      .block-ws-site-logo {
+        svg {
+          max-height: 35px;
+          left: -85px;
+          path:first-child {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .block-ws-site-logo {
+      @include media-breakpoint-up(xl) {
+        max-width: 175px;
+      }
+      svg {
+        @include media-breakpoint-down(md) {
+          max-height: 40px;
+        }
+      }
+    }
+  }
+}

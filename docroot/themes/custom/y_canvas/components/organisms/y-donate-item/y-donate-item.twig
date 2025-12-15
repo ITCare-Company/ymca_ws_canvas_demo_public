@@ -1,0 +1,23 @@
+{#
+/**
+ * Y Donate Item component.
+ *
+ * Variables:
+ * - amount: (string) Donation amount
+ * - description: (string) Impact description
+ * - url: (string) Donation URL
+ * - highlighted: (boolean) Featured option
+ */
+#}
+
+{% set classes = [
+  'y-donate-item',
+  highlighted ? 'y-donate-item--highlighted' : '',
+] %}
+
+<a href="{{ url|default('#') }}" {{ attributes.addClass(classes) }} data-component="y-donate-item">
+  <span class="y-donate-item__amount">{{ amount }}</span>
+  {% if description %}
+    <span class="y-donate-item__description">{{ description }}</span>
+  {% endif %}
+</a>

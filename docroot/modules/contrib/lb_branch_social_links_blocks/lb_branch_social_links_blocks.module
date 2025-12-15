@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Y-LB Blocks Branch Social Links submodule.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function lb_branch_social_links_blocks_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_branch_social_links_blocks' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-branch-social-links-blocks',
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_branch_social_links_blocks_preprocess_field__field_social_links(&$variables) {
+  foreach ($variables['items'] as $index => $item) {
+    // Reset the link title, because we don't want to see the URL.
+    $variables['items'][$index]['content']['#title'] = '';
+  }
+}

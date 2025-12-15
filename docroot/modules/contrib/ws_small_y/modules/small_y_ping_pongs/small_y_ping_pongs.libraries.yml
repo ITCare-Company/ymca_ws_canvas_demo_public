@@ -1,0 +1,37 @@
+small_y_ping_pongs:
+  version: 1.2
+  css:
+    theme:
+      assets/css/small_y_ping_pongs.css: { preprocess: true }
+
+small_y_ping_pongs_left:
+  version: 1.2
+  css:
+    theme:
+      assets/css/aligment_left.css: { preprocess: true }
+
+small_y_ping_pongs_right:
+  version: 1.2
+  css:
+    theme:
+      assets/css/aligment_right.css: { preprocess: true }
+
+small_y_ping_pongs_background_color:
+  version: 1.1
+  css:
+    theme:
+      assets/css/background_color.css: { preprocess: true }
+
+
+small_y_ping_pongs_background_gray:
+  version: 1.1
+  css:
+    theme:
+      assets/css/background_gray.css: { preprocess: true }
+
+
+small_y_ping_pongs_background_white:
+  version: 1.1
+  css:
+    theme:
+      assets/css/background_white.css: { preprocess: true }

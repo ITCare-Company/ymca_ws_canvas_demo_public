@@ -1,0 +1,95 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.full
+    - field.field.taxonomy_term.tags.layout_builder__layout
+    - taxonomy.vocabulary.tags
+  module:
+    - layout_builder
+    - layout_discovery
+    - text
+    - y_lb
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          9a0b5d8b-a7f7-4b55-b187-28426cff71fc:
+            uuid: 9a0b5d8b-a7f7-4b55-b187-28426cff71fc
+            region: content
+            configuration:
+              id: 'field_block:taxonomy_term:tags:description'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+  layout_builder_restrictions:
+    allowed_block_categories: { }
+    entity_view_mode_restriction:
+      allowed_layouts:
+        - ws_header
+        - ws_footer
+        - 'bootstrap_layout_builder:blb_col_1'
+        - 'bootstrap_layout_builder:blb_col_2'
+        - 'bootstrap_layout_builder:blb_col_3'
+        - 'bootstrap_layout_builder:blb_col_4'
+      denylisted_blocks:
+        'Inline blocks':
+          - 'inline_block:basic_block'
+          - 'inline_block:branch_amenities'
+          - 'inline_block:code_block'
+          - 'inline_block:date_block'
+          - 'inline_block:featured_highlights_block'
+          - 'inline_block:flexible_content'
+          - 'inline_block:menu_block'
+          - 'inline_block:simple_block'
+          - 'inline_block:testimonial_item'
+          - 'inline_block:lb_staff_member_item'
+          - 'inline_block:lb_partner_item'
+          - 'inline_block:accordion_item'
+          - 'inline_block:card_item'
+          - 'inline_block:carousel_item'
+          - 'inline_block:donate_item'
+          - 'inline_block:grid_item'
+          - 'inline_block:icon_grid_item'
+          - 'inline_block:statistics_item'
+          - 'inline_block:tab_item'
+          - 'inline_block:menu_cta'
+      allowlisted_blocks: { }
+      restricted_categories: { }
+  y_lb:
+    styles:
+      colorway: ws_colorway_green
+      border_radius: ws_border_radius_10
+      border_style_global: ws_border_style_global_drop_shadow
+      text_alignment_global: ws_text_alignment_global_left
+      button_position_global: ws_button_position_global_inside
+      button_fill_global: ws_button_fill_global_filled
+id: taxonomy_term.tags.full
+targetEntityType: taxonomy_term
+bundle: tags
+mode: full
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  layout_builder__layout: true

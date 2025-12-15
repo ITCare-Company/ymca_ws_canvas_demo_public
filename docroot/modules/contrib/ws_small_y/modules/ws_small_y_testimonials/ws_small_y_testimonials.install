@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the YMCA WS - Small Y Testimonials module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ws_small_y_testimonials_install() {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_small_y_testimonials') . '/config/optional';
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'field.storage.block_content.field_testimonial_item',
+  ]);
+}

@@ -1,0 +1,5 @@
+lb_partners:
+  version: 1.8
+  css:
+    theme:
+      assets/css/lb-partners.css: { preprocess: true }

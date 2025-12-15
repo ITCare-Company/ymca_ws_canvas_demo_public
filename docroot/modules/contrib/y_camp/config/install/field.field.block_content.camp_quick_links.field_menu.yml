@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.camp_quick_links
+    - field.storage.block_content.field_menu
+id: block_content.camp_quick_links.field_menu
+field_name: field_menu
+entity_type: block_content
+bundle: camp_quick_links
+label: Menu
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:menu'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

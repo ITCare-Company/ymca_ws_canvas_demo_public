@@ -1,0 +1,5 @@
+name: ckeditor
+type: module
+description: Dummy module to replace ckeditor 4.
+package: Useless Machines
+core_version_requirement: ^11

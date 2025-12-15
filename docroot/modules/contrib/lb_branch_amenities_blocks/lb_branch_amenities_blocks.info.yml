@@ -1,0 +1,17 @@
+name: 'Y Layout Builder - Branch Amenities'
+description: 'Display of all amenities available at a branch location.'
+type: module
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - drupal:paragraphs
+  - y_lb
+  - blazy:blazy
+  - drupal:media
+  - drupal:entity_browser
+  - drupal:block_content
+
+# Information added by Drupal.org packaging script on 2025-07-07
+version: '2.0.0'
+project: 'lb_branch_amenities_blocks'
+datestamp: 1751892910

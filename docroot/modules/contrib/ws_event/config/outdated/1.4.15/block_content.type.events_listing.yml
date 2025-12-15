@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: events_listing
+label: 'Events listing'
+revision: 0
+description: 'A component to display events listing in Layout Builder.'

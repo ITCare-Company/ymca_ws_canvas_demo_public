@@ -1,0 +1,11 @@
+translate:
+  version: 9.0.0
+  css:
+    theme:
+      css/openy_gtranslate.css: {}
+  js:
+    js/openy_gtranslate.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once

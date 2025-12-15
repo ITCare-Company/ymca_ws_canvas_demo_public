@@ -1,0 +1,48 @@
+langcode: en
+status: true
+dependencies: {  }
+id: editor
+label: Editor
+weight: 4
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'access documents_library entity browser pages'
+  - 'access documents_library_embed entity browser pages'
+  - 'access images_library entity browser pages'
+  - 'access images_library_embed entity browser pages'
+  - 'access media overview'
+  - 'access site in maintenance mode'
+  - 'access structure page'
+  - 'access toolbar'
+  - 'administer blocks'
+  - 'administer menu'
+  - 'administer nodes'
+  - 'administer taxonomy'
+  - 'create alert content'
+  - 'create landing_page content'
+  - 'create media'
+  - 'delete any alert content'
+  - 'delete any landing_page content'
+  - 'delete any media'
+  - 'delete media'
+  - 'delete own alert content'
+  - 'delete terms in color'
+  - 'delete terms in media_tags'
+  - 'dropzone upload files'
+  - 'edit own alert content'
+  - 'edit terms in color'
+  - 'edit terms in media_tags'
+  - 'revert alert revisions'
+  - 'revert all revisions'
+  - 'revert landing_page revisions'
+  - 'update any media'
+  - 'update media'
+  - 'use text format full_html'
+  - 'use text format full_html'
+  - 'view alert revisions'
+  - 'view all revisions'
+  - 'view landing_page revisions'
+  - 'view media'
+  - 'view own unpublished content'
+  - 'view the administration theme'

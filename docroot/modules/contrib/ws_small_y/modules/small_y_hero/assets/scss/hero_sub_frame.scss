@@ -1,0 +1,231 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.hero__banner__sub_frame {
+  display: block;
+
+  @include media-breakpoint-up(lg) {
+
+  }
+
+  .banner-wrapper {
+    background: var(--smally-hero-gradient, linear-gradient(
+        118.46deg,
+        var(--wsPrimaryColor, #3F4042) 28.72%,
+        var(--wsSecondaryColor, #636466) 96.61%
+    ));
+
+    @include media-breakpoint-up(lg) {
+      border-radius: 0 0 0 50px;
+      display: flex;
+      padding-left: calc(.75 * 186px);
+      min-height: 370px;
+    }
+  }
+
+  .chevron {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    transform: translateX(50%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    @include media-breakpoint-up(lg) {
+      top: 50%;
+      left: 0;
+      transform: translate(-2.5%, -50%);
+    }
+
+    svg {
+      height: 100%;
+      width: 100%;
+      opacity: var(--smally-hero-chevron-opacity, 10%);
+
+      path {
+        fill: var(--smally-hero-chevron-fill, white);
+      }
+
+      @include media-breakpoint-up(lg) {
+        height: 110%;
+        width: auto;
+      }
+    }
+  }
+
+  .wrapper-content {
+    order: 1;
+    flex: 1 1;
+    display: flex;
+    justify-content: flex-start;
+    padding: 40px 40px;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 0;
+      background: none;
+      padding-left: 0;
+    }
+  }
+
+  .hero_banner-content {
+    width: fit-content;
+    position: relative;
+    z-index: 3;
+
+    @include media-breakpoint-up(lg) {
+      max-width: 530px;
+    }
+
+    .cta-wrapper {
+      margin-top: 40px;
+      margin-bottom: 0;
+    }
+
+    .col {
+      background: white;
+      border-radius: var(--wsBorderRadius, 20px);
+      padding: 40px 60px;
+      color: var(--ylb-color-dark-grey-1, #F2F2F2);
+    }
+
+    .block-title {
+      color: var(--ylb-color-dark-grey-1, #F2F2F2);
+      font-size: 32px;
+      line-height: 40px;
+      margin-bottom: 20px;
+
+      @include media-breakpoint-up(lg) {
+        font-size: 50px;
+        line-height: 63px;
+      }
+    }
+
+    .hero_banner-body {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
+  .field--name-field-background-image img,
+  .hero_banner--img {
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    object-fit: cover;
+  }
+
+  // AUDIO CONTROLS
+  .hero_banner--audio-controls {
+    margin-top: -60px;
+
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+
+    i,
+    svg {
+      font-size: 24px;
+      width: 24px;
+      height: auto;
+
+      @media (min-width: 992px) {
+        font-size: 36px;
+      }
+
+      &[class*="fa-volume"] {
+        max-width: 50px;
+      }
+    }
+
+    // Hide our play button
+    &.is-playing #hero_banner--btn-play {
+      display: none;
+    }
+
+    // Hide our pause button
+    &:not(.is-playing) #hero_banner--btn-pause {
+      display: none;
+    }
+
+    // Hide our mute button
+    &.is-muted #hero_banner--btn-mute {
+      display: none;
+    }
+
+    // Hide our mute button
+    &:not(.is-muted) #hero_banner--btn-unmute {
+      display: none;
+    }
+  }
+
+  // YouTube Video
+  .hero_banner-video,
+  .hero_banner-image {
+    position: absolute;
+    width: 75%;
+    height: 420px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 50%);
+
+    @include media-breakpoint-up('md') {
+      height: 100%;
+    }
+
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+
+    .field--name-field-background-image .contextual-region {
+      position: static;
+    }
+
+    .hero_banner-video--youtube-player-wrapper {
+      position: relative;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    video,
+    iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%);
+
+      @media (min-aspect-ratio: 16/9) {
+        /* height = 100 * (9 / 16) = 56.25 */
+        height: 56.25vw;
+      }
+      @media (max-aspect-ratio: 16/9) {
+        /* width = 100 / (9 / 16) = 177.777777 */
+        width: 177.78vh;
+      }
+    }
+  }
+
+  .hero-banner-preloader {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: calc(50% - 30px);
+    top: calc(50% - 30px);
+
+    svg {
+      width: 60px;
+      height: auto;
+    }
+  }
+}

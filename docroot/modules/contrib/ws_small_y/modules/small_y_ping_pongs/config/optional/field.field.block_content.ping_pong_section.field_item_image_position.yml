@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.ping_pong_section
+    - field.storage.block_content.field_item_image_position
+  module:
+    - options
+id: block_content.ping_pong_section.field_item_image_position
+field_name: field_item_image_position
+entity_type: block_content
+bundle: ping_pong_section
+label: 'Image alignment'
+description: 'Places the image on this side of the page in the full-width display. Image will stack above text at narrow widths.'
+required: true
+translatable: false
+default_value:
+  -
+    value: left
+default_value_callback: ''
+settings: {  }
+field_type: list_string

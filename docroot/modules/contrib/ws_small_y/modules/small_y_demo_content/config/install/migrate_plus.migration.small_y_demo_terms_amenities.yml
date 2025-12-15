@@ -1,0 +1,112 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_terms_amenities
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Small Y - Import demo amenities terms'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: Adaptive programs
+    -
+      id: 2
+      title: Adult enrichment programs
+    -
+      id: 3
+      title: After school child care
+    -
+      id: 4
+      title: Child watch
+    -
+      id: 5
+      title: Community garden
+    -
+      id: 6
+      title: Community health
+    -
+      id: 7
+      title: Day camp
+    -
+      id: 8
+      title: Family pool/splash pad
+    -
+      id: 9
+      title: Group exercise classes
+    -
+      id: 10
+      title: Gymnasium
+    -
+      id: 11
+      title: Hot tub
+    -
+      id: 12
+      title: Indoor pool
+    -
+      id: 13
+      title: Indoor track
+    -
+      id: 14
+      title: Meeting rooms
+    -
+      id: 15
+      title: Outdoor pool
+    -
+      id: 16
+      title: Outdoor track
+    -
+      id: 17
+      title: Personal training
+    -
+      id: 18
+      title: Playground
+    -
+      id: 19
+      title: Racquetball/handball courts
+    -
+      id: 20
+      title: Sauna
+    -
+      id: 21
+      title: Steam room
+    -
+      id: 22
+      title: Strength/cardio equipment
+    -
+      id: 23
+      title: Swim lessons
+    -
+      id: 24
+      title: Teen programs
+    -
+      id: 25
+      title: YMCA children’s academy
+    -
+      id: 26
+      title: Youth enrichment
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  name: title
+  weight: tid
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: amenities
+
+migration_dependencies:
+  required: {  }
+  optional: {  }

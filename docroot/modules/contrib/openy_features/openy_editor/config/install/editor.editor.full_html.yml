@@ -1,0 +1,158 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - ckeditor5
+format: full_html
+editor: ckeditor5
+settings:
+  toolbar:
+    items:
+      - bold
+      - italic
+      - underline
+      - strikethrough
+      - alignment
+      - outdent
+      - indent
+      - fontColor
+      - fontBackgroundColor
+      - heading
+      - style
+      - '|'
+      - link
+      - '|'
+      - bulletedList
+      - numberedList
+      - '|'
+      - blockQuote
+      - drupalMedia
+      - '|'
+      - removeFormat
+      - insertTable
+      - sourceEditing
+      - specialCharacters
+      - textPartLanguage
+  plugins:
+    ckeditor5_alignment:
+      enabled_alignments:
+        - center
+        - justify
+        - left
+        - right
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_language:
+      language_list: un
+    ckeditor5_list:
+      properties:
+        reversed: true
+        startIndex: true
+      multiBlock: true
+    ckeditor5_paste_filter_pasteFilter:
+      enabled: true
+      filters:
+        -
+          enabled: true
+          weight: -10
+          search: '<o:p><\/o:p>'
+          replace: ''
+        -
+          enabled: true
+          weight: -9
+          search: '(<[^>]*) (style="[^"]*")'
+          replace: $1
+        -
+          enabled: true
+          weight: -8
+          search: '(<[^>]*) (face="[^"]*")'
+          replace: $1
+        -
+          enabled: true
+          weight: -7
+          search: '(<[^>]*) (class="[^"]*")'
+          replace: $1
+        -
+          enabled: true
+          weight: -6
+          search: '(<[^>]*) (valign="[^"]*")'
+          replace: $1
+        -
+          enabled: true
+          weight: -5
+          search: '<font[^>]*>'
+          replace: ''
+        -
+          enabled: true
+          weight: -4
+          search: '<\/font>'
+          replace: ''
+        -
+          enabled: true
+          weight: -3
+          search: '<span[^>]*>'
+          replace: ''
+        -
+          enabled: true
+          weight: -2
+          search: '<\/span>'
+          replace: ''
+        -
+          enabled: true
+          weight: -1
+          search: '<p>&nbsp;<\/p>'
+          replace: ''
+        -
+          enabled: true
+          weight: 0
+          search: '<p><\/p>'
+          replace: ''
+        -
+          enabled: true
+          weight: 1
+          search: '<b><\/b>'
+          replace: ''
+        -
+          enabled: true
+          weight: 2
+          search: '<i><\/i>'
+          replace: ''
+        -
+          enabled: true
+          weight: 3
+          search: '<a name="OLE_LINK[^"]*">(.*?)<\/a>'
+          replace: $1
+    ckeditor5_plugin_pack_font__font_color:
+      colors: {  }
+      use_default_colors: true
+      use_colorpicker: true
+      font_color_columns: 5
+      font_color_document_colors: 10
+      bg_color_columns: 5
+      bg_color_document_colors: 10
+    ckeditor5_sourceEditing:
+      allowed_tags: {  }
+    ckeditor5_style:
+      styles:
+        -
+          label: Highlighted
+          element: '<span class="highlighted">'
+    editor_advanced_link_link:
+      enabled_attributes:
+        - aria-label
+        - class
+        - id
+        - rel
+        - target
+        - title
+    media_media:
+      allow_view_mode_override: true
+image_upload:
+  status: false

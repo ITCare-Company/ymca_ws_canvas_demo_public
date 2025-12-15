@@ -1,0 +1,180 @@
+<?php
+
+/**
+ * @file
+ * Open Y Editor install file.
+ */
+
+/**
+ * Update Open Y editor feature configs.
+ */
+function openy_editor_update_8001() {
+  $config_dir = \Drupal::service('extension.list.module')->getPath('openy_editor') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'filter.format.full_html' => [
+      'filters',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update editor settings to add local video embed button.
+ */
+function openy_editor_update_8002() {
+  $config = \Drupal::service('extension.list.module')->getPath('openy_editor') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar.rows');
+}
+
+/**
+ * Update editor settings.
+ */
+function openy_editor_update_8003() {
+  // Update Enable CKEditor Font module.
+  \Drupal::service('module_installer')->install(['ckeditor_font'], TRUE);
+  openy_editor_update_8002();
+}
+
+/**
+ * Update editor settings to remove Font and Font Size buttons.
+ */
+function openy_editor_update_8004() {
+  $active_config = \Drupal::configFactory()->getEditable('editor.editor.full_html');
+  $settings = $active_config->get('settings');
+  if (empty($settings['toolbar']['rows'][0])) {
+    return;
+  }
+  $button_to_remove = ['Font', 'FontSize'];
+  foreach ($settings['toolbar']['rows'][0] as $id => $row) {
+    if ($row['name'] === 'Formatting' && !empty($row['items'])) {
+      $settings['toolbar']['rows'][0][$id]['items'] = array_values(
+        array_diff($row['items'], $button_to_remove)
+      );
+    }
+  }
+  $active_config->set('settings', $settings);
+  $active_config->set('settings.plugins', $active_config->get('settings.plugins'));
+  $active_config->save(TRUE);
+}
+
+/**
+ * Add the fontColor and the fontBackgroundColor buttons for CKEditor 5.
+ */
+function openy_editor_update_8005() {
+  // These buttons are in the config file 'editor.editor.full_html.yml' already.
+}
+
+/**
+ * Allow override view mode for media.
+ */
+function openy_editor_update_9001() {
+  $path = \Drupal::service('extension.list.module')->getPath('openy_editor') . '/config/install';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'editor.editor.full_html',
+    'filter.format.full_html',
+  ]);
+}
+
+/**
+ * Update Ckeditor5 toolbar and ensure dependencies are installed.
+ */
+function openy_editor_update_9002() {
+  \Drupal::service('module_installer')->install(['ckeditor5_font']);
+
+  $config_dir = \Drupal::service('extension.list.module')->getPath('openy_editor') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'editor.editor.full_html',
+  ]);
+}
+
+/**
+ * Add WS colors to Ckeditor5 font and background color plugins.
+ */
+function openy_editor_update_9003() {
+  openy_editor_update_9002();
+}
+
+/**
+ * Update editor settings to add Ckeditor5 paste filter.
+ */
+function openy_editor_update_91001() {
+  if (!\Drupal::moduleHandler()->moduleExists('ckeditor5_paste_filter')) {
+    \Drupal::service('module_installer')->install(['ckeditor5_paste_filter']);
+  }
+
+  $active_config = \Drupal::configFactory()->getEditable('editor.editor.full_html');
+  $plugin_manager = \Drupal::service('plugin.manager.ckeditor5.plugin');
+  $default_plugin_settings = $plugin_manager
+    ->getPlugin('ckeditor5_paste_filter_pasteFilter', NULL)
+    ->defaultConfiguration();
+  // Enable the filter.
+  $default_plugin_settings['enabled'] = TRUE;
+  $enabled_plugins = $active_config->get('settings.plugins');
+  $enabled_plugins['ckeditor5_paste_filter_pasteFilter'] = $default_plugin_settings;
+  $active_config->set('settings.plugins', $enabled_plugins);
+  $active_config->save(TRUE);
+}
+
+/**
+ * Update editor settings to add Style button with a 'highlighted' style.
+ */
+function openy_editor_update_91002() {
+  $active_config = \Drupal::configFactory()->getEditable('editor.editor.full_html');
+  $settings = $active_config->get('settings');
+  if (empty($settings['toolbar']['items'])) {
+    return;
+  }
+  // Put the Style button to the toolbar.
+  foreach ($settings['toolbar']['items'] as $id => $plugin_name) {
+    if ($plugin_name === 'heading') {
+      $position = $id + 1;
+      array_splice( $settings['toolbar']['items'] , $position, 0, 'style');
+    }
+  }
+  // Add the "Highlighted" style.
+  $default_plugin_settings = [
+    'styles' => [
+      [
+        'label' => 'Highlighted',
+        'element' => '<span class="highlighted">',
+      ]
+    ],
+  ];
+
+  $settings['plugins']['ckeditor5_style'] = $default_plugin_settings;
+  $active_config->set('settings', $settings);
+  $active_config->save(TRUE);
+}
+
+/**
+ * Update Ckeditor5 remove ckeditor5_font module and install ckeditor5_plugin_pack module.
+ */
+function openy_editor_update_91004() {
+  // Check if ckeditor5_font module is installed.
+  if (\Drupal::moduleHandler()->moduleExists('ckeditor5_font')) {
+    \Drupal::service('module_installer')->uninstall(['ckeditor5_font']);
+  }
+  \Drupal::service('module_installer')->install(['ckeditor5_plugin_pack'], TRUE);
+  \Drupal::service('module_installer')->install(['ckeditor5_plugin_pack_font'], TRUE);
+  $config_dir = \Drupal::service('extension.list.module')->getPath('openy_editor') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'editor.editor.full_html',
+    'filter.format.full_html'
+  ]);
+}

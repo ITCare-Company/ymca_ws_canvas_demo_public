@@ -1,0 +1,6 @@
+small_y_donate.lb_donate_override:
+  block_type: lb_donate
+  library: small_y_donate/lb_donate_override
+  override: false
+  active_colorways:
+    - '*'

@@ -1,0 +1,51 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Branch Social
+description: Social media links for branch with icon display
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Section heading for social links
+      examples:
+        - 'Connect With Us'
+
+    links:
+      type: array
+      title: Social Links
+      description: Array of social media link objects with platform and URL
+      examples:
+        - [{"platform": "facebook", "url": "https://facebook.com/ymca"}, {"platform": "instagram", "url": "https://instagram.com/ymca"}]
+
+    display_style:
+      type: string
+      title: Display Style
+      description: Visual style for social icons
+      default: 'icons'
+      enum:
+        - 'icons'
+        - 'buttons'
+        - 'text'
+      meta:enum:
+        icons: 'Icons Only'
+        buttons: 'Icon Buttons'
+        text: 'Text Links'
+      examples:
+        - 'icons'
+
+    show_labels:
+      type: boolean
+      title: Show Labels
+      description: Display platform name alongside icons
+      default: false
+      examples:
+        - false
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-branch-social

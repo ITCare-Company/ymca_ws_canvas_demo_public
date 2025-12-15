@@ -1,0 +1,27 @@
+name: Y Camp
+type: module
+description: Camp CT integration point with Layout Builder.
+core_version_requirement: ^8.7.7 || ^9 || ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - drupal:block_content
+  - entity_browser_entity_form
+  - openy_loc_facility
+  - lb_branch_social_links_blocks
+  - lb_branch_amenities_blocks
+  - lb_branch_hours_blocks
+  - y_lb
+  - y_branch
+  - layout_builder
+  - user
+  - path
+  - system
+  - node
+  - openy_loc_camp
+  - drupal:simple_sitemap
+  - pathauto:pathauto
+
+# Information added by Drupal.org packaging script on 2025-12-02
+version: '2.1.0'
+project: 'y_camp'
+datestamp: 1764698973

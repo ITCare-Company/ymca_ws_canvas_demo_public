@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_search_results
+label: 'Search results'
+revision: 0
+description: 'Displays search results in a block for Layout Builder.'

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: articles_filter
+label: 'Articles Filter'
+revision: 0
+description: 'A component to display filters for articles listing in Layout Builder.'

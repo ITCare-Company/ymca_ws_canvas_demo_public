@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.events_listing
+id: block_content.events_listing.default
+targetEntityType: block_content
+bundle: events_listing
+mode: default
+content: {  }
+hidden:
+  info: true
+  langcode: true

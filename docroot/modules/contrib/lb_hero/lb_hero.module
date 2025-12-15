@@ -1,0 +1,113 @@
+<?php
+
+/**
+ * @file
+ * LB Hero Banner submodule.
+ */
+
+/**
+ * Implements HOOK_theme().
+ */
+function lb_hero_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_hero' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero',
+    ],
+    'block__lb_hero__variation_standard' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-standard',
+    ],
+    'block__lb_hero__variation_overlay' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-overlay',
+    ],
+    'block__lb_hero__variation_chevron' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-chevron',
+    ],
+    'block__lb_hero__variation_frame' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-frame',
+    ],
+    'block__lb_hero__variation_small' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-hero--variation-small',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_hero_preprocess_block__lb_hero(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $variables['media'] = $variables['block_content']->field_media->entity ?? FALSE;
+
+  if ($variables['media']) {
+    $variables['media_type'] = $variables['media']->bundle();
+
+    if ($variables['media_type'] === 'video_local') {
+      $variables['media_url'] = $variables['media']->field_media_local_video->entity->uri->value;
+    }
+    if ($variables['media_type'] === 'video') {
+      $remote_uri = $variables['media']->field_media_video_embed_field->value;
+      if (preg_match('/youtu\.be|youtube/', $remote_uri)) {
+        $variables['media_type'] = 'youtube_video';
+        $variables['youtube_id'] = _lb_hero_parse_youtube_token($remote_uri);
+      }
+      if (preg_match('/vimeo/', $remote_uri)) {
+        $variables['media_type'] = 'vimeo_video';
+        $variables['media_url'] = $remote_uri;
+      }
+    }
+  }
+
+  // Render field_description so it can be processed by text filters.
+  if ($variables['block_content']->field_description) {
+    $description_view = $variables['block_content']->field_description
+      ->view(['label' => 'hidden']) ?? [];
+    $variables['description'] = \Drupal::service('renderer')
+      ->render($description_view);
+  }
+}
+
+/**
+ * Helper function to extract Youtube Video ID from the URI of different formats.
+ *
+ * @param string $url
+ *
+ * @return string|null
+ */
+function _lb_hero_parse_youtube_token(string $url): ?string {
+  if (strncmp($url, 'user/', 5) === 0) { // 1.
+    return null;
+  }
+
+  if (preg_match('/^[a-zA-Z0-9\-\_]{11}$/', $url)) { // 2.
+    return $url;
+  }
+
+  if (preg_match('/(?:watch\?v=|v\/|embed\/|ytscreeningroom\?v=|\?v=|\?vi=|e\/|watch\?.*vi?=|\?feature=[a-z_]*&v=|vi\/)([a-zA-Z0-9\-\_]{11})/', $url, $regularMatch)) { // 3.
+    return $regularMatch[1];
+  }
+
+  if (preg_match('/([a-zA-Z0-9\-\_]{11})(?:\?[a-z]|\&[a-z])/', $url, $organicParametersMatch)) { // 4.
+    return $organicParametersMatch[1];
+  }
+
+  if (preg_match('/u\/1\/([a-zA-Z0-9\-\_]{11})(?:\?rel=0)?$/', $url)) { // 5.
+    return null; // 5. User channel without token.
+  }
+
+  if (preg_match('/(?:watch%3Fv%3D|watch\?v%3D)([a-zA-Z0-9\-\_]{11})[%&]/', $url, $urlEncoded)) { // 6.
+    return $urlEncoded[1];
+  }
+
+  // 7. Rules for special cases
+  if (preg_match('/watchv=([a-zA-Z0-9\-\_]{11})&list=/', $url, $special1)) {
+    return $special1[1];
+  }
+
+  return null;
+}

@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Small Y Alerts install file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function small_y_alerts_install() {
+  _small_y_alerts_add_new_styles_for_alerts();
+}
+
+/**
+ * Add new options for Alert style field.
+ */
+function _small_y_alerts_add_new_styles_for_alerts() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = \Drupal::service('extension.list.module')->getPath('small_y_alerts');
+  $config .= '/config/optional/';
+  $config .= 'field.storage.node.field_alert_style.yml';
+  $config_importer->update(
+    $config,
+    'field.storage.node.field_alert_style',
+    'settings.allowed_values'
+  );
+}
+
+/**
+ * Add new options for Alert style field.
+ */
+function small_y_alerts_update_91001() {
+  _small_y_alerts_add_new_styles_for_alerts();
+}

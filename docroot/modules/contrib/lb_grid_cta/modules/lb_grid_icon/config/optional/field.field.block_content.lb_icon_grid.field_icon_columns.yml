@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_icon_grid
+    - field.storage.block_content.field_icon_columns
+  module:
+    - options
+id: block_content.lb_icon_grid.field_icon_columns
+field_name: field_icon_columns
+entity_type: block_content
+bundle: lb_icon_grid
+label: '# of columns'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

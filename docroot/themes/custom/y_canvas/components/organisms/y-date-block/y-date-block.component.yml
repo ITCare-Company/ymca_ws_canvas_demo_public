@@ -1,0 +1,50 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Date Block
+description: Date display block with start/end dates
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Label above the date display
+      examples:
+        - 'Event Dates'
+
+    start_date:
+      type: string
+      title: Start Date
+      description: Start date in display format
+      examples:
+        - 'January 15, 2025'
+
+    end_date:
+      type: string
+      title: End Date
+      description: End date in display format (optional for single-day events)
+      examples:
+        - 'January 20, 2025'
+
+    format:
+      type: string
+      title: Date Format
+      description: Display format for dates
+      default: 'medium'
+      enum:
+        - 'short'
+        - 'medium'
+        - 'long'
+      meta:enum:
+        short: 'Short (Jan 15)'
+        medium: 'Medium (January 15, 2025)'
+        long: 'Long (Wednesday, January 15, 2025)'
+      examples:
+        - 'medium'
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-date-block

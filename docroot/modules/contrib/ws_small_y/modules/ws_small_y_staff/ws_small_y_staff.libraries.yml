@@ -1,0 +1,11 @@
+lb_staff_override:
+  version: 0.4
+  css:
+    component:
+      assets/css/lb-staff-override.css: { preprocess: true }
+  js:
+    assets/js/card_links.js: { minified: false }
+  dependencies:
+    - lb_staff_members_blocks/lb_staff_members
+    - core/drupal
+    - core/once

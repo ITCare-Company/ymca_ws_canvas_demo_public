@@ -1,0 +1,223 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Camp CT integration with LB.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function y_camp_theme() : array {
+  return [
+    'node__camp__lb' => [
+      'template' => 'node--camp--lb',
+      'base hook' => 'node'
+    ],
+    'node__camp_lp' => [
+      'base hook' => 'node'
+    ],
+    'page__node__camp' => [
+      'base hook' => 'page',
+      'template' => 'page--node--camp-lb',
+    ],
+    'page__node__camp_lp' => [
+      'base hook' => 'page',
+      'template' => 'page--node--camp-lp',
+    ],
+    'block__y_camp_info' => [
+      'base hook' => 'block'
+    ],
+     'block__camp_menu_lb' => [
+      'base hook' => 'block',
+    ],
+    'menu__camp_menu_lb' => [
+      'base hook' => 'menu',
+    ],
+    'block__camp_quick_links' => [
+      'base hook' => 'block',
+    ],
+    'menu__camp_quick_links' => [
+      'base hook' => 'menu',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function y_camp_preprocess_block__y_camp_info(&$variables) {
+  if (isset($variables['content']['#attached'])) {
+    $variables['#attached'] = $variables['content']['#attached'];
+    unset($variables['content']['#attached']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function y_camp_preprocess_block__camp_menu_lb(&$variables) {
+  _y_camp_check_if_camp_menu_selected($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function y_camp_preprocess_block__camp_quick_links(&$variables) {
+  _y_camp_check_if_camp_menu_selected($variables);
+}
+
+/**
+ *  Check if the was selected a menu to display.
+ *
+ * @param $variables
+ *
+ * @return void
+ */
+function _y_camp_check_if_camp_menu_selected(&$variables) {
+  $block = $variables['elements']['content']['#block_content'];
+  $variables['menu_not_selected'] = $block->field_menu->isEmpty();
+  $variables['inform_message'] = t('Please select the menu to display in this @name block.', ['@name' => $block->label()]);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for node entities.
+ */
+function y_camp_node_presave(EntityInterface $node) {
+  if (!$node->hasField('field_camp')) {
+    return;
+  }
+
+  $entities = $node->get('field_camp')->referencedEntities();
+  $camp = reset($entities);
+  if (!$camp instanceof NodeInterface || $camp->bundle() != 'camp') {
+    return;
+  }
+  // Copy a camp section only for new camp landing page node.
+  if (!$node->isNew()) {
+    return;
+  }
+  // Copy sections from the parent Camp node.
+  $landing_page_layout = _y_camp_copy_sections($camp);
+  if ($landing_page_layout) {
+    $node->set('layout_builder__layout', $landing_page_layout);
+  }
+  // Copy styles from the parent Camp node.
+  if ($camp->get('override_styles')->value) {
+    $node->set('styles', $camp->get('styles')->value);
+    $node->set('override_styles', 1);
+  }
+}
+
+/**
+ * Help function.
+ *   Get sections frm the parent Camp node.
+ *
+ * @param \Drupal\node\NodeInterface $camp_node
+ *  A camp node.
+ *
+ * @return array
+ *   An array with sections to copy.
+ */
+function _y_camp_copy_sections(NodeInterface $camp_node) {
+  $landing_page_layout = [];
+  $sections = $camp_node->get('layout_builder__layout')->getValue();
+  if (!$sections) {
+    return [];
+  }
+
+  foreach ($sections as $item) {
+    $section = $item['section'];
+    $layoutId = $item['section']->getLayoutId();
+    if ($layoutId === 'ws_camp_header') {
+      // We should put it in the correct order.
+      $landing_page_layout[0] = $section;
+    }
+    $layout_settings = $section->getLayoutSettings();
+    if ($layout_settings['label'] === 'Body') {
+      $landing_page_layout[1] = $section;
+    }
+    if ($layoutId === 'ws_footer') {
+      $landing_page_layout[2] = $section;
+    }
+  }
+  return $landing_page_layout;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function y_camp_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  $bundle = \Drupal::routeMatch()?->getParameter('node')?->bundle();
+
+  if (!isset($variables['menu_name'])) {
+    return;
+  }
+  // Suggest templates for the menu based on the block the menu is related to.
+  $block_bundle = _get_related_block_type_by_camp_menu($variables['menu_name']);
+  if (!$block_bundle) {
+    return;
+  }
+  $suggestions[] = 'menu__' . $block_bundle;
+}
+
+/**
+ * Find the block bundle by the menu related to.
+ *
+ * @param string $menu_name
+ *   A name of the menu.
+ * @return string|bool
+ *   A block bundle name or FALSE if not found it.
+ */
+function _get_related_block_type_by_camp_menu(string $menu_name) {
+  $menu_name = trim($menu_name);
+  $query = \Drupal::database()->select('block_content__field_menu', 'b');
+  $query->fields('b', ['bundle']);
+  $query->condition('b.field_menu_target_id', $menu_name);
+  $query->orderBy('b.entity_id');
+  return $query->execute()->fetchField();
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function y_camp_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  if (in_array($form_id,
+    [
+      'layout_builder_add_block',
+      'layout_builder_update_block',
+    ]
+  )) {
+
+    /** @var \Drupal\layout_builder\Form\ConfigureBlockFormBase $form_object */
+    $form_object = $form_state->getFormObject();
+    $component = $form_object->getCurrentComponent();
+    $plugin = $component->getPlugin();
+    $block_id = $plugin->getDerivativeId() ?? $plugin->getBaseId();
+
+    if ($block_id === 'camp_quick_links') {
+        $form['settings']['label_display']['#default_value'] = TRUE;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function y_camp_preprocess_ws_camp_header(&$variables) {
+  foreach ($variables['content']['header_bottom_right'] as $block) {
+    if (is_array($block) && isset($block['#plugin_id']) && in_array($block['#plugin_id'], [
+        'inline_block:camp_menu_lb',
+        'inline_block:camp_quick_links'
+      ])) {
+      if (isset($block['content']['field_menu']['#items']) && !$block['content']['field_menu']['#items']->isEmpty()) {
+        $variables['attributes']['class'][] = 'has-bottom-menu';
+      }
+    }
+  }
+}

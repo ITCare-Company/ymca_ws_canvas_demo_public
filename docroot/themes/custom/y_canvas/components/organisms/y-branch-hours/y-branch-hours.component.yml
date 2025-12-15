@@ -1,0 +1,50 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Branch Hours
+description: Branch operating hours display with daily schedule
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Section heading for hours
+      examples:
+        - 'Hours of Operation'
+
+    hours:
+      type: array
+      title: Hours
+      description: Array of day/hours objects
+      examples:
+        - [{"day": "Monday", "hours": "5:00 AM - 10:00 PM"}, {"day": "Sunday", "hours": "7:00 AM - 6:00 PM"}]
+
+    show_today:
+      type: boolean
+      title: Highlight Today
+      description: Visually highlight the current day
+      default: true
+      examples:
+        - true
+
+    closed_label:
+      type: string
+      title: Closed Label
+      description: Text to display when branch is closed
+      default: 'Closed'
+      examples:
+        - 'Closed'
+
+    holiday_hours:
+      type: string
+      title: Holiday Hours Note
+      description: Optional note about holiday schedule changes
+      examples:
+        - 'Hours may vary on holidays. Please call ahead.'
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-branch-hours

@@ -1,0 +1,38 @@
+# Custom module library for general purposes.
+branch_hours:
+  version: 1.72
+  css:
+    component:
+      assets/css/branch-hours.css: { preprocess: true }
+
+hours_today:
+  version: 1.2
+  js:
+    assets/js/hours_today.js: { minified: false }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - lb_branch_hours_blocks/moment
+    - lb_branch_hours_blocks/moment-timezone
+
+moment:
+  remote: https://github.com/moment/moment/
+  version: 2.24.0
+  license:
+    name: MIT License
+    url: https://github.com/moment/moment/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js: { type: external, minified: true }
+
+moment-timezone:
+  remote: https://github.com/moment/moment-timezone
+  version: 0.5.27
+  license:
+    name: MIT License
+    url: https://github.com/moment/moment-timezone/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.27/moment-timezone.min.js: { type: external, minified: true }
+    //cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.27/moment-timezone-with-data.min.js: { type: external, minified: true }

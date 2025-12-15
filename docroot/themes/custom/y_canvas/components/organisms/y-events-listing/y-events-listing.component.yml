@@ -1,0 +1,100 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Events Listing
+description: Grid listing of event cards with pagination
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Main heading for the events section
+      examples:
+        - 'Upcoming Events'
+
+    subtitle:
+      type: string
+      title: Subtitle
+      description: Supporting text below the main heading
+      examples:
+        - 'Join us for exciting programs and activities'
+
+    columns:
+      type: integer
+      title: Columns
+      description: Number of columns in the grid layout
+      default: 3
+      enum:
+        - 2
+        - 3
+        - 4
+      meta:enum:
+        2: '2 Columns'
+        3: '3 Columns'
+        4: '4 Columns'
+      examples:
+        - 3
+
+    show_pagination:
+      type: boolean
+      title: Show Pagination
+      description: Display pagination controls
+      default: true
+      examples:
+        - true
+
+    items_per_page:
+      type: integer
+      title: Items Per Page
+      description: Number of events to display per page
+      default: 9
+      examples:
+        - 9
+
+    current_page:
+      type: integer
+      title: Current Page
+      description: Current active page number
+      default: 1
+      examples:
+        - 1
+
+    total_pages:
+      type: integer
+      title: Total Pages
+      description: Total number of pages available
+      examples:
+        - 5
+
+    empty_message:
+      type: string
+      title: Empty Message
+      description: Message shown when no events are found
+      examples:
+        - 'No upcoming events found.'
+
+    view_mode:
+      type: string
+      title: View Mode
+      description: Display style for event cards
+      default: 'grid'
+      enum:
+        - 'grid'
+        - 'list'
+      meta:enum:
+        grid: 'Grid View'
+        list: 'List View'
+      examples:
+        - 'grid'
+
+slots:
+  events:
+    title: Events
+    description: Event card items
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-events-listing

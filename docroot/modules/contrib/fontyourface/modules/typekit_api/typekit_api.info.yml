@@ -1,0 +1,12 @@
+name: '@fontyourface - Typekit'
+type: module
+description: '@font-your-face provider with Typekit.com fonts.'
+core_version_requirement: ^10.2 || ^11.0
+package: '@font-your-face'
+dependencies:
+  - fontyourface:fontyourface
+
+# Information added by Drupal.org packaging script on 2025-11-18
+version: '4.1.0'
+project: 'fontyourface'
+datestamp: 1763474878

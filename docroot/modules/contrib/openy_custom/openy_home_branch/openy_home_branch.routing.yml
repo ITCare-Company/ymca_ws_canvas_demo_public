@@ -1,0 +1,7 @@
+openy_home_branch.settings:
+  path: /admin/openy/home-branch-settings
+  defaults:
+    _form: '\Drupal\openy_home_branch\Form\SettingsForm'
+    _title: 'Open Y Home branch settings'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_ping_pong
+    - field.storage.block_content.field_item_image_position
+  module:
+    - datalayer
+    - options
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_item_image_position
+id: block_content.lb_ping_pong.field_item_image_position
+field_name: field_item_image_position
+entity_type: block_content
+bundle: lb_ping_pong
+label: 'Image position'
+description: 'Places the image on this side of the page in the full-width display. Image will stack above text at narrow widths.'
+required: true
+translatable: false
+default_value:
+  -
+    value: left
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,5 @@
+services:
+  ws_promotion_hero.render_block_component_subscriber:
+    class: Drupal\ws_promotion_hero\EventSubscriber\BlockComponentVariationSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,20 @@
+small_y_branch.y_branch_hours_override:
+  block_type: lb_branch_hours
+  library: small_y_branch/y_branch_hours_override
+  override: false
+  active_colorways:
+    - '*'
+
+small_y_branch.y_branch_amenities_override:
+  block_type: lb_branch_amenities_blocks
+  library: small_y_branch/y_branch_amenities_override
+  override: false
+  active_colorways:
+    - '*'
+
+small_y_branch.y_branch_social_links_override:
+  block_type: lb_branch_social_links_blocks
+  library: small_y_branch/y_branch_social_links_override
+  override: false
+  active_colorways:
+    - '*'

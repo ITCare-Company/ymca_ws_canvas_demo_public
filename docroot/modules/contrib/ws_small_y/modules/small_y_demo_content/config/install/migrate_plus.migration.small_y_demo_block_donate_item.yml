@@ -1,0 +1,71 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_donate_item
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Create Demo Item for Giving Amount component'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: giving_amount_1
+      uuid: 'a411aeb8-8c69-4ca3-9d07-e72cd6b765d7'
+      title: '$25'
+      form_element_id: "25"
+
+    -
+      id: giving_amount_2
+      uuid: 'e0d6dc73-f529-43b7-88a0-eea7b010706e'
+      title: '$50'
+      form_element_id: "50"
+
+    -
+      id: giving_amount_3
+      uuid: '74419d70-01f8-428e-8047-18549c271e0f'
+      title: '$100'
+      form_element_id: "100"
+
+    -
+      id: giving_amount_4
+      uuid: '876a168b-3bb4-4587-8cd5-0e28396d3bcf'
+      title: '$200'
+      form_element_id: "200"
+
+    -
+      id: giving_amount_5
+      uuid: '1da2cd83-1bf6-4f45-a99b-057eaf4cac89'
+      title: '$300'
+      form_element_id: "300"
+
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  uuid: uuid
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: donate_item
+  field_title: title
+  field_form_element_id: form_element_id
+destination:
+  plugin: entity:block_content
+  default_bundle: 'donate_item'
+migration_dependencies: {  }

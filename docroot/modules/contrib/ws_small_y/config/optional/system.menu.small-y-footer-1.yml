@@ -1,0 +1,6 @@
+langcode: en
+status: true
+id: small-y-footer-1
+label: 'Small Y Footer 1'
+description: 'Links for the first menu in the Small Y footer'
+locked: false

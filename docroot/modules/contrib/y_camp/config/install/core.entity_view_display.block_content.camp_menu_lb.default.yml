@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.camp_menu_lb
+    - field.field.block_content.camp_menu_lb.field_menu
+  module:
+    - y_lb
+id: block_content.camp_menu_lb.default
+targetEntityType: block_content
+bundle: camp_menu_lb
+mode: default
+content:
+  field_menu:
+    type: y_camp_menu
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

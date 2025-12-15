@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Branch menu module.
+ */
+
+
+/**
+ * Implements hook_theme().
+ */
+function y_branch_menu_theme() {
+  return [
+    'block__y_branch_menu' => [
+      'base hook' => 'block',
+    ],
+    'blb_section__branch__menu' => [
+      'render element' => 'content',
+      'base hook' => 'layout',
+    ],
+  ];
+}

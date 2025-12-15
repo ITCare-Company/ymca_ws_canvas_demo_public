@@ -1,0 +1,5 @@
+services:
+  lb_related_articles_blocks.ws_style_group_applies_to_alter:
+    class: Drupal\lb_related_articles_blocks\EventSubscriber\WSStyleGroupAlter
+    tags:
+      - { name: event_subscriber }

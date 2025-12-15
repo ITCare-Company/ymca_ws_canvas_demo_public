@@ -1,0 +1,45 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_related_events
+    - field.field.block_content.lb_related_events.field_content_items
+    - field.field.block_content.lb_related_events.field_items_count_to_display
+    - field.field.block_content.lb_related_events.field_location_reference
+    - field.field.block_content.lb_related_events.field_related_events_widget_type
+    - field.field.block_content.lb_related_events.field_related_link
+    - field.field.block_content.lb_related_events.field_section_title
+  module:
+    - link
+id: block_content.lb_related_events.default
+targetEntityType: block_content
+bundle: lb_related_events
+mode: default
+content:
+  field_related_link:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_section_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_content_items: true
+  field_items_count_to_display: true
+  field_location_reference: true
+  field_related_events_widget_type: true
+  langcode: true
+  search_api_excerpt: true

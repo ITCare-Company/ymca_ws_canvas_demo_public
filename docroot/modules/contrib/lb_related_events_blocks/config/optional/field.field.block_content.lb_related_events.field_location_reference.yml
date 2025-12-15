@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_related_events
+    - field.storage.block_content.field_location_reference
+id: block_content.lb_related_events.field_location_reference
+field_name: field_location_reference
+entity_type: block_content
+bundle: lb_related_events
+label: Locations
+description: 'Choose Locations to filter Events based on the Locations values set inside the Event.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default_no_dep:node'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: 0
+    auto_create_bundle: ''
+    target_bundles_no_dep:
+      branch: branch
+      camp: camp
+field_type: entity_reference

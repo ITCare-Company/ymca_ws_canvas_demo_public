@@ -1,0 +1,5 @@
+name: geysir
+type: module
+description: Dummy module to replace geysir.
+package: Useless Machines
+core_version_requirement: ^9 || ^10

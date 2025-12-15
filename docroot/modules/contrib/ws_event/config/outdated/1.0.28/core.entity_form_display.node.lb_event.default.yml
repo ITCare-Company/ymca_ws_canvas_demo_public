@@ -1,0 +1,261 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.images_library
+    - field.field.node.lb_event.body
+    - field.field.node.lb_event.field_contact_email
+    - field.field.node.lb_event.field_contact_name
+    - field.field.node.lb_event.field_contact_phone
+    - field.field.node.lb_event.field_event_dates
+    - field.field.node.lb_event.field_event_location
+    - field.field.node.lb_event.field_header_image
+    - field.field.node.lb_event.field_location_address
+    - field.field.node.lb_event.field_location_directions
+    - field.field.node.lb_event.field_location_reference
+    - field.field.node.lb_event.field_subtitle
+    - field.field.node.lb_event.field_tags
+    - field.field.node.lb_event.layout_builder__layout
+    - node.type.lb_event
+  module:
+    - address
+    - datetime_range
+    - field_group
+    - link
+    - openy_focal_point
+    - path
+    - scheduler
+    - text
+third_party_settings:
+  field_group:
+    group_location_info:
+      children:
+        - field_event_location
+        - group_contact_info
+        - field_location_address
+        - field_location_directions
+      label: 'Location info'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        formatter: open
+        description: 'You can select a location event or fill in the event address field manually (which has a higher priority).'
+        required_fields: true
+    group_contact_info:
+      children:
+        - field_contact_name
+        - field_contact_phone
+        - field_contact_email
+      label: 'Contact info'
+      region: hidden
+      parent_name: group_location_info
+      weight: 4
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+id: node.lb_event.default
+targetEntityType: node
+bundle: lb_event
+mode: default
+content:
+  addthis:
+    type: boolean_checkbox
+    weight: 19
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  body:
+    type: text_textarea_with_summary
+    weight: 6
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_contact_email:
+    type: email_default
+    weight: 24
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_contact_name:
+    type: string_textfield
+    weight: 22
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_contact_phone:
+    type: string_textfield
+    weight: 23
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_event_dates:
+    type: daterange_default
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_event_location:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_header_image:
+    type: openy_focal_point_entity_browser_entity_reference
+    weight: 4
+    region: content
+    settings:
+      entity_browser: images_library
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: thumbnail_for_preview
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_replace: 0
+      open: 0
+    third_party_settings: {  }
+  field_location_address:
+    type: address_default
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_location_directions:
+    type: link_default
+    weight: 6
+    region: content
+    settings:
+      placeholder_url: /link-to-directions
+      placeholder_title: Directions
+    third_party_settings: {  }
+  field_location_reference:
+    type: options_select
+    weight: 20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 8
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 14
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  redirect:
+    type: string_textfield
+    weight: 16
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 17
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 9
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 18
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  url_redirects:
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  layout_builder__layout: true

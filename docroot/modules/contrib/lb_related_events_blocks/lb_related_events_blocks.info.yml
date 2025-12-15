@@ -1,0 +1,21 @@
+name: 'Y Layout Builder - Layout Builder Related Events Blocks'
+type: module
+description: 'Helper module for the custom "Related Events" block type.'
+package: 'YMCA Website Services'
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - 'drupal:addtocal_augment'
+  - 'drupal:date_augmenter'
+  - 'drupal:daterange_compact'
+  - 'drupal:smart_date'
+  - 'drupal:smart_date_recur'
+  - 'drupal:views'
+  - 'drupal:ws_event'
+  - 'openy_focal_point'
+  - 'openy_media_image'
+  - 'y_lb'
+
+# Information added by Drupal.org packaging script on 2025-05-01
+version: '1.4.0'
+project: 'lb_related_events_blocks'
+datestamp: 1746093058

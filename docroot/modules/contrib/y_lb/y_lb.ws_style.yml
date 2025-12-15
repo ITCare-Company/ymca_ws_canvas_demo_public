@@ -1,0 +1,54 @@
+colorway:
+  label: Color scheme
+  name: colorway
+  global: true
+  applies_to: []
+  library: null
+border_radius:
+  label: Border radius
+  name: border_radius
+  global: true
+  applies_to: []
+  library: null
+border_style_global:
+  label: Border Style (Global)
+  name: border_style_global
+  global: true
+  applies_to: []
+  library: y_lb/borders
+border_style_component:
+  label: Border Style (Component level)
+  name: border_style_component
+  global: false
+  applies_to: []
+  library: y_lb/borders
+text_alignment_global:
+  label: Text / Button alignment (Global)
+  name: text_alignment_global
+  global: true
+  applies_to: []
+text_alignment_component:
+  label: Text / Button alignment (Component level)
+  name: text_alignment_component
+  global: false
+  applies_to: []
+button_position_global:
+  label: Button position (Global)
+  name: button_position_global
+  global: true
+  applies_to: []
+button_position_component:
+  label: Button position (Component level)
+  name: button_position_component
+  global: false
+  applies_to: []
+button_fill_global:
+  label: Button fill (Global)
+  name: button_fill_global
+  global: true
+  applies_to: []
+button_fill_component:
+  label: Button fill (Component level)
+  name: button_fill_component
+  global: false
+  applies_to: []

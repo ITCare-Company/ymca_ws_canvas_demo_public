@@ -1,0 +1,77 @@
+{#
+/**
+ * @file
+ * Theme override to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ */
+#}
+
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'block-lb-donate',
+  ]
+%}
+{{ attach_library('lb_donate/lb_donate') }}
+{% if image_uri %}
+  {% set image = file_url(image_uri|image_style('extra_large')) %}
+{% endif %}
+<div
+  {{ attributes.addClass(classes).setAttribute('id', plugin_id|clean_class ~ configuration['block_revision_id']) }}
+>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% block content %}
+    <div class="container-md d-flex justify-content-md-end">
+      {% if image %}
+        <div class="image" style="background-image: url('{{ image }}');"></div>
+      {% endif %}
+      <div class="chevron">
+        {% include "@lb_donate/chevron.html.twig" %}
+      </div>
+      <div class="lb_donate__container">
+        {% if block_content.field_section_title or block_content.field_section_subtitle %}
+          <div class="section-header">
+            {% if block_content.field_section_title is not empty %}
+              <h2>{{ block_content.field_section_title.value }}</h2>
+            {% endif %}
+            {% if block_content.field_section_subtitle is not empty %}
+              <p>{{ block_content.field_section_subtitle.value }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+        <div class="lb_donate">
+          {{ donate }}
+          {% if block_content.field_cta.uri is not empty %}
+            <div class="section-cta">
+              <a href="{{ block_content.field_cta.0.url }}" class="btn revert btn-primary outline d-block">{{ block_content.field_cta.title }}</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+</div>

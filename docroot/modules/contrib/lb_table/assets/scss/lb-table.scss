@@ -1,0 +1,119 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-lb-table {
+  .section-header {
+    margin-bottom: 30px;
+    h2 {
+      font-size: 35px;
+      line-height: 40px;
+      @include media-breakpoint-up('lg'){
+        font-size: 50px;
+        line-height: 65px;
+      }
+    }
+    p {
+      font-size: 20px;
+      line-height: 30px;
+      @include media-breakpoint-up('lg'){
+        font-size: 24px;
+        line-height: 36px;
+      }
+    }
+  }
+  .lb-table {
+    .tablesaw-bar {
+      &.tablesaw-all-cols-visible {
+        display: none;
+      }
+      .tablesaw-advance {
+        display: flex;
+        justify-content: space-between;
+        float: unset;
+        position: relative;
+        margin-bottom: -40px;
+
+        &:after {
+          content: "";
+          width: 100%;
+          height: 2px;
+          left: 0;
+          top: 15px;
+          position: absolute;
+          background: #cccccc;
+        }
+        .btn {
+          background: #F2F2F2;
+          height: 30px;
+          width: 30px;
+          padding: 0;
+          border-radius: 50%;
+          z-index: 1;
+          margin: 0;
+
+          &.disabled {
+            opacity: 1;
+            &:before {
+              opacity: 0.15;
+            }
+          }
+          &:before {
+            content: "";
+            width: 7px;
+            height: 10px;
+            left: 11px;
+            display: block;
+            border: none;
+            background: var(--wsPartnerColor, black);
+          }
+          &.right {
+            &:before {
+              -webkit-mask: url("../svg/chevron-right.svg") left center / cover;
+
+            }
+          }
+          &.left {
+            &:before {
+              -webkit-mask: url("../svg/chevron-left.svg") right center / cover;
+            }
+          }
+        }
+      }
+
+    }
+
+
+    table {
+      width: 100%;
+      border: none;
+      thead {
+        tr {
+          border: none;
+          border-bottom: 5px solid var(--ylb-color-grey-2, gray);
+          th {
+            border: none;
+            font-size: 22px;
+            line-height: 32px;
+            padding: 15px 0.5em;
+            @include media-breakpoint-up('lg'){
+              font-size: 24px;
+              line-height: 36px;
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          border-bottom: 2px solid var(--ylb-color-light-grey-3, lightgray);
+          td {
+            border: none;
+            font-size: 18px;
+            line-height: 28px;
+            padding: 20px 0.5em !important;
+          }
+        }
+      }
+    }
+  }
+}

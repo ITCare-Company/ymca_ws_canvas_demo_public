@@ -1,0 +1,39 @@
+root {
+  --small-y-table-border-color: #979797;
+}
+
+.block-lb-table .lb-table table.table:not(.table-borderless) tbody tr {
+  border-bottom: unset;
+}
+.block-lb-table .lb-table table.table:not(.table-borderless) tbody tr td, .block-lb-table .lb-table table.table:not(.table-borderless) tbody tr th {
+  border-top: 1px solid var(--small-y-table-border-color, #ccc);
+  border-bottom: 1px solid var(--small-y-table-border-color, #ccc);
+}
+.block-lb-table .lb-table table.table.table-bordered thead tr, .block-lb-table .lb-table table.table.table-bordered thead th {
+  border: 1px solid var(--small-y-table-border-color, #ccc);
+}
+.block-lb-table .lb-table table.table.table-bordered thead tr {
+  border-bottom-width: 2px;
+}
+.block-lb-table .lb-table table.table.table-bordered tbody tr {
+  border-bottom: unset;
+}
+.block-lb-table .lb-table table.table.table-bordered tbody tr td, .block-lb-table .lb-table table.table.table-bordered tbody tr th {
+  border: 1px solid var(--small-y-table-border-color, #ccc);
+}
+.block-lb-table .lb-table table.table thead tr {
+  border-top: 2px solid var(--small-y-table-border-color, #ccc);
+  border-bottom: 2px solid var(--small-y-table-border-color, #ccc);
+}
+.block-lb-table .lb-table table.table.table-borderless thead td, .block-lb-table .lb-table table.table.table-borderless thead th, .block-lb-table .lb-table table.table.table-borderless thead tr,
+.block-lb-table .lb-table table.table.table-borderless tbody td,
+.block-lb-table .lb-table table.table.table-borderless tbody th,
+.block-lb-table .lb-table table.table.table-borderless tbody tr {
+  border-width: 0;
+}
+.block-lb-table .lb-table table.table.table-sm td,
+.block-lb-table .lb-table table.table.table-sm th {
+  padding: 0.3rem !important;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3Mvc21hbGwteS10YWJsZS1vdmVycmlkZS5zY3NzIiwic21hbGwteS10YWJsZS1vdmVycmlkZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxxQ0FBQTtBQ0NGOztBRFNZO0VBQ0Usb0JBQUE7QUNOZDtBRFFjO0VBQ0UsNkRBQUE7RUFDQSxnRUFBQTtBQ05oQjtBRGNZO0VBQ0UseURBQUE7QUNaZDtBRGNZO0VBQ0Usd0JBQUE7QUNaZDtBRGtCWTtFQUNFLG9CQUFBO0FDaEJkO0FEa0JjO0VBQ0UseURBQUE7QUNoQmhCO0FEdUJRO0VBQ0UsNkRBQUE7RUFDQSxnRUFBQTtBQ3JCVjtBRDhCWTs7OztFQUNFLGVBQUE7QUN6QmQ7QUQrQlU7O0VBRUUsMEJBQUE7QUM3QloiLCJmaWxlIjoic21hbGwteS10YWJsZS1vdmVycmlkZS5jc3MifQ== */

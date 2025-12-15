@@ -1,0 +1,19 @@
+name: 'Small Y - Search'
+type: module
+description: 'This module provides a search result page with Search API'
+package: YMCA Website Services
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:user
+  - drupal:views
+  - drupal:ws_small_y
+  - openy_search_api:openy_search_api
+  - search_api:search_api
+  - search_api:search_api_db
+  - views_infinite_scroll:views_infinite_scroll
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.2.2'
+project: 'ws_small_y'
+datestamp: 1762505748

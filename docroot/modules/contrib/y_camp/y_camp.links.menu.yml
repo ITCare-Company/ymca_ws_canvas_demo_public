@@ -1,0 +1,5 @@
+y_camp.admin:
+  title: 'Camps settings'
+  parent: openy_system.openy_settings
+  route_name: y_camp.settings
+  weight: 0

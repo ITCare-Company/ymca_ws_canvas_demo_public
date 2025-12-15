@@ -1,0 +1,17 @@
+name: YMCA Website Services Search API
+type: module
+description: Provides a Drupal Search API Engine for YMCA Website Services.
+core_version_requirement: ^10 || ^11
+package: YMCA Website Services
+version: 1.1.0
+configure: openy_search_api.settings
+dependencies:
+  - drupal:node
+  - drupal:user
+  - drupal:views
+  - openy:openy_search
+  - paragraphs:paragraphs
+  - pathauto:pathauto
+  - search_api:search_api
+  - search_api:search_api_db
+  - search_api:search_api_solr

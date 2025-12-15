@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Y Layout Builder - Table module.
+ */
+
+use Drupal\Core\Render\Markup;
+
+/**
+ * Implements hook_theme().
+ */
+function lb_table_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_table' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-table',
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_table_preprocess_block__lb_table(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $variables['content']['body']['#post_render'] = [function($markup, $render) {
+    if (!($markup instanceof Markup)) {
+      return $markup;
+    }
+    $string = $markup->__toString();
+
+    $string = preg_replace_callback('/<tabl.+?>/', '_lb_table_add_tablesaw_attributes', $string);
+
+    return Markup::create($string);
+  }];
+}
+
+/**
+ * Add attributes for the "tablesaw" library to <table> element.
+ *
+ * @param array $match
+ *   An array of <table> elements
+ *
+ * @return string
+ *   A processed string.
+ */
+function _lb_table_add_tablesaw_attributes(array $match) {
+  $table_styles = '';
+  $table_id = '';
+  $table_classes = 'tablesaw';
+
+  if (preg_match('/id="(.+)"/', $match[0], $id)) {
+    $table_id = ' id="' . $id[1] . '"';
+  }
+  if (preg_match('/class="(.+)"/U', $match[0], $classes)) {
+    $table_classes .= ' ' . $classes[1];
+  }
+  if (preg_match('/style="(.+)"/', $match[0], $styles)) {
+    $table_styles = 'style="' . $styles[1] . '"';
+  }
+
+  return '<table data-tablesaw-mode="swipe" class="' . ltrim($table_classes) . '"' . $table_id . $table_styles . '>';
+}

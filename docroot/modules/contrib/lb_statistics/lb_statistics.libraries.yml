@@ -1,0 +1,13 @@
+# Statistics > Count up.
+lb_statistics:
+  version: 1.9
+  css:
+    theme:
+      assets/css/lb-statistics.css: { preprocess: true }
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js: { type: external, minified: true }
+    assets/js/statistics-counter.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once

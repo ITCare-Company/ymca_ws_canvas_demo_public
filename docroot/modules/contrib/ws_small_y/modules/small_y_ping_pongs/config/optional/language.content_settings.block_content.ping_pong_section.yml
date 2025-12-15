@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.ping_pong_section
+id: block_content.ping_pong_section
+target_entity_type_id: block_content
+target_bundle: ping_pong_section
+default_langcode: site_default
+language_alterable: false

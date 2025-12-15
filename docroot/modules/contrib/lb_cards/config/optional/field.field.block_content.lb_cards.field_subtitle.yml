@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_cards
+    - field.storage.block_content.field_subtitle
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_subtitle
+id: block_content.lb_cards.field_subtitle
+field_name: field_subtitle
+entity_type: block_content
+bundle: lb_cards
+label: 'Section subheading'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

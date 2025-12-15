@@ -1,0 +1,59 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Donate
+description: Donation section with amount options and call-to-action
+status: experimental
+group: Organisms
+
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Section Title
+      description: Main heading for the donation section
+      examples:
+        - 'Support Your Y'
+
+    subtitle:
+      type: string
+      title: Subtitle
+      description: Supporting text explaining the donation purpose
+      examples:
+        - 'Your donation makes a difference in our community'
+
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Background Image
+      description: Optional background image for the donation section
+      examples:
+        - src: '/themes/custom/y_canvas/assets/images/demo/donate-banner.jpg'
+          alt: 'Community members at the Y'
+
+    background:
+      type: string
+      title: Background Style
+      description: Background color or style variant
+      default: 'light'
+      enum:
+        - 'light'
+        - 'dark'
+        - 'primary'
+      meta:enum:
+        light: 'Light'
+        dark: 'Dark'
+        primary: 'Primary Color'
+      examples:
+        - 'light'
+
+slots:
+  items:
+    title: Donation Options
+    description: Donation amount buttons/options
+    allowedComponents:
+      - sdc.y_canvas.y-donate-item
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-donate

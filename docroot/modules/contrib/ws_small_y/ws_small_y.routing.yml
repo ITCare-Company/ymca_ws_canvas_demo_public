@@ -1,0 +1,7 @@
+small_y.settings:
+  path: '/admin/openy/settings/small-y'
+  defaults:
+    _form: '\Drupal\ws_small_y\Form\SettingsForm'
+    _title: 'Small Y settings'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_code_block
+    - field.field.block_content.lb_code_block.field_code
+  module:
+    - text
+id: block_content.lb_code_block.default
+targetEntityType: block_content
+bundle: lb_code_block
+mode: default
+content:
+  field_code:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

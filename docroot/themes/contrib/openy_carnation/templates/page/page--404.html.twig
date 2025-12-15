@@ -1,0 +1,22 @@
+{% extends "page.html.twig" %}
+
+{% block pagecontent %}
+  <div class="container">
+    <div class="row error-page">
+      <div class="col-md-12 error-page">
+        <h1>{{ '404 Page not found'|t }}</h1>
+        <p>{{ 'Oops! The page that you\'re looking for was not found.'|t }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="col-12">
+      <div class="row">
+        <div>
+          <h2>{{ 'Contact US'|t }}</h2>
+          {{ drupal_entity('webform', 'contact') }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+--- lib/Drupal/Core/Utility/UnroutedUrlAssembler.php	(revision f9d3970b7b0a3a4651d026e0efc3b7e7e4139d25)
++++ lib/Drupal/Core/Utility/UnroutedUrlAssembler.php	(date 1709123557126)
+@@ -69,6 +69,11 @@
+    * {@inheritdoc}
+    */
+   protected function buildExternalUrl($uri, array $options = [], $collect_bubbleable_metadata = FALSE) {
++    // Early return to not unnecessarily alter external URLs.
++    if (empty($options['query']) && empty($options['fragment']) && !isset($options['https'])) {
++      return $collect_bubbleable_metadata ? (new GeneratedUrl())->setGeneratedUrl($uri) : $uri;
++    }
++
+     $this->addOptionDefaults($options);
+     // Split off the query & fragment.
+     $parsed = UrlHelper::parse($uri);

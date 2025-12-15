@@ -1,0 +1,15 @@
+services:
+  ws_promotion.randomizer:
+    class: Drupal\ws_promotion\RandomizerPromotion
+    arguments:
+      - '@entity_type.manager'
+
+  ws_promotion.render_block_component_subscriber:
+    class: Drupal\ws_promotion\EventSubscriber\BlockComponentPromotionSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  ws_promotion.form_alter:
+    class: Drupal\ws_promotion\Form\FormAlter
+    arguments:
+      - '@entity_type.manager'

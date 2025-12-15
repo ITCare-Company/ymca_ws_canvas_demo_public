@@ -1,0 +1,79 @@
+.block-lb-partners {
+  border-top: solid 1px var(--y-color-light-grey-3);
+  border-bottom: solid 1px var(--y-color-light-grey-3);
+}
+.block-lb-partners .section-description h2 {
+  font-family: var(--ylb-font-family-cachet, Cachet), Verdana, sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 40px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .block-lb-partners .section-description h2 {
+    font-size: 50px;
+    line-height: 60px;
+    text-align: left;
+  }
+}
+.block-lb-partners .section-description p {
+  font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--ylb-color-grey-1, #2F2F2F);
+  font-weight: 500;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .block-lb-partners .section-description p {
+    text-align: left;
+  }
+}
+.block-lb-partners .section-content {
+  padding: 0;
+}
+.block-lb-partners .section-content .no-title {
+  justify-content: center;
+}
+.block-lb-partners .section-content .partner-tier .label {
+  font-family: var(--ylb-font-family-cachet, Cachet), Verdana, sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px;
+  margin-bottom: 20px;
+}
+@media (max-width: 991.98px) {
+  .block-lb-partners .section-content .partner-tier .label {
+    text-align: center;
+  }
+}
+.block-lb-partners .section-content .partner-tier .partners-list {
+  padding: 0 15px;
+}
+@media (min-width: 768px) {
+  .block-lb-partners .section-content .partner-tier .partners-list {
+    padding: 0 0 0 15px;
+  }
+}
+.block-lb-partners .section-content .partner-tier .partners-list .partner-item {
+  margin-bottom: 60px;
+}
+.block-lb-partners .section-content .partner-tier .partners-list .partner-item > div {
+  font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+.block-lb-partners .section-content .partner-tier .partners-list .partner-item > div a {
+  color: var(--ylb-color-black, #2f2f2f);
+}
+.block-lb-partners .section-content .partner-tier .partners-list .partner-item .partner-logo {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+@media (min-width: 992px) {
+  .block-lb-partners .section-content .partner-tier .partners-list .partner-item .partner-logo {
+    margin-bottom: 20px;
+  }
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvbGItcGFydG5lcnMuc2NzcyIsImxiLXBhcnRuZXJzLmNzcyIsIi4uLy4uL25vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9taXhpbnMvX2JyZWFrcG9pbnRzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSUE7RUFDRSxpREFBQTtFQUNBLG9EQUFBO0FDSEY7QURNSTtFQUNFLHVFQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQ0pOO0FDa0RJO0VGbkRBO0lBUUksZUFBQTtJQUNBLGlCQUFBO0lBQ0EsZ0JBQUE7RUNITjtBQUNGO0FETUk7RUFDRSxnRUFBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtFQUNBLHVDQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtBQ0pOO0FDbUNJO0VGckNBO0lBU0ksZ0JBQUE7RUNITjtBQUNGO0FET0U7RUFDRSxVQUFBO0FDTEo7QURPSTtFQUNFLHVCQUFBO0FDTE47QURTTTtFQUNFLHVFQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxtQkFBQTtBQ1BSO0FDOEJJO0VGNUJFO0lBUUksa0JBQUE7RUNOUjtBQUNGO0FEU007RUFDRSxlQUFBO0FDUFI7QUNTSTtFRkhFO0lBSUksbUJBQUE7RUNOUjtBQUNGO0FEUVE7RUFDRSxtQkFBQTtBQ05WO0FEUVU7RUFDRSxnRUFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtBQ05aO0FEUVk7RUFDRSxzQ0FBQTtBQ05kO0FEVVU7RUFDRSxlQUFBO0VBQ0EsbUJBQUE7QUNSWjtBQ1hJO0VGaUJNO0lBS0ksbUJBQUE7RUNQWjtBQUNGIiwiZmlsZSI6ImxiLXBhcnRuZXJzLmNzcyJ9 */

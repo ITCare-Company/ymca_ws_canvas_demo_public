@@ -1,0 +1,139 @@
+/* Y Articles Filter Component */
+
+.y-articles-filter {
+  padding: 1.5rem 1rem;
+  background: #fff;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.y-articles-filter__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Categories */
+.y-articles-filter__categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.y-articles-filter__category {
+  padding: 0.5rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 20px;
+  background: #fff;
+  font-size: 0.875rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.y-articles-filter__category:hover {
+  border-color: var(--wsPrimaryColor, #0060af);
+  color: var(--wsPrimaryColor, #0060af);
+}
+
+.y-articles-filter__category--active {
+  background: var(--wsPrimaryColor, #0060af);
+  border-color: var(--wsPrimaryColor, #0060af);
+  color: #fff;
+}
+
+.y-articles-filter__category--active:hover {
+  color: #fff;
+}
+
+.y-articles-filter__count {
+  opacity: 0.7;
+  margin-left: 0.25rem;
+}
+
+/* Search */
+.y-articles-filter__search {
+  position: relative;
+  max-width: 300px;
+}
+
+.y-articles-filter__input {
+  width: 100%;
+  padding: 0.625rem 2.5rem 0.625rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.9375rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.y-articles-filter__input:focus {
+  outline: none;
+  border-color: var(--wsPrimaryColor, #0060af);
+  box-shadow: 0 0 0 3px rgba(0, 96, 175, 0.15);
+}
+
+.y-articles-filter__search-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.25rem;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+}
+
+.y-articles-filter__search-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.y-articles-filter__search-btn:hover {
+  color: var(--wsPrimaryColor, #0060af);
+}
+
+/* Results count */
+.y-articles-filter__results {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+/* Visually hidden */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .y-articles-filter {
+    padding: 1.5rem 2rem;
+  }
+
+  .y-articles-filter__container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .y-articles-filter__categories {
+    flex: 1;
+  }
+
+  .y-articles-filter__search {
+    flex: 0 0 auto;
+  }
+
+  .y-articles-filter__results {
+    flex: 0 0 auto;
+  }
+}

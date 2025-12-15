@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * A template for summary section of the Membership Calculator.
+ *
+ * Available variables:
+ * - result: a data for finish step of the Membership Calculator.
+ */
+#}
+<div class="calc-summary">
+  <div class="selected-branch calc-summary-col">
+    <h4 class="title">{{ 'Your branch'|t }}</h4>
+    <div>{{ result.location }}</div>
+  </div>
+  <div class="selected-membership calc-summary-col">
+    <h4 class="title">{{ 'Your membership'|t }}</h4>
+    <div class="card">
+      <div>{{ result.membership }}</div>
+      {% if result.price %}
+        <div class="membership-price-wrapper">
+          <div class="price">
+            <h4 class="price-month">${{ result.price.monthly_rate }}/{{ 'month'|t }}</h4>
+            <div class="join-fee">+ ${{ result.price.join_fee }} {{ 'one time joining fee'|t }}</div>
+            <label for="{{ element['#attributes'].id }}">
+              <div class="btn btn-primary btn-lg">{{ 'Select'|t }}</div>
+            </label>
+          </div>
+        </div>
+      {% else %}
+        <div class="price">
+          {{ 'Unfortunately, selected branch doesn`t provide needed membership type. Please select other membership type or branch.'|t }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

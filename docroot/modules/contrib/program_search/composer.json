@@ -1,0 +1,11 @@
+{
+  "name": "drupal/program_search",
+  "description": "Provides a Block to search programs.",
+  "require": {
+    "drupal/core": "^11.1.0",
+    "drupal/daxko": "*",
+    "drupal/openy_socrates": "*",
+    "symfony/dom-crawler": "^7.2"
+  },
+  "type": "drupal-module"
+}

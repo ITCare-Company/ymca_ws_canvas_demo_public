@@ -1,0 +1,289 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.small-y-header {
+  &.header:not(.layout-builder__layout) {
+    .header--top {
+      background-color: unset;
+      box-shadow: 0 2px 4px 0 #0000000D;
+
+      &-right-column {
+        gap: 20px;
+
+        nav {
+          border-right: none;
+          margin-right: 0;
+          padding-right: 0;
+
+          ul {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+
+            li {
+              list-style: none;
+
+              & > span {
+                display: none;
+              }
+
+              a {
+                color: var(--ylb-color-grey-1, #636466);
+                font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 18px;
+                text-align: right;
+              }
+            }
+          }
+        }
+
+        .block-openy-gtranslate-block {
+          select {
+            color: var(--ylb-color-grey-1, #636466);
+            font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 18px;
+          }
+        }
+      }
+    }
+
+    .header--bottom {
+      box-shadow: 0 2px 4px 0 #0000000D;
+      z-index: 15;
+      height: 80px ;
+
+      &-left-column {
+        .block-ws-site-logo {
+          a {
+            position: relative;
+            top: 0;
+            left: 20px;
+          }
+
+          @include media-breakpoint-down(lg) {
+            svg {
+              max-height: unset;
+              position: relative;
+              left: 0;
+            }
+          }
+        }
+      }
+      &-middle-column {
+        justify-content: start;
+      }
+    }
+
+    &.header:not(.mobile) {
+      .header--bottom {
+        .block-ws-search-bar {
+          display: none;
+        }
+
+        &-left-column {
+          .block-ws-site-logo {
+            width: 200px;
+            justify-content: flex-end;
+
+            /* Fix position with small desktop screen */
+            @media (min-width: 800px) and (max-width: 1299px) {
+              justify-content: flex-start;
+            }
+
+            a {
+              background-color: var(--ylb-color-white, #fff);
+              border-bottom-left-radius: 8px;
+              border-bottom-right-radius: 8px;
+              box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+              display: block;
+              padding: 25px 34px 25px 34px;
+              top: 15px;
+              z-index: 100;
+
+              /* Fix position with small desktop screen */
+              @media (min-width: 999px) and (max-width: 1180px) {
+                left: 0;
+              }
+
+              @media (min-width: 800px) and (max-width: 998px) {
+                left: -20px;
+              }
+
+              @media (min-width: 800px) and (max-width: 1599px) {
+                padding: 10px 14px 10px 14px;;
+                top: -2px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .menu-toggle .header-navbar-toggler {
+      mask: url(../svg/hamburger-icon.svg) no-repeat center;
+      background: var(--wsPartnerColor, #2F2F2F) no-repeat;
+      height: 22px;
+    }
+
+    &.desktop {
+      .header--bottom {
+        &-right-column {
+          align-self: unset;
+          nav {
+            height: 80px;
+
+            a {
+              font-size: 20px;
+              line-height: 20px;
+
+              &.highlighted {
+                padding: 10px 15px;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.open {
+      .header--bottom {
+        .menu-toggle {
+          .header-navbar-toggler {
+            -webkit-mask: url("../svg/close.svg") no-repeat center;
+            mask: url("../svg/close.svg") no-repeat center;
+            background: var(--wsPartnerColor, #2F2F2F) no-repeat;
+            width: 19px;
+          }
+        }
+      }
+    }
+
+    &.header.mobile {
+      .header--top {
+        &-right-column {
+          nav,
+          .openy-google-translate {
+            display: none;
+          }
+        }
+
+        .block-ws-search-bar {
+          position: absolute;
+          right: 70px;
+          top: 40px;
+          z-index: 100;
+        }
+      }
+
+      .header--bottom-left-column {
+        .block-ws-site-logo {
+          @include media-breakpoint-down(sm) {
+            position: relative;
+            & > a {
+              left: -10px;
+            }
+          }
+        }
+      }
+
+      &.open {
+        .header--bottom > .block-ws-search-bar {
+          display: block;
+        }
+
+        // Make mobile menu links full width on mobile.
+        .header--bottom-right-column nav {
+          width: 100%;
+        }
+      }
+
+      .block-ws-search-bar {
+        position: absolute;
+        top: 32px;
+        right: 70px;
+
+        @include media-breakpoint-down(sm) {
+          right: 60px;
+        }
+      }
+    }
+
+    // Global rules for blocks.
+    .block-ws-search-bar {
+
+      .search-wrapper {
+        display: inline-block;
+        position: relative;
+        height: 24px;
+        float: right;
+        padding: 0;
+
+        input[type="text"] {
+          background: none;
+          border: none;
+          color: transparent;
+          cursor: pointer;
+          display: inline-block;
+          font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          height: 24px;
+          outline: none;
+          padding: 3px 60px 3px 3px;
+          position: absolute;
+          right: 0;
+          top: 0;
+          transition: width .4s ease-out;
+          width: 20px;
+          z-index: 3;
+
+          &:focus {
+            &:hover {
+              border-bottom: 1px solid #BBB;
+            }
+            width: 216px;
+            z-index: 1;
+            border: 1px solid #BBB;
+            cursor: text;
+            color: #7F7F7F;
+          }
+        }
+
+        .search-submit {
+          border: none;
+          background: none;
+
+          i {
+            color: var(--ylb-color-grey-1, #636466);
+            top: -2px;
+            position: relative;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Tweaks for Layout Builder editor
+.layout-builder {
+  // Hide duplicate mobile blocks
+  .mobile-header--top-right-column,
+  .header--bottom > .block-ws-search-bar {
+    display: none;
+  }
+}
+
+// Ensure Location Finder header does not collide with desktop logo container.
+body:has(.small-y-header) .block-openy-map {
+  .map_controls {
+    @include media-breakpoint-up(md) {
+      padding-top: 3rem;
+    }
+  }
+}

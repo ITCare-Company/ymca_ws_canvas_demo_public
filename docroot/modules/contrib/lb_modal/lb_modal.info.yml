@@ -1,0 +1,15 @@
+name: 'Y Layout Builder - Modal block'
+description: 'Helper module for the custom "Modal" block type.'
+type: module
+core_version_requirement: ^9 || ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - y_lb
+  - drupal:block_content
+  - drupal:text
+  - drupal:link
+
+# Information added by Drupal.org packaging script on 2025-05-01
+version: '1.3.0'
+project: 'lb_modal'
+datestamp: 1746085352

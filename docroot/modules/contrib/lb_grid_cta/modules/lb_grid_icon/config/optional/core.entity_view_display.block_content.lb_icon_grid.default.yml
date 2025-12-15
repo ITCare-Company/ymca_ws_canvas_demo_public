@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_icon_grid
+    - field.field.block_content.lb_icon_grid.field_block_item
+    - field.field.block_content.lb_icon_grid.field_cta
+    - field.field.block_content.lb_icon_grid.field_icon_columns
+    - field.field.block_content.lb_icon_grid.field_section_subtitle
+    - field.field.block_content.lb_icon_grid.field_section_title
+id: block_content.lb_icon_grid.default
+targetEntityType: block_content
+bundle: lb_icon_grid
+mode: default
+content: {  }
+hidden:
+  field_block_item: true
+  field_cta: true
+  field_icon_columns: true
+  field_section_subtitle: true
+  field_section_title: true
+  langcode: true
+  search_api_excerpt: true

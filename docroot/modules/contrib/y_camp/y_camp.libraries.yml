@@ -1,0 +1,20 @@
+# Custom module library for general purposes.
+y_camp:
+  version: 1.1
+  css:
+    theme:
+      assets/css/y_camp.css: { preprocess: true }
+
+header:
+  version: 1.17
+  css:
+    component:
+      assets/css/header.css: { preprocess: true }
+  js:
+    assets/js/header.js: { minified: false }
+
+menu:
+  version: 1.51
+  css:
+    component:
+      assets/css/camp-menu.css: { preprocess: true }

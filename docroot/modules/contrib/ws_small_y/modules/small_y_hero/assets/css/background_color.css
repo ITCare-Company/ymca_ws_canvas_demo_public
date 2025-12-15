@@ -1,0 +1,14 @@
+.hero__banner.background-color {
+  --smally-hero-color-header: var(--ylb-color-white);
+  --smally-hero-color: var(--ylb-color-white);
+  --smally-hero-item-background: var(--wsPrimaryColor);
+  --smally-hero-gradient: linear-gradient(
+      118.46deg,
+      var(--wsPrimaryColor, #3F4042) 28.72%,
+      var(--wsSecondaryColor, #636466) 96.61%
+  );
+  --smally-hero-chevron-opacity: 10%;
+  --smally-hero-chevron-fill: var(--ylb-white, #ffffff);
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvYmFja2dyb3VuZF9jb2xvci5zY3NzIiwiYmFja2dyb3VuZF9jb2xvci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0E7RUFDRSxrREFBQTtFQUNBLDJDQUFBO0VBQ0Esb0RBQUE7RUFDQTs7OztHQUFBO0VBS0Esa0NBQUE7RUFDQSxxREFBQTtBQ0FGIiwiZmlsZSI6ImJhY2tncm91bmRfY29sb3IuY3NzIn0= */

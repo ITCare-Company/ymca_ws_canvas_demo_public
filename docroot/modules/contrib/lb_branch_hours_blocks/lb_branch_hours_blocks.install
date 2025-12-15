@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Installation and update implementations.
+ */
+
+use Drupal\layout_builder\Section;
+use Drupal\layout_builder\SectionComponent;
+
+/**
+ * Implements hook_install().
+ */
+function lb_branch_hours_blocks_install() {
+  // Update form and view displays for Branch content type.
+  _lb_branch_hours_blocks_update_displays_on_install();
+}
+
+/**
+ * Update Branch content type display modes on enabling the module.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _lb_branch_hours_blocks_update_displays_on_install() {
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
+  $entity_display_repository = \Drupal::service('entity_display.repository');
+  $uuid_service = \Drupal::service('uuid');
+
+  // Update Branch content type view displays.
+  $view_modes = $entity_display_repository
+    ->getViewModeOptionsByBundle('node', 'branch');
+  foreach (array_keys($view_modes) as $view_mode) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $entity_display_repository->getViewDisplay('node', 'branch', $view_mode);
+    if ($view_mode == 'full') {
+
+      $sections = $view_display
+        ->getThirdPartySetting('layout_builder', 'sections');
+
+      foreach ($sections as &$section) {
+        if ($section->getLayoutId() === 'bootstrap_layout_builder:blb_col_1' && $section->getLayoutSettings()['label'] === 'Branch header') {
+
+          $component = new SectionComponent($uuid_service->generate(), 'blb_region_col_1', [
+            'id' => 'lb_branch_hours',
+            'label' => 'Branch Hours',
+            'label_display' => '0',
+            'provider' => 'lb_branch_hours_blocks',
+            'context_mapping' => ['node' => 'layout_builder.entity'],
+          ]);
+          $section->appendComponent($component);
+        }
+      }
+
+      $view_display
+        ->setThirdPartySetting('layout_builder', 'sections', $sections);
+    }
+    $view_display->save();
+  }
+}

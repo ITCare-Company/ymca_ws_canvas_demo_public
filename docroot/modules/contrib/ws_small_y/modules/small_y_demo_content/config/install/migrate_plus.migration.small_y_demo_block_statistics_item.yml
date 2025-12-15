@@ -1,0 +1,101 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_statistics_item
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Create Statistics Item for Statistics component'
+source:
+  plugin: embedded_data
+  data_rows:
+    - id: statistics_1
+      number: '4M'
+      body: 'kids engaged and empowered to adopt positive behaviors.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. Body copy lorem ipsum per viam dolens.'
+    - id: statistics_2
+      parent_id: 224
+      number: '40M'
+      body: 'people served in 120 countries around the world.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. '
+    - id: statistics_3
+      number: '233K'
+      body: 'U.S.–based volunteers who have given their time and talent.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit.'
+    - id: statistics_4
+      number: '5.7K'
+      body: 'distribution sites fighting food insecurity.'
+      description: ''
+    - id: statistics_5
+      number: '4M'
+      body: 'kids engaged and empowered to adopt positive behaviors.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. Body copy lorem ipsum per viam dolens.'
+    - id: statistics_6
+      parent_id: 224
+      number: '40M'
+      body: 'people served in 120 countries around the world.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. '
+    - id: statistics_7
+      number: '233K'
+      body: 'U.S.–based volunteers who have given their time and talent.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit.'
+    - id: statistics_8
+      number: '5.7K'
+      body: 'distribution sites fighting food insecurity.'
+      description: ''
+    - id: statistics_9
+      number: '233K'
+      body: 'U.S.–based volunteers who have given their time and talent.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit.'
+    - id: statistics_10
+      number: '5.7K'
+      body: 'distribution sites fighting food insecurity.'
+      description: ''
+    - id: statistics_11
+      number: '4M'
+      body: 'kids engaged and empowered to adopt positive behaviors.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. Body copy lorem ipsum per viam dolens.'
+    - id: statistics_12
+      parent_id: 224
+      number: '40M'
+      body: 'people served in 120 countries around the world.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit pervissime quod nolor sit amet nonde adipiscing elit. '
+    - id: statistics_13
+      number: '233K'
+      body: 'U.S.–based volunteers who have given their time and talent.'
+      description: 'Body copy lorem ipsum per viam dolens quodentur nonde sed elit.'
+    - id: statistics_14
+      number: '5.7K'
+      body: 'distribution sites fighting food insecurity.'
+      description: ''
+
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  type:
+    plugin: default_value
+    default_value: small_y_statistics_item
+  reusable:
+    plugin: default_value
+    default_value: 0
+  field_title: number
+  field_item_title: body
+  field_body: description
+destination:
+  plugin: entity:block_content
+  default_bundle: small_y_statistics_item
+migration_dependencies: {  }

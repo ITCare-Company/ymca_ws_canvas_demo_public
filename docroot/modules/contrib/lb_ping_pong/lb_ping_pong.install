@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Y Layout Builder - Ping-Pong
+ *   module.
+ */
+
+/**
+ * Add new "ping_pong" image style.
+ */
+function lb_ping_pong_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')
+      ->getPath('lb_ping_pong') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'image.style.ping_pong',
+  ]);
+}
+
+/**
+ * Allow attributes on links (target, id, class).
+ */
+function lb_ping_pong_update_9002() {
+  $path = \Drupal::service('extension.list.module')
+      ->getPath('lb_ping_pong') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.lb_ping_pong.default',
+  ]);
+}

@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * Theme override to display a hero banner.
+ *
+ * Available variables:
+ * - bannerClassVariation: The banner variation class
+ * - wrapperClass: The wrapper class
+ * - containerClass : The container class
+ * - contentClass: The content class
+ * - ctaLinkClass: The cta link class
+ *
+ * @see block--lb-hero.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if preview_promo %}
+{{ attach_library('lb_hero/hero-styles-overlay') }}
+{% set classes = [
+  'block',
+  'block-inline-blocklb-hero',
+  'block-layout-builder',
+  'block-hero-banner',
+] %}
+
+<div{{ attributes.addClass(classes) }}>
+  {% endif %}
+
+  {% embed '@lb_hero/block--lb-hero--content.html.twig' with {
+    'title': label,
+    'description': node.field_promo_description.value,
+    'link': node.field_link,
+    'image_uri': node.field_promo_media.entity.field_media_image.entity.uri.value,
+    'image_alt': node.field_promo_media.entity.field_media_image.entity.alt,
+    'media_type': "image",
+    'bannerClassVariation': 'hero__banner__overlay',
+    'wrapperClass': '',
+    'containerClass': 'wrapper-content',
+    'contentClass': ['col', 'col-lg-10', 'col-xl-8', 'text-white', 'text-align-center'],
+    'ctaLinkClass': ['btn', 'btn-secondary', 'outline']
+  } %}
+    {% block chevron %}{% endblock %}
+  {% endembed %}
+
+  {% if preview_promo %}
+</div>
+{% endif %}

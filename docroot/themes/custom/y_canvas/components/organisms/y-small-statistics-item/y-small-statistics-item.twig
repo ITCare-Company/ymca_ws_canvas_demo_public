@@ -1,0 +1,23 @@
+{#
+/**
+ * Y Small Statistics Item component.
+ *
+ * Variables:
+ * - value: (string) The statistic number
+ * - label: (string) Description
+ * - icon: (string) Icon name
+ */
+#}
+
+{% set classes = [
+  'y-small-statistics-item',
+] %}
+
+<div {{ attributes.addClass(classes) }} data-component="y-small-statistics-item">
+  {% if value %}
+    <div class="y-small-statistics-item__value">{{ value }}</div>
+  {% endif %}
+  {% if label %}
+    <div class="y-small-statistics-item__label">{{ label }}</div>
+  {% endif %}
+</div>

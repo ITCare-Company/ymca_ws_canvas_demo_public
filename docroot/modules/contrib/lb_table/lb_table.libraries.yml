@@ -1,0 +1,22 @@
+# Custom module library for general purposes.
+lb_table:
+  version: 1.3
+  css:
+    theme:
+      assets/css/lb-table.css: { preprocess: true }
+  dependencies:
+    - lb_table/tablesaw
+
+tablesaw:
+  remote: https://github.com/filamentgroup/tablesaw
+  version: 3.1.2
+  license:
+    name: MIT
+    url: https://github.com/filamentgroup/tablesaw/blob/master/LICENSE
+    gpl-compatible: true
+  css:
+    theme:
+      //cdnjs.cloudflare.com/ajax/libs/tablesaw/3.1.2/tablesaw.min.css: { type: external, attributes: { integrity: sha512-FW7xwIsGt3iCswNR3o4kcXqkKDvN8Q7obwdxFODRT+L6XkRtScLElfvobA7bjiC2iTgG/sRaBUqdrhqx0RTauw==, crossorigin: anonymous, referrerpolicy: no-referrer }, minified: true }
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/tablesaw/3.1.2/tablesaw.min.js: { type: external, attributes: { integrity: sha512-ITRmpfbrvyJMfI1gck3tVWu64CibL+Kz4P0PBrd5SMV1HKQ5DMkDrx5+S4x460IPHM0a4lYQYJngUGmXGdXIuA==, crossorigin: anonymous, referrerpolicy: no-referrer }, minified: true }
+    //cdnjs.cloudflare.com/ajax/libs/tablesaw/3.1.2/tablesaw-init.min.js: { type: external, attributes: { integrity: sha512-w/1hLca9Fyn6iwnkMxUU55d/OlcA65RnP4v6kJ8NssnzHeHnJBeOzuHEkJ67zpt0ksiH1LQn8FKYZc/TT1O/aQ==, crossorigin: anonymous, referrerpolicy: no-referrer }, minified: true }

@@ -1,0 +1,6 @@
+# Custom module library for general purposes.
+y_program:
+  version: 0.2
+  css:
+    theme:
+      assets/css/y_program.css: { preprocess: true }

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_cards
+label: Cards
+revision: 0
+description: 'A component for adding custom Cards.'

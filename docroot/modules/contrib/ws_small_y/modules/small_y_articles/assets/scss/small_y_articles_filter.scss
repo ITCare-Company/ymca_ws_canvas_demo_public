@@ -1,0 +1,91 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block.listing-filters {
+  margin: 100px 0;
+
+  @include media-breakpoint-down(md) {
+    margin: 40px 0;
+  }
+
+  .label-for-field-block {
+    display: none;
+  }
+
+  form {
+    border-radius: 10px;
+    background-color: var(--ylb-color-light-grey-1, #F2F2F2);
+    padding: 30px 15px;
+    height: 100%;
+    @media (max-width: 1060px) {
+      padding-top: 5px;
+    }
+
+    .form-item-keyword {
+      @include  media-breakpoint-up(xl) {
+        flex: 1 0 35%;
+      }
+    }
+
+    .form-item {
+      margin: 0 15px;
+      width: 100%;
+
+      @media (max-width: 1060px) {
+        margin: 16px 15px;
+      }
+
+      label {
+        color: var(--ylb-color-dark-grey-1, darkgray);
+        font-size: 16px;
+        font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+        line-height: 28px;
+        min-width: 200px;
+        margin-bottom: 4px;
+
+        @media (max-width: 1060px) {
+          font-weight: 700;
+        }
+      }
+    }
+
+    input,
+    select,
+    .form-submit {
+      border-color: #c8c8c8;
+      border-radius: 4px;
+      font-size: 18px;
+      font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+      font-weight: 500;
+      line-height: 22px;
+      min-height: 45px;
+      padding: 12px;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+
+      .input-wrapper {
+        align-self: center;
+
+        .form-submit {
+          background-color: var(--wsPartnerColor, var(--ylb-color-blue-dark));
+          border: 2px solid var(--wsPartnerColor, var(--ylb-color-blue-dark));
+          border-radius: 10px;
+          font-family: var(--ylb-font-family-cachet, Verdana), sans-serif;;
+          font-weight: 500;
+          text-transform: none;
+          padding: 12px 26px;
+
+          &:hover {
+            color: var(--wsPartnerColor, gray);
+            background-color: var(--ylb-color-white, white);
+          }
+        }
+      }
+    }
+  }
+}

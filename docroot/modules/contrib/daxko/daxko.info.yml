@@ -1,0 +1,13 @@
+name: Daxko
+type: module
+description: Provides a basic Daxko integration.
+core_version_requirement: ^9 || ^10 || ^11
+package: YMCA Website Services
+dependencies:
+  - openy_socrates
+  - openy_mappings
+
+# Information added by Drupal.org packaging script on 2025-05-01
+version: '1.0.5'
+project: 'daxko'
+datestamp: 1746096569

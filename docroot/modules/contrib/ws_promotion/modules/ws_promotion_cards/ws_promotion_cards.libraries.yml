@@ -1,0 +1,9 @@
+insert_promotion:
+  version: 1.2
+  js:
+    assets/js/insert_promotion_cards.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+    - core/once

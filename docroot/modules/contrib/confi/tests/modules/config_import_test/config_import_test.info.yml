@@ -1,0 +1,17 @@
+name: Config Import (Test)
+package: Config
+hidden: TRUE
+type: module
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+dependencies:
+  - config_import
+
+# Information added by Drupal.org packaging script on 2025-05-01
+# version: '3.2.1'
+# project: 'confi'
+# datestamp: 1746096410
+
+# Information added by Drupal.org packaging script on 2025-11-12
+version: '4.1.1'
+project: 'confi'
+datestamp: 1762935444

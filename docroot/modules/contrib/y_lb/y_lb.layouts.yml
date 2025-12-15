@@ -1,0 +1,41 @@
+ws_header:
+  label: 'WS Header'
+  category: 'WS Layouts'
+  class: '\Drupal\y_lb\Plugin\Layout\WsHeaderLayout'
+  library: y_lb/header
+  template: templates/ws-header
+  default_region: header_top_left
+  regions:
+    header_top_left:
+      label: Utility Nav left
+    header_top_right:
+      label: Utility Nav right
+    header_bottom_left:
+      label: Main Nav logo
+    header_bottom_middle:
+      label: Main Nav menu
+    header_bottom_right:
+      label: Second Nav menu
+  icon_map:
+    - [ header_top_left, header_top_right, header_bottom_left, header_bottom_middle, header_bottom_right]
+
+ws_footer:
+  label: 'WS Footer'
+  category: 'WS Layouts'
+  class: '\Drupal\y_lb\Plugin\Layout\WsFooterLayout'
+  library: y_lb/footer
+  template: templates/ws-footer
+  default_region: footer_first_column
+  regions:
+    footer_top_left:
+      label: Footer top left
+    footer_top_middle:
+      label: Footer top middle
+    footer_top_right:
+      label: Footer top right
+    footer_bottom_left:
+      label: Footer bottom left
+    footer_bottom_right:
+      label: Footer bottom right
+  icon_map:
+    - [ footer_top_left, footer_top_middle, footer_top_right, footer_bottom_left, footer_bottom_right]

@@ -1,0 +1,6 @@
+services:
+  openy_xdt.event_subscriber:
+    class: Drupal\openy_xdt\EventSubscriber\OpenyXdtSubscriber
+    arguments: [ '@config.factory' ]
+    tags:
+      - { name: event_subscriber }

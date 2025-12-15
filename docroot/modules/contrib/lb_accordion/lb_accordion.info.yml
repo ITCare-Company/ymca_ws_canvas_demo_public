@@ -1,0 +1,14 @@
+name: 'Y Layout Builder - Accordion Block'
+description: 'Helper module for the custom "Accordion" block type.'
+type: module
+core_version_requirement: ^9 || ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - drupal:paragraphs
+  - drupal:block_content
+  - y_lb
+
+# Information added by Drupal.org packaging script on 2025-05-01
+version: '2.3.1'
+project: 'lb_accordion'
+datestamp: 1746091690

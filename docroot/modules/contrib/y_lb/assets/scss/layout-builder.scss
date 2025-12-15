@@ -1,0 +1,673 @@
+@import "mixins/_screen-reader";
+
+.form-required {
+  &:after,
+  details & .summary:after {
+    margin-right: 0.15em !important;
+    margin-left: 0.15em !important;
+    content: '*' !important;
+    vertical-align: text-top !important;
+    color: var(--ylb-color-red, red) !important;
+    background: none !important;
+  }
+}
+
+// Clean up Layout edit page in Carnation.
+.openy_carnation {
+  form.node-layout-builder-form {
+    > .form-actions {
+      text-align: unset;
+
+      div.input-wrapper {
+        display: inline;
+      }
+    }
+  }
+
+  #edit-ws-settings-container summary {
+    color: var(--color-text, black);
+    font-weight: 700;
+    padding-top: 1em;
+  }
+
+  // Align alerts with Layout Builder containers.
+  [data-drupal-messages] {
+    margin: 1.5rem 2rem;
+  }
+}
+
+.js-off-canvas-dialog-open {
+  .modal-backdrop {
+    display: none;
+  }
+}
+
+figure.drupal-media.ck-widget {
+  figcaption {
+    display: block !important;
+  }
+}
+
+// Ensure these apply to D9 or D10. See https://www.drupal.org/node/3305664
+#drupal-off-canvas:not(.drupal-off-canvas-reset),
+#drupal-off-canvas-wrapper {
+  // Hide the "Block description" text and make it look more like a heading.
+  .form-item-settings-admin-label {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    font-size: 1.15em;
+    font-weight: bold;
+
+    label {
+      @include sr-only();
+    }
+  }
+
+  // Clean up fieldsets with some styles from D10.1 which we might be able to remove later.
+  .fieldset,
+  fieldset {
+    margin: calc(2 * var(--off-canvas-vertical-spacing-unit)) 0;
+    padding: var(--off-canvas-vertical-spacing-unit);
+    border: solid var(--drupal-off-canvas-fieldset-border-width) var(--drupal-off-canvas-fieldset-border-color);
+    background-color: var(--drupal-off-canvas-fieldset-background-color);
+    min-width: unset;
+
+    legend + .fieldset-wrapper {
+      margin-top: 1em;
+    }
+
+    .form-item {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+
+  #bs_nav-tabs:not([data-drupal-ck-style-fence] *) {
+    width: 100%;
+  }
+
+  legend,
+  .fieldset-legend {
+    display: contents;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+  }
+
+  details {
+    > summary {
+      color: #003cc5;
+      background-color: #f0f5fd;
+
+      &:hover {
+        color: #eee;
+        background-color: #222;
+      }
+
+      &:after {
+        display: none;
+      }
+
+      &:before {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%230036B1'/%3e%3c/svg%3e");
+      }
+    }
+
+  }
+
+  .ief-entity-table {
+    width: 100%;
+
+    .ief-form {
+      .ck-editor {
+        width: 99%;
+      }
+    }
+  }
+
+  table {
+    .draggable {
+      .ief-tabledrag-handle, .field-multiple-drag {
+        display: table-cell;
+
+        a {
+          .handle {
+            width: 28px;
+            height: 29px;
+          }
+
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .bs_tab-pane--appearance,
+  .bs_tab-pane--settings {
+    details {
+      > summary {
+        color: #eee;
+        background-color: inherit;
+
+        &:hover {
+          background-color: #222;
+        }
+
+        &:before {
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%23ffffff'/%3e%3c/svg%3e");
+        }
+      }
+    }
+  }
+
+  .inline-block-list {
+    margin-top: 1rem !important;
+    gap: 1rem;
+
+    li {
+      width: 46%;
+      border-bottom: 0;
+
+      a {
+        max-height: 50px;
+      }
+    }
+  }
+
+  .js-form-type-radio {
+    .blb_breakpoint_cols {
+      & + label {
+        display: flex;
+      }
+    }
+  }
+
+  .form-textarea {
+    background-color: #fff;
+    color: #222330;
+  }
+
+  .form-select {
+    appearance: none !important;
+  }
+
+  .select-wrapper:before {
+    display: none;
+  }
+
+  .blb_tab-content {
+    .bs_tab-pane--content {
+      details {
+        margin: 0;
+      }
+    }
+  }
+
+  .bs_tab-pane--appearance,
+  .bs_tab-pane--layout {
+    fieldset {
+      display: block;
+    }
+  }
+
+  .bs_tab-pane--layout {
+    .form-type-radio {
+      display: block;
+    }
+  }
+
+  .bs_tab-pane {
+    .alert-modal {
+      position: relative;
+      border: 1px solid red;
+    }
+  }
+
+  .button.dialog-cancel {
+    display: inline-block;
+    background-color: red;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    margin-top: 1em;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  details > summary:hover::before,
+  details > summary:hover:focus::before,
+  details[open] > summary::before,
+  details[open] > summary:hover:focus::before,
+  details[open] > summary:hover::before {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%23ffffff'/%3e%3c/svg%3e");
+  }
+
+  .form-text,
+  .form-tel,
+  .form-email,
+  .form-url,
+  .form-search,
+  .form-number,
+  .form-color,
+  .form-file,
+  .form-textarea,
+  .form-date,
+  .form-time {
+    &:focus {
+      background-color: #fff;
+      color: #222330;
+    }
+  }
+
+  tr {
+    td,
+    th {
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+
+  th,
+  td {
+    &:first-child {
+      width: auto;
+    }
+  }
+
+  .media-library-item {
+    .media-library-item__preview {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .paragraphs-actions {
+    display: flex;
+
+    .paragraphs-dropdown {
+      .paragraphs-dropdown-toggle {
+        display: none;
+      }
+
+      .paragraphs-dropdown-actions {
+        display: flex;
+        position: relative;
+        top: 0;
+        border: none;
+        box-shadow: none;
+        margin-left: 1em;
+
+        input {
+          margin-left: 1em;
+        }
+      }
+    }
+  }
+
+  .entities-list.entity-type--media {
+    .item-container.rendered-entity {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .bs_nav-tabs {
+    position: relative !important;
+  }
+
+  details[data-drupal-selector="edit-appearance-ws-style"] {
+    .form-item {
+
+      &[data-drupal-selector="edit-appearance-ws-style-ws-style-option-lb-cards"],
+      &[data-drupal-selector="edit-appearance-ws-style-ws-style-option-hero-banner"] {
+        .form-radios label {
+          flex-direction: column;
+        }
+      }
+      .form-radios {
+        display: flex;
+        flex-direction: row;
+        column-gap: 10px;
+        flex-wrap: wrap;
+
+        label {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          img {
+            border: 2px solid transparent;
+            border-radius: 15px;
+          }
+        }
+        &:has(input:checked) {
+          label {
+            opacity: 0.3;
+          }
+
+          .form-type-radio:has(input:checked) {
+            label {
+              opacity: 1;
+
+              img {
+                border-color: #41A5FF;
+              }
+            }
+          }
+        }
+
+        input {
+          display: none;
+        }
+      }
+    }
+  }
+
+  table {
+    td:not(.draggable) {
+      display: table-cell;
+    }
+  }
+
+  fieldset {
+    table {
+      margin: 0;
+    }
+  }
+
+  .btn-primary {
+    width: auto;
+    border-radius: var(--button-border-radius-size);
+    font-weight: 700;
+    line-height: 1rem;
+    padding: calc(var(--space-m) - 1px) calc(var(--space-l) - 1px);
+    color: #383A40;
+    background: #26A5FF;
+    text-wrap: nowrap;
+    margin: 0.5rem;
+    font-size: .85rem;
+
+    &:hover {
+      background: #008ef2;
+    }
+  }
+  .field--type-entity-reference {
+    .field-multiple-table {
+      .draggable {
+        .form-item, .input-wrapper {
+          margin: 0;
+
+          input {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+  .paragraphs-tabs-wrapper {
+    & > .form-item {
+      .field-multiple-table {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.field-media-image {
+  img {
+    width: auto;
+  }
+}
+
+.layout-builder__section {
+  .container-wrapper[class|="ylb-bg" ] {
+    .layout-builder-block {
+      background-color: transparent;
+    }
+  }
+
+  // Fix header layout for the pages with LB.
+  .header--top-right-column,
+  .header--top-left-column,
+  .header--bottom-left-column,
+  .header--bottom-middle-column,
+  .header--bottom-right-column {
+    display: block;
+  }
+
+  .header {
+    display: block;
+
+    &--top {
+      height: auto;
+
+      &-left-column {
+        .block-ws-site-name {
+          padding: 1.5em;
+        }
+      }
+    }
+
+    &--bottom {
+      height: auto;
+
+      nav {
+        height: auto;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+
+      &-left-column {
+        width: 20%;
+      }
+
+      &-middle-column {
+        width: 60%;
+
+        .ws-main-menu-wrapper {
+          ul.row-level-1 {
+            max-height: none;
+
+            li {
+              a {
+                padding: 5px 0;
+              }
+            }
+          }
+        }
+      }
+
+      &-right-column {
+        width: 20%;
+      }
+    }
+  }
+
+  .layout-builder-block {
+    background-color: transparent;
+  }
+}
+
+#edit-ws-settings-container {
+  &.form-actions {
+    .form-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  div[id^="edit-ws-design-settings-"] {
+    display: flex;
+    flex-wrap: wrap;
+
+    label {
+      padding-left: 10px;
+    }
+
+    .form-item {
+      padding: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(216, 217, 224, 0.8);
+      border-radius: 15px;
+      cursor: pointer;
+
+      &:has(input:checked) {
+        background-color: var(--ylb-color-light-grey-2, #e7e7e7);
+      }
+
+      &:has(input[value="ws_border_radius_none"]) {
+        border-radius: 0;
+      }
+
+      &:has(input[value="ws_border_radius_10"]) {
+        border-radius: 10px;
+      }
+
+      &:has(input[value="ws_border_radius_20"]) {
+        border-radius: 20px;
+      }
+
+      .input-wrapper {
+        display: none;
+      }
+
+      label {
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+      }
+    }
+
+    &#edit-ws-design-settings-colorway label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        width: 114px;
+      }
+    }
+  }
+}
+.ui-dialog {
+
+  .select-wrapper {
+    &:before {
+      top: 15px;
+    }
+  }
+  .form-select {
+    background-image: none;
+
+    &:hover {
+      background-image: none;
+    }
+  }
+  table {
+    width: 100%;
+
+    .draggable {
+      a {
+        .handle {
+          width: 28px;
+          height: 29px;
+        }
+      }
+    }
+  }
+
+  .ui-dialog-titlebar-close {
+    &:after, &:before {
+      position: absolute;
+      top: calc(50% - 1px);
+      left: 50%;
+      width: 50%;
+      height: 0;
+      content: "";
+      border-top: solid 2px currentColor;
+    }
+    &:before {
+      transform: translate(-50%, 50%) rotate(-45deg);
+    }
+    &:after {
+      transform: translate(-50%, 50%) rotate(45deg);
+    }
+  }
+  &-off-canvas .ck.ck-content {
+    // To highlight a link inside the CKeditor area.
+    a {
+      color: var(--ylb-color-blue-dark, #0060af);
+    }
+    // To highlight a highlighted text inside the CKeditor area.
+    span {
+      &.highlighted {
+        background-color: var(--wsPrimaryColor, #0572c7);
+        color: var(--ylb-color-white, #fff);
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  &:before,
+  &:after {
+    border-color: var(--jui-dialog-title-color, #FFF);
+  }
+}
+
+.ck-source-editing-area {
+  color: #222330;
+}
+
+.ui-dialog-content {
+  .media-library-wrapper {
+    .js-media-library-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 150px;
+      margin: 0;
+      padding: 0;
+      background-color: var(--ylb-color-light-grey-1);
+
+      li {
+        padding: 12px;
+
+        &:has(.active) {
+          background-color: var(--ylb-color-white);
+        }
+
+        a {
+          color: var(--ylb-color-black);
+          padding: 6px 12px;
+
+          &.active {
+            color: var(--ylb-color-blue-dark);
+          }
+        }
+      }
+    }
+
+    .media-library-content {
+      .view-filters {
+        .exposed-form-flex-wrapper {
+          .input-wrapper {
+            .form-submit.button {
+              margin-bottom: 32px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

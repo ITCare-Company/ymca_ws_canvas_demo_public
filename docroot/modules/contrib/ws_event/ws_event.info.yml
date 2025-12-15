@@ -1,0 +1,41 @@
+name: 'Y Layout Builder - Event CT with LB component'
+type: module
+description: Provides additional functionality for the site.
+package: YMCA Website Services
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - 'drupal:responsive_image'
+  - 'drupal:daterange_compact'
+  - 'drupal:node_revision_delete'
+  - 'openy_focal_point'
+  - 'openy_loc_branch'
+  - 'openy_media_image'
+  - 'openy_system'
+  - 'y_lb'
+  - 'drupal:address'
+  - 'drupal:addtocal_augment'
+  - 'drupal:block_content'
+  - 'drupal:bootstrap_layout_builder'
+  - 'drupal:date_augmenter'
+  - 'drupal:layout_builder'
+  - 'drupal:layout_builder_restrictions'
+  - 'drupal:link'
+  - 'drupal:openy_gtranslate'
+  - 'drupal:schema_event'
+  - 'drupal:smart_date'
+  - 'drupal:smart_date_recur'
+  - 'drupal:system'
+  - 'drupal:text'
+  - 'drupal:user'
+  - 'drupal:field_group'
+  - 'drupal:path'
+  - 'drupal:scheduler'
+  - 'drupal:simple_sitemap'
+  - 'drupal:better_exposed_filters'
+  - 'drupal:verf'
+  - 'drupal:views_infinite_scroll'
+
+# Information added by Drupal.org packaging script on 2025-11-07
+version: '1.5.6'
+project: 'ws_event'
+datestamp: 1762505676

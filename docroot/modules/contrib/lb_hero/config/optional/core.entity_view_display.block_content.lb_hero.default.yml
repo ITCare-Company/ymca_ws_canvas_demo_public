@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_hero
+    - field.field.block_content.lb_hero.field_description
+    - field.field.block_content.lb_hero.field_heading_level
+    - field.field.block_content.lb_hero.field_hero_cta
+    - field.field.block_content.lb_hero.field_media
+    - field.field.block_content.lb_hero.field_title
+id: block_content.lb_hero.default
+targetEntityType: block_content
+bundle: lb_hero
+mode: default
+content: {  }
+hidden:
+  field_description: true
+  field_heading_level: true
+  field_hero_cta: true
+  field_media: true
+  field_title: true
+  langcode: true
+  search_api_excerpt: true

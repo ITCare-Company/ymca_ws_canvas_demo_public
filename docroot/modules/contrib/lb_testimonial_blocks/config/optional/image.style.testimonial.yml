@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+name: testimonial
+label: Testimonial
+effects:
+  60660dd1-1839-4fe6-84b0-5e8a2dfcb3e3:
+    uuid: 60660dd1-1839-4fe6-84b0-5e8a2dfcb3e3
+    id: image_scale
+    weight: 1
+    data:
+      width: 166
+      height: 166
+      upscale: false
+

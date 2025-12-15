@@ -1,0 +1,77 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\ws_promotion\Form\NodePromoPreviewForm;
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function ws_promotion_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'layout_builder_add_block' || $form_id === 'layout_builder_update_block') {
+    /** @var Drupal\ws_promotion\Form\FormAlter $formAlterService */
+    $formAlterService = Drupal::service('ws_promotion.form_alter');
+    $formAlterService->alterInlineBlockForm($form, $form_state, $form_id);
+  }
+  if ($form_id === 'node_preview_form_select') {
+    $form_object = $form_state->getFormObject();
+    if ($form_object instanceof NodePromoPreviewForm) {
+      $entity = \Drupal::request()->get('node');
+      $store = \Drupal::service('tempstore.private')->get('node_preview');
+      $entity->in_preview = TRUE;
+      $form_object->setEntity($entity);
+      $store->set($entity->uuid(), $form_state);
+    } else {
+      $store = \Drupal::service('tempstore.private')->get('node_preview');
+      $form_state_storage = $store->get($form_state->getBuildInfo()['args'][0]->uuid());
+      if ($form_state_storage->getFormObject() instanceof NodePromoPreviewForm) {
+        unset($form['backlink']['#options']['query']);
+      }
+    }
+
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ws_promotion_form_node_preview_form_select_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_state->getBuildInfo()['args'][0]->bundle() === 'promo') {
+    $form['#attached']['library'][] = 'ws_promotion/promotion_preview';
+    $form['#attached']['library'][] = 'y_lb/layout_builder';
+    $form['#attached']['library'][] = 'y_lb/main';
+    // set default styles
+    $form['#attached']['library'][] = 'y_lb/colorway.blue';
+    $form['#attached']['library'][] = 'y_lb/border_radius.10';
+    $form['#attached']['library'][] = 'y_lb/borders';
+    $form['#attached']['library'][] = 'y_lb/border_style.drop_shadow';
+
+    $promoPreviews = [];
+    \Drupal::moduleHandler()->invokeAll('promotion_preview_list_alter', [&$promoPreviews]);
+    $form['view_mode']['#options'] = array_merge(['full' => t(' -- Select view mode-- ')], $promoPreviews);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_promotion_preprocess_node__promo(&$variables) {
+  if (\Drupal::routeMatch()->getParameter('node_preview')) {
+    $variables['preview_promo'] = true;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ws_promotion_preprocess_node__promo__full(&$variables) {
+  $route_match = \Drupal::routeMatch();
+  $node = $route_match->getParameter('node');
+  if ($route_match->getRouteName() === 'entity.node.canonical' && $node && $node->bundle() === 'promo') {
+    $variables['#attached']['library'][] = 'node/drupal.node.preview';
+    $form = \Drupal::formBuilder()->getForm('\Drupal\ws_promotion\Form\NodePromoPreviewForm', $node);
+    unset($form['backlink']);
+    $variables['content']['node_preview']['view_mode'] = $form;
+  }
+}
+

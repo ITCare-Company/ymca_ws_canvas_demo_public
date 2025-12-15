@@ -1,0 +1,11 @@
+--- lib/Drupal/Core/PathProcessor/PathProcessorFront.php	(revision f9d3970b7b0a3a4651d026e0efc3b7e7e4139d25)
++++ lib/Drupal/Core/PathProcessor/PathProcessorFront.php	(date 1709122680688)
+@@ -46,7 +47,7 @@
+       // Merge query parameters from front page configuration value
+       // with URL query, so that actual URL takes precedence.
+       if (!empty($components['query'])) {
+-        parse_str($components['query'], $parameters);
++        $parameters = UrlHelper::parseString($components['query']);
+         array_replace($parameters, $request->query->all());
+         $request->query->replace($parameters);
+       }

@@ -1,0 +1,11 @@
+name: YMCA Sync suite
+type: module
+description: YMCA Sync services. Webservises.
+core_version_requirement: ^10 || ^11
+package: YMCA
+
+
+# Information added by Drupal.org packaging script on 2025-07-03
+version: '11.0.0'
+project: 'ymca_sync'
+datestamp: 1751540638

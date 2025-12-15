@@ -1,0 +1,37 @@
+{#
+/**
+ * Y Statistics Item component.
+ *
+ * Variables:
+ * - number: (string) The statistic number
+ * - prefix: (string) Text before number
+ * - suffix: (string) Text after number
+ * - description: (string) Label for the statistic
+ * - animate: (boolean) Enable count-up animation
+ */
+#}
+
+{% set animate = animate ?? true %}
+
+{% set classes = [
+  'y-statistics-item',
+] %}
+
+<div {{ attributes.addClass(classes) }} data-component="y-statistics-item">
+  <div class="y-statistics-item__content">
+    {% if number %}
+      <div class="y-statistics-item__number">
+        {% if prefix %}<span class="y-statistics-item__prefix">{{ prefix }}</span>{% endif %}
+        <span class="y-statistics-item__value{% if animate %} js-count{% endif %}"
+              {% if animate %}data-count="{{ number }}"{% endif %}>
+          {{ animate ? '0' : number }}
+        </span>
+        {% if suffix %}<span class="y-statistics-item__suffix">{{ suffix }}</span>{% endif %}
+      </div>
+    {% endif %}
+
+    {% if description %}
+      <p class="y-statistics-item__description">{{ description|raw }}</p>
+    {% endif %}
+  </div>
+</div>

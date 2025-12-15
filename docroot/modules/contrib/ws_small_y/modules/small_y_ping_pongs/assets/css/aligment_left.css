@@ -1,0 +1,23 @@
+.block-ping-pong-section.alignment-left .ping-pong-items > .ping-pong-item:nth-child(odd) {
+  margin-top: 40px;
+  flex-direction: row-reverse;
+  margin-left: 72px;
+  margin-bottom: 0;
+}
+@media (max-width: 1199.98px) {
+  .block-ping-pong-section.alignment-left .ping-pong-items > .ping-pong-item:nth-child(odd) {
+    margin: 0 0 40px;
+  }
+}
+.block-ping-pong-section.alignment-left .ping-pong-items > .ping-pong-item:nth-child(odd) .item-image {
+  top: -40px;
+  left: -72px;
+  bottom: 40px;
+}
+@media (max-width: 1199.98px) {
+  .block-ping-pong-section.alignment-left .ping-pong-items > .ping-pong-item:nth-child(odd) .item-image {
+    left: 0;
+  }
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvYWxpZ21lbnRfbGVmdC5zY3NzIiwiYWxpZ21lbnRfbGVmdC5jc3MiLCIuLi8uLi9ub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvbWl4aW5zL19icmVha3BvaW50cy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQU1JO0VBQ0UsZ0JBQUE7RUFDQSwyQkFBQTtFQUNBLGlCQUFBO0VBQ0EsZ0JBQUE7QUNMTjtBQ29FSTtFRm5FQTtJQU9JLGdCQUFBO0VDSk47QUFDRjtBRE1NO0VBQ0UsVUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDSlI7QUMwREk7RUZ6REU7SUFNSSxPQUFBO0VDSFI7QUFDRiIsImZpbGUiOiJhbGlnbWVudF9sZWZ0LmNzcyJ9 */

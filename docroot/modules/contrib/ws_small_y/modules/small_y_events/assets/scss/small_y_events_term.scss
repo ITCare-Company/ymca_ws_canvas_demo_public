@@ -1,0 +1,40 @@
+/* Styles for event taxonomy term pages */
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.lb-events-listing {
+  .views-element-container {
+    @include make-container();
+    @include make-container-max-widths();
+  }
+  .views-element-container > .taxonomy-term {
+    display: flex;
+    flex-wrap: wrap;
+
+    > .taxonomy-term {
+      display: grid;
+      grid-template-columns: auto;
+      gap: 30px;
+
+      @include media-breakpoint-up('md') {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 1140px;
+      }
+
+      @include media-breakpoint-up('xl') {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    > header {
+      display: none;
+    }
+
+    .field-tags.field-item {
+      display: inline;
+      margin-right: 10px;
+    }
+  }
+}
+

@@ -1,0 +1,60 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - lb_partners_blocks
+  enforced:
+    module:
+      - y_lb_demo_content
+id: y_lb_demo_block_partners_tier
+migration_tags:
+  - openy_complete_installation
+  - openy_standard_installation
+  - openy_extended_installation
+migration_group: y_lb_demo_content
+label: 'Import Demo Layout Builder - Partners Tier block'
+source:
+  plugin: embedded_data
+  data_rows:
+    - id: tier_default
+      title: ''
+      content_ids:
+        - content_id: partner_1
+        - content_id: partner_2
+        - content_id: partner_3
+        - content_id: partner_4
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: partners_tier
+  field_title: title
+  field_partners_items:
+    plugin: sub_process
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - y_lb_demo_block_partners_item
+        source: content_id
+
+destination:
+  plugin: entity:block_content
+  default_bundle: 'partners_tier'
+migration_dependencies:
+  required:
+    - y_lb_demo_block_partners_item
+  optional: {  }

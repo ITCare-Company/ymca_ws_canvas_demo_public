@@ -1,0 +1,17 @@
+name: Open Y Editor
+description: Stores an editor and text filters configuration.
+type: module
+core_version_requirement: ^10 || ^11
+package: Open Y
+version: 2.0.0
+dependencies:
+  - drupal:ckeditor5
+  - drupal:ckeditor5_plugin_pack_font
+  - drupal:ckeditor5_paste_filter
+  - drupal:editor
+  - drupal:filter
+  - entity_embed:entity_embed
+  - token_filter:token_filter
+  - drupal:blazy
+  - drupal:media
+  - drupal:slick

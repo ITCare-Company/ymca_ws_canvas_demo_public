@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.donate_item
+    - field.storage.block_content.field_form_element_id
+id: block_content.donate_item.field_form_element_id
+field_name: field_form_element_id
+entity_type: block_content
+bundle: donate_item
+label: 'Form Element ID'
+description: 'Usually a 4-digit number found on the donation backend.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the YMCA WS - Small Y module.
+ */
+
+require_once __DIR__ . '/includes/page-404.inc';
+
+/**
+ * Implements hook_install().
+ */
+function ws_small_y_install() {
+  _ws_small_update_landing_page_lb_default_config();
+  _ws_small_set_404_page();
+}
+
+/**
+ * Updates the default configuration of the view mode for LP with LB.
+ */
+function _ws_small_update_landing_page_lb_default_config() {
+  $path = \Drupal::service('extension.list.module')->getPath('ws_small_y') . '/config/optional';
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.landing_page_lb.default',
+  ]);
+}
+
+/**
+ * Add a section for breadcrumbs.
+ */
+function ws_small_y_update_91001() {
+  _ws_small_update_landing_page_lb_default_config();
+}
+
+/**
+ * Hide a Partner Tier block from the LB's blocks listing.
+ */
+function ws_small_y_update_91002() {
+  _ws_small_update_landing_page_lb_default_config();
+}
+
+/**
+ * Set Small Y Page Not Found page as default for the site.
+ */
+function ws_small_y_update_91003() {
+  _ws_small_set_404_page();
+}
+
+/**
+ * Enable the Sitemap module if it hasn't been enabled yet.
+ */
+function ws_small_y_update_91004() {
+  $module_handler = \Drupal::moduleHandler();
+  if (!$module_handler->moduleExists('simple_sitemap')) {
+    \Drupal::service('module_installer')->install(['simple_sitemap'], FALSE);
+  }
+}
+
+/**
+ * Enable 'Use Layout Builder' by default.
+ */
+function ws_small_y_update_91005(&$sandbox) {
+  $content_types_to_update = [
+    'branch',
+    'camp',
+    'facility',
+  ];
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['current'] = 0;
+    $sandbox['max'] = \Drupal::entityQuery('node')
+      ->condition('type', $content_types_to_update, 'IN')
+      ->count()
+      ->accessCheck()
+      ->execute();
+  }
+  // Load nodes in chunks of 20 entities.
+  $ids = \Drupal::entityQuery('node')
+    ->condition('type', $content_types_to_update, 'IN')
+    ->condition('nid', $sandbox['current'], '>')
+    ->range(0, 20)
+    ->sort('nid')
+    ->accessCheck()
+    ->execute();
+  $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($ids);
+
+  foreach ($nodes as $node) {
+    if (!$node->hasField('field_use_layout_builder')) {
+      continue;
+    }
+    $node->set('field_use_layout_builder', TRUE);
+    $node->save();
+    $sandbox['progress']++;
+    $sandbox['current'] = $node->id();
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+}
+
+/**
+ * Revoke permissions for not LB content types.
+ */
+function ws_small_y_update_91006() {
+  $content_types_to_hide = [
+    'landing_page',
+    'program',
+    'program_subcategory',
+  ];
+
+  $permissions_to_revoke = [
+    'create content_type content',
+    'delete any content_type content',
+    'delete own content_type content',
+    'view content_type revisions',
+    'edit own content_type content',
+    'edit any content_type content',
+    'revert content_type revisions',
+  ];
+  $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple(
+    ['editor', 'contributor']
+  );
+    foreach ($roles as $role) {
+      foreach ($content_types_to_hide as $content_type) {
+        foreach ($permissions_to_revoke as $permission_to_revoke) {
+          $permission = str_replace('content_type', $content_type, $permission_to_revoke);
+          if ($role->hasPermission($permission)) {
+            $role->revokePermission($permission);
+          }
+        }
+      }
+      $role->save();
+    }
+  }
+
+
+/**
+ * Update header and footer layout in default LB config.
+ */
+function ws_small_y_update_91007() {
+  _ws_small_update_landing_page_lb_default_config();
+}

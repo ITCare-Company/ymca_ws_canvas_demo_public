@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: modal_image
+label: 'Modal image (600x480)'
+effects:
+  9bca28dd-f4d7-4fb8-8774-be5b9958390f:
+    uuid: 9bca28dd-f4d7-4fb8-8774-be5b9958390f
+    id: openy_focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: '600'
+      height: '480'
+      crop_type: focal_point
+  6b1ecc8d-7f2f-4f60-a400-23a16651078c:
+    uuid: 6b1ecc8d-7f2f-4f60-a400-23a16651078c
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

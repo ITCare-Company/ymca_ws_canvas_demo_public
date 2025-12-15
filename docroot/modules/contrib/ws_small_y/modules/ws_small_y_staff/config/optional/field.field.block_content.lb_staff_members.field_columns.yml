@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_staff_members
+    - field.storage.block_content.field_columns
+  module:
+    - options
+id: block_content.lb_staff_members.field_columns
+field_name: field_columns
+entity_type: block_content
+bundle: lb_staff_members
+label: 'Number of columns'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '4'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

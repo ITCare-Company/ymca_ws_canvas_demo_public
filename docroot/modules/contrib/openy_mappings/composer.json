@@ -1,0 +1,19 @@
+{
+    "name": "drupal/openy_mappings",
+    "description": "Provides a Mapping entity type and features.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/openy_mappings",
+    "support": {
+        "docs": "https://ds-docs.y.org",
+        "issues": "https://www.drupal.org/project/issues/openy_mappings",
+        "source": "https://git.drupalcode.org/project/openy_mappings"
+    },
+    "require": {
+        "drupal/core": ">=8",
+        "twig/twig": "^2.7 || ^3.0"
+    },
+    "suggest": {
+        "ycloudyusa/yusaopeny-project": "It is recommended that this theme be used with the Open Y base project, otherwise you may run into missing dependency errors. See https://ds-docs.y.org for instructions on how to get started with Open Y."
+    }
+}

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_accordion
+    - field.storage.block_content.field_is_faq
+id: block_content.lb_accordion.field_is_faq
+field_name: field_is_faq
+entity_type: block_content
+bundle: lb_accordion
+label: 'FAQ?'
+description: "If this section contains Frequently Asked Questions, check this box to output them as \"structured data\". Ensure the content contains individual sets of questions (\"How old does my child need to be to swim at the YMCA?\") and answers (\"The YMCA offers swim classes starting at age 3 and the pool is open to children of all ages with parental supervision\"). Review <a href=\"https://developers.google.com/search/docs/appearance/structured-data/faqpage#content-guidelines\">Google's Content guidelines for FAQs</a> for more information.\r\n\r\nOnly one FAQ should be added to a page. If more than one is added, only the first will be output to the structured data."
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

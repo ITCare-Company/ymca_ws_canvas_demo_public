@@ -1,0 +1,11 @@
+name: OpenY Daxko GroupEx PRO Syncer
+type: module
+description: Sync groupex schedules with daxko api.
+package: "YMCA Website Services"
+core_version_requirement: ^10 || ^11
+dependencies:
+  - openy_mappings
+  - openy_system
+  - openy_node_session
+  - ymca_sync:ymca_sync
+  - openy_gxp:openy_gxp

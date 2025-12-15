@@ -1,0 +1,542 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Entity\ContentEntityFormInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\block_content\BlockContentInterface;
+use Drupal\editor\Entity\Editor;
+use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
+use Drupal\layout_builder\Form\DefaultsEntityForm;
+use Drupal\layout_builder\Form\OverridesEntityForm;
+use Drupal\layout_builder\Plugin\SectionStorage\OverridesSectionStorage;
+use Drupal\node\NodeInterface;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\y_lb\Form\YLBEntityViewDisplay;
+use Drupal\y_lb\Form\YLBEntityViewDisplayForm;
+use Drupal\y_lb\Form\YLBOverridesEntityForm;
+
+/**
+ * Implements hook_theme().
+ */
+function y_lb_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_node_share' => [
+      'base hook' => 'block',
+    ],
+    'block__lb_node_locations' => [
+      'base hook' => 'block',
+    ],
+    'block__lb_node_title' => [
+      'base hook' => 'block',
+    ],
+    'block__ws_site_logo' => [
+      'base hook' => 'block',
+    ],
+    'block__ws_site_name' => [
+      'base hook' => 'block'
+    ],
+    'block__ws_search_bar' => [
+      'base hook' => 'block'
+    ],
+    'blb_section__y_lb' => [
+      'template' => 'blb-section--y-lb',
+      'render element' => 'content',
+      'base hook' => 'layout',
+    ],
+    'page__node__landing_page_lb' => [
+      'base hook' => 'page',
+    ],
+    'page__node__preview__landing_page_lb' => [
+      'base hook' => 'page',
+    ],
+    'page__node__layout__discard_changes' => [
+      'base hook' => 'page',
+      'template' => 'page--node--layout--discard-revert',
+    ],
+    'page__node__layout__revert' => [
+      'base hook' => 'page',
+      'template' => 'page--node--layout--discard-revert',
+    ],
+    'menu__main' => [
+      'base hook' => 'menu__main',
+    ],
+    'ws_social_links_block' => [
+      'variables' => [
+        'facebook' => NULL,
+        'twitter' => NULL,
+        'youtube' => NULL,
+        'instagram' => NULL,
+        'linkedin' => NULL,
+      ],
+      'template' => 'ws-social-links-block',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for page templates.
+ */
+function y_lb_theme_suggestions_page_alter(array &$suggestions) {
+  // Skip admin route.
+  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+    return;
+  }
+
+  $route_match = Drupal::routeMatch();
+  $node = $route_match->getParameter('node');
+  $node_preview = !$node instanceof NodeInterface
+    ? $route_match->getParameter('node_preview')
+    : NULL;
+  // Add content type suggestions for preview node types.
+  if ($node_preview instanceof NodeInterface) {
+    $suggestions[] = 'page__node__preview__' . $node_preview->bundle();
+  }
+  // Skip page without node.
+  if (!$node instanceof NodeInterface) {
+    return;
+  }
+
+  // Skip nodes without LB usage.
+  if (!$node->hasField(OverridesSectionStorage::FIELD_NAME)) {
+    return;
+  }
+  // Skip nodes with optional layout builder usage with deactivated usage.
+  if ($node->hasField('field_use_layout_builder')
+    && !$node->field_use_layout_builder->value) {
+    return;
+  }
+  // Add custom suggestion.
+  $node_type = $node->getType();
+  $page__node_pos = array_search('page__node', $suggestions);
+  $page__node__type = 'page__node__' . $node_type;
+  array_splice($suggestions, $page__node_pos + 1, 0, $page__node__type);
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form templates.
+ */
+function y_lb_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  $content = $variables['elements']['content'];
+  if (isset($content['#block_content']) && $content['#block_content'] instanceof BlockContentInterface) {
+    // Add 'block--BLOCK-TYPE.html.twig'.
+    $block_type_suggestions[] = 'block__' . $content['#block_content']->bundle();
+
+    // Add 'block--BLOCK-TYPE--VIEW-MODE.html.twig'.
+    $block_type_suggestions[] = 'block__' . $content['#block_content']->bundle() . '__' . $content['#view_mode'];
+
+    // Because block__block_content exists twice in $suggestions,
+    // the suggestion arrays are reversed for further processing.
+    $suggestions_rev = array_reverse($suggestions);
+    $block_type_suggestions = array_reverse($block_type_suggestions);
+
+    // Insert the block type and view mode suggestions between
+    // block__block_content and the block instance-specific suggestions.
+    $index = array_search('block__block_content', $suggestions_rev);
+    if (is_numeric($index)) {
+      array_splice($suggestions_rev, $index, 0, $block_type_suggestions);
+      $suggestions = array_reverse($suggestions_rev);
+    }
+    // If block__block_content isn't present as a suggestion.
+    else {
+      $suggestions_rev = array_merge($suggestions_rev, $block_type_suggestions);
+      $suggestions = array_reverse($suggestions_rev);
+    }
+  }
+  // Add specific suggestion if custom WS template should be used.
+  if (isset($variables['elements']['#ws_template'])) {
+    $suggestions[] = str_replace('-', '_', $variables['elements']['#ws_template']);
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function y_lb_form_alter(&$form, FormStateInterface $form_state) {
+  $form_object = $form_state->getFormObject();
+  $form_id = $form_object->getFormId();
+  if ($form_object instanceof OverridesEntityForm
+    || $form_object instanceof DefaultsEntityForm
+    || $form_object->getFormId() === 'layout_layout_builder_form') {
+    $form['#attached']['library'][] = 'y_lb/layout_builder';
+    $form['#attached']['library'][] = 'y_lb/main';
+  }
+  if ($form_object instanceof ContentEntityFormInterface) {
+    $form['#attached']['library'][] = 'y_lb/main';
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function y_lb_page_attachments_alter(array &$page) {
+  $entity_types = array_keys(\Drupal::entityTypeManager()->getDefinitions());
+  $entity_canonical_routes = [];
+
+  foreach ($entity_types as $entity_type_id) {
+    $entity_canonical_routes[] = 'entity.' . $entity_type_id . '.canonical';
+  }
+  // Attach main library for node preview.
+  $entity_canonical_routes[] = 'entity.node.preview';
+
+  $route_match = \Drupal::routeMatch();
+  $current_route = $route_match->getRouteName();
+  // Attach the libraries only in entity canonical route and only when the
+  // Layout Builder is enabled for the view mode.
+  if (in_array($current_route, $entity_canonical_routes)) {
+    $current_route_exploded = explode('.', $current_route);
+    $route_entity_type_id = $current_route_exploded[2] === 'preview'
+      ? 'node_preview'
+      : $current_route_exploded[1];
+
+    $entity = $route_match->getParameter($route_entity_type_id);
+    // Do not apply the y_lb/main since we can't find an appropriate entity.
+    if (!$entity instanceof FieldableEntityInterface) {
+      return;
+    }
+
+    // Skip entities without LB usage.
+    if (!$entity->hasField(OverridesSectionStorage::FIELD_NAME)) {
+      return;
+    }
+
+    // Skip entities with optional layout builder usage with deactivated usage.
+    if ($entity->hasField('field_use_layout_builder')
+      && !$entity->field_use_layout_builder->value) {
+      return;
+    }
+
+    $page['#attached']['library'][] = 'y_lb/main';
+
+    // Remove MatchHeight library for LB pages.
+    if (($key = array_search('openy_carnation/matchheight', $page['#attached']['library'])) !== FALSE) {
+      unset($page['#attached']['library'][$key]);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for layout_builder_add_block.
+ *
+ * @todo Keep an eye on https://www.drupal.org/project/drupal/issues/3074435
+ */
+function y_lb_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state) {
+  if (isset($form['settings']['block_form']['#block'])
+    && strpos($form['settings']['block_form']['#block']->bundle(), 'lb_') === 0
+    && isset($form['settings']['label_display'])) {
+    // Uncheck the 'Display Title' by default.
+    $form['settings']['label_display']['#default_value'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for block templates.
+ */
+function y_lb_preprocess_block(&$variables) {
+  switch ($variables['plugin_id']) {
+    case 'system_breadcrumb_block':
+      $variables['attributes']['class'][] = 'block-lb-breadcrumbs';
+      $variables['#attached']['library'][] = 'y_lb/breadcrumbs';
+      break;
+
+    case 'lb_node_share':
+    case 'lb_node_tags':
+    case 'lb_node_locations':
+      $variables['#attached']['library'][] = 'y_lb/blocks';
+      break;
+
+    case 'views_block:search_content-search_content':
+      $variables['#attached']['library'][] = 'y_lb/search';
+      break;
+
+  }
+  $variables['attributes']['class'][] = 'block-' . Html::getClass($variables['plugin_id']);
+  // Override library via override plugin.
+  if ($libraries = _y_lb_get_override_component_library($variables['plugin_id'])) {
+    $variables['#attached']['library'] = $libraries;
+    // In case custom block with add library in the content area.
+    if (isset($variables['content']['#attached'])) {
+      $variables['content']['#attached']['library'][] = $libraries[0];
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function y_lb_theme_suggestions_layout_alter(array &$suggestions, array $variables) {
+  $original_hook = $variables['theme_hook_original'];
+  if ($original_hook !== 'blb_section' && !str_starts_with($original_hook, 'blb_section__')) {
+    return;
+  }
+  // Remove existing suggestions.
+  $suggestions = [];
+  $suggestions[] = 'blb_section__y_lb';
+  $entity = $variables['content']['#entity'] ?? NULL;
+  if ($entity && $entity instanceof EntityInterface) {
+    $suggestions[] = 'blb_section__' . $entity->bundle();
+    $label = $variables['content']['#settings']['label'] ?? NULL;
+    if ($label) {
+      $suggestions[] = 'blb_section__' . $entity->bundle() . '__' . strtolower($label);
+    }
+  }
+}
+
+/**
+ * Implements hook_ckeditor_css_alter().
+ */
+function y_lb_ckeditor_css_alter(array &$css, Editor $editor) {
+  $css[] = \Drupal::service('extension.list.module')->getPath('y_lb') . '/assets/css/typography.css';
+}
+
+/**
+ * Implements hook_preprocess_blb_container_wrapper().
+ */
+function y_lb_preprocess_blb_container_wrapper(&$variables) {
+  $variables['attributes']['class'][] = 'container-wrapper';
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function y_lb_entity_type_alter(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  $entity_types['entity_view_display']
+    ->setFormClass('layout_builder', YLBEntityViewDisplay::class)
+    ->setFormClass('edit', YLBEntityViewDisplayForm::class);
+
+  $entity_types['node']
+    ->setFormClass('layout_builder', YLBOverridesEntityForm::class);
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function y_lb_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  if ($entity_type->id() === 'node') {
+    $fields['override_styles'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Override default Y Styles'))
+      ->setDescription(t('Whether or not the node should override the default Y styles (e.g. Color scheme, etc.).'))
+      ->setRevisionable(TRUE)
+      ->setDefaultValue(FALSE)
+      ->setDisplayConfigurable('form', FALSE)
+      ->setDisplayConfigurable('view', FALSE);
+
+    $fields['styles'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('Y Styles'))
+      ->setDescription(t('Node specific Y Styles to be applied.'))
+      ->setRevisionable(TRUE)
+      ->setSetting('case_sensitive', TRUE)
+      ->setDisplayConfigurable('form', FALSE)
+      ->setDisplayConfigurable('view', FALSE);
+  }
+
+  return $fields;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for pages.
+ */
+function y_lb_preprocess_page(&$variables) {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'] ?? NULL;
+
+  // Will be "true" if you are currently on a taxonomy term page.
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.taxonomy_term.canonical') {
+
+    // Since this is a taxonomy term page, you may wish to get the term ID.
+    $term_id = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
+
+    // Load the term object.
+    $node = Term::load($term_id);
+  }
+
+  // Skip page without node or term.
+  if ((!$node instanceof NodeInterface) && (!$node instanceof Term)) {
+    return;
+  }
+  // Skip nodes without LB usage.
+  if (!$node->hasField('layout_builder__layout')) {
+    return;
+  }
+
+  // Skip nodes with optional layout builder usage with deactivated usage.
+  if ($node->hasField('field_use_layout_builder')
+    && !$node->field_use_layout_builder->value) {
+    return;
+  }
+
+  $libraries = [];
+  $classes = [];
+  /** @var \Drupal\y_lb\WSStyleManager $ws_styles */
+  $ws_style = \Drupal::service('plugin.manager.ws_style');
+  /** @var \Drupal\y_lb\WSStyleOptionManager $ws_style_options */
+  $ws_style_option = \Drupal::service('plugin.manager.ws_style_option');
+  // Check individual node for overridden Y Styles.
+  if ($node->override_styles && $node->override_styles->value) {
+    $styles = unserialize($node->styles->value);
+  }
+  else {
+    // Get Y Styles from node view display settings.
+    foreach (['full', 'default'] as $display) {
+      $view_display = \Drupal::entityTypeManager()
+        ->getStorage('entity_view_display')
+        ->load($node->getEntityTypeId() . '.' . $node->bundle() . '.' . $display);
+      if (!$view_display) {
+        continue;
+      }
+      $settings = $view_display->getThirdPartySettings('y_lb');
+      $styles = $settings['styles'] ?? [];
+      if ($styles) {
+        break;
+      }
+    }
+  }
+
+  // Get libraries from the style's groups.
+  foreach (array_keys($styles) as $group) {
+    $libraries = array_merge($libraries, $ws_style->getLibraries($group));
+  }
+
+  // Get libraries from the style's options.
+  foreach ($styles as $group => $style) {
+    if (is_string($style)) {
+      $libraries = array_merge($libraries, $ws_style_option->getLibraries($group, $style));
+      $classes = array_merge($classes, $ws_style_option->getClasses($group, $style));
+    }
+  }
+
+  if ($node->in_preview) {
+    $classes[] = 'node-preview';
+  }
+
+  // Attach WS libraries to the node.
+  foreach ($libraries as $library) {
+    $variables['#attached']['library'][] = $library;
+  }
+
+  if ($classes) {
+    $variables['page_classes'] = $classes;
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function y_lb_preprocess_html(array &$variables) {
+  // Preprocess the node to find if it is related to Layout Builder.
+  if (!empty($variables['node_type'])) {
+    // Add content type suggestions for node types.
+    $node = \Drupal::routeMatch()->getParameter('node');
+    // Skip admin route.
+    if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+      return;
+    }
+    // Skip page without node.
+    if (!$node instanceof NodeInterface) {
+      return;
+    }
+
+    // Skip nodes without LB usage.
+    if (!$node->hasField('layout_builder__layout')) {
+      return;
+    }
+    // Skip nodes with optional layout builder usage with deactivated usage.
+    if ($node->hasField('field_use_layout_builder')
+      && !$node->field_use_layout_builder->value) {
+      return;
+    }
+    //  Override .placeholder styles from bootstrap 5
+    if (isset($variables['#attached']['library']) && is_array($variables['#attached']['library'])) {
+      if (in_array('ckeditor_bootstrap_buttons/bootstrap-5-js', $variables['#attached']['library'])) {
+        $variables['#attached']['library'][] = 'y_lb/override';
+      }
+    }
+
+    $variables['body_classes'][] = 'page-with-lb';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function y_lb_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['elements']['#node'];
+  $view_mode = $variables['elements']['#view_mode'];
+  if ($node instanceof NodeInterface &&
+    $view_mode =='full'
+    && $node->hasField('field_use_layout_builder')
+    && $node->field_use_layout_builder->value) {
+      $suggestions[] = 'node__' . $node->getType() . '__lb';
+  }
+}
+
+/**
+ * Remove show preview to fix section duplication.
+ *
+ * Implements hook_form_FORM_ID_alter().
+ */
+function y_lb_form_layout_builder_configure_section_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if (isset($form['layout_settings']['ui']['tab_content']['layout']['breakpoints'])) {
+    foreach ($form['layout_settings']['ui']['tab_content']['layout']['breakpoints'] as &$breakpoint) {
+      unset($breakpoint['#ajax']);
+    }
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function y_lb_module_implements_alter(&$implementations, $hook) {
+  if ($hook !== 'form_alter') {
+    return;
+  }
+
+  // Move the inline_entity_form alter form to the end.
+  $group = $implementations['inline_entity_form'];
+  unset($implementations['inline_entity_form']);
+  $implementations['inline_entity_form'] = $group;
+}
+
+/**
+ * Checks available override plugins by block plugin ID.
+ *
+ * @param $block_plugin_id
+ *   A block plugin ID.
+ *
+ * @return array
+ *   An array of the libraries to be attached to the render.
+ */
+function _y_lb_get_override_component_library($block_plugin_id) {
+  $ws_lb_override = \Drupal::service('plugin.manager.ws_lb_override');
+  $node = \Drupal::routeMatch()->getParameter('node');
+  $node = $node ?? NULL;
+  if ($node && !$ws_lb_override->isApplicableForColorway($node)) {
+    return [];
+  }
+
+  // Plugin ID can have value: inline_block:lb_tabs or ws_site_logo.
+  if (str_contains($block_plugin_id, ':')) {
+    [, $block_id,] = explode(':', $block_plugin_id);
+  }
+  else {
+    $block_id = $block_plugin_id;
+  }
+
+  if (!$ws_lb_override->isApplicableForComponent($block_id)) {
+    return [];
+  }
+
+  return $ws_lb_override->getLibraries($block_id);
+}

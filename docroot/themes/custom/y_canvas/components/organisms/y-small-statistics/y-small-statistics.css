@@ -1,0 +1,58 @@
+/* Y Small Statistics Component */
+
+.y-small-statistics {
+  padding: 2rem 1rem;
+}
+
+.y-small-statistics--bg-white {
+  background: #fff;
+}
+
+.y-small-statistics--bg-light {
+  background: #f8f9fa;
+}
+
+.y-small-statistics--bg-primary {
+  background: var(--wsPrimaryColor, #0060af);
+}
+
+.y-small-statistics--bg-primary .y-small-statistics__title {
+  color: #fff;
+}
+
+.y-small-statistics__container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.y-small-statistics__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2f2f2f;
+  margin: 0 0 1.5rem;
+  text-align: center;
+  font-family: var(--ylb-font-family-verdana, Verdana, sans-serif);
+}
+
+.y-small-statistics__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* Responsive */
+@media (min-width: 576px) {
+  .y-small-statistics__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .y-small-statistics {
+    padding: 3rem 2rem;
+  }
+
+  .y-small-statistics__title {
+    font-size: 1.75rem;
+  }
+}

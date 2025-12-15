@@ -1,0 +1,14 @@
+name: Open Y Map
+type: module
+description: Renders a map with locations. Provides blocks for Locations page.
+core_version_requirement: ^10 || ^11
+version: 6.0.0
+package: YMCA Website Services
+configure: openy_map.settings
+dependencies:
+  - geolocation:geolocation
+  - openy_socrates:openy_socrates
+  - openy_data_wrapper:openy_data_wrapper
+  - geolocation_google_maps:geolocation_google_maps
+  - openy_upgrade_tool:openy_upgrade_tool
+  - drupal:y_branch

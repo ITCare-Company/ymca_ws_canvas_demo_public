@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lb_donate
+label: Donate
+revision: 0
+description: 'Donation options block for Layout Builder'

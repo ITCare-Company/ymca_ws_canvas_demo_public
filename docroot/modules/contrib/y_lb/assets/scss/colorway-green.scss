@@ -1,0 +1,16 @@
+// Set variables globally.
+:root {
+  --wsPrimaryColor: var(--ylb-color-green-dark);
+  --wsPrimaryColorRGB: var(--ylb-color-rgb-green-dark);
+  --wsSecondaryColor: var(--ylb-color-green);
+  --wsSecondaryColorRGB: var(--ylb-color-rgb-green);
+  --wsTertiaryColor: var(--ylb-color-green-light);
+  --wsTertiaryColorRGB: var(--ylb-color-rgb-green-light);
+  --wsPartnerColor: var(--ylb-color-blue-dark);
+  --wsPartnerColorRGB: var(--ylb-color-rgb-blue-dark);
+  --wsLogoChevronDark: var(--ylb-color-green-dark);
+  --wsLogoChevronMid: var(--ylb-color-green);
+  --wsLogoChevronLight: var(--ylb-color-green-light);
+  --wsLogoTriangleDark: var(--ylb-color-blue-dark);
+  --wsLogoTriangleLight: var(--ylb-color-blue-light);
+}

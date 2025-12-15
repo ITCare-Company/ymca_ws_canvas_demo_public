@@ -1,0 +1,588 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - small_y_demo_content
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_page_ui_kit
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import demo Layout Builder page - UI Kit'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Demo - UI Kit'
+      meta_description: "Lorem ipsum dolor sit amet"
+      meta_image: volunteer_ops_page_image_1
+      sections:
+        1header:
+          components:
+            logo:
+              block_config: true
+              region: 'header_bottom_left'
+              config:
+                id: 'ws_site_logo'
+                label: 'Site Logo Block'
+                label_display: '0'
+                provider: y_lb
+                context_mapping: { }
+                logo_type: colorway
+            website_name:
+              block_config: true
+              region: 'header_top_left'
+              config:
+                id: 'ws_site_name'
+                label: 'Website Name Block'
+                label_display: '0'
+                provider: y_lb
+                context_mapping: { }
+            menu:
+              block_config: true
+              region: 'header_bottom_middle'
+              config:
+                id: 'system_menu_block:main'
+                label: 'Demo Main navigation'
+                label_display: '0'
+                provider: system
+                context_mapping: { }
+                level: 1
+                depth: 0
+                expand_all_items: false
+            top_navigation:
+              block_config: true
+              region: 'header_bottom_right'
+              config:
+                id: 'system_menu_block:top-navigation'
+                label: 'Demo Top Navigation menu'
+                label_display: '0'
+                provider: system
+                context_mapping: { }
+                level: 1
+                depth: 0
+                expand_all_items: false
+            translate:
+              block_config: true
+              region: 'header_top_right'
+              config:
+                id: openy_gtranslate_block
+                label: 'Open Y Google Translate'
+                label_display: '0'
+                provider: openy_gtranslate
+                context_mapping: { }
+            utility:
+              block_config: true
+              region: 'header_top_right'
+              config:
+                id: 'system_menu_block:utility'
+                label: 'Utility menu'
+                label_display: '0'
+                provider: system
+                context_mapping: { }
+                level: 1
+                depth: 1
+                expand_all_items: false
+            search:
+              block_config: true
+              region: 'header_top_right'
+              config:
+                id: ws_search_bar
+                label: 'Search Bar Block'
+                label_display: '0'
+                provider: y_lb
+                context_mapping: { }
+        1breadcrumbs:
+          components:
+            breadcrumbs:
+              block_config: true
+              region: 'blb_region_col_1'
+              config:
+                id: system_breadcrumb_block
+                label: Breadcrumbs
+                label_display: '0'
+                provider: system
+                context_mapping: { }
+        2banner:
+          components:
+            lb_hero_tall:
+              uuid: "92468ff3-9baf-42ef-8ce8-74871b74b214"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_hero"
+                label_display: "hidden"
+                label: "Small Y Tall Banner"
+                view_mode: "full"
+                provider: "layout_builder"
+              additional:
+                bootstrap_styles:
+                  block_style:
+                    ws_style_option:
+                      hero_banner: small_y_hero_tall
+                      lb_hero_background: background_color
+                      button_fill_component: ws_button_fill_component_filled
+            lb_hero_sub_chevron:
+              uuid: "a41b3c4c-8445-4e34-b422-2a80436b19fc"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_hero"
+                label_display: "hidden"
+                label: "Small Y Sub-page Chevron"
+                view_mode: "full"
+                provider: "layout_builder"
+              additional:
+                bootstrap_styles:
+                  block_style:
+                    ws_style_option:
+                      hero_banner: small_y_hero_sub_chevron
+                      lb_hero_background: background_color
+                      button_fill_component: ws_button_fill_component_filled
+            lb_hero_sub_chevron_no_media:
+              uuid: "4e4de786-a736-4d6b-6c2f-395b21cc403b"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_hero"
+                label_display: "hidden"
+                label: "Small Y Sub-page Chevron (no-media)"
+                view_mode: "full"
+                provider: "layout_builder"
+              additional:
+                bootstrap_styles:
+                  block_style:
+                    ws_style_option:
+                      hero_banner: small_y_hero_sub_chevron_no_media
+                      lb_hero_background: background_color
+                      button_fill_component: ws_button_fill_component_filled
+            lb_hero_sub_frame:
+              uuid: "96c7d0ca-82ae-4fd5-93ae-f163504d6e85"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_hero"
+                label_display: "hidden"
+                label: "Small Y Hero Sub-page Frame"
+                view_mode: "full"
+                provider: "layout_builder"
+              additional:
+                bootstrap_styles:
+                  block_style:
+                    ws_style_option:
+                      hero_banner: small_y_hero_sub_frame
+                      lb_hero_background: background_color
+                      button_fill_component: ws_button_fill_component_filled
+            lb_hero_promo_color:
+              uuid: "cbba2fc0-8d97-4a0b-0b89-ca24692fc7cb"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_hero"
+                label_display: "hidden"
+                label: "Small Y Hero Promo - Color"
+                view_mode: "full"
+                provider: "layout_builder"
+              additional:
+                bootstrap_styles:
+                  block_style:
+                    ws_style_option:
+                      hero_banner: small_y_hero_promo
+                      lb_hero_background: background_color
+                      button_fill_component: ws_button_fill_component_filled
+            lb_hero_promo_gray:
+              uuid: "45747841-b38c-4a7c-124e-74272e01f604"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_hero"
+                label_display: "hidden"
+                label: "Small Y Hero Promo - Gray"
+                view_mode: "full"
+                provider: "layout_builder"
+              additional:
+                bootstrap_styles:
+                  block_style:
+                    ws_style_option:
+                      hero_banner: small_y_hero_promo
+                      lb_hero_background: background_gray
+                      button_fill_component: ws_button_fill_component_filled
+        3body:
+          components:
+            carousel:
+              uuid: "4ce867f2-9b1c-44de-41d9-6dab4df7b6ce"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_carousel"
+                label: "Small Y Carousel"
+                provider: "layout_builder"
+            icon_grid_4:
+              uuid: "84bb81fe-bf23-44d4-e458-6a3794df75dd"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_icon_grid"
+                label: "Small Y Icon Grid 4-item"
+                provider: "layout_builder"
+            icon_grid_3:
+              uuid: "84ff78d9-a7a6-412a-a5ac-880b0b247364"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_icon_grid"
+                label: "Small Y Icon Grid 3-item"
+                provider: "layout_builder"
+            icon_grid_2:
+              uuid: "b0f1ef18-9077-4f5a-309d-aa8916875890"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_icon_grid"
+                label: "Small Y Icon Grid 2-item"
+                provider: "layout_builder"
+            grid_cta:
+              uuid: "269b9b0e-dfc0-4235-aa88-04845317ad60"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_grid_cta"
+                label: "Small Y Grid CTA"
+                provider: "layout_builder"
+            testimonial:
+              uuid: "3ef481d1-ac7a-49c9-0c7c-6a3794df75dd"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_testimonials"
+                label: "Small Y Testimonials"
+                provider: "layout_builder"
+            partners:
+              uuid: "90b0b4ed-4a5b-abb2-a4fa-175c0417610f"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_partners"
+                label: "Small Y Partners"
+                provider: "layout_builder"
+            lb_code_block:
+              uuid: "5af8bcaf-a2ec-404b-180a-323fe4b8d6f9"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_table"
+                label: "Small Y Code Block"
+                provider: "layout_builder"
+            lb_cards_no_photo:
+              uuid: "ef5f3285-b4e6-44e9-4066-4e275526b456"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_cards"
+                label: "Small Y Cards No Photo"
+                provider: "layout_builder"
+            lb_cards_photo:
+              uuid: "bca4f067-b20a-4fb5-8b7b-91887b98088e"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_cards"
+                label: "Small Y Cards With Photo"
+                provider: "layout_builder"
+            lb_staff_members_2:
+              uuid: "9e645982-97ab-4408-800b-eb1fac44e551"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_staff_members"
+                label: "Small Y Staff Members 2-items"
+                provider: "layout_builder"
+            lb_staff_members_3:
+              uuid: "982851b4-f753-4534-addc-394c1be81961"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_staff_members"
+                label: "Small Y Staff Members 3-items"
+                provider: "layout_builder"
+            lb_staff_members_4:
+              uuid: "722e8863-78af-4e59-ac76-d09b53f261b4"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_staff_members"
+                label: "Small Y Staff Members 4-items"
+                provider: "layout_builder"
+            small_y_accordions:
+              uuid: "138c8c29-94a1-4f32-7d3b-991a264657b9"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_accordion"
+                label: "Small Y Accordion"
+                label_display: 1
+                provider: "layout_builder"
+            small_y_tabs:
+              uuid: "401008f0-d665-40ed-a284-0a0dce958e94"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_tabs"
+                label: "Small Y Tabs"
+                label_display: 0
+                provider: "layout_builder"
+        3stats:
+          components:
+            small_y_statistics_colored_4:
+              uuid: "da542225-a4fa-4a5b-af8e-3a5828b4bd06"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:small_y_statistics"
+                label: "Small Y Statistics Colored"
+                provider: "layout_builder"
+            small_y_statistics_gray_4:
+              uuid: "da542225-a4fa-4a5b-af8e-3a5828b4bd07"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:small_y_statistics"
+                label: "Small Y Statistics Gray"
+                provider: "layout_builder"
+            small_y_statistics_colored_3:
+              uuid: "937c0a41-b4fd-4012-a5bb-81293dfb603e"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:small_y_statistics"
+                label: "Small Y Statistics Colored 3-items"
+                provider: "layout_builder"
+            small_y_statistics_gray_2:
+              uuid: "4b085a61-b71f-4666-adc1-55dc8ac3df18"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:small_y_statistics"
+                label: "Small Y Statistics Gray 2-items"
+                provider: "layout_builder"
+        4ping_pong:
+          components:
+            ping_pong_section_1:
+              uuid: "da542225-4a5b-a4fa-af8e-3a5828b4bd06"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:ping_pong_section"
+                label: "Ping Pong Section Left Color"
+                provider: "layout_builder"
+              additional:
+                bootstrap_styles:
+                  block_style:
+                    ws_style_option:
+                      ping_pong_section_alignment: alignment_left
+                      ping_pong_section_background: background_color
+            ping_pong_section_2:
+              uuid: "da542225-a4fa-af8e-4a5b-3a5828b4bd06"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:ping_pong_section"
+                label: "Ping Pong Section Right Gray"
+                provider: "layout_builder"
+              additional:
+                bootstrap_styles:
+                  block_style:
+                    ws_style_option:
+                      ping_pong_section_alignment: alignment_right
+                      ping_pong_section_background: background_gray
+            ping_pong_section_3:
+              uuid: "da542225-a4fa-af8e-4a5b-3a5828b4bd07"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:ping_pong_section"
+                label: "Ping Pong Section Right White"
+                provider: "layout_builder"
+              additional:
+                bootstrap_styles:
+                  block_style:
+                    ws_style_option:
+                      ping_pong_section_alignment: alignment_right
+                      ping_pong_section_background: background_white
+        5donate:
+          components:
+            donate:
+              uuid: "96599129-540e-4c46-83b5-66fee0a03292"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_donate"
+                label: "Donate"
+                provider: "layout_builder"
+        5alerts:
+          components:
+            alert:
+              uuid: "1723bcc1-e657-4e39-b12b-7fb9b6e48116"
+              region: 'blb_region_col_1'
+              config:
+                id: "inline_block:lb_table"
+                label: "Alert"
+                provider: "layout_builder"
+        6footer:
+          components:
+            copyright:
+              region: 'footer_bottom_left'
+              uuid: '1d1d620e-a672-400f-81d6-4841d22d808b'
+              config:
+                id: 'block_content:1d1d620e-a672-400f-81d6-4841d22d808b'
+                label: 'Small Y Footer Copyright Block'
+                label_display: 0
+                provider: block_content
+                status: true
+                info: ''
+                view_mode: full
+                context_mapping: { }
+            site_logo:
+              block_config: true
+              region: 'footer_top_left'
+              config:
+                id: ws_site_logo
+                label: 'Site Logo'
+                label_display: '0'
+                provider: y_lb
+                context_mapping: { }
+                logo_type: white
+            menu_1:
+              block_config: true
+              region: 'footer_top_middle'
+              config:
+                id: 'system_menu_block:small-y-footer-1'
+                label: 'Helpful Links'
+                label_display: 1
+                provider: system
+                context_mapping: { }
+                level: 1
+                depth: 0
+                expand_all_items: false
+            menu_2:
+              block_config: true
+              region: 'footer_top_middle'
+              config:
+                id: 'system_menu_block:small-y-footer-2'
+                label: 'Get Involved'
+                label_display: 1
+                provider: system
+                context_mapping: { }
+                level: 1
+                depth: 0
+                expand_all_items: false
+            stay_connected:
+              block_config: true
+              region: 'footer_bottom_right'
+              config:
+                id: 'block_content:c8a209e8-f6ed-4158-ac2f-de2a48c6dcea'
+                label: 'Small Y Footer Social Block'
+                label_display: 0
+                provider: block_content
+                status: true
+                info: ''
+                view_mode: full
+                context_mapping: { }
+            menu:
+              block_config: true
+              region: 'footer_bottom_left'
+              config:
+                id: 'system_menu_block:footer'
+                label: Footer
+                label_display: 0
+                provider: system
+                context_mapping: { }
+                level: 1
+                depth: 0
+                expand_all_items: false
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  title: title
+  type:
+    -
+      plugin: default_value
+      default_value: landing_page_lb
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  override_styles:
+    - plugin: default_value
+      default_value: 1
+  styles/value:
+    - plugin: default_value
+      default_value: 'a:6:{s:8:"colorway";s:17:"ws_colorway_green";s:13:"border_radius";s:19:"ws_border_radius_10";s:19:"border_style_global";s:34:"ws_border_style_global_drop_shadow";s:21:"text_alignment_global";s:29:"ws_text_alignment_global_left";s:22:"button_position_global";s:32:"ws_button_position_global_inside";s:18:"button_fill_global";s:28:"ws_button_fill_global_filled";}'
+  __layout_builder__layout: sections
+  __layout_builder__layout_defaults:
+    plugin: default_value
+    default_value:
+      1header:
+        label: "Header"
+        id: 'ws_header'
+        wrapper_classes: ''
+      1breadcrumbs:
+        bs_col: "blb_col_1"
+        label: "Breadcrumbs"
+        container: "w-100"
+        remove_gutters: "1"
+      2banner:
+        bs_col: "blb_col_1"
+        label: "Banner"
+        container: "w-100"
+        remove_gutters: "1"
+      3body:
+        bs_col: "blb_col_1"
+        label: "Body"
+        container: "container"
+        remove_gutters: "1"
+        section_classes: 'mt-5'
+      3stats:
+        bs_col: "blb_col_1"
+        label: "Statistics"
+        container: "w-100"
+        remove_gutters: "1"
+        section_classes: 'mt-5'
+      4ping_pong:
+        bs_col: "blb_col_1"
+        label: "Ping Pong"
+        container: "container"
+        remove_gutters: "1"
+        section_classes: 'mt-5'
+      5donate:
+        bs_col: "blb_col_1"
+        label: "Donate"
+        container: "w-100"
+        remove_gutters: "1"
+        section_classes: 'mt-5'
+      5alerts:
+        bs_col: "blb_col_1"
+        label: "Alerts"
+        container: "w-100"
+        remove_gutters: "1"
+        section_classes: 'mt-5'
+      6footer:
+        label: "Footer"
+        id: 'ws_footer'
+        wrapper_classes: ''
+  layout_builder__layout:
+    -
+      plugin: merge_recursive
+      source:
+        - '@__layout_builder__layout_defaults'
+        - '@__layout_builder__layout'
+    - plugin: lb_sections
+  field_meta_image:
+    - plugin: migration_lookup
+      migration: small_y_demo_media_image
+      source: meta_image
+  field_meta_description: meta_description
+destination:
+  plugin: 'entity:node'
+  default_bundle: landing_page_lb
+migration_dependencies:
+  required:
+    - small_y_demo_block_banner_chevron
+    - small_y_demo_block_simple_menu
+    - small_y_demo_block_table_block
+    - small_y_demo_block_ping_pong_section
+    - small_y_demo_block_partners
+    - small_y_demo_block_testimonials
+    - small_y_demo_block_icon_grid
+    - small_y_demo_block_carousel
+    - small_y_demo_block_cards
+    - small_y_demo_block_staff_members
+    - small_y_demo_block_statistics
+    - small_y_demo_block_accordion
+    - small_y_demo_block_tabs
+    - small_y_demo_block_donate
+    - small_y_demo_block_grid_cta
+  optional: { }

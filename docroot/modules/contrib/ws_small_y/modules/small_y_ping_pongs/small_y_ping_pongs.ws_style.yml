@@ -1,0 +1,14 @@
+ping_pong_section_alignment:
+  label: Image Alignment
+  name: ping_pong_section_alignment
+  global: false
+  applies_to: ['inline_block:ping_pong_section']
+  library: null
+
+ping_pong_section_background:
+  label: Background colors
+  name: ping_pong_section_background
+  global: false
+  applies_to: ['inline_block:ping_pong_section']
+  library: null
+

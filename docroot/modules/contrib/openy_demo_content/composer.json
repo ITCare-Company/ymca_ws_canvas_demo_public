@@ -1,0 +1,11 @@
+{
+  "name": "open-y-subprojects/openy_demo_content",
+  "description": "Demo content for YMCA Website Services distribution.",
+  "type": "drupal-module",
+  "require": {
+    "ymcatwincities/openy": "*",
+    "open-y-subprojects/openy_content_core": "^3.0"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev"
+}

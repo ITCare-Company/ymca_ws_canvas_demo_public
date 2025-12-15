@@ -1,0 +1,43 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Testimonial Item
+description: Individual testimonial quote with author information
+status: experimental
+group: Molecules
+
+props:
+  type: object
+  properties:
+    quote:
+      type: string
+      title: Quote
+      description: The testimonial text content
+      examples:
+        - "The Y has transformed our family's health and brought us closer together."
+
+    author:
+      type: string
+      title: Author Name
+      description: Name of the person giving the testimonial
+      examples:
+        - 'Sarah Johnson'
+
+    author_title:
+      type: string
+      title: Author Title
+      description: Title or description of the author
+      examples:
+        - 'Member since 2018'
+
+    photo:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Author Photo
+      description: Optional photo of the testimonial author
+      examples:
+        - src: '/themes/custom/y_canvas/assets/images/demo/testimonial-avatar.jpg'
+          alt: 'Sarah Johnson'
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-testimonial-item

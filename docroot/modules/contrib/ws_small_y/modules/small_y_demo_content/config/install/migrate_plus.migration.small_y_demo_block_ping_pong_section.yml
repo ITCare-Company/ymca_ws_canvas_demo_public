@@ -1,0 +1,79 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - small_y_demo_content
+    - small_y_ping_pongs
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_ping_pong_section
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import Small Y Demo Layout Builder - Ping Pong Section block'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 424
+      uuid: 'da542225-4a5b-a4fa-af8e-3a5828b4bd06'
+      title: 'Ping Pong Section Left Color'
+      subtitle: ''
+      image_position: left
+      content_ids:
+        - content_id: ping_pong_section_item_1
+        - content_id: ping_pong_section_item_2
+
+    - id: 425
+      uuid: 'da542225-a4fa-af8e-4a5b-3a5828b4bd06'
+      title: 'Ping Pong Section Right Gray'
+      subtitle: ''
+      image_position: right
+      content_ids:
+        - content_id: ping_pong_section_item_3
+        - content_id: ping_pong_section_item_4
+
+    - id: 426
+      uuid: 'da542225-a4fa-af8e-4a5b-3a5828b4bd07'
+      title: 'Ping Pong Section Right White'
+      subtitle: ''
+      image_position: right
+      content_ids:
+        - content_id: ping_pong_section_item_5
+        - content_id: ping_pong_section_item_6
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: ping_pong_section
+  uuid: uuid
+  field_section_title: title
+  field_section_subtitle: subtitle
+  field_item_image_position: image_position
+  field_block_item:
+    plugin: sub_process
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - small_y_demo_block_ping_pong_section_item
+        source: content_id
+destination:
+  plugin: entity:block_content
+migration_dependencies:
+  required:
+    - small_y_demo_block_ping_pong_section_item

@@ -1,0 +1,5 @@
+name: jQuery UI Draggable
+type: module
+description: 'Provides jQuery UI Draggable library.'
+package: jQuery UI
+core_version_requirement: ^9.2 || ^10

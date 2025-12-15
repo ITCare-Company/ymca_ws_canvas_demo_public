@@ -1,0 +1,41 @@
+{
+    "name": "samoritano/linkedin-api-php-client",
+    "description": "This package is an SDK for using LinkedIn V2 Marketing API. You can use it for managing Company Pages in this social network",
+    "type": "library",
+    "keywords": [
+        "linkedin", "linkedin-client", "linkedin-api", "linkedin-signin",
+        "linkedin-sdk", "linkedin-login", "linked in", "linkedin.com", "php-linkedin",
+        "oauth", "oauth2", "oauth2-client", "oauth2-authentication", "authentication",
+        "social", "rest", "api", "client", "social network", "auth", "authorization",
+        "wrapper", "integration", "platform"
+    ],
+    "homepage": "https://github.com/samoritano/linkedin-api-php-client",
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-curl": "*",
+        "guzzlehttp/guzzle": "^7.3.0"
+    },
+    "license": "MIT",
+    "support": {
+        "docs": "https://github.com/samoritano/linkedin-api-php-client/blob/master/README.md",
+        "source": "https://github.com/samoritano/linkedin-api-php-client",
+        "issues": "https://github.com/samoritano/linkedin-api-php-client/issues"
+    },
+    "autoload": {
+        "psr-4": {"LinkedIn\\": "src/"}
+    },
+    "require-dev": {
+        "vlucas/phpdotenv": "~2.0",
+        "phpunit/phpunit": "~4.0",
+        "phpmd/phpmd": "@stable",
+        "squizlabs/php_codesniffer": "@stable"
+    },
+    "archive": {
+        "exclude": [
+            "tests",
+            ".env",
+            "phpunit.xml"
+        ]
+    },
+    "autoload-dev": {}
+}

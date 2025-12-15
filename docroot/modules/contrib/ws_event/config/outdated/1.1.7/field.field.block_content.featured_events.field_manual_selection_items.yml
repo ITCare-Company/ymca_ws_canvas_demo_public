@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.featured_events
+    - field.storage.block_content.field_manual_selection_items
+id: block_content.featured_events.field_manual_selection_items
+field_name: field_manual_selection_items
+entity_type: block_content
+bundle: featured_events
+label: 'Manual selection items'
+description: "Please select events that you want to show in the Featured block."
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default_no_dep:node'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: 0
+    auto_create_bundle: ''
+    target_bundles_no_dep:
+      lb_event: lb_event
+field_type: entity_reference

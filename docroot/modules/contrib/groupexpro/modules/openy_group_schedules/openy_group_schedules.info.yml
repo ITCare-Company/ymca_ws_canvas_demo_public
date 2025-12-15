@@ -1,0 +1,14 @@
+name: Open Y Group Schedules
+type: module
+description: Provides an integration with GroupEx Pro.
+core_version_requirement: ^10 || ^11
+lifecycle: deprecated
+lifecycle_link: https://ds-docs.y.org/docs/development/daxko/
+package: Open Y Groupex PRO Integration
+dependencies:
+  - openy_gxp:openy_gxp
+
+# Information added by Drupal.org packaging script on 2025-07-03
+version: '2.0.0'
+project: 'groupexpro'
+datestamp: 1751540741

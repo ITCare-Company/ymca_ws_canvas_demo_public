@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: top-navigation
+label: 'Top navigation'
+description: 'Navigation bar for Small Y template'
+locked: false

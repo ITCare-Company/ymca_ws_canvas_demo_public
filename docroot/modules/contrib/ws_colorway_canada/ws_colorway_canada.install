@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function ws_colorway_canada_install($is_syncing) {
+  if (\Drupal::service('module_handler')->moduleExists('responsive_favicons')) {
+    $path = \Drupal::service('extension.list.module')->getPath('ws_colorway_canada') . '/config/optional';
+    /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+    $config_importer = \Drupal::service('config_import.importer');
+    $config_importer->setDirectory($path);
+    $config_importer->importConfigs([
+      'responsive_favicons.settings',
+    ]);
+    // Clear all cache to rebuild cached favicon
+    drupal_flush_all_caches();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function ws_colorway_canada_uninstall($is_syncing) {
+  if (\Drupal::service('module_handler')->moduleExists('responsive_favicons') &&
+    \Drupal::service('extension.list.profile')->exists('openy')) {
+    $path = \Drupal::service('extension.list.profile')->getPath('openy') . '/config/optional';
+    /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+    $config_importer = \Drupal::service('config_import.importer');
+    $config_importer->setDirectory($path);
+    $config_importer->importConfigs([
+      'responsive_favicons.settings',
+    ]);
+  }
+}
+
+/**
+ * Implements hook_update().
+ */
+function ws_colorway_canada_update_9001() {
+  ws_colorway_canada_install(FALSE);
+}
+
+/**
+ * Implements hook_update().
+ *
+ * Install module responsive_favicons
+ */
+function ws_colorway_canada_update_9002() {
+  \Drupal::service('module_installer')->install(['responsive_favicons']);
+  ws_colorway_canada_install(FALSE);
+}
+

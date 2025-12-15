@@ -1,0 +1,5 @@
+lb_donate_override:
+  version: 1.0
+  css:
+    theme:
+      assets/css/small_y_donate.css: { preprocess: true }

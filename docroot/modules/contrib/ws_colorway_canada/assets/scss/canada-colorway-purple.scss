@@ -1,0 +1,13 @@
+@import "./canada-colors";
+
+// Set variables globally.
+:root {
+  --wsPrimaryColor: var(--ylb-color-red-dark-canada);
+  --wsPrimaryColorRGB: var(--ylb-color-rgb-red-dark-canada);
+  --wsSecondaryColor: var(--ylb-color-red-canada);
+  --wsSecondaryColorRGB: var(--ylb-color-rgb-red-canada);
+  --wsTertiaryColor: var(--ylb-color-grey-canada);
+  --wsTertiaryColorRGB: var(--ylb-color-rgb-grey-canada);
+  --wsPartnerColor: var(--ylb-color-purple-canada);
+  --wsPartnerColorRGB: var(--ylb-color-rgb-purple-canada);
+}

@@ -1,0 +1,15 @@
+name: 'Y Layout Builder - Branch Social Links'
+description: 'Helper module for the custom "Branch Social Links" block type.'
+type: module
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - drupal:paragraphs
+  - y_lb
+  - drupal:link
+  - drupal:link_attributes
+
+# Information added by Drupal.org packaging script on 2025-10-21
+version: '1.0.7'
+project: 'lb_branch_social_links_blocks'
+datestamp: 1761084705

@@ -1,0 +1,153 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.camp_lp.field_camp
+    - field.field.node.camp_lp.layout_builder__layout
+    - node.type.camp_lp
+  module:
+    - bootstrap_layout_builder
+    - layout_builder
+    - layout_builder_restrictions
+    - user
+    - y_camp
+    - y_lb
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections:
+      -
+        layout_id: ws_camp_header
+        layout_settings:
+          label: 'Camp Header'
+          wrapper_classes: ''
+          context_mapping: {  }
+        components: {  }
+        third_party_settings: {  }
+      -
+        layout_id: 'bootstrap_layout_builder:blb_col_1'
+        layout_settings:
+          label: Banner
+          container_wrapper_classes: ''
+          container_wrapper_attributes: null
+          container_wrapper: { }
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: w-100
+          section_classes: ''
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: ''
+          regions_attributes:
+            blb_region_col_1: null
+          breakpoints: { }
+          layout_regions_classes: { }
+          remove_gutters: '1'
+          context_mapping: { }
+        components: { }
+        third_party_settings: { }
+      -
+        layout_id: 'bootstrap_layout_builder:blb_col_1'
+        layout_settings:
+          label: Body
+          container_wrapper_classes: ''
+          container_wrapper_attributes: null
+          container_wrapper: { }
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: container
+          section_classes: ''
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: ''
+          regions_attributes:
+            blb_region_col_1: null
+          breakpoints: {  }
+          layout_regions_classes: {  }
+          remove_gutters: '0'
+          context_mapping: {  }
+        components: {  }
+        third_party_settings: {  }
+      -
+        layout_id: ws_footer
+        layout_settings:
+          label: 'WS Footer'
+          wrapper_classes: ''
+          context_mapping: {  }
+        components: {  }
+        third_party_settings: {  }
+  layout_builder_restrictions:
+    allowed_block_categories: {  }
+    entity_view_mode_restriction:
+      allowed_layouts:
+        - ws_camp_header
+        - ws_header
+        - ws_footer
+        - 'bootstrap_layout_builder:blb_col_1'
+        - 'bootstrap_layout_builder:blb_col_2'
+        - 'bootstrap_layout_builder:blb_col_3'
+        - 'bootstrap_layout_builder:blb_col_4'
+      denylisted_blocks:
+        'Inline blocks':
+          - 'inline_block:basic_block'
+          - 'inline_block:branch_amenities'
+          - 'inline_block:code_block'
+          - 'inline_block:date_block'
+          - 'inline_block:featured_highlights_block'
+          - 'inline_block:flexible_content'
+          - 'inline_block:menu_block'
+          - 'inline_block:simple_block'
+          - 'inline_block:testimonial_item'
+          - 'inline_block:lb_staff_member_item'
+          - 'inline_block:lb_partner_item'
+          - 'inline_block:accordion_item'
+          - 'inline_block:card_item'
+          - 'inline_block:carousel_item'
+          - 'inline_block:donate_item'
+          - 'inline_block:grid_item'
+          - 'inline_block:icon_grid_item'
+          - 'inline_block:statistics_item'
+          - 'inline_block:tab_item'
+          - 'inline_block:menu_cta'
+      allowlisted_blocks: {  }
+      restricted_categories: {  }
+  y_lb:
+    styles:
+      colorway: ws_colorway_blue
+      border_radius: ws_border_radius_none
+      border_style_global: ws_border_style_global_drop_shadow
+      text_alignment_global: ws_text_alignment_global_left
+      button_position_global: ws_button_position_global_inside
+      button_fill_global: ws_button_fill_global_filled
+id: node.camp_lp.full
+targetEntityType: node
+bundle: camp_lp
+mode: full
+content:
+  addthis:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  field_camp:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  layout_builder__layout: true
+  search_api_excerpt: true

@@ -1,0 +1,5 @@
+lb_accordion_override:
+  version: 1.0
+  css:
+    theme:
+      assets/css/small_y_accordion.css: { preprocess: true }

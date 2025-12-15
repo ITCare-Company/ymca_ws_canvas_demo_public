@@ -1,0 +1,6 @@
+small_y_accordions.lb_accordion_override:
+  block_type: lb_accordion
+  library: small_y_accordions/lb_accordion_override
+  override: false
+  active_colorways:
+    - '*'

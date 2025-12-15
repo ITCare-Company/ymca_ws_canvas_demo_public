@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * Contains ws_home_branch module hooks.
+ */
+
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function ws_home_branch_preprocess_page(array &$variables) {
+  if (\Drupal::hasService('plugin.manager.home_branch_library')) {
+    $hb_plugin_service = \Drupal::service('plugin.manager.home_branch_library');
+    $hb_plugin_service->attachHbLibrarySettings($variables, 'hb_location_finder', [
+      'locationsList' => '.block-inline-blocklb-openy-map .locations-list-lb .row',
+      'branchTeaserSelector' => '.node--type-branch.node--view-mode--lb-teaser ',
+      'selectedText' => t('Preferred location'),
+      'notSelectedText' => t('Preferred location'),
+    ]);
+  }
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'] ?? NULL;
+  if (_ws_home_branch_skip_override($node)) {
+    return;
+  }
+  $variables['#attached']['library'][] = 'ws_home_branch/location_modal_override';
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function ws_home_branch_preprocess_node(&$variables) {
+  $node = $variables['node'];
+  if (_ws_home_branch_skip_override($node)) {
+    return;
+  }
+
+  if ($node->bundle() == 'branch') {
+    $variables['attributes']['data-hb-id'] = $node->id();
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function ws_home_branch_preprocess_block__lb_openy_map(&$variables) {
+  $variables['#attached']['library'][] = 'ws_home_branch/location_finder_override';
+}
+
+
+function _ws_home_branch_skip_override($node) {
+  // Skip page without node.
+  if (!$node instanceof NodeInterface) {
+    return TRUE;
+  }
+  // Skip nodes without LB usage.
+  if (!$node->hasField('layout_builder__layout')) {
+    return TRUE;
+  }
+  // Skip nodes with optional layout builder usage with deactivated usage.
+  if ($node->hasField('field_use_layout_builder')
+    && !$node->field_use_layout_builder->value) {
+    return TRUE;
+  }
+  return FALSE;
+}

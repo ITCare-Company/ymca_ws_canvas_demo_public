@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: featured_events
+label: 'Featured Events'
+revision: 0
+description: 'A component to display featured events in Layout Builder.'

@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.donate_item
+    - field.field.block_content.donate_item.field_form_element_id
+    - field.field.block_content.donate_item.field_title
+id: block_content.donate_item.default
+targetEntityType: block_content
+bundle: donate_item
+mode: default
+content:
+  field_form_element_id:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  info: true
+  langcode: true

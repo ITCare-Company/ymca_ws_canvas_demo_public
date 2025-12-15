@@ -1,0 +1,103 @@
+{#
+/**
+ * @file
+ * Theme override to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - block_content: Block content entity instance.
+ *
+ * @see template_preprocess_block()
+ */
+#}
+{%
+  set classes = [
+  'block',
+  'block--spacing',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+  'block-lb-staff-members'
+]
+%}
+{% set block_id = 'staff-members-' ~ configuration['block_revision_id'] %}
+{{ attach_library('lb_staff_members_blocks/lb_staff_members') }}
+<div{{ attributes.addClass(classes).setAttribute('id', plugin_id|clean_class ~ configuration['block_revision_id']) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  {% block content %}
+    {% if block_content.field_section_title.value or block_content.field_section_subtitle.value %}
+      <div class="row section-description">
+        <div class="col-12 text-align-center">
+          {% if block_content.field_section_title.value %}
+            <h2>{{ block_content.field_section_title.value }}</h2>
+          {% endif %}
+          {% if block_content.field_section_subtitle.value %}
+            <p>{{ block_content.field_section_subtitle.value }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    <div id="{{ block_id }}" class="mb-5">
+      {% if members is not empty %}
+        {% set member_wrapper_attr = create_attribute() %}
+        {%
+          set member_wrapper_classes = [
+          'row',
+          'row-cols-1',
+          'row-cols-md-2',
+          'justify-content-center',
+          members|length < 4 ? 'row-cols-lg-3' : 'row-cols-lg-4',
+        ]
+        %}
+      <div {{ member_wrapper_attr.addClass(member_wrapper_classes) }}>
+        {% for key, member in members %}
+          {% set member_attr = create_attribute() %}
+          {%
+            set item_classes = [
+            'staff-member-item',
+            'col',
+            'text-center'
+          ]
+          %}
+          <div{{ member_attr.addClass(item_classes) }}>
+            <div class="wrapper">
+              <div class="staff-member-item-background"></div>
+              <div class="member-image">
+                {% if member.use_default %}
+                  {{ default_svg|raw }}
+                {% else %}
+                  <img src="{{ member.image }}" alt="{{ member.image_alt }}" class="rounded-circle" />
+                {% endif %}
+              </div>
+              <h3>{{ member.name }}</h3>
+              <div class="title">{{ member.title }}</div>
+              {% if member.email is not empty %}
+                <span class="email-divider"></span>
+                <div class="email">
+                  <a href="mailto:{{ member.email }}">{{ member.email }}</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  {% endblock %}
+</div>

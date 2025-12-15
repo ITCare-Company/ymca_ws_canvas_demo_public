@@ -1,0 +1,23 @@
+uuid: a4c91faa-5e6c-44d5-b766-a2d5446104cc
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_focal_point
+name: icon_image
+label: 'Icon image (328x238)'
+effects:
+  429148ef-6a1a-43aa-ab05-8b798231ebb3:
+    uuid: 429148ef-6a1a-43aa-ab05-8b798231ebb3
+    id: openy_focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: '328'
+      height: '328'
+      crop_type: focal_point
+  68dd1e5e-52d1-45df-a7cc-41ca35507cf7:
+    uuid: 68dd1e5e-52d1-45df-a7cc-41ca35507cf7
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

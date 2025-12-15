@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_donate
+id: block_content.lb_donate
+target_entity_type_id: block_content
+target_bundle: lb_donate
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Small Y Articles module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function small_y_articles_install() {
+  _small_y_articles_update_lb_default_config();
+}
+
+/**
+ * Update display mode.
+ */
+function _small_y_articles_update_lb_default_config() {
+  // Import generic bootstrap styles configuration.
+  $path = \Drupal::service('extension.list.module')->getPath('small_y_articles') . '/config/optional';
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.article_lb.default',
+  ]);
+}
+
+/**
+ * Update header and footer layout in default LB config.
+ */
+function small_y_articles_update_91001() {
+  _small_y_articles_update_lb_default_config();
+}

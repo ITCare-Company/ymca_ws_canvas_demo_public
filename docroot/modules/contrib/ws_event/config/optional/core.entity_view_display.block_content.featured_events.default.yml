@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.featured_events
+    - field.field.block_content.featured_events.field_manual_selection_items
+id: block_content.featured_events.default
+targetEntityType: block_content
+bundle: featured_events
+mode: default
+content:
+  field_manual_selection_items:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: featured
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

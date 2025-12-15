@@ -1,0 +1,6 @@
+lb_hero_background:
+  label: Background color
+  name: lb_hero_background
+  global: false
+  applies_to: ['inline_block:lb_hero']
+  library: null

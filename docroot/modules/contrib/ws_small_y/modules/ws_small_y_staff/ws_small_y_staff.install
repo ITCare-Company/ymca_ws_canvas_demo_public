@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the YMCA WS - Small Y Staff module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ws_small_y_staff_install() {
+  // Import generic bootstrap styles configuration.
+  $path = \Drupal::service('extension.list.module')->getPath('ws_small_y_staff') . '/config/optional';
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.lb_staff_members.default',
+    'field.field.block_content.lb_staff_members.field_columns',
+  ]);
+}

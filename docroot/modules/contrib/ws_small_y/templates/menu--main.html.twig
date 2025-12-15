@@ -1,0 +1,9 @@
+{% extends "@y_lb/menu--main.html.twig" %}
+
+{% block library %}
+  {{ attach_library('ws_small_y/main_menu') }}
+{% endblock %}
+
+{% block chevron %}
+  {% include '@ws_small_y/assets/svg/chevron-down.svg' ignore missing %}
+{% endblock %}

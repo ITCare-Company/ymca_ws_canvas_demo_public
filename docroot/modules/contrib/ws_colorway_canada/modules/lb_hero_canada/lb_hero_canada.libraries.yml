@@ -1,0 +1,13 @@
+# Hero Banner > Canada colors variations.
+hero-canada:
+  version: 1.2
+  css:
+    theme:
+      assets/css/hero-overlay-canada.css: { preprocess: true }
+
+# Hero Banner > Small canada variation.
+hero-canada-small:
+  version: 1.2
+  css:
+    theme:
+      assets/css/hero-small-canada.css: { preprocess: true }

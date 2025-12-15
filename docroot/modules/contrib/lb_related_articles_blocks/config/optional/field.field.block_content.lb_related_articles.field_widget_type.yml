@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_related_articles
+    - field.storage.block_content.field_widget_type
+  module:
+    - options
+id: block_content.lb_related_articles.field_widget_type
+field_name: field_widget_type
+entity_type: block_content
+bundle: lb_related_articles
+label: Type
+description: 'Choose filter option to display data.'
+required: true
+translatable: false
+default_value:
+  -
+    value: article_type
+default_value_callback: ''
+settings: {  }
+field_type: list_string

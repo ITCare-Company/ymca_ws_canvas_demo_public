@@ -1,0 +1,141 @@
+{#
+/**
+ * @file
+ * Theme override to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - block_content: Block content entity instance with all available fields.
+ *
+ * @see template_preprocess_block()
+ */
+#}
+{%
+  set classes = [
+  'block',
+  'block--spacing',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+  'block-lb-carousel'
+]
+%}
+
+{% set carousel_id = 'carousel-' ~ configuration['block_revision_id'] %}
+{{ attach_library('lb_carousel/lb_carousel') }}
+<div{{ attributes.addClass(classes).setAttribute('id', plugin_id|clean_class ~ configuration['block_revision_id']) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% block content %}
+    {% if block_content.field_section_title.value or block_content.field_subtitle.value %}
+      <div class="row section-description text-align-center">
+        <div class="container">
+          <div class="col-12">
+            {% if block_content.field_section_title.value %}
+              <h2>{{ block_content.field_section_title.value }}</h2>
+            {% endif %}
+            {% if block_content.field_subtitle.value %}
+              <p>{{ block_content.field_subtitle.value|raw }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <div id="{{ carousel_id }}" class="carousel slide" data-ride="carousel">
+      {# carousel items #}
+      <div class="carousel-inner">
+        {% if items %}
+          {% for key, item in items %}
+            {% set safe_hash = configuration['block_revision_id'] ~ '--' ~ loop.index %}
+            {% set with_info = item.field_title.value or item.field_description.value or item.field_cta.title %}
+
+            {# Setup our image style. #}
+            {% if item.field_media.entity.field_media_image.entity.uri.value %}
+              {% set media_image = item.field_media.entity.field_media_image.entity.uri.value %}
+              {% set image_alt = item.field_media.entity.field_media_image.0.alt %}
+            {% endif %}
+
+            {% if media_image %}
+              {% set image_desktop = file_url(media_image|image_style('hero_banner_desktop')) %}
+            {% endif %}
+
+            <div class="carousel-item {% if loop.first %} active{% endif %} {% if with_info %} with-info {% endif %}">
+
+              <div class="carousel-item-inner">
+                {% if image_desktop %}
+                  <div class="image-wrapper">
+                    <img src="{{ image_desktop }}" class="w-100" alt="{{ image_alt }}">
+                  </div>
+                {% endif %}
+                {% if with_info %}
+                  <div class="carousel-gallery-info">
+                    {% if item.field_title %}
+                      <h2 id="heading-{{ safe_hash }}">
+                        {{ item.field_title.value }}
+                      </h2>
+                    {% endif %}
+                    {% if item.field_description %}
+                      {{ item.field_description|view({label: 'hidden'})|raw }}
+                    {% endif %}
+                    {% if item.field_cta.uri %}
+                      <a href="{{ item.field_cta.0.url }}"
+                         class="btn btn-primary filled">
+                        {{ item.field_cta.title }}
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      {% if show_controls %}
+
+
+        <div class="carousel-control-panel">
+          {# prev #}
+          <button class="carousel-control-prev" type="button" data-target="#{{ carousel_id }}" data-slide="prev">
+          <span class="icon-wrapper">
+            <span class="visually-hidden">{{ 'Previous'|t }}</span>
+          </span>
+          </button>
+
+          <ol class="carousel-indicators container">
+            {% for key, value in items%}
+              <li data-target="#{{ carousel_id }}" data-slide-to="{{ key }}" {% if key == 0 %}class="active"{% endif %}>
+                <div class="indicator"></div>
+              </li>
+            {% endfor %}
+          </ol>
+
+          {# next #}
+          <button class="carousel-control-next" type="button" data-target="#{{ carousel_id }}" data-slide="next">
+          <span class="icon-wrapper">
+            <span class="visually-hidden">{{ 'Next'|t }}</span>
+          </span>
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  {% endblock %}
+
+</div>

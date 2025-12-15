@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Y Layout Builder - Promo Card module.
+ */
+
+/**
+ * Add new "promo" image style.
+ */
+function lb_promo_update_9001(&$sandbox) {
+  $path = \Drupal::service('extension.list.module')->getPath('lb_promo') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'image.style.promo',
+  ]);
+}

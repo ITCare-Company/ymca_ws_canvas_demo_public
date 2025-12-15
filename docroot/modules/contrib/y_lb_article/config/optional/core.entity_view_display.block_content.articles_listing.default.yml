@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.articles_listing
+    - field.field.block_content.articles_listing.field_article_type
+    - field.field.block_content.articles_listing.field_number_of_articles
+  module:
+    - text
+id: block_content.articles_listing.default
+targetEntityType: block_content
+bundle: articles_listing
+mode: default
+content: {  }
+hidden:
+  field_article_type: true
+  field_number_of_articles: true
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,109 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_cards_item
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Create Card Item for Cards component'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: card_item_1
+      uuid: '6aeabc44-86a5-4a29-d285-c98fb97ba0f8'
+      title: 'Ages 3-4 Coed'
+      body: "This is an introduction to the sport that focuses on social skills, teamwork and fundamentals. This level will have six practices and games."
+      cta:
+        - uri: 'internal:#'
+          title: 'Get Involved'
+
+    -
+      id: card_item_2
+      uuid: '81bdea78-9b8a-4d9f-ff4d-d29204889786'
+      title: 'Ages 5-6 Coed'
+      body: "At this level, we nurture skill development, teamwork, positioning and fun. Teams play seven games throughout the season and use a size 3 ball."
+
+    -
+      id: card_item_3
+      uuid: '49a2491d-bfe1-42ba-ec1d-32fe0fb42dc5'
+      title: 'Ages 7-8 Boys/7–8 Girls'
+      cta:
+        - uri: 'internal:#'
+          title: 'Get Involved'
+    -
+      id: card_item_4
+      uuid: '770335ad-8dbb-4d86-4ac3-aed8efaebdc5'
+      title: 'Ages 9-11 Boys/9-11 Girls'
+      body: "Players continue to build their social and athletic skills during a seven-game travel season that culminates in a tournament. A size 4 ball is used."
+      image: program_individual_page_image_5
+      cta:
+        - uri: 'internal:#'
+          title: 'Get Involved'
+      tags:
+        - tag: 101
+
+    -
+      id: card_item_5
+      uuid: 'eab12048-8aff-4e0e-d7a4-0e0e91383a85'
+      title: 'Ages 12-14 Boys/12-14 Girls'
+      body: "This level emphasizes skill development, strategy and positioning as well as camaraderie. Teams will travel to play other Ys during a seven-game season that culminates in a tournament. A size 5 ball is used."
+      image: program_individual_page_image_6
+      tags:
+        - tag: 102
+
+    -
+      id: card_item_6
+      uuid: 'a6e79525-9fe8-42d1-904f-0df202f31f8f'
+      title: 'Tee-Ball and Baseball'
+      image: program_individual_page_image_8
+      tags:
+        - tag: 103
+
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  uuid: uuid
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: card_item
+  field_title: title
+  field_description/value: body
+  field_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_media:
+    -
+      plugin: migration_lookup
+      migration: small_y_demo_media_image
+      source: image
+  field_cta: cta
+  field_topic_tag:
+    plugin: sub_process
+    source: tags
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: small_y_demo_terms_news_category
+        source: tag
+destination:
+  plugin: entity:block_content
+  default_bundle: 'card_item'
+migration_dependencies: {  }

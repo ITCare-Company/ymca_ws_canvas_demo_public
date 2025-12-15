@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: small_y_statistics_item
+label: 'Small  Y Statistics item'
+revision: 0
+description: 'Show a single item of the Small Y statistics'

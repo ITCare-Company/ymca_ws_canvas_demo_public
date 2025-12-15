@@ -1,0 +1,65 @@
+{% if image_uri %}
+  {% set image = file_url(image_uri|image_style('card_image')) %}
+{% endif %}
+
+{% set safe_hash = configuration['block_revision_id'] ~ '--' ~ loop.index %}
+
+<div class="col mb-4">
+  <div class="card d-flex">
+    {% if image %}
+      {% block image %}
+        <div class="card-img-wrapper">
+          <img src="{{ image }}" alt="{{ image_alt }}">
+        </div>
+      {% endblock %}
+    {% endif %}
+    <div class="card-content w-100 h-100 d-flex flex-column align-content-between">
+      {% if tag is not empty %}
+        <div class="card-header">
+          <div class="category-tag">
+            {% if tag.entity.hastranslation(lang_code) %}
+              {{ tag.entity.translation(lang_code).label() }}
+            {% else %}
+              {{ tag.entity.label() }}
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+      <div class="card-body p-0 d-flex flex-column">
+        {% if title %}
+          <h3 class="card-heading" {% if safe_hash %} id="heading-{{ safe_hash }}" {% endif %}>
+            {{ title }}
+          </h3>
+        {% endif %}
+
+        {% if description %}
+          <div class="card-text">
+            {{ description|raw }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="card-footer bg-transparent border-0 p-0">
+        {% if link.uri %}
+          {% block content_cta_link %}
+            {%
+              set link_classes = [
+              'btn',
+              'btn-primary',
+              'filled'
+            ]
+            %}
+            {# Link.0.url comes with any user-set attributes, which are
+                    merged into `link_classes` by `link()`. #}
+            {{
+              link(
+                link.0.title,
+                link.0.url,
+                create_attribute().addClass(link_classes)
+              )
+            }}
+          {% endblock %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

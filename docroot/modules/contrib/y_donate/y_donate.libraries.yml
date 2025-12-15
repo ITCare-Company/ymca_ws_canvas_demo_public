@@ -1,0 +1,7 @@
+online-express:
+  js:
+    //cdn.jsdelivr.net/gh/uzairfarooq/arrive@2.4.1/minified/arrive.min.js: { type: external, minified: true }
+    js/online-express.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once

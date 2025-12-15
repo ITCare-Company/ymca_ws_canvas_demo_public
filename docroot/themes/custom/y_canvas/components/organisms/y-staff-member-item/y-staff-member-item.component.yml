@@ -1,0 +1,50 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Staff Member Item
+description: Individual staff member card with photo and details
+status: experimental
+group: Molecules
+
+props:
+  type: object
+  properties:
+    name:
+      type: string
+      title: Name
+      description: Staff member's full name
+      examples:
+        - 'Jane Smith'
+
+    title:
+      type: string
+      title: Job Title
+      description: Staff member's position or role
+      examples:
+        - 'Program Director'
+
+    photo:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Photo
+      description: Staff member's headshot photo
+      examples:
+        - src: '/themes/custom/y_canvas/assets/images/demo/staff-member.jpg'
+          alt: 'Jane Smith headshot'
+
+    email:
+      type: string
+      title: Email
+      description: Staff member's contact email
+      examples:
+        - 'jane.smith@ymca.org'
+
+    phone:
+      type: string
+      title: Phone
+      description: Staff member's contact phone number
+      examples:
+        - '(555) 123-4567'
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-staff-member-item

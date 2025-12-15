@@ -1,0 +1,81 @@
+standard:
+  name: Standard
+  packages:
+    - alerts
+    - editorial
+    - news
+    - seo
+    - webform
+    - y_layout_builder
+
+extended:
+  name: Extended
+  packages:
+    - alerts
+    - analytics
+    - editorial
+    - editorial_ext
+    - events
+    - locations
+    - membership
+    - news
+    - social_sharing
+    - translation
+    - seo
+    - search
+    - webform
+    - y_layout_builder
+    - activity_finder
+    - home_branch
+
+complete:
+  name: Complete/Developer
+  hidden: true
+  packages:
+    - activenet
+    - alerts
+    - analytics
+    - blog
+    - camps
+    - daxko
+    - editorial
+    - editorial_adv
+    - editorial_ext
+    - embeddable_header_footer
+    - events
+    - helpers
+    - locations
+    - locations_ext
+    - membership
+    - news
+    - news_ext
+    - optimize
+    - popups
+    - programs
+    - search
+    - seo
+    - social
+    - social_sharing
+    - scheduler
+    - theme_customization
+    - translation
+    - webform
+    - y_layout_builder
+    - home_branch
+    - activity_finder
+
+small_y:
+  name: "Small Y"
+  packages:
+    - alerts
+    - analytics
+    - editorial
+    - locations
+    - locations_ext
+    - scheduler
+    - search
+    - seo
+    - small_y
+    - translation
+    - webform
+    - y_layout_builder

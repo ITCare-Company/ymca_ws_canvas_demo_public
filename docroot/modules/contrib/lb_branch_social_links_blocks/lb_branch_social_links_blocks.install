@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Y Layout Builder - Branch Social Links module.
+ */
+
+/**
+ * Update link field with title attribute for accessibility.
+ */
+function lb_branch_social_links_blocks_update_9000(&$sandbox)
+{
+  $path = \Drupal::service('extension.list.module')->getPath('lb_branch_social_links_blocks') . '/config/optional';
+  /** @var \Drupal\config_import\ConfigImporterService $config_importer */
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs([
+    'core.entity_form_display.block_content.lb_branch_social_links_blocks.default',
+    'field.field.block_content.lb_branch_social_links_blocks.field_social_links',
+  ]);
+}

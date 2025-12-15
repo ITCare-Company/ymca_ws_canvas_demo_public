@@ -1,0 +1,53 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.teaser_image_desktop
+    - image.style.teaser_image_mobile
+  module:
+    - y_lb
+id: teaser_image
+label: 'Teaser image'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: teaser_image_desktop
+    breakpoint_id: y_lb.desktop
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: teaser_image_desktop
+    breakpoint_id: y_lb.desktop
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: teaser_image_desktop
+    breakpoint_id: y_lb.tablet_landscape
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: teaser_image_desktop
+    breakpoint_id: y_lb.tablet_landscape
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: teaser_image_desktop
+    breakpoint_id: y_lb.tablet
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: teaser_image_desktop
+    breakpoint_id: y_lb.tablet
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: teaser_image_mobile
+    breakpoint_id: y_lb.mobile
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: teaser_image_mobile
+    breakpoint_id: y_lb.mobile
+    multiplier: 2x
+breakpoint_group: y_lb
+fallback_image_style: teaser_image_desktop

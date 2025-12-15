@@ -1,0 +1,6 @@
+small_y_tabs.lb_tabs_override:
+  block_type: lb_tabs
+  library: small_y_tabs/lb_tabs_override
+  override: false
+  active_colorways:
+    - '*'

@@ -1,0 +1,117 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+
+/**
+ * Implements hook_theme().
+ */
+function small_y_ping_pongs_theme($existing, $type, $theme, $path) {
+  return [
+    'block__ping_pong_section' => [
+      'base hook' => 'block',
+      'template' => 'block--ping-pong-section',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function small_y_ping_pongs_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (in_array($form_id, ['layout_builder_add_block', 'layout_builder_update_block'])) {
+    $component_config = $form_id === 'layout_builder_add_block' ?
+      $form_state->getStorage()['layout_builder__component']->get('configuration') :
+      $form_state->getBuildInfo()['callback_object']->getCurrentComponent()->get('configuration');
+
+    if ($component_config['id'] === 'inline_block:ping_pong_section') {
+      $form_key = isset($form['block_form']) ? 'block_form' : 'settings';
+      $form[$form_key]['block_form']['#process'][] = '_small_y_ping_pongs_override_block_item';
+    }
+  }
+}
+
+/**
+ * Custom #process callback for the block form within the 'Ping Pong Section' block.
+ *
+ * Modifies the 'field_block_item' element by adding a custom #after_build callback.
+ *
+ * @param array $element
+ *   The form element being processed.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return array
+ *   The processed form element.
+ */
+function _small_y_ping_pongs_override_block_item(array &$element, FormStateInterface $form_state) {
+  if (isset($element['field_block_item'])) {
+    $element['field_block_item']['widget']['#after_build'][] = '_small_y_ping_pongs_field_content_items_after_build';
+  }
+  return $element;
+}
+
+/**
+ * Custom '#after_build' callback for 'Ping Pong items' field.
+ *
+ * Modifies the 'inline_entity_form' element by hide a few fields.
+ *
+ * @param array $element
+ *   The form element being processed.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return array
+ *   The processed form element.
+ */
+function _small_y_ping_pongs_field_content_items_after_build($element, FormStateInterface $form_state) {
+  $fields = [
+    'field_title',
+    'field_subtitle',
+    'field_item_image_position'
+  ];
+  if (!empty($element['entities'])) {
+    foreach ($element['entities'] as $key => &$value) {
+      if (is_numeric($key) && isset($value['form'])) {
+        foreach ($fields as $field) {
+          $value['form']['inline_entity_form'][$field]['#access'] = FALSE;
+        }
+      }
+    }
+  }
+
+  if (!empty($element['form'])) {
+    foreach ($fields as $field) {
+      $element['form']['inline_entity_form'][$field]['#access'] = FALSE;
+    }
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function small_y_ping_pongs_inline_entity_form_entity_form_alter(array &$entity_form, FormStateInterface $form_state) {
+  $entity = $entity_form['#entity'];
+  if ($entity->bundle() === 'lb_ping_pong') {
+    $user_input = $form_state->getUserInput();
+    $block_form = $user_input['settings']['block_form']['field_block_item']['form'] ?? NULL;
+
+    if ($block_form) {
+      $result_form = isset($block_form['inline_entity_form']) ?
+        reset($block_form['inline_entity_form']['entities'])['form'] :
+        reset($block_form);
+
+      $entity->setInfo($result_form['field_item_title']['0']['value']);
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function small_y_ping_pongs_preprocess_block__ping_pong_section(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $variables['items'] = $variables['block_content']->field_block_item->referencedEntities();
+}

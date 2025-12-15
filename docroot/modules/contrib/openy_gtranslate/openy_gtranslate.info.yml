@@ -1,0 +1,10 @@
+name: Open Y Google Translate
+type: module
+description: Provides a Google Translate integration for Open Y.
+core_version_requirement: ^9 || ^10 || ^11
+package: YMCA Website Services
+
+# Information added by Drupal.org packaging script on 2025-11-06
+version: '2.0.0'
+project: 'openy_gtranslate'
+datestamp: 1762428918

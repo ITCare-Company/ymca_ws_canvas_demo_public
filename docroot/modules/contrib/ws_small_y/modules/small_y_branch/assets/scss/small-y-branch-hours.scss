@@ -1,0 +1,97 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.page-node-type-branch--use-lb .location-header,
+.page-node-type-branch .location-header {
+  background: linear-gradient(
+      118.46deg,
+      var(--wsPrimaryColor, #3F4042) 28.72%,
+      var(--wsSecondaryColor, #636466) 96.61%
+  );
+}
+
+.block-lb-branch-hours {
+  .branch-name {
+    h1 {
+      font-family: var(--ylb-font-family-cachet, Cachet), Verdana, sans-serif;
+      font-size: 40px;
+      font-weight: 500;
+      line-height: 48px;
+
+      @include media-breakpoint-up('md') {
+        font-size: 65px;
+        line-height: 75px;
+      }
+    }
+  }
+
+  .back-link {
+    a {
+      font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+  }
+
+  &--wrapper {
+    .info-card {
+      .label {
+        font-size: 15px;
+        font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+        font-weight: 700;
+      }
+    }
+    div {
+      font-family: var(--ylb-font-family-verdana, Verdana), sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 23px;
+    }
+  }
+
+  .chevron {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    transform: translateX(50%);
+    height: 100%;
+
+    @include media-breakpoint-up(lg) {
+      min-height: 370px;
+      top: 50%;
+      right: 50px;
+      transform: translate(0, -50%);
+      display: flex;
+      align-items: center;
+    }
+
+    svg {
+      height: 100%;
+      width: 100%;
+      opacity: var(--smally-hero-chevron-opacity, 10%);
+
+      path {
+        fill: var(--smally-hero-chevron-fill, white);
+      }
+
+      @include media-breakpoint-up(lg) {
+        height: 110%;
+        width: auto;
+      }
+    }
+  }
+}
+
+
+.section-branch-info {
+  background-image: url(../svg/chevron_mask.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+
+  @include media-breakpoint-down('lg') {
+    background: none;
+  }
+}

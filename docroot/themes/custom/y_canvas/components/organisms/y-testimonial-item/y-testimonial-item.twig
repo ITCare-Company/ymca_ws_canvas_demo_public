@@ -1,0 +1,47 @@
+{#
+/**
+ * Y Testimonial Item component.
+ *
+ * Variables:
+ * - quote: (string) Testimonial text
+ * - name: (string) Author name
+ * - title: (string) Author title/role
+ * - image: (object) Author photo
+ */
+#}
+
+{% set classes = [
+  'y-testimonial-item',
+] %}
+
+<figure {{ attributes.addClass(classes) }} data-component="y-testimonial-item">
+  <div class="y-testimonial-item__content">
+    {% if image.src %}
+      <div class="y-testimonial-item__image">
+        <img
+          src="{{ image.src }}"
+          alt="{{ image.alt|default(name|default('')) }}"
+          class="y-testimonial-item__photo"
+          loading="lazy"
+          {% if image.width %}width="{{ image.width }}"{% endif %}
+          {% if image.height %}height="{{ image.height }}"{% endif %}
+        />
+      </div>
+    {% endif %}
+
+    {% if quote %}
+      <blockquote class="y-testimonial-item__quote">
+        <p>{{ quote }}</p>
+      </blockquote>
+    {% endif %}
+
+    {% if name %}
+      <figcaption class="y-testimonial-item__author">
+        <span class="y-testimonial-item__name">&mdash; {{ name }}</span>
+        {% if title %}
+          <span class="y-testimonial-item__title">{{ title }}</span>
+        {% endif %}
+      </figcaption>
+    {% endif %}
+  </div>
+</figure>

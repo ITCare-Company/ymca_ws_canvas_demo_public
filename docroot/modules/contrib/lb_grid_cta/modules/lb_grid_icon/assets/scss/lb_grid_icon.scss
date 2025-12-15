@@ -1,0 +1,55 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.lb-icon-grid {
+
+  .section-description {
+    margin-bottom: 60px;
+
+    h2 {
+      font-size: 35px;
+      line-height: 40px;
+      margin-bottom: 20px;
+
+      @include media-breakpoint-up(md) {
+        font-size: 50px;
+        line-height: 60px;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+  .card {
+    overflow: hidden;
+
+    .card-body {
+      padding: 0 20px 60px;
+    }
+
+    h3 {
+      font-size: 30px;
+      line-height: 38px;
+      margin-bottom: 20px;
+      @include media-breakpoint-up(md) {
+        font-size: 32px;
+        line-height: 32px;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 28px;
+      font-family: var(--ylb-font-family-verdana);
+    }
+
+    img {
+      height: 164px;
+      width: 164px;
+      margin-bottom: 40px;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{#
+/**
+ * Y Branch Amenities Legacy component.
+ *
+ * Variables:
+ * - title: (string) Section heading
+ * - amenities: (array) List of amenity names
+ */
+#}
+
+{% set classes = [
+  'y-branch-amenities-legacy',
+] %}
+
+<section {{ attributes.addClass(classes) }} data-component="y-branch-amenities-legacy">
+  {% if title %}
+    <h3 class="y-branch-amenities-legacy__title">{{ title }}</h3>
+  {% endif %}
+
+  {% if amenities %}
+    <ul class="y-branch-amenities-legacy__list" aria-label="{{ title|default('Amenities') }}">
+      {% for amenity in amenities %}
+        <li class="y-branch-amenities-legacy__item">
+          <span class="y-branch-amenities-legacy__icon" aria-hidden="true">✓</span>
+          {{ amenity }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>

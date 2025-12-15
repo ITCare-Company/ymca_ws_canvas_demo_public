@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * LB Grid CTA module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function lb_grid_cta_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the lb_grid_cta module.
+    case 'help.page.lb_grid_cta':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module simply provides Grid CTA for Layout Builder') . '</p>';
+      return $output;
+  }
+}
+
+
+/**
+ * Implements HOOK_theme().
+ */
+function lb_grid_cta_theme($existing, $type, $theme, $path) {
+  return [
+    'block__lb_grid_cta' => [
+      'base hook' => 'block',
+      'template' => 'block--lb-grid-cta',
+    ]
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function lb_grid_cta_preprocess_block__lb_grid_cta(&$variables) {
+  $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  $variables['items'] = $variables['block_content']->field_block_item->referencedEntities() ?? FALSE;
+  $variables['columns'] = $variables['block_content']->field_columns->value ?? 3;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for block entities.
+ */
+function lb_grid_cta_block_content_presave(EntityInterface $block) {
+  if ($block->bundle() === 'grid_item') {
+    $block->setInfo($block->get('field_title')->value);
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function lb_grid_cta_inline_entity_form_entity_form_alter(array &$entity_form, FormStateInterface $form_state) {
+  $entity = $entity_form['#entity'];
+  if ($entity->bundle() === 'grid_item' && !empty($form_state->getUserInput()['settings']['block_form']['field_block_item']['form'])) {
+    $form = $form_state->getUserInput()['settings']['block_form']['field_block_item']['form'];
+    if (isset($form['inline_entity_form'])) {
+      $resultForm = reset($form['inline_entity_form']['entities'])['form'];
+    }
+    else {
+      $resultForm = reset($form);
+    }
+    $entity->setInfo($resultForm['field_title']['0']['value']);
+  }
+}
+

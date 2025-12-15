@@ -1,0 +1,13 @@
+name: Y Program
+type: module
+description: Program CT integration point with Layout Builder.
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - y_lb
+  - openy_node_program
+
+# Information added by Drupal.org packaging script on 2025-07-08
+version: '1.2.0'
+project: 'y_program'
+datestamp: 1751972119

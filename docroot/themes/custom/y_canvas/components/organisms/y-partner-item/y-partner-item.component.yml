@@ -1,0 +1,36 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+
+name: Y Partner Item
+description: Individual partner logo with optional link
+status: experimental
+group: Molecules
+
+props:
+  type: object
+  properties:
+    name:
+      type: string
+      title: Partner Name
+      description: Name of the partner organization
+      examples:
+        - 'Community Foundation'
+
+    logo:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Partner Logo
+      description: Logo image for the partner
+      examples:
+        - src: '/themes/custom/y_canvas/assets/images/demo/partner-logo.jpg'
+          alt: 'Community Foundation logo'
+
+    url:
+      type: string
+      title: Partner URL
+      description: Link to the partner website
+      examples:
+        - 'https://communityfoundation.org'
+
+libraryOverrides:
+  dependencies:
+    - y_canvas/y-partner-item

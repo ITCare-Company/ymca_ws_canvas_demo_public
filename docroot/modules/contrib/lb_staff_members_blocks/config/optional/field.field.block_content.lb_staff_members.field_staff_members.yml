@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_staff_member_item
+    - block_content.type.lb_staff_members
+    - field.storage.block_content.field_staff_members
+id: block_content.lb_staff_members.field_staff_members
+field_name: field_staff_members
+entity_type: block_content
+bundle: lb_staff_members
+label: 'Staff items'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      lb_staff_member_item: lb_staff_member_item
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

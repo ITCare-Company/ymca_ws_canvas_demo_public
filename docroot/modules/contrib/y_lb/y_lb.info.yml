@@ -1,0 +1,31 @@
+name: Y Layout Builder
+type: module
+description: Integration point for Layout Builder integration.
+core_version_requirement: ^10 || ^11
+package: 'YMCA Website Services'
+version: 2.4.0
+dependencies:
+  - drupal:layout_builder
+  - drupal:node_revision_delete
+  - drupal:breakpoint
+  - drupal:bootstrap_styles
+  - drupal:bootstrap_layout_builder
+  - drupal:layout_builder_blocks
+  - drupal:layout_builder_operation_link
+  - drupal:layout_builder_save_and_edit
+  - drupal:layout_builder_restrictions
+  - drupal:scheduler
+  - drupal:system
+  - drupal:user
+  - drupal:path
+  - drupal:pathauto
+  - drupal:field_group
+  - drupal:metatag
+  - openy_focal_point
+  - openy_media_image
+  - openy_menu_footer
+  - openy_menu_utility
+  - drupal:openy_gtranslate
+  - drupal:simple_sitemap
+  - drupal:lb_claro
+

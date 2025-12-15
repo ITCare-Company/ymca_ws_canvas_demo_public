@@ -1,0 +1,32 @@
+/**
+ * @file
+ * Styling for OpenY Google Translate widget.
+ */
+
+/* Desktop header styling */
+.desktop-menu .openy-gtranslate-placeholder {
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1.5;
+  margin-left: 1.5rem;
+  text-decoration: none;
+}
+
+.desktop-menu .openy-gtranslate-placeholder:hover {
+  text-decoration: none;
+}
+
+/* Mobile sidebar styling */
+.mobile-sidebar .openy-gtranslate-placeholder {
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1.5;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.mobile-sidebar .openy-gtranslate-placeholder:hover {
+  text-decoration: none;
+}

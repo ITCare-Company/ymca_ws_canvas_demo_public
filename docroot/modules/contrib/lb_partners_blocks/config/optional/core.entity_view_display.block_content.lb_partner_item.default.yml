@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_partner_item
+    - field.field.block_content.lb_partner_item.field_partner_logo
+    - field.field.block_content.lb_partner_item.field_partner_name
+id: block_content.lb_partner_item.default
+targetEntityType: block_content
+bundle: lb_partner_item
+mode: default
+content:
+  field_partner_logo:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_partner_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

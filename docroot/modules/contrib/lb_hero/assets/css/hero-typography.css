@@ -1,0 +1,35 @@
+.hero__banner .hero_banner-content .block-title {
+  font-weight: 500;
+}
+.hero__banner .hero_banner-content h2.block-title {
+  font-size: 32px;
+  line-height: 42px;
+}
+@media (min-width: 768px) {
+  .hero__banner .hero_banner-content h2.block-title {
+    font-size: 32px;
+  }
+}
+.hero__banner .hero_banner-content h3.block-title {
+  font-size: 26px;
+  line-height: 32px;
+}
+@media (min-width: 768px) {
+  .hero__banner .hero_banner-content h3.block-title {
+    font-size: 28px;
+  }
+}
+.hero__banner .hero_banner-content h4.block-title {
+  font-size: 24px;
+  line-height: 30px;
+}
+.hero__banner .hero_banner-content h5.block-title {
+  font-size: 20px;
+  line-height: 25px;
+}
+.hero__banner .hero_banner-content h6.block-title {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvaGVyby10eXBvZ3JhcGh5LnNjc3MiLCJoZXJvLXR5cG9ncmFwaHkuY3NzIiwiLi4vLi4vbm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL21peGlucy9fYnJlYWtwb2ludHMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFNSTtFQUNFLGdCQUFBO0FDTE47QURRSTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtBQ05OO0FDc0RJO0VGbERBO0lBSUksZUFBQTtFQ0pOO0FBQ0Y7QURPSTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtBQ0xOO0FDNkNJO0VGMUNBO0lBSUksZUFBQTtFQ0hOO0FBQ0Y7QURNSTtFQUNFLGVBQUE7RUFDQSxpQkFBQTtBQ0pOO0FET0k7RUFDRSxlQUFBO0VBQ0EsaUJBQUE7QUNMTjtBRFFJO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0FDTk4iLCJmaWxlIjoiaGVyby10eXBvZ3JhcGh5LmNzcyJ9 */

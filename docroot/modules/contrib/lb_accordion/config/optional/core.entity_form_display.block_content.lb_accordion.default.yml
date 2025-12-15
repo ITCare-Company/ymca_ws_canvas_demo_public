@@ -1,0 +1,77 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.lb_accordion
+    - field.field.block_content.lb_accordion.field_block_item
+    - field.field.block_content.lb_accordion.field_is_faq
+    - field.field.block_content.lb_accordion.field_section_subtitle
+  module:
+    - entity_browser_entity_form
+    - inline_entity_form
+id: block_content.lb_accordion.default
+targetEntityType: block_content
+bundle: lb_accordion
+mode: default
+content:
+  field_block_item:
+    type: inline_entity_form_complex
+    weight: 3
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      auto_open: true
+      allow_new: true
+      allow_existing: false
+      allow_edit: true
+      match_operator: CONTAINS
+      allow_duplicate: false
+      hide_fieldset: false
+      hide_title: false
+      collapsible: true
+      collapsed: false
+      revision: false
+      removed_reference: optional
+      config_labels_button: simple_label
+      labels:
+        label_singular_accordion_item: ''
+        label_plural_accordion_item: ''
+      add_existing_widget: autocomplete
+      auto_open_edit_form: 0
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+  field_is_faq:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_section_subtitle:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,15 @@
+{# Validate the form id, then render using the proper template. #}
+{% if donate_form_id|trim|length == 36 %}
+  {{ attach_library('y_donate/online-express') }}
+  <div id="bbox-root">&nbsp;</div>
+  <script type="text/javascript">
+    window.bboxInit = function () {
+      bbox.showForm('{{ donate_form_id }}');
+    };
+    (function () {
+      var e = document.createElement('script'); e.async = true;
+      e.src = '//bbox.blackbaudhosting.com/webforms/bbox-min.js';
+      document.getElementsByTagName('head')[0].appendChild(e);
+    } ());
+  </script>
+{% endif %}

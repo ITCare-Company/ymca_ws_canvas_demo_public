@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_terms_news_category
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'News Tags'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      tid: 101
+      title: 'General Wellness'
+    -
+      tid: 102
+      title: 'Family'
+    -
+      tid: 103
+      title: 'Community Life'
+
+  ids:
+    tid:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  name: title
+  weight: tid
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: news_category
+
+migration_dependencies:
+  required: {  }
+  optional: {  }

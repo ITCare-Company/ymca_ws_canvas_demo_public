@@ -1,0 +1,126 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - lb_hero
+  enforced:
+    module:
+      - small_y_demo_content
+id: small_y_demo_block_banner_chevron
+migration_tags:
+  - openy_small_y_installation
+migration_group: small_y_demo_content
+label: 'Import Small Y Demo Layout Builder - Chevron banner'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 18
+      uuid: '92468ff3-9baf-42ef-8ce8-74871b74b214'
+      title: 'Small Y Banner - Tall'
+      heading_level: h1
+      description: "<p>We're so excited to welcome you on your journey of wellness, activity and community. Discover everything we have to offer across all of our programs.</p>"
+      media: homepage_image_1
+      cta:
+        - uri: 'internal:/locations'
+          title: 'Find a Y'
+    -
+      id: 19
+      uuid: 'a41b3c4c-8445-4e34-b422-2a80436b19fc'
+      title: 'Small Y Banner - Sub-page chevron'
+      heading_level: h2
+      description: "<p>From fitness and sports to events and volunteering, there are countless ways to live your best life with us.</p>"
+      media: program_overview_page_image_1
+      cta: {  }
+
+    - id: 20
+      uuid: '4e4de786-a736-4d6b-6c2f-395b21cc403b'
+      title: 'Small Y Banner - Sub-page chevron (no media)'
+      heading_level: h2
+      description: "<p>Becoming a member makes you part of a community that's dedicated to bringing about meaningful change for you, your family and your neighbors. Scroll on to explore all our membership options.</p>"
+      media: membership_page_image_1
+      cta: { }
+
+    - id: 21
+      uuid: '8e457df4-97e5-4319-2415-1b9a76127de2'
+      title: 'Events'
+      heading_level: h1
+      description: "<p>We can't serve our community without having some fun. Scroll on to see what events are happening near you.</p>"
+      media: events_page_image_1
+      cta: { }
+
+    - id: 22
+      uuid: '40c2d581-952d-4228-68a7-7fa82fae45a9'
+      title: 'Contact Us'
+      heading_level: h1
+      description: ""
+      media: contactus_page_image_1
+      cta: { }
+
+    -
+      id: 23
+      uuid: '96c7d0ca-82ae-4fd5-93ae-f163504d6e85'
+      title: 'Small Y Banner - Sub-page frame'
+      heading_level: h2
+      description: "<p>Help lead the YMCA of [Springfield] in responding to our community's needs.</p>"
+      media: volunteer_ops_page_image_1
+      cta:
+        - uri: 'internal:/locations'
+          title: 'Find a Y'
+
+    -
+      id: 24
+      uuid: 'cbba2fc0-8d97-4a0b-0b89-ca24692fc7cb'
+      title: 'Small Y Banner - Promo - Colorway'
+      heading_level: h2
+      description: "<p>This should only have a short amount of text.</p>"
+
+    -
+      id: 25
+      uuid: '45747841-b38c-4a7c-124e-74272e01f604'
+      title: 'Small Y Banner - Promo - Gray'
+      heading_level: h2
+      description: "<p>This should only have a short amount of text.</p>"
+    -
+      id: 26
+      uuid: '35ae9030-6bce-4d54-bddc-abc48534b2eb'
+      title: 'Events'
+      heading_level: h1
+      description: "<p>Lorem ipsum dolor sit amet consectetur. Non cras elementum commodo interdum tincidunt non orci. Sed ipsum quam tempor sed ac sed."
+
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  reusable:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: lb_hero
+  uuid: uuid
+  field_title: title
+  field_heading_level:
+    plugin: default_value
+    source: heading_level
+    default_value: h2
+  field_description/value: description
+  field_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_hero_cta: cta
+  field_media:
+    - plugin: migration_lookup
+      migration: small_y_demo_media_image
+      source: media
+
+destination:
+  plugin: entity:block_content
+migration_dependencies: {  }

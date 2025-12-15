@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.small_y_statistics
+    - block_content.type.small_y_statistics_item
+    - field.storage.block_content.field_block_item
+id: block_content.small_y_statistics.field_block_item
+field_name: field_block_item
+entity_type: block_content
+bundle: small_y_statistics
+label: Items
+description: 'Add every statistics item here'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      small_y_statistics_item: small_y_statistics_item
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

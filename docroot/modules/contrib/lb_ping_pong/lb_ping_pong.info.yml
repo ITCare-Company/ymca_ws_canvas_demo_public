@@ -1,0 +1,20 @@
+name: 'Y Layout Builder - Ping-Pong'
+description: 'Helper module for the custom "Ping-Pong" block type.'
+type: module
+core_version_requirement: ^9 || ^10 || ^11
+package: 'YMCA Website Services'
+dependencies:
+  - drupal:link
+  - drupal:media
+  - y_lb
+  - drupal:entity_browser
+  - drupal:text
+  - drupal:datalayer
+  - drupal:options
+  - drupal:block_content
+  - drupal:link_attributes
+
+# Information added by Drupal.org packaging script on 2025-05-01
+version: '1.3.0'
+project: 'lb_ping_pong'
+datestamp: 1746092886

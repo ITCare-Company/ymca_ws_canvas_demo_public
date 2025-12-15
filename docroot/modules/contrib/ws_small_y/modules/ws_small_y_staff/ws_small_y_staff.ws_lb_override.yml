@@ -1,0 +1,6 @@
+ws_small_y_staff.lb_staff_override:
+  block_type: lb_staff_members
+  library: ws_small_y_staff/lb_staff_override
+  override: false
+  active_colorways:
+    - 'ws_*'

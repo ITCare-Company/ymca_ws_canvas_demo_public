@@ -1,0 +1,15 @@
+@import "_functions";
+@import "_mixins";
+@import "_variables";
+
+.block-social-links {
+  .social-links {
+    .wrapper-field-social-links {
+      .field-social-links {
+        a:before {
+          background-color: var(--ylb-color-blue-dark, #0060AF);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+ws_small_y.admin:
+  title: 'Small Y settings'
+  parent: openy_system.openy_settings
+  route_name: small_y.settings
+  weight: 0

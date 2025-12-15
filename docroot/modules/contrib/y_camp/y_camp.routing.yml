@@ -1,0 +1,7 @@
+y_camp.settings:
+  path: '/admin/openy/settings/camps'
+  defaults:
+    _form: '\Drupal\y_camp\Form\SettingsForm'
+    _title: 'Camps settings'
+  requirements:
+    _permission: 'administer site configuration'

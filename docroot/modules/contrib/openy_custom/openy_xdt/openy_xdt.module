@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for YMCA Website Services Cross-domain Tracking (XDT).
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function openy_xdt_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name == 'help.page.openy_xdt' || $route_name == 'openy_xdt.settings') {
+    $help = '<p>' . t('This configuration enables cross-domain tracking to work through internal redirects in addition to regular links. Configuration and testing of analytics is outside the scope of this module, refer to <a href="@analytics-help" target="_blank">[GA4] Set up cross-domain measurement</a> for more information.',
+        ['@analytics-help' => 'https://support.google.com/analytics/answer/10071811?hl=en']) . '</p>';
+    $help .= '<p>' . t('When enabled, cookies matching any configured tag will be added to any redirect destination matching a configured domain. For example, a redirect to <code>https://example.com</code> will be transformed to <code>https://example.com/?_gl=...</code>.');
+
+    return $help;
+  }
+}
